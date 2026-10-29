@@ -12,6 +12,8 @@ export const ROUTES = {
   authConfirm: "/auth/confirm",
   cuentaConfirmada: "/registro/confirmada",
   linkVencido: "/registro/link-vencido",
+  recuperar: "/ingresar/recuperar",
+  nuevaContrasena: "/ingresar/nueva-contrasena",
 } as const
 
 // Páginas solo para visitantes: con sesión iniciada, el proxy redirige al inicio.

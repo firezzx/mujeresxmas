@@ -36,6 +36,13 @@ Estas reglas tienen que coincidir con `src/lib/validations/auth.ts`.
 La plantilla manda a `/auth/confirm?token_hash=…&type=email`, que confirma la cuenta aunque el
 link se abra en otro navegador o dispositivo.
 
+## 4 b. Plantilla de recuperación (Authentication → Emails → Reset password)
+
+- **Subject:** `Elegí una contraseña nueva para Mujeres x Más`
+- **Body:** pegar el contenido de `supabase/templates/recuperacion.html`.
+
+El link pasa por `/auth/confirm` (abre la sesión) y lleva a `/ingresar/nueva-contrasena`.
+
 ## 5. Envío de correos (SMTP)
 
 El servidor de correo que trae Supabase solo envía a las direcciones del equipo de la

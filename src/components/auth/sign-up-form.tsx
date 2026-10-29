@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Eye, EyeOff, MailCheck } from "lucide-react"
+import { MailCheck } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useActionState, useState } from "react"
 import { z } from "zod"
@@ -10,9 +10,11 @@ import { signUp, type SignUpState } from "@/app/actions/auth"
 import { PasswordChecklist } from "@/components/auth/password-checklist"
 import { ResendConfirmationForm } from "@/components/auth/resend-confirmation-form"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
+import { FormMessage } from "@/components/forms/form-message"
+import { PasswordField } from "@/components/forms/password-field"
 import { TextField } from "@/components/forms/text-field"
 import { ROUTES } from "@/config/navigation"
-import { HONEYPOT_FIELD, PASSWORD_MAX, signUpSchema } from "@/lib/validations/auth"
+import { HONEYPOT_FIELD, signUpSchema } from "@/lib/validations/auth"
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -24,7 +26,6 @@ export function SignUpForm() {
   const [state, formAction, pending] = useActionState<SignUpState, FormData>(signUp, { status: "idle" })
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
   const [clientErrors, setClientErrors] = useState<FieldErrors>({})
   // Estado de éxito descartado con "Usar otro correo"
   const [dismissed, setDismissed] = useState<SignUpState | null>(null)
@@ -111,14 +112,8 @@ export function SignUpForm() {
             error={fieldError("email")}
           />
 
-          <TextField
-            label="Contraseña"
-            name="password"
-            type={showPassword ? "text" : "password"}
+          <PasswordField
             autoComplete="new-password"
-            autoCapitalize="none"
-            spellCheck={false}
-            maxLength={PASSWORD_MAX}
             placeholder="Creá una contraseña"
             value={password}
             onChange={(e) => {
@@ -126,33 +121,10 @@ export function SignUpForm() {
               setClientErrors((prev) => ({ ...prev, password: undefined }))
             }}
             error={fieldError("password")}
-            trailing={
-              <button
-                type="button"
-                onClick={() => setShowPassword((v) => !v)}
-                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                aria-pressed={showPassword}
-                className="flex size-9 cursor-pointer items-center justify-center rounded-xl text-muted-foreground transition-colors outline-none hover:bg-foreground/5 hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40"
-              >
-                {showPassword ? <EyeOff className="size-[18px]" /> : <Eye className="size-[18px]" />}
-              </button>
-            }
             hint={<PasswordChecklist value={password} />}
           />
 
-          <AnimatePresence initial={false}>
-            {state.status === "error" && state.message && (
-              <motion.p
-                role="alert"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="rounded-2xl bg-destructive/[0.07] px-4 py-3 text-sm text-destructive"
-              >
-                {state.message}
-              </motion.p>
-            )}
-          </AnimatePresence>
+          <FormMessage message={state.status === "error" ? state.message : undefined} />
 
           <ShimmerSubmit pending={pending} pendingLabel="Creando tu cuenta…" className="mt-1 w-full">
             Crear mi cuenta

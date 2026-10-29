@@ -39,3 +39,14 @@ export const signUpSchema = z.object({
 })
 
 export type SignUpInput = z.infer<typeof signUpSchema>
+
+// En el login no se exigen las reglas de creación: solo que no venga vacía.
+export const signInSchema = z.object({
+  email: emailSchema,
+  password: z
+    .string({ error: "Ingresá tu contraseña" })
+    .min(1, "Ingresá tu contraseña")
+    .max(PASSWORD_MAX, "La contraseña es demasiado larga"),
+})
+
+export const newPasswordSchema = z.object({ password: passwordSchema })
