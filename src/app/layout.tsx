@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Jost, Poppins } from "next/font/google";
+import { Outfit, Poppins } from "next/font/google";
 import { Suspense } from "react";
 
 import { SiteHeader } from "@/components/site-header/site-header";
@@ -13,10 +13,8 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-// Títulos: Raptor Text (Superior Type) es una fuente paga. Hasta tener sus archivos .woff2
-// se usa Jost, geométrica y de proporciones parecidas. Para cambiarla: copiar los archivos
-// a src/fonts/raptor-text/ y reemplazar esto por next/font/local con variable "--font-display".
-const display = Jost({
+// Títulos
+const display = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
 });
