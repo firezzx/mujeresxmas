@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Confirmá tu cuenta en Mujeres x Más</title>
+  </head>
+  <body style="margin:0;padding:0;background:#f8f6f3;font-family:Poppins,Helvetica,Arial,sans-serif;color:#1d1720;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f8f6f3;padding:40px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border:1px solid #ece7e2;border-radius:24px;padding:40px 32px;">
+            <tr>
+              <td style="font-family:Outfit,Helvetica,Arial,sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.5px;">
+                Mujeres <span style="color:#d6336c;">x</span> Más
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top:28px;font-family:Outfit,Helvetica,Arial,sans-serif;font-size:26px;line-height:1.2;font-weight:600;letter-spacing:-0.5px;">
+                Confirmá tu correo
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top:12px;font-size:15px;line-height:1.6;color:#6b6370;">
+                Ya casi sos parte de la comunidad. Tocá el botón para confirmar tu correo y activar tu cuenta.
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top:28px;">
+                <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email"
+                   style="display:inline-block;background:#1d1720;color:#ffffff;text-decoration:none;font-size:15px;font-weight:500;padding:14px 28px;border-radius:999px;">
+                  Confirmar mi cuenta
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top:28px;font-size:13px;line-height:1.6;color:#8a828f;">
+                El link vence en 1 hora y sirve una sola vez. Si no creaste una cuenta en Mujeres x Más, ignorá este correo: no se va a activar nada.
+              </td>
+            </tr>
+          </table>
+          <p style="margin:20px 0 0;font-size:12px;color:#a39ba8;">Capacitar · Relacionar · Incluir</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 
+import { GUEST_ONLY_ROUTES } from "@/config/navigation"
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request })
 
@@ -27,7 +29,15 @@ export async function updateSession(request: NextRequest) {
   })
 
   // Refresca el token de sesión si venció. No agregar lógica entre createServerClient y esta llamada.
-  await supabase.auth.getClaims()
+  const { data } = await supabase.auth.getClaims()
+
+  // Con sesión iniciada no tiene sentido ver el registro ni el login
+  const path = request.nextUrl.pathname
+  if (data?.claims && GUEST_ONLY_ROUTES.some((route) => path === route)) {
+    const redirectResponse = NextResponse.redirect(new URL("/", request.url))
+    response.cookies.getAll().forEach((cookie) => redirectResponse.cookies.set(cookie))
+    return redirectResponse
+  }
 
   return response
 }
