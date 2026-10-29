@@ -10,6 +10,9 @@
   - Configuración de Auth (Site URL, redirects, plantillas de email) en `supabase/config.toml` o documentada en el README.
 - **Fácil de escalar:** separar lógica de datos (`src/lib`), validaciones con Zod reutilizables y componentes de UI desacoplados del contenido.
 - **Componentes:** Magic UI (magicui.design) es la librería principal; se agregan con `npx shadcn@latest add @magicui/<componente>`.
+- **Íconos animados:** Lucide Animated (lucide-animated.com, MIT). Se agregan con `npx shadcn@latest add "https://lucide-animated.com/r/<icono>.json"` y se mueven a `src/components/icons/`. Para animarlos al pasar sobre todo el botón, usar `useIconAnimation`.
+- **Botones:** los CTAs que navegan son links (`ShimmerLink` principal, `HoverRevealLink` secundario, `IconLink` para íconos), adaptados de los botones de Magic UI.
+- **Tipografías:** Outfit para títulos y Poppins para textos y botones.
 - **Idioma:** español rioplatense con voseo, tono cercano, inclusivo y profesional.
 
 ## Documento de funciones MVP
