@@ -23,7 +23,7 @@
 | 2 | Landing QUIERO | Landing del producto con botón "QUIERO". Usuaria sin sesión → registro; con sesión → solicitud del producto. | ⏳ Pendiente | Definir con la clienta el destino exacto con sesión iniciada. |
 | 3 | Registro | Alta con email y contraseña, con validación de datos. La cuenta se activa al confirmar el email desde el link de verificación. | ⏳ Pendiente | |
 | 4 | Login, logout y recuperación de contraseña | Iniciar y cerrar sesión, y restablecer la contraseña mediante un link por email. | ⏳ Pendiente | |
-| 5 | Membresía Gratis automática | Al registrarse, un trigger en la base de datos asigna el plan Gratis. La tabla de planes queda creada con los 3 planes; los 2 pagos inactivos hasta la etapa 2. | ⏳ Pendiente | |
+| 5 | Membresía Gratis automática | Al registrarse, un trigger en la base de datos asigna el plan Gratis. La tabla de planes queda creada con los 3 planes; los 2 pagos inactivos hasta la etapa 2. | ✅ Completo | |
 | 6 | Emails con la identidad de la marca | Email de bienvenida con la marca, enviado al confirmar la cuenta. Los emails de verificación y recuperación de contraseña también con la marca y desde el dominio propio. | ⏳ Pendiente | |
 | 7 | Mi Cuenta | Panel de la usuaria con sus datos y la membresía activa. Espacios preparados para cursos, eventos y notificaciones, con estado vacío amigable. | ⏳ Pendiente | |
 | 8 | Editar perfil | Editar nombre, apellido, teléfono, ciudad, emprendimiento y foto de perfil. La foto se guarda en Supabase Storage con límite de tamaño y formatos. | ⏳ Pendiente | |
