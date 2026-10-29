@@ -2,12 +2,10 @@
 
 import Link from "next/link"
 import { motion } from "motion/react"
-import { LogOutIcon } from "lucide-react"
+import { ArrowRight, LogOutIcon } from "lucide-react"
 
 import { signOut } from "@/app/actions/auth"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
-import { PillArrow, PillLink } from "@/components/pill-link"
-import { UserAvatar } from "@/components/site-header/user-menu"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
 import type { CurrentUser } from "@/lib/supabase/user"
 import { cn } from "@/lib/utils"
@@ -15,12 +13,11 @@ import { cn } from "@/lib/utils"
 const ease = [0.22, 1, 0.36, 1] as const
 
 const item = {
-  hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 8 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { delay: 0.08 + i * 0.06, duration: 0.5, ease },
+    transition: { delay: 0.1 + i * 0.05, duration: 0.4, ease },
   }),
 }
 
@@ -30,106 +27,76 @@ type MobileMenuProps = {
   onNavigate: () => void
 }
 
-// Menú a pantalla completa para celular, debajo de la cápsula del header.
+// Contenido del menú móvil: se despliega dentro de la cápsula del header, con las mismas
+// pastillas suaves de la navegación de escritorio.
 export function MobileMenu({ user, isActive, onNavigate }: MobileMenuProps) {
   return (
-    <motion.div
-      id="menu-movil"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Menú"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.25, ease } }}
-      transition={{ duration: 0.3, ease }}
-      className="fixed inset-0 z-40 flex flex-col bg-background/95 px-6 pt-28 pb-[max(2rem,env(safe-area-inset-bottom))] backdrop-blur-2xl md:hidden"
-    >
-      <nav aria-label="Principal" className="flex-1">
-        <ul className="flex flex-col">
-          {MAIN_NAV.map((link, i) => (
-            <motion.li
-              key={link.href}
-              custom={i}
-              variants={item}
-              initial="hidden"
-              animate="show"
-              className="border-b border-border/70"
-            >
-              <Link
-                href={link.href}
-                onClick={onNavigate}
-                aria-current={isActive(link.href) ? "page" : undefined}
-                className="group flex items-baseline gap-4 py-5"
-              >
-                <span className="w-6 text-xs text-muted-foreground tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span
+    <div className="px-1.5 pt-3 pb-1.5">
+      <div className="mx-2 h-px bg-border/70" />
+
+      <nav aria-label="Principal" className="pt-2">
+        <ul className="flex flex-col gap-0.5">
+          {MAIN_NAV.map((link, i) => {
+            const active = isActive(link.href)
+            return (
+              <motion.li key={link.href} custom={i} variants={item} initial="hidden" animate="show">
+                <Link
+                  href={link.href}
+                  onClick={onNavigate}
+                  aria-current={active ? "page" : undefined}
                   className={cn(
-                    "font-heading text-[2.25rem] leading-none font-semibold tracking-[-0.03em] transition-colors",
-                    isActive(link.href) ? "text-foreground" : "text-foreground/55"
+                    "flex h-12 items-center gap-3 rounded-2xl px-4 text-[15px] font-medium transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                    active
+                      ? "bg-foreground/[0.06] text-foreground"
+                      : "text-muted-foreground hover:bg-foreground/[0.04] hover:text-foreground"
                   )}
                 >
                   {link.label}
-                </span>
-                {isActive(link.href) && (
-                  <span className="ml-auto size-2 self-center rounded-full bg-brand" aria-hidden />
-                )}
-              </Link>
-            </motion.li>
-          ))}
+                  {active ? (
+                    <span aria-hidden className="ml-auto size-1.5 rounded-full bg-brand" />
+                  ) : (
+                    <ArrowRight aria-hidden className="ml-auto size-4 opacity-40" />
+                  )}
+                </Link>
+              </motion.li>
+            )
+          })}
         </ul>
       </nav>
 
       <motion.div
-        custom={MAIN_NAV.length + 1}
+        custom={MAIN_NAV.length}
         variants={item}
         initial="hidden"
         animate="show"
-        className="flex flex-col gap-3"
+        className="flex flex-col gap-1 pt-3"
       >
         {user ? (
           <>
             <Link
               href={ROUTES.miCuenta}
               onClick={onNavigate}
-              className="flex items-center gap-3 rounded-2xl border border-border/70 bg-card p-3 shadow-sm"
+              className="flex h-12 items-center rounded-2xl px-4 text-[15px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.04] hover:text-foreground"
             >
-              <UserAvatar user={user} className="size-11" />
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-sm font-medium">
-                  {[user.firstName, user.lastName].filter(Boolean).join(" ") || "Mi cuenta"}
-                </span>
-                <span className="block truncate text-xs text-muted-foreground">{user.email}</span>
-              </span>
-              <span className="text-muted-foreground">
-                <PillArrow />
-              </span>
+              Mi cuenta
+              <ArrowRight aria-hidden className="ml-auto size-4 opacity-40" />
             </Link>
             <form action={signOut}>
               <button
                 type="submit"
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-full text-sm font-medium text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+                className="flex h-12 w-full items-center gap-2 rounded-2xl px-4 text-[15px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.04] hover:text-foreground"
               >
-                <LogOutIcon className="size-4" />
                 Cerrar sesión
+                <LogOutIcon aria-hidden className="ml-auto size-4 opacity-60" />
               </button>
             </form>
           </>
         ) : (
-          <>
-            <ShimmerLink href={ROUTES.registro} onClick={onNavigate} className="w-full">
-              Registrarme en Mujeres x Más
-            </ShimmerLink>
-            <PillLink href={ROUTES.login} variant="outline" size="xl" onClick={onNavigate} className="w-full">
-              Iniciar sesión
-            </PillLink>
-          </>
+          <ShimmerLink href={ROUTES.registro} size="md" onClick={onNavigate} className="h-12 w-full">
+            Registrarme en Mujeres x Más
+          </ShimmerLink>
         )}
-        <p className="pt-3 text-center text-xs tracking-wide text-muted-foreground">
-          Capacitar · Relacionar · Incluir
-        </p>
       </motion.div>
-    </motion.div>
+    </div>
   )
 }

@@ -41,7 +41,13 @@ export function UserAvatar({
   )
 }
 
-export function UserMenu({ user }: { user: CurrentUser }) {
+export function UserMenu({
+  user,
+  align = "end",
+}: {
+  user: CurrentUser
+  align?: "start" | "end"
+}) {
   const displayName =
     [user.firstName, user.lastName].filter(Boolean).join(" ") || "Mi cuenta"
 
@@ -54,7 +60,7 @@ export function UserMenu({ user }: { user: CurrentUser }) {
         <UserAvatar user={user} />
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        align="end"
+        align={align}
         sideOffset={10}
         className="w-64 rounded-2xl p-1.5 shadow-[0_16px_48px_-16px_rgb(40_20_40/0.3)]"
       >
