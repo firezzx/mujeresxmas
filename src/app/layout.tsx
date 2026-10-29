@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
+
+import { SiteHeader } from "@/components/site-header/site-header";
+import { UserSlot, UserSlotSkeleton } from "@/components/site-header/user-slot";
 import "./globals.css";
 
 // Tipografías provisorias hasta recibir las de la identidad de marca.
@@ -29,7 +33,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es-AR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SiteHeader
+          userSlot={
+            <Suspense fallback={<UserSlotSkeleton />}>
+              <UserSlot />
+            </Suspense>
+          }
+        />
+        {children}
+      </body>
     </html>
   );
 }
