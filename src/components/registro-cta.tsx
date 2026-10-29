@@ -19,6 +19,7 @@ export function RegistroCta({
   return (
     <ShimmerButton
       onClick={() => router.push(ROUTES.registro)}
+      background="var(--primary)"
       className={cn("px-6 py-3 text-base font-medium", className)}
     >
       {children}
