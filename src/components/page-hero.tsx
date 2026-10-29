@@ -50,7 +50,7 @@ export function PageHero({
   return (
     <div
       className={cn(
-        "relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center sm:gap-7",
+        "relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center sm:gap-7",
         className
       )}
     >

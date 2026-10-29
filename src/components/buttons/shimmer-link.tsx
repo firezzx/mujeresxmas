@@ -33,7 +33,7 @@ export function ShimmerLink({
     <Link {...props} {...triggerProps} style={shimmerStyle} className={shimmerClassName(size, className)}>
       <ShimmerSpark />
       <span className="relative">{children}</span>
-      {arrow && <ArrowRightIcon ref={iconRef} size={18} className="relative -mr-1" />}
+      {arrow && <ArrowRightIcon ref={iconRef} size={18} className="relative -mr-1 shrink-0" />}
       <ShimmerBackdrop />
     </Link>
   )

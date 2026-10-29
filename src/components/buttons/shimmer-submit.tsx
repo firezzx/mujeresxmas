@@ -44,9 +44,9 @@ export function ShimmerSubmit({
       <ShimmerSpark />
       <span className="relative">{pending ? pendingLabel : children}</span>
       {pending ? (
-        <LoaderCircle aria-hidden className="relative -mr-1 size-[18px] animate-spin" />
+        <LoaderCircle aria-hidden className="relative -mr-1 size-[18px] shrink-0 animate-spin" />
       ) : (
-        <ArrowRightIcon ref={iconRef} size={18} className="relative -mr-1" />
+        <ArrowRightIcon ref={iconRef} size={18} className="relative -mr-1 shrink-0" />
       )}
       <ShimmerBackdrop />
     </button>
