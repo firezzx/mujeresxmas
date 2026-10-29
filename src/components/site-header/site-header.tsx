@@ -82,7 +82,8 @@ export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-4 md:pt-4">
         <div
           className={cn(
-            "w-full overflow-hidden rounded-[26px] border transition-all duration-500 ease-premium",
+            // overflow-hidden solo en celular (recorta el menú al desplegarse); en escritorio dejaría sin tooltips
+            "w-full rounded-[26px] border transition-all duration-500 ease-premium max-md:overflow-hidden md:rounded-full",
             // Cápsula de vidrio (celular siempre; escritorio al scrollear)
             "max-w-4xl border-border/70 bg-background/85 px-1.5 py-1.5 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_8px_32px_-12px_rgb(40_20_40/0.18)] backdrop-blur-xl backdrop-saturate-150",
             menuOpen && "bg-background/95 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_24px_48px_-16px_rgb(40_20_40/0.28)]",
