@@ -2,6 +2,7 @@ import { cache } from "react"
 
 import { createClient } from "@/lib/supabase/server"
 import { getCurrentUser, type CurrentUser } from "@/lib/supabase/user"
+import { PROFILE_FIELDS, type ProfileField } from "@/lib/validations/profile"
 
 export type ActiveMembership = {
   planId: string
@@ -51,5 +52,26 @@ export const getAccountSummary = cache(async (): Promise<AccountSummary | null> 
             startedAt: membership.started_at,
           }
         : null,
+  }
+})
+
+export type EditableProfile = {
+  user: CurrentUser
+  values: Record<ProfileField, string>
+}
+
+// Datos actuales del perfil para precargar el formulario de edición.
+export const getEditableProfile = cache(async (): Promise<EditableProfile | null> => {
+  const user = await getCurrentUser()
+  if (!user) return null
+
+  const columns = PROFILE_FIELDS.map((field) => field.name)
+  const supabase = await createClient()
+  const { data } = await supabase.from("profiles").select(columns.join(", ")).eq("id", user.id).maybeSingle()
+  const row = (data ?? {}) as unknown as Partial<Record<ProfileField, string | null>>
+
+  return {
+    user,
+    values: Object.fromEntries(columns.map((name) => [name, row[name] ?? ""])) as Record<ProfileField, string>,
   }
 })

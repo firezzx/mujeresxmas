@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { Suspense } from "react"
-import { Bell, BookOpen, CalendarDays } from "lucide-react"
+import Link from "next/link"
+import { Bell, BookOpen, CalendarDays, PencilLine } from "lucide-react"
 
 import { AccountCard, EmptySection } from "@/components/account/account-card"
 import { SignOutButton } from "@/components/account/sign-out-button"
@@ -102,13 +103,29 @@ async function AccountDashboard() {
         {/* Perfil */}
         <BlurFade delay={0.33} inView className="md:col-span-2">
           <AccountCard className="flex flex-col">
-            <h2 className="text-sm font-medium text-muted-foreground">Tus datos</h2>
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-sm font-medium text-muted-foreground">Tus datos</h2>
+              <Link
+                href={ROUTES.perfil}
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-foreground/[0.05]"
+              >
+                <PencilLine className="size-3.5" />
+                Editar
+              </Link>
+            </div>
             <div className="mt-5 flex items-center gap-4">
               <UserAvatar user={user} className="size-16 text-lg" />
               <div className="min-w-0">
-                <p className="truncate font-heading text-xl font-semibold tracking-[-0.01em]">
-                  {fullName || "Tu nombre"}
-                </p>
+                {fullName ? (
+                  <p className="truncate font-heading text-xl font-semibold tracking-[-0.01em]">{fullName}</p>
+                ) : (
+                  <Link
+                    href={ROUTES.perfil}
+                    className="font-heading text-lg font-semibold tracking-[-0.01em] underline decoration-brand underline-offset-4"
+                  >
+                    Completá tu perfil
+                  </Link>
+                )}
                 <p className="truncate text-sm text-muted-foreground">{user.email}</p>
               </div>
             </div>

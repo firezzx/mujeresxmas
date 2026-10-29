@@ -1,0 +1,168 @@
+"use client"
+
+import { Camera, LoaderCircle } from "lucide-react"
+import { useRef, useState, useTransition } from "react"
+
+import { removeAvatar, saveAvatar } from "@/app/actions/profile"
+import { FormMessage } from "@/components/forms/form-message"
+import { UserAvatar } from "@/components/site-header/user-menu"
+import { createClient } from "@/lib/supabase/client"
+import type { CurrentUser } from "@/lib/supabase/user"
+import {
+  AVATAR_MAX_BYTES,
+  AVATAR_SIZE_PX,
+  AVATAR_SOURCE_MAX_BYTES,
+  AVATAR_TYPES,
+} from "@/lib/validations/profile"
+
+// Recorta la imagen al centro en cuadrado y la comprime a WebP antes de subirla.
+async function toSquareWebp(file: File): Promise<Blob> {
+  const bitmap = await createImageBitmap(file)
+  const side = Math.min(bitmap.width, bitmap.height)
+  const size = Math.min(AVATAR_SIZE_PX, side)
+  const canvas = document.createElement("canvas")
+  canvas.width = size
+  canvas.height = size
+  const context = canvas.getContext("2d")
+  if (!context) throw new Error("canvas")
+  context.drawImage(
+    bitmap,
+    (bitmap.width - side) / 2,
+    (bitmap.height - side) / 2,
+    side,
+    side,
+    0,
+    0,
+    size,
+    size
+  )
+  bitmap.close()
+  const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", 0.86))
+  if (!blob) throw new Error("toBlob")
+  return blob
+}
+
+// Foto de perfil: elegir, recortar, subir a Supabase Storage (avatars/<user_id>/) y quitar.
+export function AvatarUploader({ user }: { user: CurrentUser }) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [preview, setPreview] = useState<string | null>(null)
+  const [error, setError] = useState<string>()
+  const [pending, startTransition] = useTransition()
+
+  const shownUrl = preview ?? user.avatarUrl
+
+  function handleFile(file: File) {
+    setError(undefined)
+    if (!AVATAR_TYPES.includes(file.type as (typeof AVATAR_TYPES)[number])) {
+      setError("Elegí una imagen JPG, PNG o WEBP.")
+      return
+    }
+    if (file.size > AVATAR_SOURCE_MAX_BYTES) {
+      setError("La imagen pesa demasiado. Elegí una de hasta 10 MB.")
+      return
+    }
+
+    startTransition(async () => {
+      try {
+        const blob = await toSquareWebp(file)
+        if (blob.size > AVATAR_MAX_BYTES) {
+          setError("No pudimos achicar la imagen lo suficiente. Probá con otra.")
+          return
+        }
+        const localUrl = URL.createObjectURL(blob)
+        setPreview(localUrl)
+
+        const supabase = createClient()
+        const path = `${user.id}/${Date.now()}.webp`
+        const { error: uploadError } = await supabase.storage
+          .from("avatars")
+          .upload(path, blob, { contentType: "image/webp", cacheControl: "31536000" })
+        if (uploadError) throw uploadError
+
+        const result = await saveAvatar(path)
+        if (!result.ok) {
+          await supabase.storage.from("avatars").remove([path])
+          setPreview(null)
+          setError(result.message)
+        }
+      } catch (err) {
+        console.error("[avatar]", err)
+        setPreview(null)
+        setError("No pudimos subir la foto. Volvé a intentar.")
+      }
+    })
+  }
+
+  function handleRemove() {
+    setError(undefined)
+    startTransition(async () => {
+      const result = await removeAvatar()
+      if (result.ok) setPreview(null)
+      else setError(result.message)
+    })
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-5">
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          disabled={pending}
+          aria-label="Cambiar foto de perfil"
+          className="group relative size-20 shrink-0 cursor-pointer rounded-full p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/25 focus-visible:ring-3 focus-visible:ring-ring/40 disabled:cursor-wait sm:size-24"
+        >
+          <UserAvatar user={{ ...user, avatarUrl: shownUrl }} className="size-full text-xl" />
+          <span
+            aria-hidden
+            className="absolute inset-0.5 flex items-center justify-center rounded-full bg-foreground/45 text-background opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 data-[pending=true]:opacity-100"
+            data-pending={pending}
+          >
+            {pending ? <LoaderCircle className="size-6 animate-spin" /> : <Camera className="size-6" />}
+          </span>
+        </button>
+
+        <div className="flex flex-col items-start gap-2">
+          <p className="text-sm font-medium">Foto de perfil</p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => inputRef.current?.click()}
+              disabled={pending}
+              className="h-9 cursor-pointer rounded-full bg-primary px-4 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
+            >
+              {pending ? "Guardando…" : shownUrl ? "Cambiar" : "Subir foto"}
+            </button>
+            {shownUrl && (
+              <button
+                type="button"
+                onClick={handleRemove}
+                disabled={pending}
+                className="h-9 cursor-pointer rounded-full border border-border px-4 text-[13px] font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
+              >
+                Quitar
+              </button>
+            )}
+          </div>
+          <p className="text-xs text-muted-foreground">JPG, PNG o WEBP. La recortamos en cuadrado.</p>
+        </div>
+      </div>
+
+      <input
+        ref={inputRef}
+        type="file"
+        accept={AVATAR_TYPES.join(",")}
+        className="sr-only"
+        tabIndex={-1}
+        aria-hidden
+        onChange={(event) => {
+          const file = event.target.files?.[0]
+          if (file) handleFile(file)
+          event.target.value = ""
+        }}
+      />
+
+      <FormMessage message={error} />
+    </div>
+  )
+}
