@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
 import { Eyebrow, PageHero } from "@/components/page-hero";
-import { PillArrow, PillLink } from "@/components/pill-link";
+import { HoverRevealLink } from "@/components/buttons/hover-reveal-link";
+import { ShimmerLink } from "@/components/buttons/shimmer-link";
 
 export const metadata: Metadata = {
   title: "Página no encontrada",
@@ -22,13 +23,12 @@ export default function NotFound() {
         description="Puede que el link esté mal escrito o que la página se haya movido. Volvé al inicio y seguí recorriendo."
         actions={
           <>
-            <PillLink href="/" size="xl" className="w-full sm:w-auto">
+            <ShimmerLink href="/" className="w-full sm:w-auto">
               Volver al inicio
-              <PillArrow />
-            </PillLink>
-            <PillLink href="/quiero" variant="outline" size="xl" className="w-full sm:w-auto">
+            </ShimmerLink>
+            <HoverRevealLink href="/quiero" className="w-full sm:w-auto">
               Conocé QUIERO
-            </PillLink>
+            </HoverRevealLink>
           </>
         }
       />

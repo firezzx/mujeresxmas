@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
 import { Eyebrow, PageHero } from "@/components/page-hero";
-import { RegistroCta } from "@/components/registro-cta";
+import { ShimmerLink } from "@/components/buttons/shimmer-link";
+import { ROUTES } from "@/config/navigation";
 
 export const metadata: Metadata = {
   title: "QUIERO",
@@ -17,7 +18,11 @@ export default function QuieroPage() {
         eyebrow={<Eyebrow>Un producto de Mujeres x Más</Eyebrow>}
         title="QUIERO"
         description="De vender por redes a tener tu tienda online. Te acompañamos en cada paso."
-        actions={<RegistroCta className="h-14 w-full px-10 sm:w-auto">QUIERO</RegistroCta>}
+        actions={
+          <ShimmerLink href={ROUTES.registro} className="w-full px-12 sm:w-auto">
+            QUIERO
+          </ShimmerLink>
+        }
       />
     </main>
   );

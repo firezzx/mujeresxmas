@@ -5,6 +5,7 @@ import { motion } from "motion/react"
 import { LogOutIcon } from "lucide-react"
 
 import { signOut } from "@/app/actions/auth"
+import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { PillArrow, PillLink } from "@/components/pill-link"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
@@ -117,10 +118,9 @@ export function MobileMenu({ user, isActive, onNavigate }: MobileMenuProps) {
           </>
         ) : (
           <>
-            <PillLink href={ROUTES.registro} size="xl" onClick={onNavigate} className="w-full">
+            <ShimmerLink href={ROUTES.registro} onClick={onNavigate} className="w-full">
               Registrarme en Mujeres x Más
-              <PillArrow />
-            </PillLink>
+            </ShimmerLink>
             <PillLink href={ROUTES.login} variant="outline" size="xl" onClick={onNavigate} className="w-full">
               Iniciar sesión
             </PillLink>

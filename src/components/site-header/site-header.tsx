@@ -11,7 +11,9 @@ import {
 } from "motion/react"
 
 import { Logo } from "@/components/brand/logo"
-import { PillArrow, PillLink } from "@/components/pill-link"
+import { IconLink } from "@/components/buttons/icon-link"
+import { UserIcon } from "@/components/icons/user"
+import { UserPlusIcon } from "@/components/icons/user-plus"
 import { MobileMenu } from "@/components/site-header/mobile-menu"
 import { UserMenu } from "@/components/site-header/user-menu"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
@@ -60,23 +62,21 @@ export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-4 md:pt-4">
         <div
           className={cn(
-            "flex w-full items-center justify-between gap-3 rounded-full border transition-all duration-500 ease-premium",
+            "grid w-full grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-full border transition-all duration-500 ease-premium",
             // Cápsula de vidrio (celular siempre; escritorio al scrollear)
-            "max-w-4xl border-border/70 bg-background/85 py-1.5 pr-1.5 pl-5 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_8px_32px_-12px_rgb(40_20_40/0.18)] backdrop-blur-xl backdrop-saturate-150",
+            "max-w-4xl border-border/70 bg-background/85 px-1.5 py-1.5 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_8px_32px_-12px_rgb(40_20_40/0.18)] backdrop-blur-xl backdrop-saturate-150",
             !scrolled &&
               !menuOpen &&
-              "md:max-w-6xl md:border-transparent md:bg-transparent md:py-3 md:pl-3 md:shadow-none md:backdrop-blur-none"
+              "md:max-w-6xl md:border-transparent md:bg-transparent md:px-0 md:py-3 md:shadow-none md:backdrop-blur-none"
           )}
         >
-          <Link
-            href="/"
-            onClick={closeMenu}
-            aria-label="Mujeres x Más, ir al inicio"
-            className="rounded-full outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
-          >
-            <Logo />
-          </Link>
-
+          {/* Izquierda: menú (escritorio) o botón de menú (celular) */}
+          <div className="flex items-center">
+            <MenuToggle
+              open={menuOpen}
+              onToggle={() => setMenuOpen((o) => !o)}
+              className="md:hidden"
+            />
           <nav aria-label="Principal" className="hidden md:block">
             <ul
               className="flex items-center gap-1"
@@ -110,42 +110,30 @@ export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
               ))}
             </ul>
           </nav>
+          </div>
 
-          <div className="flex items-center gap-1.5">
-            {/* Escritorio */}
-            <div className="hidden items-center gap-1.5 md:flex">
-              {pending ? (
-                <span aria-hidden className="h-10 w-48 animate-pulse rounded-full bg-muted" />
-              ) : user ? (
-                <UserMenu user={user} />
-              ) : (
-                <>
-                  <PillLink href={ROUTES.login} variant="ghost" size="md">
-                    Iniciar sesión
-                  </PillLink>
-                  <PillLink href={ROUTES.registro} size="md">
-                    Registrarme
-                    <PillArrow />
-                  </PillLink>
-                </>
-              )}
-            </div>
+          {/* Centro: logo */}
+          <Link
+            href="/"
+            onClick={closeMenu}
+            aria-label="Mujeres x Más, ir al inicio"
+            className="justify-self-center rounded-full px-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
+          >
+            <Logo />
+          </Link>
 
-            {/* Celular */}
-            <div className="flex items-center gap-1 md:hidden">
-              {pending ? (
-                <span aria-hidden className="size-9 animate-pulse rounded-full bg-muted" />
-              ) : user ? (
-                <UserMenu user={user} />
-              ) : (
-                !menuOpen && (
-                  <PillLink href={ROUTES.registro} size="sm">
-                    Registrarme
-                  </PillLink>
-                )
-              )}
-              <MenuToggle open={menuOpen} onToggle={() => setMenuOpen((o) => !o)} />
-            </div>
+          {/* Derecha: accesos de usuaria */}
+          <div className="flex items-center justify-end gap-1.5">
+            {pending ? (
+              <span aria-hidden className="size-10 animate-pulse rounded-full bg-muted" />
+            ) : user ? (
+              <UserMenu user={user} />
+            ) : (
+              <>
+                <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={closeMenu} />
+                <IconLink href={ROUTES.registro} icon={UserPlusIcon} label="Registrarme" variant="solid" onClick={closeMenu} />
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -163,7 +151,15 @@ export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
   )
 }
 
-function MenuToggle({ open, onToggle }: { open: boolean; onToggle: () => void }) {
+function MenuToggle({
+  open,
+  onToggle,
+  className,
+}: {
+  open: boolean
+  onToggle: () => void
+  className?: string
+}) {
   const line = "absolute left-1/2 h-[1.5px] w-[18px] -translate-x-1/2 rounded-full bg-foreground"
   return (
     <button
@@ -172,7 +168,10 @@ function MenuToggle({ open, onToggle }: { open: boolean; onToggle: () => void })
       aria-expanded={open}
       aria-controls="menu-movil"
       aria-label={open ? "Cerrar menú" : "Abrir menú"}
-      className="relative size-10 rounded-full transition-colors hover:bg-foreground/5 focus-visible:ring-3 focus-visible:ring-ring/40 outline-none"
+      className={cn(
+        "relative size-10 rounded-full transition-colors hover:bg-foreground/5 focus-visible:ring-3 focus-visible:ring-ring/40 outline-none",
+        className
+      )}
     >
       <motion.span
         className={line}

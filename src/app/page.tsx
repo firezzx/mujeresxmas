@@ -1,6 +1,7 @@
 import { Eyebrow, PageHero } from "@/components/page-hero";
-import { PillArrow, PillLink } from "@/components/pill-link";
-import { RegistroCta } from "@/components/registro-cta";
+import { HoverRevealLink } from "@/components/buttons/hover-reveal-link";
+import { ShimmerLink } from "@/components/buttons/shimmer-link";
+import { ROUTES } from "@/config/navigation";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { DotPattern } from "@/components/ui/dot-pattern";
 
@@ -26,11 +27,12 @@ export default function Home() {
         description="Una comunidad que capacita y conecta a mujeres y emprendedoras. Sumate y crecé con otras."
         actions={
           <>
-            <RegistroCta className="h-14 w-full px-7 sm:w-auto" />
-            <PillLink href="/quiero" variant="outline" size="xl" className="w-full sm:w-auto">
+            <ShimmerLink href={ROUTES.registro} className="w-full sm:w-auto">
+              Registrarme en Mujeres x Más
+            </ShimmerLink>
+            <HoverRevealLink href="/quiero" className="w-full sm:w-auto">
               Conocé QUIERO
-              <PillArrow />
-            </PillLink>
+            </HoverRevealLink>
           </>
         }
       />
