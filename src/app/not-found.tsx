@@ -16,7 +16,7 @@ export default function NotFound() {
         eyebrow={<Eyebrow>Error 404</Eyebrow>}
         title={
           <>
-            Esta página <span className="italic">no existe</span>
+            Esta página <span className="text-brand">no existe</span>
           </>
         }
         description="Puede que el link esté mal escrito o que la página se haya movido. Volvé al inicio y seguí recorriendo."

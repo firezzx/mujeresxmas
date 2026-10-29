@@ -1,27 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Jost, Poppins } from "next/font/google";
 import { Suspense } from "react";
 
 import { SiteHeader } from "@/components/site-header/site-header";
 import { SiteHeaderWithSession } from "@/components/site-header/site-header-with-session";
 import "./globals.css";
 
-// Tipografías provisorias hasta recibir las de la identidad de marca.
-const geistSans = Geist({
+// Textos y botones
+const poppins = Poppins({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const display = Instrument_Serif({
+// Títulos: Raptor Text (Superior Type) es una fuente paga. Hasta tener sus archivos .woff2
+// se usa Jost, geométrica y de proporciones parecidas. Para cambiarla: copiar los archivos
+// a src/fonts/raptor-text/ y reemplazar esto por next/font/local con variable "--font-display".
+const display = Jost({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -38,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="es-AR"
-      className={`${geistSans.variable} ${geistMono.variable} ${display.variable} h-full antialiased`}
+      className={`${poppins.variable} ${display.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Suspense fallback={<SiteHeader user={null} pending />}>

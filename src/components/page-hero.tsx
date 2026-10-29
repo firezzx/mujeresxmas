@@ -24,7 +24,7 @@ export function PageHero({
     eyebrow && <div key="eyebrow">{eyebrow}</div>,
     <h1
       key="title"
-      className="font-heading text-[2.75rem] leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-7xl"
+      className="font-heading text-[2.5rem] leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-6xl md:text-7xl"
     >
       {title}
     </h1>,

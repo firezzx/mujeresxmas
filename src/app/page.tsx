@@ -20,7 +20,7 @@ export default function Home() {
         }
         title={
           <>
-            Mujeres <span className="text-brand italic">x</span> Más
+            Mujeres <span className="text-brand">x</span> Más
           </>
         }
         description="Una comunidad que capacita y conecta a mujeres y emprendedoras. Sumate y crecé con otras."

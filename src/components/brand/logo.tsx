@@ -5,11 +5,11 @@ export function Logo({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "font-heading text-[1.35rem] leading-none tracking-tight whitespace-nowrap",
+        "font-heading text-[1.2rem] leading-none font-semibold tracking-[-0.02em] whitespace-nowrap",
         className
       )}
     >
-      Mujeres <span className="text-brand italic">x</span> Más
+      Mujeres <span className="text-brand">x</span> Más
     </span>
   )
 }

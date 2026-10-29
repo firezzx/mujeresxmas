@@ -60,12 +60,12 @@ export function MobileMenu({ user, isActive, onNavigate }: MobileMenuProps) {
                 aria-current={isActive(link.href) ? "page" : undefined}
                 className="group flex items-baseline gap-4 py-5"
               >
-                <span className="w-6 font-mono text-xs text-muted-foreground tabular-nums">
+                <span className="w-6 text-xs text-muted-foreground tabular-nums">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span
                   className={cn(
-                    "font-heading text-[2.6rem] leading-none tracking-tight transition-colors",
+                    "font-heading text-[2.25rem] leading-none font-semibold tracking-[-0.03em] transition-colors",
                     isActive(link.href) ? "text-foreground" : "text-foreground/55"
                   )}
                 >
