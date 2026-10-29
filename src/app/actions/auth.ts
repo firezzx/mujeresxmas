@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import { z } from "zod"
 
 import { ROUTES } from "@/config/navigation"
-import { getRequestOrigin } from "@/lib/site-url"
+import { getRequestOrigin, safeInternalPath } from "@/lib/site-url"
 import { createClient } from "@/lib/supabase/server"
 import {
   emailSchema,
@@ -149,7 +149,8 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
     }
   }
 
-  redirect("/")
+  // Vuelve a la página privada que pidió el login (si la hay)
+  redirect(safeInternalPath(formData.get("next")?.toString(), "/"))
 }
 
 export type PasswordResetState = { status: "idle" | "sent" | "error"; message?: string; email?: string }

@@ -18,3 +18,6 @@ export const ROUTES = {
 
 // Páginas solo para visitantes: con sesión iniciada, el proxy redirige al inicio.
 export const GUEST_ONLY_ROUTES = [ROUTES.login, ROUTES.registro] as const
+
+// Páginas privadas (incluye sus subpáginas): sin sesión, el proxy manda al login.
+export const PROTECTED_ROUTES = [ROUTES.miCuenta] as const

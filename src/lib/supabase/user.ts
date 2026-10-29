@@ -1,3 +1,4 @@
+import { connection } from "next/server"
 import { cache } from "react"
 
 import { createClient } from "@/lib/supabase/server"
@@ -14,6 +15,9 @@ export type CurrentUser = {
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return null
 
+  // El cliente de Supabase compara el vencimiento del token con la hora actual: eso solo puede
+  // pasar con el pedido real, no en el prerender (Partial Prefetching sí tiene las cookies).
+  await connection()
   const supabase = await createClient()
   const { data } = await supabase.auth.getClaims()
   const claims = data?.claims

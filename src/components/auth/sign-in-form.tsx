@@ -31,6 +31,13 @@ export function SignInForm() {
     if (!parsed.success) {
       event.preventDefault()
       setClientErrors(z.flattenError(parsed.error).fieldErrors)
+      return
+    }
+    // Página privada a la que volver después del login (?next=, la agrega el proxy).
+    // Se lee al enviar para que la página siga siendo estática; el servidor la valida.
+    const nextInput = event.currentTarget.elements.namedItem("next")
+    if (nextInput instanceof HTMLInputElement) {
+      nextInput.value = new URLSearchParams(window.location.search).get("next") ?? ""
     }
   }
 
@@ -44,6 +51,7 @@ export function SignInForm() {
             <input type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" defaultValue="" />
           </label>
         </div>
+        <input type="hidden" name="next" defaultValue="" />
 
         <TextField
           label="Correo"
