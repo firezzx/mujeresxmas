@@ -12,19 +12,12 @@ import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
 import { ROUTES } from "@/config/navigation"
 import { getAccountSummary } from "@/lib/account"
+import { formatDay, formatMonth } from "@/lib/format"
 
 export const metadata: Metadata = {
   title: "Mi cuenta",
   robots: { index: false },
 }
-
-const TIME_ZONE = "America/Argentina/Buenos_Aires"
-const formatDay = (iso: string) =>
-  new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "long", year: "numeric", timeZone: TIME_ZONE }).format(
-    new Date(iso)
-  )
-const formatMonth = (iso: string) =>
-  new Intl.DateTimeFormat("es-AR", { month: "long", year: "numeric", timeZone: TIME_ZONE }).format(new Date(iso))
 
 export default function MiCuentaPage() {
   return (

@@ -17,6 +17,7 @@ import { UserPlusIcon } from "@/components/icons/user-plus"
 import { MobileMenu } from "@/components/site-header/mobile-menu"
 import { UserMenu } from "@/components/site-header/user-menu"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
+import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
 import { cn } from "@/lib/utils"
 
@@ -24,6 +25,8 @@ const ease = [0.22, 1, 0.36, 1] as const
 
 type SiteHeaderProps = {
   user: CurrentUser | null
+  // Solo para administradoras: muestra los accesos al panel según la vista elegida
+  adminView?: AdminView | null
   // true mientras se resuelve la sesión: muestra un lugar reservado en vez de botones
   pending?: boolean
 }
@@ -33,7 +36,7 @@ type SiteHeaderProps = {
 // transparente y al scrollear se convierte en una cápsula de vidrio.
 // Celular: perfil a la izquierda, logo corto al centro y menú a la derecha. El menú se abre
 // dentro de la misma cápsula, que se estira hacia abajo.
-export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
+export function SiteHeader({ user, adminView = null, pending = false }: SiteHeaderProps) {
   const pathname = usePathname()
   const { scrollY } = useScroll()
   const [scrolled, setScrolled] = useState(false)
@@ -98,7 +101,7 @@ export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
             {/* Izquierda: perfil (celular) o links (escritorio) */}
             <div className="flex items-center">
               <div className="md:hidden">
-                <UserAccess user={user} pending={pending} onNavigate={closeMenu} compact />
+                <UserAccess user={user} adminView={adminView} pending={pending} onNavigate={closeMenu} compact />
               </div>
               <nav aria-label="Principal" className="hidden md:block">
                 <ul
@@ -154,7 +157,7 @@ export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
                 className="md:hidden"
               />
               <div className="hidden items-center gap-1.5 md:flex">
-                <UserAccess user={user} pending={pending} onNavigate={closeMenu} />
+                <UserAccess user={user} adminView={adminView} pending={pending} onNavigate={closeMenu} />
               </div>
             </div>
           </div>
@@ -169,7 +172,7 @@ export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
                 transition={{ duration: 0.45, ease }}
                 className="md:hidden"
               >
-                <MobileMenu user={user} isActive={isActive} onNavigate={closeMenu} />
+                <MobileMenu user={user} adminView={adminView} isActive={isActive} onNavigate={closeMenu} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -182,11 +185,13 @@ export function SiteHeader({ user, pending = false }: SiteHeaderProps) {
 // Accesos de usuaria: avatar con sesión; sin sesión, Iniciar sesión (y Registrarme en escritorio).
 function UserAccess({
   user,
+  adminView,
   pending,
   onNavigate,
   compact = false,
 }: {
   user: CurrentUser | null
+  adminView: AdminView | null
   pending: boolean
   onNavigate: () => void
   compact?: boolean
@@ -194,7 +199,7 @@ function UserAccess({
   if (pending) {
     return <span aria-hidden className="block size-10 animate-pulse rounded-full bg-muted" />
   }
-  if (user) return <UserMenu user={user} align={compact ? "start" : "end"} />
+  if (user) return <UserMenu user={user} adminView={adminView} align={compact ? "start" : "end"} />
   return (
     <>
       <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={onNavigate} />

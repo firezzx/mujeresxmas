@@ -7,6 +7,7 @@ import { signOut } from "@/app/actions/auth"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
+import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
 import { cn } from "@/lib/utils"
 
@@ -23,6 +24,7 @@ const item = {
 
 type MobileMenuProps = {
   user: CurrentUser | null
+  adminView?: AdminView | null
   isActive: (href: string) => boolean
   onNavigate: () => void
 }
@@ -30,7 +32,7 @@ type MobileMenuProps = {
 // Contenido del menú móvil: se despliega dentro de la cápsula del header.
 // Links con la tipografía de títulos (el activo, en una pastilla rosa con el punto de marca)
 // y abajo la cuenta: tarjeta con la usuaria y sus accesos, o el registro para visitantes.
-export function MobileMenu({ user, isActive, onNavigate }: MobileMenuProps) {
+export function MobileMenu({ user, adminView = null, isActive, onNavigate }: MobileMenuProps) {
   return (
     <div className="px-1.5 pt-3 pb-1.5">
       <nav aria-label="Principal">
@@ -85,6 +87,15 @@ export function MobileMenu({ user, isActive, onNavigate }: MobileMenuProps) {
                 <p className="truncate text-[13px] text-muted-foreground">{user.email}</p>
               </div>
             </div>
+            {adminView === "admin" && (
+              <Link
+                href={ROUTES.admin}
+                onClick={onNavigate}
+                className="flex h-11 items-center justify-center rounded-full bg-brand-soft text-sm font-medium text-foreground transition-opacity hover:opacity-90"
+              >
+                Panel de administración
+              </Link>
+            )}
             <div className="grid grid-cols-2 gap-2">
               <Link
                 href={ROUTES.miCuenta}

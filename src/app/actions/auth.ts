@@ -1,9 +1,11 @@
 "use server"
 
+import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { z } from "zod"
 
 import { ROUTES } from "@/config/navigation"
+import { MEMBER_VIEW_COOKIE } from "@/lib/admin"
 import { getRequestOrigin, safeInternalPath } from "@/lib/site-url"
 import { createClient } from "@/lib/supabase/server"
 import {
@@ -112,6 +114,9 @@ export async function resendConfirmation(
 export async function signOut() {
   const supabase = await createClient()
   await supabase.auth.signOut()
+  // La próxima sesión de una administradora arranca en su vista normal
+  const cookieStore = await cookies()
+  cookieStore.delete(MEMBER_VIEW_COOKIE)
   redirect("/")
 }
 

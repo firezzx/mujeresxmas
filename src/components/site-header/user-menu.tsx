@@ -1,8 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { LogOutIcon, UserRoundIcon } from "lucide-react"
+import { EyeIcon, LayoutDashboardIcon, LogOutIcon, UserRoundIcon } from "lucide-react"
 
+import { setMemberView } from "@/app/actions/admin"
 import { signOut } from "@/app/actions/auth"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -13,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ROUTES } from "@/config/navigation"
+import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
 import { cn } from "@/lib/utils"
 
@@ -43,9 +45,11 @@ export function UserAvatar({
 
 export function UserMenu({
   user,
+  adminView = null,
   align = "end",
 }: {
   user: CurrentUser
+  adminView?: AdminView | null
   align?: "start" | "end"
 }) {
   const displayName =
@@ -79,6 +83,19 @@ export function UserMenu({
           <UserRoundIcon />
           Mi cuenta
         </DropdownMenuItem>
+        {adminView === "admin" && (
+          <>
+            <DropdownMenuItem className="rounded-xl px-2.5 py-2" render={<Link href={ROUTES.admin} />}>
+              <LayoutDashboardIcon />
+              Panel de administración
+            </DropdownMenuItem>
+            <DropdownMenuItem className="rounded-xl px-2.5 py-2" onClick={() => setMemberView(true)}>
+              <EyeIcon />
+              Ver como usuaria
+            </DropdownMenuItem>
+          </>
+        )}
+        <DropdownMenuSeparator />
         <DropdownMenuItem
           className="rounded-xl px-2.5 py-2"
           onClick={() => signOut()}
