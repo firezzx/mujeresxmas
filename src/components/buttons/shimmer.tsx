@@ -19,8 +19,9 @@ export const shimmerStyle = {
 export function shimmerClassName(size: keyof typeof shimmerSizes, className?: string) {
   return cn(
     "group relative z-0 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full max-w-full text-center leading-snug font-medium text-balance text-primary-foreground [background:var(--bg)]",
-    "shadow-[0_1px_2px_0_rgb(0_0_0/0.15),0_8px_24px_-8px_rgb(40_20_40/0.45)] transition-[transform,box-shadow,opacity] duration-300 ease-premium",
-    "outline-none hover:-translate-y-px hover:shadow-[0_2px_4px_0_rgb(0_0_0/0.15),0_14px_32px_-10px_rgb(40_20_40/0.55)] focus-visible:ring-3 focus-visible:ring-ring/40 active:translate-y-0",
+    // Tailwind v4 mueve con `translate` (no `transform`): por eso se transiciona esa propiedad
+    "shadow-[0_1px_2px_0_rgb(0_0_0/0.15),0_8px_24px_-8px_rgb(40_20_40/0.45)] transition-[translate,box-shadow,opacity] duration-500 ease-premium",
+    "outline-none hover:-translate-y-0.5 hover:shadow-[0_2px_4px_0_rgb(0_0_0/0.15),0_14px_32px_-10px_rgb(40_20_40/0.55)] focus-visible:ring-3 focus-visible:ring-ring/40 active:translate-y-0",
     shimmerSizes[size],
     className
   )

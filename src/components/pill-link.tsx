@@ -45,7 +45,7 @@ export function PillArrow() {
       viewBox="0 0 16 16"
       fill="none"
       aria-hidden
-      className="transition-transform duration-300 ease-premium group-hover/pill:translate-x-0.5"
+      className="transition-[translate] duration-300 ease-premium group-hover/pill:translate-x-0.5"
     >
       <path
         d="M3 8h10m0 0L9 4m4 4-4 4"
