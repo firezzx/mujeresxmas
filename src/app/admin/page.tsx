@@ -7,9 +7,11 @@ import NotFound from "@/app/not-found"
 import { AccountCard } from "@/components/account/account-card"
 import { MembersTable, type MemberRow } from "@/components/admin/members-table"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { Eyebrow } from "@/components/page-hero"
+import { Eyebrow, PAGE_TITLE_CLASS, PageTitle } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { NumberTicker } from "@/components/ui/number-ticker"
+import { RippleButton } from "@/components/ui/ripple-button"
+import { BRAND_HEX } from "@/config/brand-effects"
 import { type AdminMember, getAdminView, listMembers, memberStats } from "@/lib/admin"
 import { formatShortDate } from "@/lib/format"
 
@@ -52,11 +54,9 @@ async function AdminDashboard() {
             <BlurFade delay={0.05} inView>
               <Eyebrow>Administración</Eyebrow>
             </BlurFade>
-            <BlurFade delay={0.12} inView>
-              <h1 className="font-heading text-[2.25rem] leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-5xl">
-                Panel de la comunidad
-              </h1>
-            </BlurFade>
+            <PageTitle delay={0.12} className={PAGE_TITLE_CLASS}>
+              Panel de la comunidad
+            </PageTitle>
             <BlurFade delay={0.19} inView>
               <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
                 Quiénes se registraron, cómo vienen sus perfiles y en qué plan está cada una.
@@ -66,13 +66,16 @@ async function AdminDashboard() {
           <BlurFade delay={0.19} inView>
             <IconHoverArea>
               <form action={setMemberView.bind(null, true)}>
-                <button
+                <RippleButton
                   type="submit"
-                  className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full px-5 text-sm font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
+                  rippleColor={BRAND_HEX.light}
+                  className="inline-flex h-11 items-center rounded-full border-0 bg-transparent px-5 text-sm font-medium text-foreground ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
                 >
-                  <HoverIcon name="eye" size={16} />
-                  Ver como usuaria
-                </button>
+                  <span className="flex items-center gap-2">
+                    <HoverIcon name="eye" size={16} />
+                    Ver como usuaria
+                  </span>
+                </RippleButton>
               </form>
             </IconHoverArea>
           </BlurFade>

@@ -1,17 +1,42 @@
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
+import { MagicCard } from "@/components/ui/magic-card"
+import { BRAND_HEX } from "@/config/brand-effects"
 import { cn } from "@/lib/utils"
 
-// Tarjeta base del panel Mi Cuenta (mismo vidrio que las tarjetas de login y registro).
-export function AccountCard({ className, children }: { className?: string; children: React.ReactNode }) {
+// Magic Card de Magic UI con los colores de la marca: el borde y un halo suave siguen al mouse.
+// Es la tarjeta de todo el sitio (Mi cuenta, admin, login y registro).
+export function BrandCard({
+  className,
+  contentClassName,
+  children,
+}: {
+  className?: string
+  contentClassName?: string
+  children: React.ReactNode
+}) {
   return (
-    <section
+    <MagicCard
+      gradientSize={280}
+      gradientFrom={BRAND_HEX.brand}
+      gradientTo={BRAND_HEX.light}
+      gradientColor={BRAND_HEX.soft}
+      gradientOpacity={0.7}
       className={cn(
-        "relative h-full overflow-hidden rounded-[28px] border border-border/70 bg-background/80 p-6 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_16px_48px_-24px_rgb(40_20_40/0.22)] backdrop-blur-xl sm:p-7",
+        "h-full rounded-[28px] shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_16px_48px_-24px_rgb(40_20_40/0.22)]",
         className
       )}
     >
-      {children}
-    </section>
+      <div className={cn("h-full", contentClassName)}>{children}</div>
+    </MagicCard>
+  )
+}
+
+// Tarjeta base del panel Mi Cuenta y del panel de administración.
+export function AccountCard({ className, children }: { className?: string; children: React.ReactNode }) {
+  return (
+    <BrandCard>
+      <section className={cn("relative h-full p-6 sm:p-7", className)}>{children}</section>
+    </BrandCard>
   )
 }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
-import { Eyebrow, PageHero } from "@/components/page-hero";
+import { BrandHighlight, Eyebrow, PageHero } from "@/components/page-hero";
+import { HyperText } from "@/components/ui/hyper-text";
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link";
 import { ShimmerLink } from "@/components/buttons/shimmer-link";
 
@@ -14,10 +15,16 @@ export default function NotFound() {
   return (
     <main className="relative flex min-h-svh flex-1 flex-col items-center justify-center px-5 pt-32 pb-20">
       <PageHero
-        eyebrow={<Eyebrow>Error 404</Eyebrow>}
+        eyebrow={
+          <Eyebrow>
+            <HyperText as="span" className="py-0 font-sans text-xs font-medium">
+              Error 404
+            </HyperText>
+          </Eyebrow>
+        }
         title={
           <>
-            Esta página <span className="text-brand">no existe</span>
+            Esta página <BrandHighlight>no existe</BrandHighlight>
           </>
         }
         description="Puede que el link esté mal escrito o que la página se haya movido. Volvé al inicio y seguí recorriendo."

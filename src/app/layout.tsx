@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { SiteHeader } from "@/components/site-header/site-header";
 import { SiteHeaderWithSession } from "@/components/site-header/site-header-with-session";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import "./globals.css";
 
 // Textos y botones
@@ -36,6 +37,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${poppins.variable} ${display.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* Barra de progreso de lectura (Scroll Progress de Magic UI) */}
+        <ScrollProgress className="z-[60] h-0.5 from-brand via-[#c882c2] to-[#ef9ca9]" />
         <Suspense fallback={<SiteHeader user={null} pending />}>
           <SiteHeaderWithSession />
         </Suspense>

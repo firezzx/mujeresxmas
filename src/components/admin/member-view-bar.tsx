@@ -1,5 +1,7 @@
 import { setMemberView } from "@/app/actions/admin"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
+import { RippleButton } from "@/components/ui/ripple-button"
+import { BRAND_HEX } from "@/config/brand-effects"
 
 // Barra fija abajo mientras una administradora mira el sitio como usuaria común.
 export function MemberViewBar() {
@@ -12,12 +14,13 @@ export function MemberViewBar() {
         >
           <HoverIcon name="eye" size={16} className="text-brand" />
           <p className="truncate text-[13px]">Estás viendo el sitio como usuaria</p>
-          <button
+          <RippleButton
             type="submit"
-            className="h-8 shrink-0 cursor-pointer rounded-full bg-primary-foreground px-3.5 text-[13px] font-medium text-primary transition-opacity hover:opacity-90"
+            rippleColor={BRAND_HEX.light}
+            className="h-8 shrink-0 rounded-full border-0 bg-primary-foreground px-3.5 py-0 text-[13px] font-medium text-primary transition-opacity hover:opacity-90"
           >
             Volver a admin
-          </button>
+          </RippleButton>
         </form>
       </IconHoverArea>
     </div>

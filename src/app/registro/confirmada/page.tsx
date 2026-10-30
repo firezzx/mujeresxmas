@@ -4,6 +4,9 @@ import { Suspense } from "react"
 import { AuthShell } from "@/components/auth/auth-shell"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { HoverIcon } from "@/components/icons/hover-icon"
+import { BrandHighlight } from "@/components/page-hero"
+import { Confetti } from "@/components/ui/confetti"
+import { CONFETTI_COLORS } from "@/config/brand-effects"
 import { ROUTES } from "@/config/navigation"
 import { safeInternalPath } from "@/lib/site-url"
 
@@ -24,10 +27,17 @@ export default function CuentaConfirmadaPage({ searchParams }: PageProps<"/regis
     <AuthShell
       title={
         <>
-          ¡Ya sos parte de Mujeres <span className="text-brand">x</span> Más!
+          ¡Ya sos parte de Mujeres <BrandHighlight>x</BrandHighlight> Más!
         </>
       }
       description="Confirmamos tu correo y tu cuenta está activa."
+      // Festejo al llegar: confeti de Magic UI con los colores de la marca
+      backdrop={
+        <Confetti
+          className="pointer-events-none fixed inset-0 z-20 size-full"
+          options={{ colors: CONFETTI_COLORS, particleCount: 140, spread: 100, startVelocity: 38, origin: { y: 0.35 } }}
+        />
+      }
     >
       <div className="flex flex-col items-center gap-5 text-center">
         <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft">

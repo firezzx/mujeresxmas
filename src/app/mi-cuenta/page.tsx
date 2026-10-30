@@ -6,7 +6,7 @@ import Link from "next/link"
 import { AccountCard, EmptySection } from "@/components/account/account-card"
 import { SignOutButton } from "@/components/account/sign-out-button"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { Eyebrow } from "@/components/page-hero"
+import { Eyebrow, PAGE_TITLE_CLASS, PageTitle } from "@/components/page-hero"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
@@ -43,11 +43,9 @@ async function AccountDashboard() {
         <BlurFade delay={0.05} inView>
           <Eyebrow>Mi cuenta</Eyebrow>
         </BlurFade>
-        <BlurFade delay={0.12} inView>
-          <h1 className="font-heading text-[2.25rem] leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-5xl">
-            {user.firstName ? `Hola, ${user.firstName}` : "Hola"}
-          </h1>
-        </BlurFade>
+        <PageTitle delay={0.12} className={PAGE_TITLE_CLASS}>
+          {user.firstName ? `Hola, ${user.firstName}` : "Hola"}
+        </PageTitle>
         <BlurFade delay={0.19} inView>
           <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
             Acá están tu membresía, tus cursos, tus eventos y tus avisos.
