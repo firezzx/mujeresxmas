@@ -3,9 +3,11 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react"
 
 import { ArrowLeftIcon } from "@/components/icons/arrow-left"
+import { BadgeAlertIcon } from "@/components/icons/badge-alert"
 import { BellIcon } from "@/components/icons/bell"
 import { BookTextIcon } from "@/components/icons/book-text"
 import { CalendarDaysIcon } from "@/components/icons/calendar-days"
+import { CheckCheckIcon } from "@/components/icons/check-check"
 import { CircleCheckIcon } from "@/components/icons/circle-check"
 import { EyeIcon } from "@/components/icons/eye"
 import { MailCheckIcon } from "@/components/icons/mail-check"
@@ -20,9 +22,11 @@ type AnimatedIconHandle = { startAnimation: () => void; stopAnimation: () => voi
 // un componente no se puede pasar como prop del servidor al navegador.
 const ICONS = {
   "arrow-left": ArrowLeftIcon,
+  "badge-alert": BadgeAlertIcon,
   bell: BellIcon,
   "book-text": BookTextIcon,
   "calendar-days": CalendarDaysIcon,
+  "check-check": CheckCheckIcon,
   "circle-check": CircleCheckIcon,
   eye: EyeIcon,
   "mail-check": MailCheckIcon,

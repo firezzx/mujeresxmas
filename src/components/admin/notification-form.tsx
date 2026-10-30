@@ -95,8 +95,8 @@ export function NotificationForm() {
 
       <FormMessage message={state.status === "error" ? state.message : undefined} />
       <FormMessage
-        tone="info"
-        message={state.status === "sent" && !dirty ? "Listo, la notificación ya les llegó a todos." : undefined}
+        tone="success"
+        message={state.status === "sent" && !dirty ? "La notificación ya les llegó a todos." : undefined}
       />
 
       <ShimmerSubmit pending={pending} pendingLabel="Enviando…" className="w-full sm:w-auto sm:self-end">

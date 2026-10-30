@@ -57,7 +57,7 @@ export function ProfileForm({ initialValues }: { initialValues: Record<ProfileFi
       </div>
 
       <FormMessage message={state.status === "error" ? state.message : undefined} />
-      <FormMessage tone="info" message={state.status === "saved" && !dirty ? "Listo, guardamos tus cambios." : undefined} />
+      <FormMessage tone="success" message={state.status === "saved" && !dirty ? "Guardamos tus cambios." : undefined} />
 
       <ShimmerSubmit pending={pending} pendingLabel="Guardando…" className="w-full sm:w-auto sm:self-end">
         Guardar cambios

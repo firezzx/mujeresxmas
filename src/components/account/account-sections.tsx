@@ -2,56 +2,96 @@ import Link from "next/link"
 
 import { markNotificationsRead } from "@/app/actions/notifications"
 import { AccountCard, EmptySection } from "@/components/account/account-card"
-import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
+import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
+import { AnimatedList } from "@/components/ui/animated-list"
 import type { CommunityEvent, Course } from "@/lib/content"
 import { formatDateTime, formatDay } from "@/lib/format"
 import { countUnread, type UserNotification } from "@/lib/notifications"
 import { cn } from "@/lib/utils"
 
-// Secciones de Mi cuenta. Sin datos muestran su estado vacío; con datos, la lista.
+// Secciones de Mi cuenta. Sin datos muestran su estado vacío; con datos, la lista entra con
+// Animated List de Magic UI (cada tarjeta aparece con un rebote suave, la más nueva arriba).
 
 function SectionCard({
-  icon,
   title,
   badge,
-  action,
+  footer,
   children,
 }: {
-  icon: "book-text" | "calendar-days" | "bell"
   title: string
   badge?: React.ReactNode
-  action?: React.ReactNode
+  footer?: React.ReactNode
   children: React.ReactNode
 }) {
   return (
-    <IconHoverArea className="h-full">
-      <AccountCard className="flex flex-col">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-            <HoverIcon name={icon} size={16} />
-            {title}
-            {badge}
-          </h2>
-          {action}
-        </div>
-        <ul className="mt-5 flex flex-col gap-2">{children}</ul>
-      </AccountCard>
-    </IconHoverArea>
+    <AccountCard className="flex flex-col">
+      <h2 className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+        {title}
+        {badge}
+      </h2>
+      <div className="mt-5 flex-1">{children}</div>
+      {footer && <div className="mt-5">{footer}</div>}
+    </AccountCard>
   )
 }
 
-function ItemRow({ title, detail, unread }: { title: string; detail?: string | null; unread?: boolean }) {
+// Lista animada. Animated List muestra primero el primer hijo y apila los siguientes arriba,
+// así que se le pasan en orden inverso para que lo más reciente quede primero.
+function ItemList({ children }: { children: React.ReactNode[] }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-foreground/[0.03]">
-      <span
-        aria-hidden
-        className={cn("mt-2 size-1.5 shrink-0 rounded-full", unread === false ? "bg-foreground/15" : "bg-brand")}
-      />
-      <div className="min-w-0">
-        <p className="text-[15px] leading-snug font-medium">{title}</p>
-        {detail && <p className="mt-0.5 line-clamp-2 text-[13px] text-muted-foreground">{detail}</p>}
-      </div>
-    </div>
+    <AnimatedList delay={180} className="items-stretch gap-2">
+      {[...children].reverse()}
+    </AnimatedList>
+  )
+}
+
+type ItemCardProps = {
+  icon: IconName
+  title: string
+  meta?: string | null
+  detail?: string | null
+  unread?: boolean
+  href?: string | null
+}
+
+// Tarjeta de un curso, evento o notificación, al estilo de las notificaciones de Magic UI.
+function ItemCard({ icon, title, meta, detail, unread = false, href }: ItemCardProps) {
+  const card = (
+    <IconHoverArea>
+      <figure
+        className={cn(
+          "relative flex items-start gap-3 rounded-2xl border p-3 pr-8 transition-[translate,box-shadow,border-color] duration-500 ease-premium",
+          unread ? "border-brand/25 bg-brand-soft/40" : "border-border/70 bg-background",
+          href && "hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-14px_rgb(40_20_40/0.35)]"
+        )}
+      >
+        <span
+          className={cn(
+            "flex size-9 shrink-0 items-center justify-center rounded-xl",
+            unread ? "bg-brand text-brand-foreground" : "bg-brand-soft"
+          )}
+        >
+          <HoverIcon name={icon} size={16} />
+        </span>
+        <figcaption className="min-w-0 flex-1">
+          <p className="line-clamp-2 text-sm leading-snug font-medium">{title}</p>
+          {meta && <p className="mt-0.5 text-xs text-muted-foreground">{meta}</p>}
+          {detail && <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground">{detail}</p>}
+        </figcaption>
+        {unread && (
+          <span className="absolute top-3.5 right-3.5 size-2 rounded-full bg-brand">
+            <span className="sr-only">Sin leer</span>
+          </span>
+        )}
+      </figure>
+    </IconHoverArea>
+  )
+
+  if (!href) return card
+  return (
+    <Link href={href} className="block rounded-2xl outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
+      {card}
+    </Link>
   )
 }
 
@@ -67,15 +107,18 @@ export function MyCourses({ courses }: { courses: Course[] }) {
     )
   }
   return (
-    <SectionCard icon="book-text" title="Mis cursos">
-      {courses.map((course) => (
-        <li key={course.id}>
-          <ItemRow
+    <SectionCard title="Mis cursos">
+      <ItemList>
+        {courses.map((course) => (
+          <ItemCard
+            key={course.id}
+            icon="book-text"
             title={course.title}
-            detail={course.startsAt ? `Empieza el ${formatDay(course.startsAt)}` : course.summary}
+            meta={course.startsAt ? `Empieza el ${formatDay(course.startsAt)}` : null}
+            detail={course.summary}
           />
-        </li>
-      ))}
+        ))}
+      </ItemList>
     </SectionCard>
   )
 }
@@ -92,23 +135,26 @@ export function MyEvents({ events }: { events: CommunityEvent[] }) {
     )
   }
   return (
-    <SectionCard icon="calendar-days" title="Mis eventos">
-      {events.map((event) => (
-        <li key={event.id}>
-          <ItemRow
+    <SectionCard title="Mis eventos">
+      <ItemList>
+        {events.map((event) => (
+          <ItemCard
+            key={event.id}
+            icon="calendar-days"
             title={event.title}
-            detail={[formatDateTime(event.startsAt), event.location ?? (event.onlineUrl && "Online")]
+            meta={[formatDateTime(event.startsAt), event.location ?? (event.onlineUrl && "Online")]
               .filter(Boolean)
               .join(" · ")}
+            href={event.onlineUrl}
           />
-        </li>
-      ))}
+        ))}
+      </ItemList>
     </SectionCard>
   )
 }
 
 // Cuántas se muestran en Mi cuenta (las demás quedan para una página propia más adelante)
-const VISIBLE_NOTIFICATIONS = 5
+const VISIBLE_NOTIFICATIONS = 4
 
 export function MyNotifications({ notifications }: { notifications: UserNotification[] }) {
   if (!notifications.length) {
@@ -122,13 +168,11 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
     )
   }
 
-  const visible = notifications.slice(0, VISIBLE_NOTIFICATIONS)
   const unread = countUnread(notifications)
   const unreadIds = notifications.filter((n) => !n.read).map((n) => n.id)
 
   return (
     <SectionCard
-      icon="bell"
       title="Notificaciones"
       badge={
         unread > 0 && (
@@ -138,36 +182,35 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
           </span>
         )
       }
-      action={
+      footer={
         unread > 0 && (
           <form action={markNotificationsRead.bind(null, unreadIds)}>
-            <button
-              type="submit"
-              className="cursor-pointer rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-foreground/[0.05]"
-            >
-              Marcar como leídas
-            </button>
+            <IconHoverArea>
+              <button
+                type="submit"
+                className="inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-full text-[13px] font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
+              >
+                <HoverIcon name="check-check" size={16} />
+                Marcar todas como leídas
+              </button>
+            </IconHoverArea>
           </form>
         )
       }
     >
-      {visible.map((notification) => {
-        const row = <ItemRow title={notification.title} detail={notification.body} unread={!notification.read} />
-        return (
-          <li key={notification.id}>
-            {notification.link ? (
-              <Link
-                href={notification.link}
-                className="block rounded-2xl outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
-              >
-                {row}
-              </Link>
-            ) : (
-              row
-            )}
-          </li>
-        )
-      })}
+      <ItemList>
+        {notifications.slice(0, VISIBLE_NOTIFICATIONS).map((notification) => (
+          <ItemCard
+            key={notification.id}
+            icon="bell"
+            title={notification.title}
+            meta={notification.timeAgo}
+            detail={notification.body}
+            unread={!notification.read}
+            href={notification.link}
+          />
+        ))}
+      </ItemList>
     </SectionCard>
   )
 }

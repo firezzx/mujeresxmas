@@ -1,6 +1,7 @@
 import { cache } from "react"
 import { connection } from "next/server"
 
+import { formatTimeAgo } from "@/lib/format"
 import { createClient } from "@/lib/supabase/server"
 
 // Supabase compara el vencimiento del token con la hora actual: solo puede pasar en el pedido
@@ -20,6 +21,8 @@ export type UserNotification = {
   link: string | null
   createdAt: string
   read: boolean
+  // "hace 5 minutos", calculado al pedir los datos
+  timeAgo: string
 }
 
 type NotificationRow = { id: string; title: string; body: string | null; link: string | null; created_at: string }
@@ -53,6 +56,7 @@ export const getMyNotifications = cache(async (userId: string): Promise<UserNoti
     )
   const readIds = new Set((reads ?? []).map((read) => read.notification_id as string))
 
+  const now = Date.now()
   return rows.map((row) => ({
     id: row.id,
     title: row.title,
@@ -60,6 +64,7 @@ export const getMyNotifications = cache(async (userId: string): Promise<UserNoti
     link: row.link,
     createdAt: row.created_at,
     read: readIds.has(row.id),
+    timeAgo: formatTimeAgo(row.created_at, now),
   }))
 })
 
