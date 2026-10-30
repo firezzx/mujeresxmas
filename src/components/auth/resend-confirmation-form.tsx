@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState } from "react"
 
 import { resendConfirmation, type ResendState } from "@/app/actions/auth"
+import { FormMessage } from "@/components/forms/form-message"
 import { TextField } from "@/components/forms/text-field"
 import { cn } from "@/lib/utils"
 
@@ -63,17 +64,15 @@ export function ResendConfirmationForm({ email, justSent = false, className }: R
         disabled={pending || secondsLeft > 0}
         className="h-12 w-full cursor-pointer rounded-full border border-border bg-background/70 text-sm font-medium transition-colors duration-300 hover:border-foreground/20 hover:bg-foreground/[0.03] disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:border-border disabled:hover:bg-background/70"
       >
-        {pending
-          ? "Enviando…"
-          : secondsLeft > 0
-            ? `Podés reenviarlo en ${secondsLeft} s`
-            : "Reenviar el correo"}
+        {pending ? "Enviando…" : secondsLeft > 0 ? `Podés reenviarlo en ${secondsLeft} s` : "Reenviar el correo"}
       </button>
 
-      <p aria-live="polite" className="min-h-5 text-center text-[13px]">
-        {state.status === "sent" && <span className="text-foreground">Listo, te lo enviamos de nuevo.</span>}
-        {state.status === "error" && <span className="text-destructive">{state.message}</span>}
-      </p>
+      <FormMessage
+        trigger={state}
+        tone="success"
+        message={state.status === "sent" ? "Te lo enviamos de nuevo." : undefined}
+      />
+      <FormMessage trigger={state} message={state.status === "error" ? state.message : undefined} />
     </form>
   )
 }

@@ -17,8 +17,6 @@ export function ProfileForm({ initialValues }: { initialValues: Record<ProfileFi
   const [state, formAction, pending] = useActionState<ProfileState, FormData>(updateProfile, { status: "idle" })
   const [values, setValues] = useState(initialValues)
   const [clientErrors, setClientErrors] = useState<FieldErrors>({})
-  // El aviso de "guardado" se oculta al volver a editar
-  const [dirty, setDirty] = useState(false)
 
   const serverErrors = state.status === "error" ? state.fieldErrors : undefined
 
@@ -29,7 +27,6 @@ export function ProfileForm({ initialValues }: { initialValues: Record<ProfileFi
       setClientErrors(z.flattenError(parsed.error).fieldErrors)
       return
     }
-    setDirty(false)
   }
 
   return (
@@ -48,7 +45,6 @@ export function ProfileForm({ initialValues }: { initialValues: Record<ProfileFi
               onChange={(e) => {
                 setValues((prev) => ({ ...prev, [field.name]: e.target.value }))
                 setClientErrors((prev) => ({ ...prev, [field.name]: undefined }))
-                setDirty(true)
               }}
               error={(clientErrors[field.name] ?? serverErrors?.[field.name])?.[0]}
             />
@@ -56,8 +52,12 @@ export function ProfileForm({ initialValues }: { initialValues: Record<ProfileFi
         ))}
       </div>
 
-      <FormMessage message={state.status === "error" ? state.message : undefined} />
-      <FormMessage tone="success" message={state.status === "saved" && !dirty ? "Guardamos tus cambios." : undefined} />
+      <FormMessage trigger={state} message={state.status === "error" ? state.message : undefined} />
+      <FormMessage
+        trigger={state}
+        tone="success"
+        message={state.status === "saved" ? "Guardamos tus cambios." : undefined}
+      />
 
       <ShimmerSubmit pending={pending} pendingLabel="Guardando…" className="w-full sm:w-auto sm:self-end">
         Guardar cambios

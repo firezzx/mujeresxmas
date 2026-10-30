@@ -10,12 +10,7 @@ import { UserAvatar } from "@/components/site-header/user-menu"
 import { useIconAnimation } from "@/hooks/use-icon-animation"
 import { createClient } from "@/lib/supabase/client"
 import type { CurrentUser } from "@/lib/supabase/user"
-import {
-  AVATAR_MAX_BYTES,
-  AVATAR_SIZE_PX,
-  AVATAR_SOURCE_MAX_BYTES,
-  AVATAR_TYPES,
-} from "@/lib/validations/profile"
+import { AVATAR_MAX_BYTES, AVATAR_SIZE_PX, AVATAR_SOURCE_MAX_BYTES, AVATAR_TYPES } from "@/lib/validations/profile"
 
 // Recorta la imagen al centro en cuadrado y la comprime a WebP antes de subirla.
 async function toSquareWebp(file: File): Promise<Blob> {
@@ -27,17 +22,7 @@ async function toSquareWebp(file: File): Promise<Blob> {
   canvas.height = size
   const context = canvas.getContext("2d")
   if (!context) throw new Error("canvas")
-  context.drawImage(
-    bitmap,
-    (bitmap.width - side) / 2,
-    (bitmap.height - side) / 2,
-    side,
-    side,
-    0,
-    0,
-    size,
-    size
-  )
+  context.drawImage(bitmap, (bitmap.width - side) / 2, (bitmap.height - side) / 2, side, side, 0, 0, size, size)
   bitmap.close()
   const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", 0.86))
   if (!blob) throw new Error("toBlob")
@@ -170,7 +155,7 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
         }}
       />
 
-      <FormMessage message={error} />
+      <FormMessage trigger={error} message={error} />
     </div>
   )
 }

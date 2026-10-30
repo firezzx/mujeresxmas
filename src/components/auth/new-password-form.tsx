@@ -79,6 +79,7 @@ export function NewPasswordForm() {
           />
 
           <FormMessage
+            trigger={state}
             message={
               error?.message && (
                 <>

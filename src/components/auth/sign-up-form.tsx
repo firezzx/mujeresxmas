@@ -31,8 +31,7 @@ export function SignUpForm() {
   const [dismissed, setDismissed] = useState<SignUpState | null>(null)
 
   const serverErrors = state.status === "error" ? state.fieldErrors : undefined
-  const fieldError = (field: keyof FieldErrors) =>
-    (clientErrors[field] ?? serverErrors?.[field])?.[0]
+  const fieldError = (field: keyof FieldErrors) => (clientErrors[field] ?? serverErrors?.[field])?.[0]
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     const parsed = signUpSchema.safeParse({ email, password })
@@ -132,7 +131,7 @@ export function SignUpForm() {
             hint={<PasswordChecklist value={password} />}
           />
 
-          <FormMessage message={state.status === "error" ? state.message : undefined} />
+          <FormMessage trigger={state} message={state.status === "error" ? state.message : undefined} />
 
           <ShimmerSubmit pending={pending} pendingLabel="Creando tu cuenta…" className="mt-1 w-full">
             Crear mi cuenta

@@ -26,7 +26,6 @@ export function NotificationForm() {
     { status: "idle" }
   )
   const [clientErrors, setClientErrors] = useState<FieldErrors>({})
-  const [dirty, setDirty] = useState(false)
   const bodyId = useId()
 
   const serverErrors = state.status === "error" ? state.fieldErrors : undefined
@@ -35,7 +34,6 @@ export function NotificationForm() {
   function update(field: NotificationField, value: string) {
     setValues((prev) => ({ ...prev, [field]: value }))
     setClientErrors((prev) => ({ ...prev, [field]: undefined }))
-    setDirty(true)
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -45,7 +43,6 @@ export function NotificationForm() {
       setClientErrors(z.flattenError(parsed.error).fieldErrors)
       return
     }
-    setDirty(false)
   }
 
   const bodyError = errorFor("body")
@@ -93,10 +90,11 @@ export function NotificationForm() {
         }
       />
 
-      <FormMessage message={state.status === "error" ? state.message : undefined} />
+      <FormMessage trigger={state} message={state.status === "error" ? state.message : undefined} />
       <FormMessage
+        trigger={state}
         tone="success"
-        message={state.status === "sent" && !dirty ? "La notificación ya les llegó a todos." : undefined}
+        message={state.status === "sent" ? "La notificación ya les llegó a todos." : undefined}
       />
 
       <ShimmerSubmit pending={pending} pendingLabel="Enviando…" className="w-full sm:w-auto sm:self-end">

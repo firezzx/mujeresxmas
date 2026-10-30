@@ -24,8 +24,7 @@ export function SignInForm() {
   const [clientErrors, setClientErrors] = useState<FieldErrors>({})
 
   const error = state.status === "error" ? state : undefined
-  const fieldError = (field: keyof FieldErrors) =>
-    (clientErrors[field] ?? error?.fieldErrors?.[field])?.[0]
+  const fieldError = (field: keyof FieldErrors) => (clientErrors[field] ?? error?.fieldErrors?.[field])?.[0]
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     const parsed = signInSchema.safeParse({ email, password })
@@ -90,7 +89,7 @@ export function SignInForm() {
           </Link>
         </div>
 
-        <FormMessage message={error?.message} />
+        <FormMessage trigger={state} message={error?.message} />
 
         <ShimmerSubmit pending={pending} pendingLabel="Ingresando…" className="w-full">
           Iniciar sesión

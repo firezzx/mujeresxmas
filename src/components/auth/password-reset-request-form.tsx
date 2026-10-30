@@ -89,7 +89,7 @@ export function PasswordResetRequestForm() {
             error={clientError}
           />
 
-          <FormMessage message={state.status === "error" ? state.message : undefined} />
+          <FormMessage trigger={state} message={state.status === "error" ? state.message : undefined} />
 
           <ShimmerSubmit pending={pending} pendingLabel="Enviando…" className="w-full">
             Enviarme el link
