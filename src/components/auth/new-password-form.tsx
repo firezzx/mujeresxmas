@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { BadgeCheck } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useActionState, useState } from "react"
 
@@ -10,6 +9,7 @@ import { PasswordChecklist } from "@/components/auth/password-checklist"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
 import { FormMessage } from "@/components/forms/form-message"
+import { HoverIcon } from "@/components/icons/hover-icon"
 import { PasswordField } from "@/components/forms/password-field"
 import { ROUTES } from "@/config/navigation"
 import { newPasswordSchema } from "@/lib/validations/auth"
@@ -45,7 +45,7 @@ export function NewPasswordForm() {
           className="flex flex-col items-center gap-4 text-center"
         >
           <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft">
-            <BadgeCheck className="size-6" strokeWidth={1.75} />
+            <HoverIcon name="circle-check" size={24} autoPlay />
           </span>
           <h2 className="font-heading text-2xl font-semibold tracking-[-0.02em]">Listo, ya la cambiaste</h2>
           <p className="text-[15px] leading-relaxed text-muted-foreground">

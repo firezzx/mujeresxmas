@@ -1,6 +1,9 @@
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+"use client"
 
+import Link from "next/link"
+
+import { ArrowRightIcon, type ArrowRightIconHandle } from "@/components/icons/arrow-right"
+import { useIconAnimation } from "@/hooks/use-icon-animation"
 import { cn } from "@/lib/utils"
 
 const sizes = {
@@ -21,9 +24,12 @@ export function HoverRevealLink({
   className,
   ...props
 }: HoverRevealLinkProps) {
+  const { iconRef, triggerProps } = useIconAnimation<ArrowRightIconHandle>()
+
   return (
     <Link
       {...props}
+      {...triggerProps}
       className={cn(
         "group relative isolate inline-flex items-center justify-center overflow-hidden rounded-full border border-border bg-background/70 max-w-full text-center leading-snug font-medium text-balance backdrop-blur",
         "transition-[border-color,scale] duration-500 ease-premium outline-none hover:border-brand focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-[0.98]",
@@ -47,7 +53,7 @@ export function HoverRevealLink({
         className="absolute inset-0 z-10 flex translate-x-10 items-center justify-center gap-2 text-brand-foreground opacity-0 transition-[translate,opacity] duration-300 ease-premium group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
       >
         {children}
-        <ArrowRight className="size-4" />
+        <ArrowRightIcon ref={iconRef} size={16} className="pointer-events-none" />
       </span>
     </Link>
   )

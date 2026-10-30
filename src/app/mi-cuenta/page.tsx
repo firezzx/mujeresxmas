@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { Suspense } from "react"
 import Link from "next/link"
-import { Bell, BookOpen, CalendarDays, PencilLine } from "lucide-react"
 
 import { AccountCard, EmptySection } from "@/components/account/account-card"
 import { SignOutButton } from "@/components/account/sign-out-button"
+import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { Eyebrow } from "@/components/page-hero"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -98,13 +98,15 @@ async function AccountDashboard() {
           <AccountCard className="flex flex-col">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-sm font-medium text-muted-foreground">Tus datos</h2>
-              <Link
-                href={ROUTES.perfil}
-                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-foreground/[0.05]"
-              >
-                <PencilLine className="size-3.5" />
-                Editar
-              </Link>
+              <IconHoverArea className="inline-flex">
+                <Link
+                  href={ROUTES.perfil}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-foreground/[0.05]"
+                >
+                  <HoverIcon name="square-pen" size={14} />
+                  Editar
+                </Link>
+              </IconHoverArea>
             </div>
             <div className="mt-5 flex items-center gap-4">
               <UserAvatar user={user} className="size-16 text-lg" />
@@ -135,7 +137,7 @@ async function AccountDashboard() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <BlurFade delay={0.4} inView>
           <EmptySection
-            icon={BookOpen}
+            icon="book-text"
             title="Mis cursos"
             emptyTitle="Todavía no tenés cursos"
             emptyText="Cuando te sumes a un curso, lo vas a encontrar acá."
@@ -143,7 +145,7 @@ async function AccountDashboard() {
         </BlurFade>
         <BlurFade delay={0.47} inView>
           <EmptySection
-            icon={CalendarDays}
+            icon="calendar-days"
             title="Mis eventos"
             emptyTitle="No tenés eventos próximos"
             emptyText="Los eventos a los que te anotes van a aparecer acá."
@@ -151,7 +153,7 @@ async function AccountDashboard() {
         </BlurFade>
         <BlurFade delay={0.54} inView>
           <EmptySection
-            icon={Bell}
+            icon="bell"
             title="Notificaciones"
             emptyTitle="Estás al día"
             emptyText="Cuando haya novedades para vos, te avisamos acá."

@@ -1,12 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { MailCheck } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useActionState, useState } from "react"
 
 import { requestPasswordReset, type PasswordResetState } from "@/app/actions/auth"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
+import { HoverIcon } from "@/components/icons/hover-icon"
 import { FormMessage } from "@/components/forms/form-message"
 import { TextField } from "@/components/forms/text-field"
 import { ROUTES } from "@/config/navigation"
@@ -41,7 +41,7 @@ export function PasswordResetRequestForm() {
           className="flex flex-col items-center gap-4 text-center"
         >
           <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft">
-            <MailCheck className="size-6" strokeWidth={1.75} />
+            <HoverIcon name="mail-check" size={24} autoPlay />
           </span>
           <h2 className="font-heading text-2xl font-semibold tracking-[-0.02em]">Revisá tu correo</h2>
           <p className="text-[15px] leading-relaxed text-pretty text-muted-foreground">

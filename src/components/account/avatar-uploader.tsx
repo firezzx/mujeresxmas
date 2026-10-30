@@ -1,11 +1,13 @@
 "use client"
 
-import { Camera, LoaderCircle } from "lucide-react"
+import { LoaderCircle } from "lucide-react"
 import { useRef, useState, useTransition } from "react"
 
 import { removeAvatar, saveAvatar } from "@/app/actions/profile"
 import { FormMessage } from "@/components/forms/form-message"
+import { UploadIcon, type UploadIconHandle } from "@/components/icons/upload"
 import { UserAvatar } from "@/components/site-header/user-menu"
+import { useIconAnimation } from "@/hooks/use-icon-animation"
 import { createClient } from "@/lib/supabase/client"
 import type { CurrentUser } from "@/lib/supabase/user"
 import {
@@ -48,6 +50,7 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
   const [preview, setPreview] = useState<string | null>(null)
   const [error, setError] = useState<string>()
   const [pending, startTransition] = useTransition()
+  const { iconRef, triggerProps } = useIconAnimation<UploadIconHandle>()
 
   const shownUrl = preview ?? user.avatarUrl
 
@@ -107,6 +110,7 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
       <div className="flex items-center gap-5">
         <button
           type="button"
+          {...triggerProps}
           onClick={() => inputRef.current?.click()}
           disabled={pending}
           aria-label="Cambiar foto de perfil"
@@ -118,7 +122,11 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
             className="absolute inset-0.5 flex items-center justify-center rounded-full bg-foreground/45 text-background opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 data-[pending=true]:opacity-100"
             data-pending={pending}
           >
-            {pending ? <LoaderCircle className="size-6 animate-spin" /> : <Camera className="size-6" />}
+            {pending ? (
+              <LoaderCircle className="size-6 animate-spin" />
+            ) : (
+              <UploadIcon ref={iconRef} size={22} className="pointer-events-none" />
+            )}
           </span>
         </button>
 

@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
-import { Eye } from "lucide-react"
 
 import { setMemberView } from "@/app/actions/admin"
 import NotFound from "@/app/not-found"
 import { AccountCard } from "@/components/account/account-card"
 import { MembersTable, type MemberRow } from "@/components/admin/members-table"
+import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { Eyebrow } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { NumberTicker } from "@/components/ui/number-ticker"
@@ -64,15 +64,17 @@ async function AdminDashboard() {
             </BlurFade>
           </div>
           <BlurFade delay={0.19} inView>
-            <form action={setMemberView.bind(null, true)}>
-              <button
-                type="submit"
-                className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full px-5 text-sm font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
-              >
-                <Eye className="size-4" />
-                Ver como usuaria
-              </button>
-            </form>
+            <IconHoverArea>
+              <form action={setMemberView.bind(null, true)}>
+                <button
+                  type="submit"
+                  className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full px-5 text-sm font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
+                >
+                  <HoverIcon name="eye" size={16} />
+                  Ver como usuaria
+                </button>
+              </form>
+            </IconHoverArea>
           </BlurFade>
         </header>
 

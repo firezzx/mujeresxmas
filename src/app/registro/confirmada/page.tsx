@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { Suspense } from "react"
-import { BadgeCheck } from "lucide-react"
 
 import { AuthShell } from "@/components/auth/auth-shell"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
+import { HoverIcon } from "@/components/icons/hover-icon"
 import { ROUTES } from "@/config/navigation"
 import { safeInternalPath } from "@/lib/site-url"
 
@@ -31,7 +31,7 @@ export default function CuentaConfirmadaPage({ searchParams }: PageProps<"/regis
     >
       <div className="flex flex-col items-center gap-5 text-center">
         <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft">
-          <BadgeCheck className="size-6" strokeWidth={1.75} />
+          <HoverIcon name="circle-check" size={24} autoPlay />
         </span>
         <p className="text-[15px] leading-relaxed text-muted-foreground">
           Ya iniciaste sesión. Tu membresía Gratis quedó activada.

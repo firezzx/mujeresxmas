@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { Suspense } from "react"
-import { ArrowLeft } from "lucide-react"
 
 import { AccountCard } from "@/components/account/account-card"
 import { AvatarUploader } from "@/components/account/avatar-uploader"
 import { ProfileForm } from "@/components/account/profile-form"
+import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { Eyebrow } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { ROUTES } from "@/config/navigation"
@@ -23,13 +23,15 @@ export default function PerfilPage() {
       <div className="flex flex-col gap-8">
         <header className="flex flex-col items-start gap-4">
           <BlurFade delay={0.05} inView>
-            <Link
-              href={ROUTES.miCuenta}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ArrowLeft className="size-4" />
-              Mi cuenta
-            </Link>
+            <IconHoverArea className="inline-flex">
+              <Link
+                href={ROUTES.miCuenta}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <HoverIcon name="arrow-left" size={16} />
+                Mi cuenta
+              </Link>
+            </IconHoverArea>
           </BlurFade>
           <BlurFade delay={0.1} inView>
             <Eyebrow>Tu perfil</Eyebrow>
@@ -46,7 +48,9 @@ export default function PerfilPage() {
           </BlurFade>
         </header>
 
-        <Suspense fallback={<div aria-hidden className="h-[520px] animate-pulse rounded-[28px] bg-foreground/[0.05]" />}>
+        <Suspense
+          fallback={<div aria-hidden className="h-[520px] animate-pulse rounded-[28px] bg-foreground/[0.05]" />}
+        >
           <ProfileEditor />
         </Suspense>
       </div>

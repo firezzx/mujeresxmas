@@ -1,10 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import { EyeIcon, LayoutDashboardIcon, LogOutIcon, UserRoundIcon } from "lucide-react"
 
 import { setMemberView } from "@/app/actions/admin"
 import { signOut } from "@/app/actions/auth"
+import { EyeIcon } from "@/components/icons/eye"
+import { LayoutPanelTopIcon } from "@/components/icons/layout-panel-top"
+import { LogoutIcon } from "@/components/icons/logout"
+import { UserIcon } from "@/components/icons/user"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -16,6 +19,7 @@ import {
 import { ROUTES } from "@/config/navigation"
 import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
+import { useIconAnimation } from "@/hooks/use-icon-animation"
 import { cn } from "@/lib/utils"
 
 function initials(user: CurrentUser) {
@@ -76,34 +80,47 @@ export function UserMenu({
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="rounded-xl px-2.5 py-2"
-          render={<Link href={ROUTES.miCuenta} />}
-        >
-          <UserRoundIcon />
+        <IconMenuItem icon={UserIcon} render={<Link href={ROUTES.miCuenta} />}>
           Mi cuenta
-        </DropdownMenuItem>
+        </IconMenuItem>
         {adminView === "admin" && (
           <>
-            <DropdownMenuItem className="rounded-xl px-2.5 py-2" render={<Link href={ROUTES.admin} />}>
-              <LayoutDashboardIcon />
+            <IconMenuItem icon={LayoutPanelTopIcon} render={<Link href={ROUTES.admin} />}>
               Panel de administración
-            </DropdownMenuItem>
-            <DropdownMenuItem className="rounded-xl px-2.5 py-2" onClick={() => setMemberView(true)}>
-              <EyeIcon />
+            </IconMenuItem>
+            <IconMenuItem icon={EyeIcon} onClick={() => setMemberView(true)}>
               Ver como usuaria
-            </DropdownMenuItem>
+            </IconMenuItem>
           </>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="rounded-xl px-2.5 py-2"
-          onClick={() => signOut()}
-        >
-          <LogOutIcon />
+        <IconMenuItem icon={LogoutIcon} onClick={() => signOut()}>
           Cerrar sesión
-        </DropdownMenuItem>
+        </IconMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
+
+type AnimatedIcon = React.ForwardRefExoticComponent<
+  { size?: number; className?: string } & React.RefAttributes<{
+    startAnimation: () => void
+    stopAnimation: () => void
+  }>
+>
+
+// Opción del menú con ícono de Lucide Animated: se anima al pasar el mouse o con el teclado.
+function IconMenuItem({
+  icon: Icon,
+  children,
+  className,
+  ...props
+}: React.ComponentProps<typeof DropdownMenuItem> & { icon: AnimatedIcon }) {
+  const { iconRef, triggerProps } = useIconAnimation()
+  return (
+    <DropdownMenuItem {...props} {...triggerProps} className={cn("rounded-xl px-2.5 py-2", className)}>
+      <Icon ref={iconRef} size={16} className="pointer-events-none" />
+      {children}
+    </DropdownMenuItem>
   )
 }

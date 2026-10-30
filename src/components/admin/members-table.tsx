@@ -1,9 +1,11 @@
 "use client"
 
-import { Search, UsersRound } from "lucide-react"
 import { useDeferredValue, useState } from "react"
 
+import { SearchIcon, type SearchIconHandle } from "@/components/icons/search"
+import { UsersRoundIcon } from "@/components/icons/users-round"
 import { UserAvatar } from "@/components/site-header/user-menu"
+import { useIconAnimation } from "@/hooks/use-icon-animation"
 import type { AdminMember } from "@/lib/admin"
 import { cn } from "@/lib/utils"
 
@@ -59,15 +61,21 @@ function Identity({ member }: { member: MemberRow }) {
 // Lista de usuarias con buscador: tabla en escritorio y tarjetas en celular.
 export function MembersTable({ members }: { members: MemberRow[] }) {
   const [query, setQuery] = useState("")
+  const { iconRef: searchIconRef, triggerProps: searchTriggerProps } = useIconAnimation<SearchIconHandle>()
   const deferredQuery = useDeferredValue(query.trim().toLowerCase())
   const visible = members.filter((member) => matches(member, deferredQuery))
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <label className="relative block w-full sm:max-w-xs">
+        <label {...searchTriggerProps} className="relative block w-full sm:max-w-xs">
           <span className="sr-only">Buscar usuarias</span>
-          <Search aria-hidden className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-muted-foreground" />
+          <SearchIcon
+            ref={searchIconRef}
+            size={16}
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted-foreground"
+          />
           <input
             type="search"
             value={query}
@@ -86,7 +94,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
       {visible.length === 0 ? (
         <div className="flex flex-col items-center rounded-[20px] border border-dashed border-border px-4 py-10 text-center">
           <span className="flex size-12 items-center justify-center rounded-full bg-brand-soft">
-            <UsersRound className="size-5" strokeWidth={1.75} />
+            <UsersRoundIcon size={20} />
           </span>
           <p className="mt-4 font-heading text-lg font-semibold tracking-[-0.01em]">
             {members.length ? "No encontramos usuarias" : "Todavía no hay usuarias"}

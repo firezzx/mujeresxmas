@@ -1,6 +1,5 @@
 "use client"
 
-import { MailCheck } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useActionState, useState } from "react"
 import { z } from "zod"
@@ -10,6 +9,7 @@ import { KeepNextLink } from "@/components/auth/keep-next-link"
 import { PasswordChecklist } from "@/components/auth/password-checklist"
 import { ResendConfirmationForm } from "@/components/auth/resend-confirmation-form"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
+import { HoverIcon } from "@/components/icons/hover-icon"
 import { FormMessage } from "@/components/forms/form-message"
 import { PasswordField } from "@/components/forms/password-field"
 import { TextField } from "@/components/forms/text-field"
@@ -63,7 +63,7 @@ export function SignUpForm() {
           className="flex flex-col items-center text-center"
         >
           <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft text-foreground">
-            <MailCheck className="size-6" strokeWidth={1.75} />
+            <HoverIcon name="mail-check" size={24} autoPlay />
           </span>
           <h2 className="mt-5 font-heading text-2xl font-semibold tracking-[-0.02em]">Revisá tu correo</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-pretty text-muted-foreground">
