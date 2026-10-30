@@ -1,9 +1,10 @@
 import { Eyebrow, PageHero } from "@/components/page-hero";
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link";
-import { ShimmerLink } from "@/components/buttons/shimmer-link";
-import { ROUTES } from "@/config/navigation";
+import { FloatingRegisterCta, RegisterCta } from "@/components/cta/register-cta";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { DotPattern } from "@/components/ui/dot-pattern";
+
+const HERO_CTA_ID = "cta-registro";
 
 // Home provisoria: estructura y CTAs listos, a la espera de textos, colores e imágenes de la clienta.
 export default function Home() {
@@ -27,15 +28,15 @@ export default function Home() {
         description="Una comunidad que capacita y conecta a mujeres y emprendedoras. Sumate y crecé con otras."
         actions={
           <>
-            <ShimmerLink href={ROUTES.registro} className="w-full sm:w-auto">
-              Registrarme en Mujeres x Más
-            </ShimmerLink>
+            <RegisterCta id={HERO_CTA_ID} className="w-full sm:w-auto" />
             <HoverRevealLink href="/quiero" className="w-full sm:w-auto">
               Conocé QUIERO
             </HoverRevealLink>
           </>
         }
       />
+
+      <FloatingRegisterCta watchId={HERO_CTA_ID} />
     </main>
   );
 }
