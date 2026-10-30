@@ -2,10 +2,10 @@
 
 import Link from "next/link"
 import { motion } from "motion/react"
-import { ArrowRight, LogOutIcon } from "lucide-react"
 
 import { signOut } from "@/app/actions/auth"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
+import { UserAvatar } from "@/components/site-header/user-menu"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
 import type { CurrentUser } from "@/lib/supabase/user"
 import { cn } from "@/lib/utils"
@@ -27,59 +27,38 @@ type MobileMenuProps = {
   onNavigate: () => void
 }
 
-// Contenido del menú móvil: se despliega dentro de la cápsula del header. Los links son
-// grandes, con la tipografía de títulos y número de sección; el activo lleva el punto de marca.
+// Contenido del menú móvil: se despliega dentro de la cápsula del header.
+// Links con la tipografía de títulos (el activo, en una pastilla rosa con el punto de marca)
+// y abajo la cuenta: tarjeta con la usuaria y sus accesos, o el registro para visitantes.
 export function MobileMenu({ user, isActive, onNavigate }: MobileMenuProps) {
   return (
     <div className="px-1.5 pt-3 pb-1.5">
-      <div className="mx-2 h-px bg-border/70" />
-
-      <nav aria-label="Principal" className="px-2 pt-1">
-        <ul className="flex flex-col">
+      <nav aria-label="Principal">
+        <ul className="flex flex-col gap-1">
           {MAIN_NAV.map((link, i) => {
             const active = isActive(link.href)
             return (
-              <motion.li
-                key={link.href}
-                custom={i}
-                variants={item}
-                initial="hidden"
-                animate="show"
-                className="border-b border-border/60"
-              >
+              <motion.li key={link.href} custom={i} variants={item} initial="hidden" animate="show">
                 <Link
                   href={link.href}
                   onClick={onNavigate}
                   aria-current={active ? "page" : undefined}
-                  className="group flex items-center gap-4 rounded-xl py-4 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
+                  className={cn(
+                    "flex h-14 items-center gap-3 rounded-[20px] px-4 font-heading text-[22px] font-semibold tracking-[-0.02em] transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                    active
+                      ? "bg-brand-soft text-foreground"
+                      : "text-foreground/50 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
+                  )}
                 >
-                  <span
-                    className={cn(
-                      "w-5 text-[11px] font-medium tabular-nums transition-colors duration-300",
-                      active ? "text-brand" : "text-muted-foreground/70"
-                    )}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className={cn(
-                      "font-heading text-[28px] leading-none font-semibold tracking-[-0.03em] transition-[color,translate] duration-500 ease-premium group-active:translate-x-1",
-                      active ? "text-foreground" : "text-foreground/45 group-hover:text-foreground"
-                    )}
-                  >
-                    {link.label}
-                    {active && <span className="text-brand">.</span>}
-                  </span>
                   <span
                     aria-hidden
                     className={cn(
-                      "ml-auto flex size-9 items-center justify-center rounded-full transition-[background-color,color,box-shadow,rotate] duration-500 ease-premium group-hover:-rotate-45 group-active:-rotate-45",
-                      active
-                        ? "bg-primary text-primary-foreground"
-                        : "text-foreground ring-1 ring-border group-hover:bg-brand group-hover:text-brand-foreground group-hover:ring-transparent group-active:bg-brand group-active:text-brand-foreground"
+                      "size-1.5 shrink-0 rounded-full bg-brand transition-[scale,opacity] duration-300 ease-premium",
+                      active ? "scale-100 opacity-100" : "scale-0 opacity-0"
                     )}
-                  >
-                    <ArrowRight className="size-4" />
+                  />
+                  <span className={cn("transition-[translate] duration-300 ease-premium", !active && "-translate-x-[18px]")}>
+                    {link.label}
                   </span>
                 </Link>
               </motion.li>
@@ -93,32 +72,49 @@ export function MobileMenu({ user, isActive, onNavigate }: MobileMenuProps) {
         variants={item}
         initial="hidden"
         animate="show"
-        className="flex flex-col gap-1 pt-4"
+        className="mt-3 border-t border-border/70 pt-3"
       >
         {user ? (
-          <>
-            <Link
-              href={ROUTES.miCuenta}
-              onClick={onNavigate}
-              className="flex h-12 items-center rounded-2xl px-2 text-[15px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.04] hover:text-foreground"
-            >
-              Mi cuenta
-              <ArrowRight aria-hidden className="ml-auto size-4 opacity-40" />
-            </Link>
-            <form action={signOut}>
-              <button
-                type="submit"
-                className="flex h-12 w-full items-center gap-2 rounded-2xl px-2 text-[15px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.04] hover:text-foreground"
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-3 px-2 py-1.5">
+              <UserAvatar user={user} className="size-11 text-sm" />
+              <div className="min-w-0">
+                <p className="truncate text-[15px] font-medium">
+                  {[user.firstName, user.lastName].filter(Boolean).join(" ") || "Tu cuenta"}
+                </p>
+                <p className="truncate text-[13px] text-muted-foreground">{user.email}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                href={ROUTES.miCuenta}
+                onClick={onNavigate}
+                className="flex h-11 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
               >
-                Cerrar sesión
-                <LogOutIcon aria-hidden className="ml-auto size-4 opacity-60" />
-              </button>
-            </form>
-          </>
+                Mi cuenta
+              </Link>
+              <form action={signOut}>
+                <button
+                  type="submit"
+                  className="flex h-11 w-full cursor-pointer items-center justify-center rounded-full text-sm font-medium text-muted-foreground ring-1 ring-border transition-colors hover:text-foreground hover:ring-foreground/20"
+                >
+                  Cerrar sesión
+                </button>
+              </form>
+            </div>
+          </div>
         ) : (
-          <ShimmerLink href={ROUTES.registro} size="md" onClick={onNavigate} className="h-12 w-full">
-            Registrarme en Mujeres x Más
-          </ShimmerLink>
+          <div className="flex flex-col items-center gap-3">
+            <ShimmerLink href={ROUTES.registro} size="md" arrow={false} onClick={onNavigate} className="h-12 w-full">
+              Registrarme en Mujeres x Más
+            </ShimmerLink>
+            <p className="pb-1 text-sm text-muted-foreground">
+              ¿Ya tenés cuenta?{" "}
+              <Link href={ROUTES.login} onClick={onNavigate} className="font-medium text-foreground underline-offset-4 hover:underline">
+                Iniciá sesión
+              </Link>
+            </p>
+          </div>
         )}
       </motion.div>
     </div>
