@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit, Poppins } from "next/font/google";
-import { Suspense } from "react";
+import { Suspense, ViewTransition } from "react";
 
+import { MotionProvider } from "@/components/motion-provider";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header/site-header";
 import { SiteHeaderWithSession } from "@/components/site-header/site-header-with-session";
 import { Toaster } from "@/components/toast/toaster";
@@ -22,7 +24,9 @@ const display = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
   title: {
     default: "Mujeres x Más",
     template: "%s | Mujeres x Más",
@@ -39,14 +43,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         {/* Avisos flotantes abajo a la derecha (formularios, notificaciones nuevas) */}
-        <Toaster>
-          {/* Barra de progreso de lectura (Scroll Progress de Magic UI) */}
-          <ScrollProgress className="z-[60] h-0.5 from-brand via-[#c882c2] to-[#ef9ca9]" />
-          <Suspense fallback={<SiteHeader user={null} pending />}>
-            <SiteHeaderWithSession />
-          </Suspense>
-          {children}
-        </Toaster>
+        <MotionProvider>
+          <Toaster>
+            {/* Barra de progreso de lectura (Scroll Progress de Magic UI) */}
+            <ScrollProgress className="z-[60] h-0.5 from-brand via-[#c882c2] to-[#ef9ca9]" />
+            <Suspense fallback={<SiteHeader user={null} pending />}>
+              <SiteHeaderWithSession />
+            </Suspense>
+            {/* Transición suave entre páginas (View Transitions de React; estilos en globals.css) */}
+            <ViewTransition default="page">{children}</ViewTransition>
+            <SiteFooter />
+          </Toaster>
+        </MotionProvider>
       </body>
     </html>
   );

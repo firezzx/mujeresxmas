@@ -35,7 +35,7 @@ export default function CuentaConfirmadaPage({ searchParams }: PageProps<"/regis
       backdrop={
         <Confetti
           className="pointer-events-none fixed inset-0 z-20 size-full"
-          options={{ colors: CONFETTI_COLORS, particleCount: 140, spread: 100, startVelocity: 38, origin: { y: 0.35 } }}
+          options={{ colors: CONFETTI_COLORS, disableForReducedMotion: true, particleCount: 140, spread: 100, startVelocity: 38, origin: { y: 0.35 } }}
         />
       }
     >

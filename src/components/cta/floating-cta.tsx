@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react"
 import { useEffect, useState } from "react"
 
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
+import { FOOTER_CTA_ID } from "@/config/site"
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -14,17 +15,24 @@ type FloatingCtaProps = {
   watchId: string
 }
 
-// CTA fijo abajo en celular. Queda debajo del velo del menú móvil (z-40), así no compite con él.
+// CTA fijo abajo en celular. Se esconde mientras se ve el CTA del footer, para no repetirlo.
+// Queda debajo del velo del menú móvil (z-40), así no compite con él.
 export function FloatingCta({ href, label, watchId }: FloatingCtaProps) {
-  const [visible, setVisible] = useState(false)
+  const [passedHero, setPassedHero] = useState(false)
+  const [footerInView, setFooterInView] = useState(false)
+  const visible = passedHero && !footerInView
 
   useEffect(() => {
     const target = document.getElementById(watchId)
-    if (!target) return
-    const observer = new IntersectionObserver(([entry]) => {
-      setVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0)
+    const footerCta = document.getElementById(FOOTER_CTA_ID)
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === target) setPassedHero(!entry.isIntersecting && entry.boundingClientRect.top < 0)
+        else setFooterInView(entry.isIntersecting)
+      }
     })
-    observer.observe(target)
+    if (target) observer.observe(target)
+    if (footerCta) observer.observe(footerCta)
     return () => observer.disconnect()
   }, [watchId])
 
@@ -43,10 +51,7 @@ export function FloatingCta({ href, label, watchId }: FloatingCtaProps) {
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"
           />
-          <ShimmerLink
-            href={href}
-            className="relative w-full shadow-[0_16px_40px_-16px_rgb(40_20_40/0.55)]"
-          >
+          <ShimmerLink href={href} className="relative w-full shadow-[0_16px_40px_-16px_rgb(40_20_40/0.55)]">
             {label}
           </ShimmerLink>
         </motion.div>

@@ -85,7 +85,11 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
       </AnimatePresence>
 
       {/* Mismo margen lateral que el contenido de las páginas (px-4 sm:px-6) */}
-      <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 sm:px-6 md:pt-4">
+      <header
+        // Fuera de la transición entre páginas: el header queda quieto mientras cambia el contenido
+        style={{ viewTransitionName: "site-header" }}
+        className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 sm:px-6 md:pt-4"
+      >
         <div
           className={cn(
             // overflow-hidden solo en celular (recorta el menú al desplegarse); en escritorio dejaría sin tooltips

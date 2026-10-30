@@ -290,7 +290,8 @@ export const CoolMode: React.FC<CoolModeProps> = ({ children, options, className
     const element = ref.current
     let cleanup: (() => void) | null = null
 
-    if (element) {
+    // Con "reducir movimiento" activado en el sistema no se lanzan partículas
+    if (element && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       cleanup = applyParticleEffect(element, options)
     }
 
