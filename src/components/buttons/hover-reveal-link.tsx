@@ -32,7 +32,7 @@ export function HoverRevealLink({
       {...triggerProps}
       className={cn(
         "group relative isolate inline-flex items-center justify-center overflow-hidden rounded-full border border-border bg-background/70 max-w-full text-center leading-snug font-medium text-balance backdrop-blur",
-        "transition-[border-color,scale] duration-500 ease-premium outline-none hover:border-brand focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-[0.98]",
+        "transition-[border-color,scale] duration-300 ease-premium outline-none hover:border-brand focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-[0.98]",
         sizes[size],
         className
       )}
@@ -42,15 +42,15 @@ export function HoverRevealLink({
             agrandarse llena botones de hasta ~800px de ancho, y como se dibuja a tamaño real
             el borde se ve nítido durante la animación. */}
         <span aria-hidden className="relative size-2 rounded-full bg-brand">
-          <span className="absolute top-1/2 left-1/2 size-[900px] -translate-x-1/2 -translate-y-1/2 scale-[0.009] rounded-full bg-brand transition-[scale] duration-700 ease-premium group-hover:scale-100 group-focus-visible:scale-100" />
+          <span className="absolute top-1/2 left-1/2 size-[900px] -translate-x-1/2 -translate-y-1/2 scale-[0.009] rounded-full bg-brand transition-[scale] duration-[450ms] ease-premium group-hover:scale-100 group-focus-visible:scale-100" />
         </span>
-        <span className="transition-[translate,opacity] duration-300 ease-premium group-hover:translate-x-10 group-hover:opacity-0 group-focus-visible:translate-x-10 group-focus-visible:opacity-0">
+        <span className="transition-[translate,opacity] duration-200 ease-premium group-hover:translate-x-10 group-hover:opacity-0 group-focus-visible:translate-x-10 group-focus-visible:opacity-0">
           {children}
         </span>
       </span>
       <span
         aria-hidden
-        className="absolute inset-0 z-10 flex translate-x-10 items-center justify-center gap-2 text-brand-foreground opacity-0 transition-[translate,opacity] duration-300 ease-premium group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+        className="absolute inset-0 z-10 flex translate-x-10 items-center justify-center gap-2 text-brand-foreground opacity-0 transition-[translate,opacity] duration-200 ease-premium group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
       >
         {children}
         <ArrowRightIcon ref={iconRef} size={16} className="pointer-events-none" />
