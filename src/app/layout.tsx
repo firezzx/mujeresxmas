@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Poppins } from "next/font/google";
-import { Suspense, ViewTransition } from "react";
+import { Suspense } from "react";
 
 import { MotionProvider } from "@/components/motion-provider";
 import { SiteFooter } from "@/components/site-footer";
@@ -50,8 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Suspense fallback={<SiteHeader user={null} pending />}>
               <SiteHeaderWithSession />
             </Suspense>
-            {/* Transición suave entre páginas (View Transitions de React; estilos en globals.css) */}
-            <ViewTransition default="page">{children}</ViewTransition>
+            {children}
             <SiteFooter />
           </Toaster>
         </MotionProvider>
