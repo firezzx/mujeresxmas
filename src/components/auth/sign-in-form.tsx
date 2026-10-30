@@ -5,6 +5,7 @@ import { useActionState, useState } from "react"
 import { z } from "zod"
 
 import { signIn, type SignInState } from "@/app/actions/auth"
+import { KeepNextLink } from "@/components/auth/keep-next-link"
 import { ResendConfirmationForm } from "@/components/auth/resend-confirmation-form"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
 import { FormMessage } from "@/components/forms/form-message"
@@ -102,9 +103,9 @@ export function SignInForm() {
 
       <p className="text-center text-sm text-muted-foreground">
         ¿Todavía no tenés cuenta?{" "}
-        <Link href={ROUTES.registro} className="font-medium text-foreground underline-offset-4 hover:underline">
+        <KeepNextLink href={ROUTES.registro} className="font-medium text-foreground underline-offset-4 hover:underline">
           Registrate
-        </Link>
+        </KeepNextLink>
       </p>
     </div>
   )

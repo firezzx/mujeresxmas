@@ -1,39 +1,21 @@
 import { Suspense } from "react"
 
-import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { FloatingCta } from "@/components/cta/floating-cta"
+import { SessionCta } from "@/components/cta/session-cta"
 import { ROUTES } from "@/config/navigation"
 import { getCurrentUser } from "@/lib/supabase/user"
 
-type RegisterCtaProps = { id?: string; className?: string }
-
 const REGISTER_LABEL = "Registrarme en Mujeres x Más"
 
-function GuestCta({ id, className }: RegisterCtaProps) {
+// CTA principal del sitio: "Registrarme" para visitantes e "Ir a mi cuenta" con sesión iniciada.
+export function RegisterCta({ id, className }: { id?: string; className?: string }) {
   return (
-    <ShimmerLink id={id} href={ROUTES.registro} className={className}>
-      {REGISTER_LABEL}
-    </ShimmerLink>
-  )
-}
-
-async function SessionCta(props: RegisterCtaProps) {
-  const user = await getCurrentUser()
-  if (!user) return <GuestCta {...props} />
-  return (
-    <ShimmerLink id={props.id} href={ROUTES.miCuenta} className={props.className}>
-      Ir a mi cuenta
-    </ShimmerLink>
-  )
-}
-
-// CTA principal: "Registrarme" para visitantes y "Ir a mi cuenta" con sesión iniciada.
-// Mientras se resuelve la sesión muestra la versión de visitante (la que ven los buscadores).
-export function RegisterCta(props: RegisterCtaProps) {
-  return (
-    <Suspense fallback={<GuestCta {...props} />}>
-      <SessionCta {...props} />
-    </Suspense>
+    <SessionCta
+      id={id}
+      className={className}
+      guest={{ href: ROUTES.registro, label: REGISTER_LABEL }}
+      member={{ href: ROUTES.miCuenta, label: "Ir a mi cuenta" }}
+    />
   )
 }
 

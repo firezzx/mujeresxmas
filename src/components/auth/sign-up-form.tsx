@@ -1,12 +1,12 @@
 "use client"
 
-import Link from "next/link"
 import { MailCheck } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useActionState, useState } from "react"
 import { z } from "zod"
 
 import { signUp, type SignUpState } from "@/app/actions/auth"
+import { KeepNextLink } from "@/components/auth/keep-next-link"
 import { PasswordChecklist } from "@/components/auth/password-checklist"
 import { ResendConfirmationForm } from "@/components/auth/resend-confirmation-form"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
@@ -39,6 +39,13 @@ export function SignUpForm() {
     if (!parsed.success) {
       event.preventDefault()
       setClientErrors(z.flattenError(parsed.error).fieldErrors)
+      return
+    }
+    // Ruta a la que volver después de confirmar el correo (?next=, p. ej. desde QUIERO).
+    // Se lee al enviar para que la página siga siendo estática; el servidor la valida.
+    const nextInput = event.currentTarget.elements.namedItem("next")
+    if (nextInput instanceof HTMLInputElement) {
+      nextInput.value = new URLSearchParams(window.location.search).get("next") ?? ""
     }
   }
 
@@ -94,6 +101,7 @@ export function SignUpForm() {
               <input type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" defaultValue="" />
             </label>
           </div>
+          <input type="hidden" name="next" defaultValue="" />
 
           <TextField
             label="Correo"
@@ -132,12 +140,12 @@ export function SignUpForm() {
 
           <p className="text-center text-sm text-muted-foreground">
             ¿Ya tenés cuenta?{" "}
-            <Link
+            <KeepNextLink
               href={ROUTES.login}
               className="font-medium text-foreground underline-offset-4 hover:underline"
             >
               Iniciá sesión
-            </Link>
+            </KeepNextLink>
           </p>
         </motion.form>
       )}

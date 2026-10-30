@@ -40,6 +40,15 @@ const AUTH_ERRORS: Record<string, string> = {
 
 const GENERIC_ERROR = "No pudimos crear tu cuenta. Volvé a intentar en unos minutos."
 
+// Link del correo de confirmación. La plantilla le suma "&token_hash=…&type=email" a
+// {{ .RedirectTo }}, así que la URL siempre lleva "?next=". Con `after`, la página de cuenta
+// confirmada ofrece seguir hacia esa ruta (p. ej. volver a QUIERO).
+async function confirmationRedirect(after?: string) {
+  const path = safeInternalPath(after, "")
+  const target = path ? `${ROUTES.cuentaConfirmada}?next=${encodeURIComponent(path)}` : ROUTES.cuentaConfirmada
+  return `${await getRequestOrigin()}${ROUTES.authConfirm}?next=${encodeURIComponent(target)}`
+}
+
 export async function signUp(
   _prev: SignUpState,
   formData: FormData
@@ -61,7 +70,7 @@ export async function signUp(
   const { error } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${await getRequestOrigin()}${ROUTES.authConfirm}` },
+    options: { emailRedirectTo: await confirmationRedirect(formData.get("next")?.toString()) },
   })
 
   // Si el correo ya tenía cuenta, Supabase responde igual que con uno nuevo (no revela
@@ -87,7 +96,7 @@ export async function resendConfirmation(
   const { error } = await supabase.auth.resend({
     type: "signup",
     email: parsed.data,
-    options: { emailRedirectTo: `${await getRequestOrigin()}${ROUTES.authConfirm}` },
+    options: { emailRedirectTo: await confirmationRedirect() },
   })
 
   if (error) {

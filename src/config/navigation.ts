@@ -15,10 +15,13 @@ export const ROUTES = {
   linkVencido: "/registro/link-vencido",
   recuperar: "/ingresar/recuperar",
   nuevaContrasena: "/ingresar/nueva-contrasena",
+  quiero: "/quiero",
+  // Provisoria hasta que la clienta defina cómo se pide QUIERO (función 2)
+  quieroSolicitud: "/quiero/solicitud",
 } as const
 
 // Páginas solo para visitantes: con sesión iniciada, el proxy redirige al inicio.
 export const GUEST_ONLY_ROUTES = [ROUTES.login, ROUTES.registro] as const
 
 // Páginas privadas (incluye sus subpáginas): sin sesión, el proxy manda al login.
-export const PROTECTED_ROUTES = [ROUTES.miCuenta] as const
+export const PROTECTED_ROUTES = [ROUTES.miCuenta, ROUTES.quieroSolicitud] as const

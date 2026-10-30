@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { Eyebrow, PageHero } from "@/components/page-hero";
-import { ShimmerLink } from "@/components/buttons/shimmer-link";
+import { SessionCta } from "@/components/cta/session-cta";
 import { ROUTES } from "@/config/navigation";
 
 export const metadata: Metadata = {
@@ -10,7 +10,8 @@ export const metadata: Metadata = {
     "QUIERO acompaña a emprendedoras y feriantes a pasar de vender por redes a tener su tienda online.",
 };
 
-// Página provisoria: falta el contenido de la clienta y la lógica del botón según la sesión (función 2).
+// Página provisoria: falta el contenido de la clienta.
+// Sin sesión, QUIERO lleva al registro (y al confirmar el correo vuelve acá); con sesión, a la solicitud.
 export default function QuieroPage() {
   return (
     <main className="relative flex min-h-svh flex-1 flex-col items-center justify-center px-5 pt-32 pb-20">
@@ -19,9 +20,11 @@ export default function QuieroPage() {
         title="QUIERO"
         description="De vender por redes a tener tu tienda online. Te acompañamos en cada paso."
         actions={
-          <ShimmerLink href={ROUTES.registro} className="w-full px-12 sm:w-auto">
-            QUIERO
-          </ShimmerLink>
+          <SessionCta
+            className="w-full px-12 sm:w-auto"
+            guest={{ href: `${ROUTES.registro}?next=${ROUTES.quiero}`, label: "QUIERO" }}
+            member={{ href: ROUTES.quieroSolicitud, label: "QUIERO" }}
+          />
         }
       />
     </main>
