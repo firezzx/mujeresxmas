@@ -25,7 +25,7 @@ export default function AdminCoursesPage() {
   return (
     <AdminSection
       title="Cursos"
-      description="Los cursos de la comunidad y cuántas usuarias se inscribieron en cada uno."
+      description="Los cursos de la comunidad y cuántos usuarios se inscribieron en cada uno."
       action={<ComingSoonButton icon="book-text">Nuevo curso</ComingSoonButton>}
     >
       <Suspense fallback={<AdminSectionSkeleton />}>
@@ -43,7 +43,7 @@ async function CoursesList() {
       <AdminEmpty
         icon="book-text"
         title="Todavía no hay cursos"
-        text="Muy pronto vas a poder crearlos desde acá. Cuando una usuaria se inscriba, lo vas a ver en su panel."
+        text="Muy pronto vas a poder crearlos desde acá. Cuando un usuario se inscriba, lo vas a ver en su panel."
       />
     )
   }
@@ -59,7 +59,7 @@ async function CoursesList() {
             <>
               {course.startsAt && <span>Empieza el {formatDay(course.startsAt)}</span>}
               <span>
-                {course.enrolled} {course.enrolled === 1 ? "inscripta" : "inscriptas"}
+                {course.enrolled} {course.enrolled === 1 ? "inscripto" : "inscriptos"}
               </span>
               <StatusBadge status={course.status} />
             </>

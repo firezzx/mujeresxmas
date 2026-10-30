@@ -24,7 +24,7 @@ export default function AdminNotificationsPage() {
     <>
       <AdminSection
         title="Nueva notificación"
-        description="Le llega a todas las usuarias en su panel y en la campanita del menú."
+        description="Le llega a todos los usuarios en su panel y en la campanita del menú."
       >
         <NotificationForm />
       </AdminSection>
@@ -46,7 +46,7 @@ async function SentList() {
       <AdminEmpty
         icon="bell"
         title="Todavía no enviaste notificaciones"
-        text="Las que mandes van a aparecer acá, con cuántas usuarias las leyeron."
+        text="Las que mandes van a aparecer acá, con cuántos usuarios las leyeron."
       />
     )
   }
@@ -61,7 +61,7 @@ async function SentList() {
           aside={
             <>
               <span>{formatDateTime(notification.createdAt)}</span>
-              <span>{notification.forEveryone ? "A todas" : "Personal"}</span>
+              <span>{notification.forEveryone ? "A todos" : "Personal"}</span>
               <span className="rounded-full bg-brand-soft px-2.5 py-0.5 text-[11px] font-medium text-foreground">
                 {notification.reads} {notification.reads === 1 ? "lectura" : "lecturas"}
               </span>

@@ -103,7 +103,7 @@ export function UserMenu({
               Panel de administración
             </IconMenuItem>
             <IconMenuItem icon={EyeIcon} onClick={() => setMemberView(true)}>
-              Ver como usuaria
+              Ver como usuario
             </IconMenuItem>
           </>
         )}

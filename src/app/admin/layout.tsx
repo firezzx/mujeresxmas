@@ -33,7 +33,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
   const view = await getAdminView()
   // Para quien no es administradora el panel no existe
   if (!view) notFound()
-  // En "Ver como usuaria" se muestra la misma 404 pero sin notFound(): así, al volver a la
+  // En "Ver como usuario" se muestra la misma 404 pero sin notFound(): así, al volver a la
   // vista de admin desde esta misma URL, la página se vuelve a renderizar.
   if (view === "member") return <NotFound />
 
@@ -50,7 +50,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
             </PageTitle>
             <BlurFade delay={0.19} inView>
               <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-                Usuarias, cursos, eventos y avisos de Mujeres x Más en un solo lugar.
+                Usuarios, cursos, eventos y avisos de Mujeres x Más en un solo lugar.
               </p>
             </BlurFade>
           </div>
@@ -64,7 +64,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
                 >
                   <span className="flex items-center gap-2">
                     <HoverIcon name="eye" size={16} />
-                    Ver como usuaria
+                    Ver como usuario
                   </span>
                 </RippleButton>
               </form>

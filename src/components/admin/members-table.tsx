@@ -69,7 +69,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <label {...searchTriggerProps} className="relative block w-full sm:max-w-xs">
-          <span className="sr-only">Buscar usuarias</span>
+          <span className="sr-only">Buscar usuarios</span>
           <SearchIcon
             ref={searchIconRef}
             size={16}
@@ -86,7 +86,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
         </label>
         <p className="text-sm text-muted-foreground">
           {visible.length === members.length
-            ? `${members.length} ${members.length === 1 ? "usuaria" : "usuarias"}`
+            ? `${members.length} ${members.length === 1 ? "usuario" : "usuarios"}`
             : `${visible.length} de ${members.length}`}
         </p>
       </div>
@@ -97,10 +97,10 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
             <UsersRoundIcon size={20} />
           </span>
           <p className="mt-4 font-heading text-lg font-semibold tracking-[-0.01em]">
-            {members.length ? "No encontramos usuarias" : "Todavía no hay usuarias"}
+            {members.length ? "No encontramos usuarios" : "Todavía no hay usuarios"}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            {members.length ? "Probá con otro nombre, correo o ciudad." : "Las registradas van a aparecer acá."}
+            {members.length ? "Probá con otro nombre, correo o ciudad." : "Los registrados van a aparecer acá."}
           </p>
         </div>
       ) : (
@@ -110,7 +110,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
             <table className="w-full table-fixed text-left text-sm">
               <thead className="bg-foreground/[0.025] text-xs text-muted-foreground">
                 <tr>
-                  <th className="w-[34%] px-4 py-3 font-medium">Usuaria</th>
+                  <th className="w-[34%] px-4 py-3 font-medium">Usuario</th>
                   <th className="w-[24%] px-4 py-3 font-medium">Emprendimiento</th>
                   <th className="w-[14%] px-4 py-3 font-medium">Plan</th>
                   <th className="w-[14%] px-4 py-3 font-medium">Se sumó</th>

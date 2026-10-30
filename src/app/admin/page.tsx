@@ -51,7 +51,7 @@ async function MembersDashboard() {
 
       <BlurFade delay={0.3} inView>
         <AccountCard>
-          <h2 className="mb-5 text-sm font-medium text-muted-foreground">Usuarias</h2>
+          <h2 className="mb-5 text-sm font-medium text-muted-foreground">Usuarios</h2>
           <MembersTable members={rows} />
         </AccountCard>
       </BlurFade>

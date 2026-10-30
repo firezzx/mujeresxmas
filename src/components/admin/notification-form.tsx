@@ -89,18 +89,18 @@ export function NotificationForm() {
         onChange={(e) => update("link", e.target.value)}
         error={errorFor("link")}
         hint={
-          <p className="text-[13px] text-muted-foreground">Al tocar la notificación, la usuaria va a esta página.</p>
+          <p className="text-[13px] text-muted-foreground">Al tocar la notificación, el usuario va a esta página.</p>
         }
       />
 
       <FormMessage message={state.status === "error" ? state.message : undefined} />
       <FormMessage
         tone="info"
-        message={state.status === "sent" && !dirty ? "Listo, la notificación ya les llegó a todas." : undefined}
+        message={state.status === "sent" && !dirty ? "Listo, la notificación ya les llegó a todos." : undefined}
       />
 
       <ShimmerSubmit pending={pending} pendingLabel="Enviando…" className="w-full sm:w-auto sm:self-end">
-        Enviar a todas
+        Enviar a todos
       </ShimmerSubmit>
     </form>
   )

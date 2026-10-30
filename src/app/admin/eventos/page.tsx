@@ -25,7 +25,7 @@ export default function AdminEventsPage() {
   return (
     <AdminSection
       title="Eventos"
-      description="Encuentros presenciales y online, con la cantidad de anotadas."
+      description="Encuentros presenciales y online, con la cantidad de anotados."
       action={<ComingSoonButton icon="calendar-days">Nuevo evento</ComingSoonButton>}
     >
       <Suspense fallback={<AdminSectionSkeleton />}>
@@ -43,7 +43,7 @@ async function EventsList() {
       <AdminEmpty
         icon="calendar-days"
         title="Todavía no hay eventos"
-        text="Muy pronto vas a poder crearlos desde acá. Las usuarias anotadas los van a ver en su panel."
+        text="Muy pronto vas a poder crearlos desde acá. Los usuarios anotados los van a ver en su panel."
       />
     )
   }
@@ -59,7 +59,7 @@ async function EventsList() {
             <>
               <span>{formatDateTime(event.startsAt)}</span>
               <span>
-                {event.registered} {event.registered === 1 ? "anotada" : "anotadas"}
+                {event.registered} {event.registered === 1 ? "anotado" : "anotados"}
               </span>
               <StatusBadge status={event.status} />
             </>

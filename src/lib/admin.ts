@@ -4,7 +4,7 @@ import { cache } from "react"
 import { createClient } from "@/lib/supabase/server"
 import { getCurrentUser } from "@/lib/supabase/user"
 
-// Cookie de "Ver como usuaria": solo cambia lo que se muestra, nunca los permisos reales.
+// Cookie de "Ver como usuario": solo cambia lo que se muestra, nunca los permisos reales.
 export const MEMBER_VIEW_COOKIE = "mxm_vista_usuaria"
 
 // "admin": ve las herramientas de administración. "member": eligió ver el sitio como una
@@ -91,8 +91,8 @@ const WEEK_MS = 7 * 24 * 60 * 60 * 1000
 export function memberStats(members: AdminMember[]) {
   const weekAgo = Date.now() - WEEK_MS
   return [
-    { label: "Usuarias registradas", value: members.length },
-    { label: "Nuevas esta semana", value: members.filter((m) => new Date(m.joinedAt).getTime() >= weekAgo).length },
+    { label: "Usuarios registrados", value: members.length },
+    { label: "Nuevos esta semana", value: members.filter((m) => new Date(m.joinedAt).getTime() >= weekAgo).length },
     { label: "Perfiles completos", value: members.filter((m) => m.firstName && m.city).length },
     { label: "Sin confirmar el correo", value: members.filter((m) => !m.emailConfirmed).length },
   ]

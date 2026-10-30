@@ -13,7 +13,7 @@ export function MemberViewBar() {
           className="flex max-w-full items-center gap-3 rounded-full bg-primary py-1.5 pr-1.5 pl-4 text-primary-foreground shadow-[0_16px_40px_-16px_rgb(40_20_40/0.6)]"
         >
           <HoverIcon name="eye" size={16} className="text-brand" />
-          <p className="truncate text-[13px]">Estás viendo el sitio como usuaria</p>
+          <p className="truncate text-[13px]">Estás viendo el sitio como usuario</p>
           <RippleButton
             type="submit"
             rippleColor={BRAND_HEX.light}
