@@ -16,3 +16,21 @@ export const formatShortDate = (iso: string) =>
   new Intl.DateTimeFormat("es-AR", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: TIME_ZONE }).format(
     new Date(iso)
   )
+
+// "jue 12 de nov · 19:00"
+export const formatDateTime = (iso: string) => {
+  const date = new Date(iso)
+  const day = new Intl.DateTimeFormat("es-AR", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    timeZone: TIME_ZONE,
+  }).format(date)
+  const time = new Intl.DateTimeFormat("es-AR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+    timeZone: TIME_ZONE,
+  }).format(date)
+  return `${day.replace(",", "")} · ${time}`
+}

@@ -4,6 +4,7 @@ import Link from "next/link"
 
 import { setMemberView } from "@/app/actions/admin"
 import { signOut } from "@/app/actions/auth"
+import { BellIcon } from "@/components/icons/bell"
 import { EyeIcon } from "@/components/icons/eye"
 import { LayoutPanelTopIcon } from "@/components/icons/layout-panel-top"
 import { LogoutIcon } from "@/components/icons/logout"
@@ -30,19 +31,11 @@ function initials(user: CurrentUser) {
   return (fromName || user.email?.charAt(0) || "?").toUpperCase()
 }
 
-export function UserAvatar({
-  user,
-  className,
-}: {
-  user: CurrentUser
-  className?: string
-}) {
+export function UserAvatar({ user, className }: { user: CurrentUser; className?: string }) {
   return (
     <Avatar className={cn("size-9", className)}>
       {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt="" />}
-      <AvatarFallback className="bg-brand-soft font-medium text-foreground">
-        {initials(user)}
-      </AvatarFallback>
+      <AvatarFallback className="bg-brand-soft font-medium text-foreground">{initials(user)}</AvatarFallback>
     </Avatar>
   )
 }
@@ -50,22 +43,35 @@ export function UserAvatar({
 export function UserMenu({
   user,
   adminView = null,
+  unread = 0,
   align = "end",
 }: {
   user: CurrentUser
   adminView?: AdminView | null
+  unread?: number
   align?: "start" | "end"
 }) {
-  const displayName =
-    [user.firstName, user.lastName].filter(Boolean).join(" ") || "Mi cuenta"
+  const displayName = [user.firstName, user.lastName].filter(Boolean).join(" ") || "Mi cuenta"
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Abrir menú de mi cuenta"
-        className="rounded-full p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/20 focus-visible:ring-3 focus-visible:ring-ring/40"
+        aria-label={
+          unread
+            ? `Abrir menú de mi cuenta (${unread} ${unread === 1 ? "notificación sin leer" : "notificaciones sin leer"})`
+            : "Abrir menú de mi cuenta"
+        }
+        className="relative rounded-full p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/20 focus-visible:ring-3 focus-visible:ring-ring/40"
       >
         <UserAvatar user={user} />
+        {unread > 0 && (
+          <span
+            aria-hidden
+            className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-brand ring-2 ring-background"
+          >
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-50" />
+          </span>
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align={align}
@@ -82,6 +88,14 @@ export function UserMenu({
         <DropdownMenuSeparator />
         <IconMenuItem icon={UserIcon} render={<Link href={ROUTES.miCuenta} />}>
           Mi cuenta
+        </IconMenuItem>
+        <IconMenuItem icon={BellIcon} render={<Link href={`${ROUTES.miCuenta}#notificaciones`} />}>
+          Notificaciones
+          {unread > 0 && (
+            <span className="ml-auto rounded-full bg-brand px-2 py-0.5 text-[11px] leading-none font-semibold text-brand-foreground">
+              {unread}
+            </span>
+          )}
         </IconMenuItem>
         {adminView === "admin" && (
           <>

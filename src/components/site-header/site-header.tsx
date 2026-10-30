@@ -29,6 +29,8 @@ type SiteHeaderProps = {
   adminView?: AdminView | null
   // true mientras se resuelve la sesión: muestra un lugar reservado en vez de botones
   pending?: boolean
+  // Notificaciones sin leer de la usuaria (punto en el avatar)
+  unread?: number
 }
 
 // Header flotante.
@@ -36,7 +38,7 @@ type SiteHeaderProps = {
 // transparente y al scrollear se convierte en una cápsula de vidrio.
 // Celular: perfil a la izquierda, logo corto al centro y menú a la derecha. El menú se abre
 // dentro de la misma cápsula, que se estira hacia abajo.
-export function SiteHeader({ user, adminView = null, pending = false }: SiteHeaderProps) {
+export function SiteHeader({ user, adminView = null, pending = false, unread = 0 }: SiteHeaderProps) {
   const pathname = usePathname()
   const { scrollY } = useScroll()
   const [scrolled, setScrolled] = useState(false)
@@ -101,7 +103,7 @@ export function SiteHeader({ user, adminView = null, pending = false }: SiteHead
             {/* Izquierda: perfil (celular) o links (escritorio) */}
             <div className="flex items-center">
               <div className="md:hidden">
-                <UserAccess user={user} adminView={adminView} pending={pending} onNavigate={closeMenu} compact />
+                <UserAccess user={user} adminView={adminView} unread={unread} pending={pending} onNavigate={closeMenu} compact />
               </div>
               <nav aria-label="Principal" className="hidden md:block">
                 <ul
@@ -157,7 +159,7 @@ export function SiteHeader({ user, adminView = null, pending = false }: SiteHead
                 className="md:hidden"
               />
               <div className="hidden items-center gap-1.5 md:flex">
-                <UserAccess user={user} adminView={adminView} pending={pending} onNavigate={closeMenu} />
+                <UserAccess user={user} adminView={adminView} unread={unread} pending={pending} onNavigate={closeMenu} />
               </div>
             </div>
           </div>
@@ -186,12 +188,14 @@ export function SiteHeader({ user, adminView = null, pending = false }: SiteHead
 function UserAccess({
   user,
   adminView,
+  unread,
   pending,
   onNavigate,
   compact = false,
 }: {
   user: CurrentUser | null
   adminView: AdminView | null
+  unread: number
   pending: boolean
   onNavigate: () => void
   compact?: boolean
@@ -199,7 +203,7 @@ function UserAccess({
   if (pending) {
     return <span aria-hidden className="block size-10 animate-pulse rounded-full bg-muted" />
   }
-  if (user) return <UserMenu user={user} adminView={adminView} align={compact ? "start" : "end"} />
+  if (user) return <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} />
   return (
     <>
       <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={onNavigate} />

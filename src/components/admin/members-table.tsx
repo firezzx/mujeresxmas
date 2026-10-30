@@ -129,7 +129,9 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <p className="truncate">{member.businessName || <span className="text-muted-foreground">—</span>}</p>
+                      <p className="truncate">
+                        {member.businessName || <span className="text-muted-foreground">—</span>}
+                      </p>
                       {member.city && <p className="truncate text-[13px] text-muted-foreground">{member.city}</p>}
                     </td>
                     <td className="px-4 py-3">{member.planName ? <Badge>{member.planName}</Badge> : "—"}</td>

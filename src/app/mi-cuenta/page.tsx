@@ -3,7 +3,8 @@ import { redirect } from "next/navigation"
 import { Suspense } from "react"
 import Link from "next/link"
 
-import { AccountCard, EmptySection } from "@/components/account/account-card"
+import { AccountCard } from "@/components/account/account-card"
+import { MyCourses, MyEvents, MyNotifications } from "@/components/account/account-sections"
 import { SignOutButton } from "@/components/account/sign-out-button"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { Eyebrow, PAGE_TITLE_CLASS, PageTitle } from "@/components/page-hero"
@@ -12,7 +13,9 @@ import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
 import { ROUTES } from "@/config/navigation"
 import { getAccountSummary } from "@/lib/account"
+import { getMyCourses, getMyUpcomingEvents } from "@/lib/content"
 import { formatDay, formatMonth } from "@/lib/format"
+import { getMyNotifications } from "@/lib/notifications"
 
 export const metadata: Metadata = {
   title: "Mi cuenta",
@@ -35,6 +38,11 @@ async function AccountDashboard() {
   if (!summary) redirect(`${ROUTES.login}?next=${ROUTES.miCuenta}`)
 
   const { user, membership, memberSince } = summary
+  const [courses, events, notifications] = await Promise.all([
+    getMyCourses(user.id),
+    getMyUpcomingEvents(user.id),
+    getMyNotifications(user.id),
+  ])
   const fullName = [user.firstName, user.lastName].filter(Boolean).join(" ")
 
   return (
@@ -134,28 +142,16 @@ async function AccountDashboard() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <BlurFade delay={0.4} inView>
-          <EmptySection
-            icon="book-text"
-            title="Mis cursos"
-            emptyTitle="Todavía no tenés cursos"
-            emptyText="Cuando te sumes a un curso, lo vas a encontrar acá."
-          />
+          <MyCourses courses={courses} />
         </BlurFade>
         <BlurFade delay={0.47} inView>
-          <EmptySection
-            icon="calendar-days"
-            title="Mis eventos"
-            emptyTitle="No tenés eventos próximos"
-            emptyText="Los eventos a los que te anotes van a aparecer acá."
-          />
+          <MyEvents events={events} />
         </BlurFade>
         <BlurFade delay={0.54} inView>
-          <EmptySection
-            icon="bell"
-            title="Notificaciones"
-            emptyTitle="Estás al día"
-            emptyText="Cuando haya novedades para vos, te avisamos acá."
-          />
+          {/* Destino de "Notificaciones" en el menú de la cuenta */}
+          <div id="notificaciones" className="h-full scroll-mt-28">
+            <MyNotifications notifications={notifications} />
+          </div>
         </BlurFade>
       </div>
     </div>
