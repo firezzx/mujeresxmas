@@ -31,3 +31,4 @@
 | 10 | SEO | Título y descripción por página, Open Graph para compartir en redes, sitemap.xml y robots.txt. | ⏳ Pendiente | |
 | 11 | Analítica | Medición de visitas y de registros completados como conversión. | ⏳ Pendiente | Elegir entre Vercel Analytics y Google Analytics 4. |
 | 12 | Deploy en producción | Publicación en Vercel con el dominio mujeresxmas.com y las variables de entorno de producción. | ⏳ Pendiente | Se hace en las cuentas finales de la clienta. |
+| 13 | Panel de administración | Panel solo para administradoras, con el total de usuarias, las nuevas del último mes y la lista completa con buscador (datos, plan, fecha de alta y último ingreso). Incluye el modo "Ver como usuaria" para recorrer el sitio como una cuenta común sin cerrar sesión. | ✅ Completo | Por ahora la única administradora es alejuanfacu@gmail.com. Cómo dar o quitar el acceso: [docs/ADMINISTRADORAS.md](ADMINISTRADORAS.md). |
