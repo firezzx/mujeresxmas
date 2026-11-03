@@ -52,7 +52,7 @@ export function HoverRevealLink({
       </span>
       <span
         aria-hidden
-        className="absolute inset-0 z-10 flex translate-x-10 items-center justify-center gap-2 text-brand-foreground opacity-0 transition-[translate,opacity] duration-[400ms] ease-premium group-hover:translate-x-0 group-hover:delay-100 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+        className="absolute inset-0 z-10 flex translate-x-10 items-center justify-center gap-2 text-white opacity-0 transition-[translate,opacity] duration-[400ms] ease-premium group-hover:translate-x-0 group-hover:delay-100 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
       >
         {children}
         <ArrowRightIcon ref={iconRef} size={16} className="pointer-events-none" />

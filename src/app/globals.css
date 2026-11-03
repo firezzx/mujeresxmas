@@ -189,7 +189,7 @@
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   /* Paleta oficial de la marca: naranja, rosa, verde, negro 90% y blanco.
-     Sobre el naranja va texto negro: el blanco no llega al contraste mínimo en letra chica. */
+     Sobre el naranja, las etiquetas chicas van en negro; el botón secundario usa blanco a pedido. */
   --brand: #ff4f00;
   --brand-foreground: #1a1a1a;
   --brand-soft: #eabbd2;
