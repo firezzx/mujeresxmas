@@ -5,14 +5,15 @@ import { Logo } from "@/components/brand/logo"
 import { cycleTone, IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { RegisterCta } from "@/components/cta/register-cta"
+import { GRID_CELLS_CLASS, GridSection } from "@/components/home/grid-section"
 import { SectionHeading } from "@/components/home/section-heading"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
+import { BrandHighlight } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { Marquee } from "@/components/ui/marquee"
 import { NumberTicker } from "@/components/ui/number-ticker"
 import { OrbitingCircles } from "@/components/ui/orbiting-circles"
 import { Particles } from "@/components/ui/particles"
-import { TextAnimate } from "@/components/ui/text-animate"
 import { BRAND_HEX } from "@/config/brand-effects"
 import {
   HOME_ABOUT,
@@ -26,75 +27,100 @@ import {
 } from "@/content/home"
 import { cn } from "@/lib/utils"
 
-function Section({ id, className, children }: { id?: string; className?: string; children: React.ReactNode }) {
-  return (
-    <section id={id} className={cn("mx-auto w-full max-w-content scroll-mt-24 px-4 py-14 sm:px-6 md:py-20", className)}>
-      {children}
-    </section>
-  )
-}
+// Margen del encabezado de cada sección, arriba de sus celdas
+const HEADING_CELL_CLASS = "border-b border-border px-5 py-14 sm:px-10 md:py-20"
 
-type FeatureCardProps = { icon: IconName; tone: IconBadgeTone; title: string; text: string }
-
-// Tarjeta con ícono, título y texto (Magic Card a través de BrandCard). El ícono se anima al
-// pasar por cualquier parte de la tarjeta.
-function FeatureCard({ icon, tone, title, text }: FeatureCardProps) {
+// Celda de la retícula con el brillo de Magic Card al pasar el mouse. Sin borde, sombra ni curvas
+// propias: la separan las líneas de la grilla. El ícono se anima al pasar por cualquier parte.
+function GridCard({
+  className,
+  contentClassName,
+  children,
+}: {
+  className?: string
+  contentClassName?: string
+  children: React.ReactNode
+}) {
   return (
-    <IconHoverArea className="h-full">
-      <BrandCard contentClassName="flex flex-col gap-5 p-6 sm:p-7">
-        <IconBadge tone={tone}>
-          <HoverIcon name={icon} size={22} />
-        </IconBadge>
-        <div className="flex flex-col gap-2">
-          <h3 className="font-heading text-xl leading-snug font-semibold tracking-[-0.02em] text-balance">{title}</h3>
-          <p className="text-[15px] leading-relaxed text-pretty text-muted-foreground">{text}</p>
-        </div>
+    <IconHoverArea className={cn("h-full bg-background", className)}>
+      <BrandCard className="rounded-none border-0 shadow-none" contentClassName={contentClassName}>
+        {children}
       </BrandCard>
     </IconHoverArea>
   )
 }
 
-// Franja de fotos de la comunidad en movimiento (Marquee de Magic UI), de borde a borde.
+type FeatureCardProps = { icon: IconName; tone: IconBadgeTone; title: string; text: string }
+
+function FeatureText({ icon, tone, title, text }: FeatureCardProps) {
+  return (
+    <>
+      <IconBadge tone={tone}>
+        <HoverIcon name={icon} size={22} />
+      </IconBadge>
+      <div className="flex flex-col gap-2">
+        <h3 className="font-heading text-xl leading-snug font-semibold tracking-[-0.02em] text-balance">{title}</h3>
+        <p className="text-[15px] leading-relaxed text-pretty text-muted-foreground">{text}</p>
+      </div>
+    </>
+  )
+}
+
+// Franja de fotos de la comunidad en movimiento (Marquee de Magic UI), de lado a lado del marco.
 export function HomePhotoStrip() {
   return (
-    <section aria-hidden className="pb-6 md:pb-10">
-      <Marquee
-        pauseOnHover
-        repeat={3}
-        className="[--duration:60s] [--gap:1rem] [mask-image:linear-gradient(to_right,transparent,white_8%,white_92%,transparent)]"
-      >
-        {HOME_PHOTOS.map((src) => (
-          <div key={src} className="relative h-56 w-72 overflow-hidden rounded-[24px] bg-muted sm:h-72 sm:w-96">
-            <Image src={src} alt="" fill sizes="(min-width: 640px) 384px, 288px" className="object-cover" />
-          </div>
-        ))}
-      </Marquee>
-    </section>
+    <GridSection>
+      <div aria-hidden className="py-3 sm:py-4">
+        <Marquee
+          pauseOnHover
+          repeat={3}
+          className="[--duration:60s] [--gap:0.75rem] [mask-image:linear-gradient(to_right,transparent,white_6%,white_94%,transparent)]"
+        >
+          {HOME_PHOTOS.map((src) => (
+            <div key={src} className="relative h-56 w-72 overflow-hidden rounded-[20px] bg-muted sm:h-72 sm:w-96">
+              <Image src={src} alt="" fill sizes="(min-width: 640px) 384px, 288px" className="object-cover" />
+            </div>
+          ))}
+        </Marquee>
+      </div>
+    </GridSection>
   )
 }
 
 export function HomeAbout() {
   return (
-    <Section>
-      <SectionHeading eyebrow={HOME_ABOUT.eyebrow} title={HOME_ABOUT.title} description={HOME_ABOUT.description} />
-      <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 md:grid-cols-3">
+    <GridSection>
+      <div className={HEADING_CELL_CLASS}>
+        <SectionHeading
+          eyebrow={HOME_ABOUT.eyebrow}
+          titleStart={HOME_ABOUT.titleStart}
+          titleHighlight={HOME_ABOUT.titleHighlight}
+          description={HOME_ABOUT.description}
+        />
+      </div>
+      <div className={cn(GRID_CELLS_CLASS, "grid-cols-1 md:grid-cols-3")}>
         {HOME_ABOUT.items.map((item, index) => (
-          <BlurFade key={item.title} inView delay={index * 0.08} className="h-full">
-            <FeatureCard {...item} tone={cycleTone(index)} />
-          </BlurFade>
+          <GridCard key={item.title}>
+            <BlurFade inView delay={index * 0.08} className="flex flex-col gap-5 p-6 sm:p-8">
+              <FeatureText {...item} tone={cycleTone(index)} />
+            </BlurFade>
+          </GridCard>
         ))}
       </div>
-    </Section>
+    </GridSection>
   )
 }
 
 // Cifras de la comunidad: cuentan hacia arriba con Number Ticker al entrar en pantalla.
 export function HomeStats() {
   return (
-    <Section className="py-6 md:py-8">
-      <dl className="grid grid-cols-1 divide-y divide-border rounded-[28px] border border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+    <GridSection>
+      <dl className={cn(GRID_CELLS_CLASS, "grid-cols-1 sm:grid-cols-3")}>
         {HOME_STATS.map((stat) => (
-          <div key={stat.label} className="flex flex-col items-center gap-2 px-6 py-8 text-center sm:py-10">
+          <div
+            key={stat.label}
+            className="flex flex-col items-center gap-2 bg-background px-6 py-10 text-center sm:py-14"
+          >
             <dt className="order-last text-sm text-muted-foreground">{stat.label}</dt>
             <dd className="font-heading text-5xl leading-none font-semibold tracking-[-0.03em] md:text-6xl">
               {stat.prefix}
@@ -108,7 +134,7 @@ export function HomeStats() {
           </div>
         ))}
       </dl>
-    </Section>
+    </GridSection>
   )
 }
 
@@ -125,13 +151,14 @@ function OrbitIcon({ icon }: { icon: IconName }) {
 
 export function HomeCommunity() {
   return (
-    <Section>
-      <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-14">
-        <div className="flex flex-col items-start gap-7">
+    <GridSection>
+      <div className={cn(GRID_CELLS_CLASS, "grid-cols-1 md:grid-cols-2")}>
+        <div className="flex flex-col items-start gap-7 bg-background px-5 py-14 sm:px-10 md:py-20">
           <SectionHeading
             align="left"
             eyebrow={HOME_COMMUNITY.eyebrow}
-            title={HOME_COMMUNITY.title}
+            titleStart={HOME_COMMUNITY.titleStart}
+            titleHighlight={HOME_COMMUNITY.titleHighlight}
             description={HOME_COMMUNITY.description}
           />
           <BlurFade inView delay={0.16}>
@@ -156,10 +183,10 @@ export function HomeCommunity() {
         </div>
 
         {/* Orbiting Circles de Magic UI alrededor del logo */}
-        <BlurFade inView delay={0.1}>
+        <div className="bg-background">
           <div
             aria-hidden
-            className="relative flex h-[22rem] items-center justify-center overflow-hidden rounded-[28px] bg-brand-soft/30 sm:h-[26rem]"
+            className="relative flex h-full min-h-[22rem] items-center justify-center overflow-hidden bg-brand-soft/30 sm:min-h-[26rem]"
           >
             <Logo className="h-8" />
             <OrbitingCircles iconSize={44} radius={142} duration={36}>
@@ -173,108 +200,86 @@ export function HomeCommunity() {
               ))}
             </OrbitingCircles>
           </div>
-        </BlurFade>
+        </div>
       </div>
-    </Section>
-  )
-}
-
-type AreaCardProps = FeatureCardProps & { image: string; imageAlt: string }
-
-// Tarjeta de área: la foto arriba, con un zoom suave al pasar el mouse, y el contenido debajo.
-function AreaCard({ icon, tone, title, text, image, imageAlt }: AreaCardProps) {
-  return (
-    <IconHoverArea className="group h-full">
-      <BrandCard contentClassName="flex flex-col gap-5 p-2">
-        <div className="relative h-48 overflow-hidden rounded-[22px] bg-muted sm:h-52 lg:h-56">
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-        </div>
-        <div className="flex flex-col gap-5 px-4 pb-5 sm:px-5">
-          <IconBadge tone={tone}>
-            <HoverIcon name={icon} size={22} />
-          </IconBadge>
-          <div className="flex flex-col gap-2">
-            <h3 className="font-heading text-xl leading-snug font-semibold tracking-[-0.02em] text-balance">{title}</h3>
-            <p className="text-[15px] leading-relaxed text-pretty text-muted-foreground">{text}</p>
-          </div>
-        </div>
-      </BrandCard>
-    </IconHoverArea>
+    </GridSection>
   )
 }
 
 export function HomeAreas() {
   return (
-    <Section id={HOME_AREAS_ID}>
-      <SectionHeading eyebrow={HOME_AREAS.eyebrow} title={HOME_AREAS.title} description={HOME_AREAS.description} />
-      {/* Dos tarjetas grandes arriba y tres abajo */}
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-14 lg:grid-cols-6">
-        {HOME_AREAS.items.map((item, index) => (
-          <BlurFade
+    <GridSection id={HOME_AREAS_ID}>
+      <div className={HEADING_CELL_CLASS}>
+        <SectionHeading
+          eyebrow={HOME_AREAS.eyebrow}
+          titleStart={HOME_AREAS.titleStart}
+          titleHighlight={HOME_AREAS.titleHighlight}
+          description={HOME_AREAS.description}
+        />
+      </div>
+      {/* Dos celdas grandes arriba y tres abajo; la foto llega hasta las líneas y hace un zoom suave */}
+      <div className={cn(GRID_CELLS_CLASS, "grid-cols-1 sm:grid-cols-2 lg:grid-cols-6")}>
+        {HOME_AREAS.items.map(({ image, imageAlt, ...item }, index) => (
+          <GridCard
             key={item.title}
-            inView
-            delay={index * 0.06}
             className={cn(
-              "h-full",
               index < 2 ? "lg:col-span-3" : "lg:col-span-2",
               index === HOME_AREAS.items.length - 1 && "sm:max-lg:col-span-2"
             )}
           >
-            <AreaCard {...item} tone={cycleTone(index)} />
-          </BlurFade>
+            <div className="relative h-48 overflow-hidden bg-muted sm:h-52 lg:h-64">
+              <Image
+                src={image}
+                alt={imageAlt}
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            </div>
+            <BlurFade inView delay={index * 0.06} className="flex flex-col gap-5 p-6 sm:p-8">
+              <FeatureText {...item} tone={cycleTone(index)} />
+            </BlurFade>
+          </GridCard>
         ))}
       </div>
-    </Section>
+    </GridSection>
   )
 }
 
 // Cierre con una foto de la comunidad bajo un velo oscuro, partículas y la invitación a sumarse,
-// con el botón en naranja de la marca.
+// con el botón en naranja de la marca. Ocupa todo el ancho del marco.
 export function HomeClosing() {
   return (
-    <Section className="pb-4 md:pb-6">
-      <BlurFade inView>
-        <div className="relative isolate overflow-hidden rounded-[32px] bg-primary px-6 py-16 text-center text-primary-foreground sm:px-12 sm:py-24">
-          <Image
-            src={HOME_CLOSING.image}
-            alt=""
-            fill
-            sizes="(min-width: 1280px) 1280px, 100vw"
-            className="-z-10 object-cover object-top"
-          />
-          <div className="absolute inset-0 -z-10 bg-primary/75" />
-          <Particles
-            className="absolute inset-0 -z-10 motion-reduce:hidden"
-            quantity={60}
-            staticity={40}
-            ease={60}
-            size={0.7}
-            color={BRAND_HEX.brand}
-          />
-          <TextAnimate
-            as="h2"
-            animation="blurInUp"
-            by="word"
-            once
-            duration={0.5}
-            className="mx-auto max-w-3xl font-heading text-[2.25rem] leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-6xl"
-          >
-            {HOME_CLOSING.title}
-          </TextAnimate>
-          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-pretty text-primary-foreground/85 sm:text-lg">
-            {HOME_CLOSING.description}
-          </p>
-          <div className="mt-8 flex justify-center">
-            <RegisterCta id={HOME_CLOSING_CTA_ID} label={HOME_CLOSING.cta} tone="brand" className="w-full sm:w-auto" />
-          </div>
+    <GridSection last>
+      <div className="relative isolate overflow-hidden bg-primary px-6 py-20 text-center text-primary-foreground sm:px-12 sm:py-32">
+        <Image
+          src={HOME_CLOSING.image}
+          alt=""
+          fill
+          sizes="(min-width: 1280px) 1232px, 100vw"
+          className="-z-10 object-cover object-top"
+        />
+        <div className="absolute inset-0 -z-10 bg-primary/75" />
+        <Particles
+          className="absolute inset-0 -z-10 motion-reduce:hidden"
+          quantity={60}
+          staticity={40}
+          ease={60}
+          size={0.7}
+          color={BRAND_HEX.brand}
+        />
+        <BlurFade inView>
+          <h2 className="mx-auto max-w-3xl font-heading text-[2.25rem] leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-6xl">
+            {HOME_CLOSING.titleStart} <BrandHighlight>{HOME_CLOSING.titleHighlight}</BrandHighlight>
+          </h2>
+        </BlurFade>
+        <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-pretty text-primary-foreground/85 sm:text-lg">
+          {HOME_CLOSING.description}
+        </p>
+        <div className="mt-8 flex justify-center">
+          <RegisterCta id={HOME_CLOSING_CTA_ID} label={HOME_CLOSING.cta} tone="brand" className="w-full sm:w-auto" />
         </div>
-      </BlurFade>
-    </Section>
+      </div>
+    </GridSection>
   )
 }

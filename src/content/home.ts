@@ -22,7 +22,8 @@ export const HOME_PHOTOS = [
 
 export const HOME_ABOUT = {
   eyebrow: "Qué es Mujeres x Más",
-  title: "Un ecosistema para transformar tu negocio",
+  titleStart: "Un ecosistema para",
+  titleHighlight: "transformar tu negocio",
   description: "Mucho más que una plataforma: todo lo que necesitás para dar el salto digital, en un solo lugar.",
   items: [
     {
@@ -51,7 +52,8 @@ export const HOME_STATS = [
 
 export const HOME_COMMUNITY = {
   eyebrow: "Comunidad",
-  title: "Acá no avanzás sola: corremos juntas",
+  titleStart: "Acá no avanzás sola:",
+  titleHighlight: "corremos juntas",
   description:
     "Contenidos, herramientas y recursos para desarrollar y escalar tu negocio. Combinamos estrategia, acción y aprendizaje continuo, a tu ritmo y con foco en resultados.",
   items: [
@@ -66,7 +68,8 @@ export const HOME_AREAS_ID = "areas"
 
 export const HOME_AREAS = {
   eyebrow: "Áreas",
-  title: "Lo clave para hacer crecer tu negocio",
+  titleStart: "Lo clave para",
+  titleHighlight: "hacer crecer tu negocio",
   description: "Elegí por dónde arrancar y desarrollá las habilidades para avanzar, ordenarte y escalar.",
   items: [
     {
@@ -108,7 +111,8 @@ export const HOME_AREAS = {
 }
 
 export const HOME_CLOSING = {
-  title: "El futuro no se espera, se construye",
+  titleStart: "El futuro no se espera,",
+  titleHighlight: "se construye",
   description: "Empezá hoy a armar un negocio real, con estrategia, herramientas y una comunidad que te impulsa.",
   cta: "Unirme a Mujeres x Más",
   image: "/images/home/cierre-grupo.jpg",
