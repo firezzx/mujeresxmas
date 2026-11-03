@@ -6,6 +6,7 @@ import { useActionState, useState } from "react"
 
 import { updatePassword, type UpdatePasswordState } from "@/app/actions/auth"
 import { PasswordChecklist } from "@/components/auth/password-checklist"
+import { IconBadge } from "@/components/icon-badge"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
 import { FormMessage } from "@/components/forms/form-message"
@@ -44,9 +45,9 @@ export function NewPasswordForm() {
           transition={{ duration: 0.45, ease }}
           className="flex flex-col items-center gap-4 text-center"
         >
-          <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft">
+          <IconBadge size="lg" tone="green">
             <HoverIcon name="circle-check" size={24} autoPlay />
-          </span>
+          </IconBadge>
           <h2 className="font-heading text-2xl font-semibold tracking-[-0.02em]">Listo, ya la cambiaste</h2>
           <p className="text-[15px] leading-relaxed text-muted-foreground">
             Tu contraseña nueva ya está activa y tu sesión sigue iniciada.

@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { markNotificationsRead } from "@/app/actions/notifications"
 import { AccountCard, EmptySection } from "@/components/account/account-card"
+import { IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
 import { AnimatedList } from "@/components/ui/animated-list"
 import type { CommunityEvent, Course } from "@/lib/content"
@@ -47,6 +48,7 @@ function ItemList({ children }: { children: React.ReactNode[] }) {
 
 type ItemCardProps = {
   icon: IconName
+  tone: IconBadgeTone
   title: string
   meta?: string | null
   detail?: string | null
@@ -55,7 +57,7 @@ type ItemCardProps = {
 }
 
 // Tarjeta de un curso, evento o notificación, al estilo de las notificaciones de Magic UI.
-function ItemCard({ icon, title, meta, detail, unread = false, href }: ItemCardProps) {
+function ItemCard({ icon, tone, title, meta, detail, unread = false, href }: ItemCardProps) {
   const card = (
     <IconHoverArea>
       <figure
@@ -65,14 +67,9 @@ function ItemCard({ icon, title, meta, detail, unread = false, href }: ItemCardP
           href && "hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-14px_rgb(26_26_26/0.35)]"
         )}
       >
-        <span
-          className={cn(
-            "flex size-9 shrink-0 items-center justify-center rounded-xl",
-            unread ? "bg-brand text-brand-foreground" : "bg-brand-soft"
-          )}
-        >
+        <IconBadge size="sm" tone={tone}>
           <HoverIcon name={icon} size={16} />
-        </span>
+        </IconBadge>
         <figcaption className="min-w-0 flex-1">
           <p className="line-clamp-2 text-sm leading-snug font-medium">{title}</p>
           {meta && <p className="mt-0.5 text-xs text-muted-foreground">{meta}</p>}
@@ -100,6 +97,7 @@ export function MyCourses({ courses }: { courses: Course[] }) {
     return (
       <EmptySection
         icon="book-text"
+        tone="brand"
         title="Mis cursos"
         emptyTitle="Todavía no tenés cursos"
         emptyText="Cuando te sumes a un curso, lo vas a encontrar acá."
@@ -113,6 +111,7 @@ export function MyCourses({ courses }: { courses: Course[] }) {
           <ItemCard
             key={course.id}
             icon="book-text"
+            tone="brand"
             title={course.title}
             meta={course.startsAt ? `Empieza el ${formatDay(course.startsAt)}` : null}
             detail={course.summary}
@@ -128,6 +127,7 @@ export function MyEvents({ events }: { events: CommunityEvent[] }) {
     return (
       <EmptySection
         icon="calendar-days"
+        tone="green"
         title="Mis eventos"
         emptyTitle="No tenés eventos próximos"
         emptyText="Los eventos a los que te anotes van a aparecer acá."
@@ -141,6 +141,7 @@ export function MyEvents({ events }: { events: CommunityEvent[] }) {
           <ItemCard
             key={event.id}
             icon="calendar-days"
+            tone="green"
             title={event.title}
             meta={[formatDateTime(event.startsAt), event.location ?? (event.onlineUrl && "Online")]
               .filter(Boolean)
@@ -161,6 +162,7 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
     return (
       <EmptySection
         icon="bell"
+        tone="pink"
         title="Notificaciones"
         emptyTitle="Estás al día"
         emptyText="Cuando haya novedades para vos, te avisamos acá."
@@ -203,6 +205,7 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
           <ItemCard
             key={notification.id}
             icon="bell"
+            tone="pink"
             title={notification.title}
             meta={notification.timeAgo}
             detail={notification.body}

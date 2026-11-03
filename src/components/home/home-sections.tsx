@@ -1,5 +1,6 @@
 import { BrandCard } from "@/components/account/account-card"
 import { Logo } from "@/components/brand/logo"
+import { cycleTone, IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { RegisterCta } from "@/components/cta/register-cta"
 import { SectionHeading } from "@/components/home/section-heading"
@@ -29,17 +30,17 @@ function Section({ id, className, children }: { id?: string; className?: string;
   )
 }
 
-type FeatureCardProps = { icon: IconName; title: string; text: string }
+type FeatureCardProps = { icon: IconName; tone: IconBadgeTone; title: string; text: string }
 
 // Tarjeta con ícono, título y texto (Magic Card a través de BrandCard). El ícono se anima al
 // pasar por cualquier parte de la tarjeta.
-function FeatureCard({ icon, title, text }: FeatureCardProps) {
+function FeatureCard({ icon, tone, title, text }: FeatureCardProps) {
   return (
     <IconHoverArea className="h-full">
       <BrandCard contentClassName="flex flex-col gap-5 p-6 sm:p-7">
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-brand-soft">
+        <IconBadge tone={tone}>
           <HoverIcon name={icon} size={22} />
-        </span>
+        </IconBadge>
         <div className="flex flex-col gap-2">
           <h3 className="font-heading text-xl leading-snug font-semibold tracking-[-0.02em] text-balance">{title}</h3>
           <p className="text-[15px] leading-relaxed text-pretty text-muted-foreground">{text}</p>
@@ -56,7 +57,7 @@ export function HomeAbout() {
       <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 md:grid-cols-3">
         {HOME_ABOUT.items.map((item, index) => (
           <BlurFade key={item.title} inView delay={index * 0.08} className="h-full">
-            <FeatureCard {...item} />
+            <FeatureCard {...item} tone={cycleTone(index)} />
           </BlurFade>
         ))}
       </div>
@@ -112,12 +113,12 @@ export function HomeCommunity() {
           />
           <BlurFade inView delay={0.16}>
             <ul className="flex flex-col gap-3">
-              {HOME_COMMUNITY.items.map((item) => (
+              {HOME_COMMUNITY.items.map((item, index) => (
                 <li key={item.text}>
                   <IconHoverArea className="flex items-center gap-3 text-[15px]">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand-soft">
+                    <IconBadge size="sm" tone={cycleTone(index)}>
                       <HoverIcon name={item.icon} size={16} />
-                    </span>
+                    </IconBadge>
                     {item.text}
                   </IconHoverArea>
                 </li>
@@ -172,7 +173,7 @@ export function HomeAreas() {
               index === HOME_AREAS.items.length - 1 && "sm:max-lg:col-span-2"
             )}
           >
-            <FeatureCard {...item} />
+            <FeatureCard {...item} tone={cycleTone(index)} />
           </BlurFade>
         ))}
       </div>

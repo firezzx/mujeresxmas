@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { AuthShell } from "@/components/auth/auth-shell"
+import { IconBadge } from "@/components/icon-badge"
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { HoverIcon } from "@/components/icons/hover-icon"
@@ -21,9 +22,9 @@ export default function QuieroSolicitudPage() {
       description="Estamos terminando de preparar todo para que puedas sumarte a QUIERO desde acá."
     >
       <div className="flex flex-col items-center gap-5 text-center">
-        <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft">
+        <IconBadge size="lg">
           <HoverIcon name="sparkles" size={24} autoPlay />
-        </span>
+        </IconBadge>
         <p className="text-[15px] leading-relaxed text-muted-foreground">
           Te vamos a avisar cuando esté listo. Mientras tanto, podés completar tu perfil.
         </p>

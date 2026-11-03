@@ -1,4 +1,5 @@
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
+import { IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { MagicCard } from "@/components/ui/magic-card"
 import { BRAND_HEX } from "@/config/brand-effects"
 import { cn } from "@/lib/utils"
@@ -42,6 +43,7 @@ export function AccountCard({ className, children }: { className?: string; child
 
 type EmptySectionProps = {
   icon: IconName
+  tone?: IconBadgeTone
   title: string
   emptyTitle: string
   emptyText: string
@@ -49,15 +51,15 @@ type EmptySectionProps = {
 
 // Sección todavía sin contenido (cursos, eventos, notificaciones) con su estado vacío.
 // El ícono se anima al pasar el mouse sobre la tarjeta.
-export function EmptySection({ icon, title, emptyTitle, emptyText }: EmptySectionProps) {
+export function EmptySection({ icon, tone, title, emptyTitle, emptyText }: EmptySectionProps) {
   return (
     <IconHoverArea className="h-full">
       <AccountCard>
         <h2 className="text-sm font-medium text-muted-foreground">{title}</h2>
         <div className="mt-5 flex flex-col items-center rounded-[20px] border border-dashed border-border px-4 py-8 text-center">
-          <span className="flex size-12 items-center justify-center rounded-full bg-brand-soft">
+          <IconBadge tone={tone}>
             <HoverIcon name={icon} size={20} />
-          </span>
+          </IconBadge>
           <p className="mt-4 font-heading text-lg font-semibold tracking-[-0.01em]">{emptyTitle}</p>
           <p className="mt-1 max-w-[30ch] text-sm leading-relaxed text-pretty text-muted-foreground">{emptyText}</p>
         </div>

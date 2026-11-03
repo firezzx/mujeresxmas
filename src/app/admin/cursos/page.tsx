@@ -42,6 +42,7 @@ async function CoursesList() {
     return (
       <AdminEmpty
         icon="book-text"
+        tone="brand"
         title="Todavía no hay cursos"
         text="Muy pronto vas a poder crearlos desde acá. Cuando un usuario se inscriba, lo vas a ver en su panel."
       />

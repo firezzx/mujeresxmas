@@ -1,4 +1,5 @@
 import { AccountCard } from "@/components/account/account-card"
+import { IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { type ContentStatus, STATUS_LABELS } from "@/lib/content"
@@ -52,13 +53,23 @@ export function ComingSoonButton({ icon, children }: { icon: IconName; children:
 }
 
 // Estado vacío de una lista del panel.
-export function AdminEmpty({ icon, title, text }: { icon: IconName; title: string; text: string }) {
+export function AdminEmpty({
+  icon,
+  tone,
+  title,
+  text,
+}: {
+  icon: IconName
+  tone?: IconBadgeTone
+  title: string
+  text: string
+}) {
   return (
     <IconHoverArea>
       <div className="flex flex-col items-center rounded-[20px] border border-dashed border-border px-4 py-12 text-center">
-        <span className="flex size-12 items-center justify-center rounded-full bg-brand-soft">
+        <IconBadge tone={tone}>
           <HoverIcon name={icon} size={20} />
-        </span>
+        </IconBadge>
         <p className="mt-4 font-heading text-lg font-semibold tracking-[-0.01em]">{title}</p>
         <p className="mt-1 max-w-[42ch] text-sm leading-relaxed text-pretty text-muted-foreground">{text}</p>
       </div>

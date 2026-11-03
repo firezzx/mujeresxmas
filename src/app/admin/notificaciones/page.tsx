@@ -45,6 +45,7 @@ async function SentList() {
     return (
       <AdminEmpty
         icon="bell"
+        tone="pink"
         title="Todavía no enviaste notificaciones"
         text="Las que mandes van a aparecer acá, con cuántos usuarios las leyeron."
       />

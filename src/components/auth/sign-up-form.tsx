@@ -6,6 +6,7 @@ import { z } from "zod"
 
 import { signUp, type SignUpState } from "@/app/actions/auth"
 import { KeepNextLink } from "@/components/auth/keep-next-link"
+import { IconBadge } from "@/components/icon-badge"
 import { PasswordChecklist } from "@/components/auth/password-checklist"
 import { ResendConfirmationForm } from "@/components/auth/resend-confirmation-form"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
@@ -61,9 +62,9 @@ export function SignUpForm() {
           transition={{ duration: 0.45, ease }}
           className="flex flex-col items-center text-center"
         >
-          <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft text-foreground">
+          <IconBadge size="lg" tone="green">
             <HoverIcon name="mail-check" size={24} autoPlay />
-          </span>
+          </IconBadge>
           <h2 className="mt-5 font-heading text-2xl font-semibold tracking-[-0.02em]">Revisá tu correo</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-pretty text-muted-foreground">
             Te enviamos un link a <span className="font-medium break-all text-foreground">{state.email}</span> para

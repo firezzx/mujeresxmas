@@ -3,6 +3,7 @@
 import { useDeferredValue, useState } from "react"
 
 import { SearchIcon, type SearchIconHandle } from "@/components/icons/search"
+import { IconBadge } from "@/components/icon-badge"
 import { UsersRoundIcon } from "@/components/icons/users-round"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { useIconAnimation } from "@/hooks/use-icon-animation"
@@ -93,9 +94,9 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
 
       {visible.length === 0 ? (
         <div className="flex flex-col items-center rounded-[20px] border border-dashed border-border px-4 py-10 text-center">
-          <span className="flex size-12 items-center justify-center rounded-full bg-brand-soft">
+          <IconBadge tone="pink">
             <UsersRoundIcon size={20} />
-          </span>
+          </IconBadge>
           <p className="mt-4 font-heading text-lg font-semibold tracking-[-0.01em]">
             {members.length ? "No encontramos usuarios" : "Todavía no hay usuarios"}
           </p>

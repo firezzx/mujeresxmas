@@ -42,6 +42,7 @@ async function EventsList() {
     return (
       <AdminEmpty
         icon="calendar-days"
+        tone="green"
         title="Todavía no hay eventos"
         text="Muy pronto vas a poder crearlos desde acá. Los usuarios anotados los van a ver en su panel."
       />

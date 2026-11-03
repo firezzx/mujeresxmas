@@ -13,6 +13,8 @@
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
   --color-brand-green: var(--brand-green);
+  --color-brand-green-strong: var(--brand-green-strong);
+  --color-brand-pink-strong: var(--brand-pink-strong);
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
   /* Ancho del contenido del sitio. "content-inner" es el mismo ancho sin el margen lateral (px-6):
      lo usan el header al bajar y el footer para alinearse con el contenido. */
@@ -194,6 +196,9 @@
   --brand-foreground: #1a1a1a;
   --brand-soft: #eabbd2;
   --brand-green: #5aad8b;
+  /* Más oscuros que la paleta, solo para íconos sobre el fondo suave de su color */
+  --brand-green-strong: #3a8f6d;
+  --brand-pink-strong: #c4488a;
   --radius: 0.875rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);

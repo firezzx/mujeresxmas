@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 
 import { AuthShell } from "@/components/auth/auth-shell"
+import { IconBadge } from "@/components/icon-badge"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { HoverIcon } from "@/components/icons/hover-icon"
 import { BrandHighlight } from "@/components/page-hero"
@@ -40,9 +41,9 @@ export default function CuentaConfirmadaPage({ searchParams }: PageProps<"/regis
       }
     >
       <div className="flex flex-col items-center gap-5 text-center">
-        <span className="flex size-14 items-center justify-center rounded-full bg-brand-soft">
+        <IconBadge size="lg" tone="green">
           <HoverIcon name="circle-check" size={24} autoPlay />
-        </span>
+        </IconBadge>
         <p className="text-[15px] leading-relaxed text-muted-foreground">
           Ya iniciaste sesión. Tu membresía Gratis quedó activada.
         </p>
