@@ -1,16 +1,27 @@
 import { cn } from "@/lib/utils"
 
 const CROSS_CLASS =
-  "absolute z-10 size-[13px] before:absolute before:inset-x-0 before:top-1/2 before:h-px before:-translate-y-1/2 before:bg-foreground/35 after:absolute after:inset-y-0 after:left-1/2 after:w-px after:-translate-x-1/2 after:bg-foreground/35"
+  "absolute z-10 size-[13px] animate-grid-cross before:absolute before:inset-x-0 before:top-1/2 before:h-px before:-translate-y-1/2 before:bg-foreground/35 after:absolute after:inset-y-0 after:left-1/2 after:w-px after:-translate-x-1/2 after:bg-foreground/35"
+
+function GridCross({ className, delay }: { className: string; delay: string }) {
+  return (
+    <span aria-hidden style={{ animationDelay: delay }} className={cn(CROSS_CLASS, className)}>
+      <span
+        style={{ animationDelay: delay }}
+        className="absolute inset-0 m-auto size-1 animate-grid-cross-dot rounded-full bg-brand opacity-0"
+      />
+    </span>
+  )
+}
 
 // Cruces en los dos encuentros de una línea horizontal con los costados del marco. Van dentro del
-// elemento con los bordes laterales.
+// elemento con los bordes laterales. La de la derecha se mueve un poco después que la izquierda.
 export function GridCrosses({ side = "top" }: { side?: "top" | "bottom" }) {
   const position = side === "top" ? "-top-[7px]" : "-bottom-[7px]"
   return (
     <>
-      <span aria-hidden className={cn(CROSS_CLASS, position, "-left-[7px]")} />
-      <span aria-hidden className={cn(CROSS_CLASS, position, "-right-[7px]")} />
+      <GridCross className={cn(position, "-left-[7px]")} delay="var(--cross-delay, 0s)" />
+      <GridCross className={cn(position, "-right-[7px]")} delay="calc(var(--cross-delay, 0s) + 1.2s)" />
     </>
   )
 }
@@ -27,7 +38,14 @@ type GridSectionProps = {
 // arriba y una cruz en cada encuentro. Apiladas forman el marco de toda la página.
 export function GridSection({ id, first, className, children }: GridSectionProps) {
   return (
-    <section id={id} className={cn("scroll-mt-20 border-border px-3 sm:px-6", !first && "border-t")}>
+    <section
+      id={id}
+      // Cada sección desfasa sus cruces, para que no se muevan todas juntas
+      className={cn(
+        "scroll-mt-20 border-border px-3 nth-of-type-[3n]:[--cross-delay:6s] nth-of-type-[3n+2]:[--cross-delay:3s] sm:px-6",
+        !first && "border-t"
+      )}
+    >
       <div className={cn("relative mx-auto max-w-content-inner border-x border-border", className)}>
         {!first && <GridCrosses />}
         {children}
