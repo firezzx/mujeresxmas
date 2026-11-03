@@ -70,7 +70,7 @@ export function SiteFooter() {
         <div className="mt-10 flex flex-col gap-6 border-t border-border/70 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-2">
             <Link href="/" className="w-fit rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
-              <Logo />
+              <Logo className="h-9" />
             </Link>
             <p className="text-[13px] text-muted-foreground">© Mujeres x Más</p>
           </div>

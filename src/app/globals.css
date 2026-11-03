@@ -16,6 +16,7 @@
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
   /* Ancho del contenido del sitio. "content-inner" es el mismo ancho sin el margen lateral (px-6):
      lo usan el header al bajar y el footer para alinearse con el contenido. */
+  --animate-logo-letter: logo-letter 0.7s var(--ease-premium) both;
   --container-content: 80rem;
   --container-content-inner: 77rem;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -257,6 +258,17 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Entrada del logo: cada letra sube y aparece */
+@keyframes logo-letter {
+  from {
+    opacity: 0;
+    transform: translateY(40%);
+  }
+}
+.animate-logo-letter {
+  transform-box: fill-box;
 }
 
 /* "Reducir movimiento" del sistema: sin animaciones ni transiciones largas */

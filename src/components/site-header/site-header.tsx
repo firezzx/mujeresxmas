@@ -148,7 +148,7 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
               className="flex h-10 items-center justify-self-center rounded-full px-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
             >
               <LogoShort className="md:hidden" />
-              <Logo className="max-md:hidden" />
+              <Logo entrance={pending ? "waiting" : "play"} className="h-9 max-md:hidden" />
             </Link>
 
             {/* Derecha: menú (celular) o accesos de usuaria (escritorio) */}
