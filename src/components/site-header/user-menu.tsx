@@ -76,7 +76,7 @@ export function UserMenu({
       <DropdownMenuContent
         align={align}
         sideOffset={10}
-        className="w-64 rounded-2xl p-1.5 shadow-[0_16px_48px_-16px_rgb(40_20_40/0.3)]"
+        className="w-64 rounded-2xl p-1.5 shadow-[0_16px_48px_-16px_rgb(26_26_26/0.3)]"
       >
         <div className="flex items-center gap-3 px-2.5 py-2.5">
           <UserAvatar user={user} className="size-10" />

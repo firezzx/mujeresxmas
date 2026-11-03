@@ -36,7 +36,7 @@ export function AuthShell({ eyebrow, title, description, children, backdrop }: A
         )}
         <BlurFade delay={0.32} inView className="mt-3 w-full">
           <BrandCard
-            className="shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_24px_64px_-24px_rgb(40_20_40/0.25)]"
+            className="shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_24px_64px_-24px_rgb(26_26_26/0.25)]"
             contentClassName="p-5 text-left sm:p-7"
           >
             {children}

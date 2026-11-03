@@ -59,7 +59,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
               <form action={setMemberView.bind(null, true)}>
                 <RippleButton
                   type="submit"
-                  rippleColor={BRAND_HEX.light}
+                  rippleColor={BRAND_HEX.pink}
                   className="inline-flex h-11 items-center rounded-full border-0 bg-transparent px-5 text-sm font-medium text-foreground ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
                 >
                   <span className="flex items-center gap-2">

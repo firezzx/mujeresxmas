@@ -37,7 +37,7 @@ export function IconLink({
       className={cn(
         "group/icon relative inline-flex size-10 shrink-0 items-center justify-center rounded-full transition-[translate,scale,background-color,box-shadow] duration-500 ease-premium outline-none focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-95",
         variant === "solid"
-          ? "bg-primary text-primary-foreground shadow-[0_1px_2px_0_rgb(0_0_0/0.15),0_6px_16px_-6px_rgb(40_20_40/0.45)] hover:-translate-y-0.5"
+          ? "bg-primary text-primary-foreground shadow-[0_1px_2px_0_rgb(0_0_0/0.15),0_6px_16px_-6px_rgb(26_26_26/0.45)] hover:-translate-y-0.5"
           : "text-foreground ring-1 ring-border hover:bg-foreground/5 hover:ring-foreground/20",
         className
       )}

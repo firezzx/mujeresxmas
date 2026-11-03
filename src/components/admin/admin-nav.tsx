@@ -33,7 +33,7 @@ export function AdminNav() {
                     <motion.span
                       layoutId="admin-nav-pill"
                       aria-hidden
-                      className="absolute inset-0 rounded-full bg-brand-soft shadow-[0_1px_2px_0_rgb(40_20_40/0.06)]"
+                      className="absolute inset-0 rounded-full bg-brand-soft shadow-[0_1px_2px_0_rgb(26_26_26/0.06)]"
                       transition={{ type: "spring", stiffness: 420, damping: 36 }}
                     />
                   )}

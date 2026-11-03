@@ -92,8 +92,8 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
             "w-full rounded-[26px] border transition-all duration-500 ease-premium max-md:overflow-hidden md:rounded-full",
             // Cápsula de vidrio (celular siempre; escritorio al scrollear). Al scrollear mide lo
             // mismo que el contenido más ancho del sitio (max-w-5xl con px-6, como Mi cuenta)
-            "max-w-[61rem] border-border/70 bg-background/85 px-1.5 py-1.5 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_8px_32px_-12px_rgb(40_20_40/0.18)] backdrop-blur-xl backdrop-saturate-150",
-            menuOpen && "bg-background/95 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_24px_48px_-16px_rgb(40_20_40/0.28)]",
+            "max-w-[61rem] border-border/70 bg-background/85 px-1.5 py-1.5 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_8px_32px_-12px_rgb(26_26_26/0.18)] backdrop-blur-xl backdrop-saturate-150",
+            menuOpen && "bg-background/95 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_24px_48px_-16px_rgb(26_26_26/0.28)]",
             !scrolled &&
               !menuOpen &&
               "md:max-w-6xl md:border-transparent md:bg-transparent md:px-0 md:py-3 md:shadow-none md:backdrop-blur-none"
@@ -130,7 +130,7 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
                       {highlighted === item.href && (
                         <motion.span
                           layoutId="nav-highlight"
-                          className="absolute inset-0 rounded-full bg-foreground/[0.06]"
+                          className="absolute inset-0 rounded-full bg-brand-soft"
                           transition={{ type: "spring", stiffness: 420, damping: 34 }}
                         />
                       )}

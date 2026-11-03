@@ -62,7 +62,7 @@ function ItemCard({ icon, title, meta, detail, unread = false, href }: ItemCardP
         className={cn(
           "relative flex items-start gap-3 rounded-2xl border p-3 pr-8 transition-[translate,box-shadow,border-color] duration-500 ease-premium",
           unread ? "border-brand/25 bg-brand-soft/40" : "border-border/70 bg-background",
-          href && "hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-14px_rgb(40_20_40/0.35)]"
+          href && "hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-14px_rgb(26_26_26/0.35)]"
         )}
       >
         <span

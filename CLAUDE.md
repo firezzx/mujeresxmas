@@ -13,6 +13,7 @@
 - **Íconos animados:** Lucide Animated (lucide-animated.com, MIT). Se agregan con `npx shadcn@latest add "https://lucide-animated.com/r/<icono>.json"` y se mueven a `src/components/icons/`. Para animarlos al pasar sobre todo el botón, usar `useIconAnimation`.
 - **Botones:** los CTAs que navegan son links (`ShimmerLink` principal, `HoverRevealLink` secundario, `IconLink` para íconos), adaptados de los botones de Magic UI.
 - **Tipografías:** Outfit para títulos y Poppins para textos y botones.
+- **Colores de marca:** Naranja `#FF4F00`, Rosa `#EABBD2`, Verde `#5AAD8B`, Negro 90% `#1A1A1A` y Blanco `#FFFFFF`. Se usan los tokens de `globals.css` (`brand`, `brand-soft`, `brand-green`) y `BRAND_HEX` de `src/config/brand-effects.ts`, nunca hex sueltos en los componentes.
 - **Idioma:** español rioplatense con voseo, tono cercano, inclusivo y profesional.
 
 ## Documento de funciones MVP

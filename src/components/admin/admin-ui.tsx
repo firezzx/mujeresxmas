@@ -79,7 +79,7 @@ export function StatusBadge({ status }: { status: ContentStatus }) {
     <span
       className={cn(
         "inline-flex h-6 shrink-0 items-center rounded-full px-2.5 text-[11px] font-medium whitespace-nowrap",
-        status === "published" && "bg-brand-soft text-foreground",
+        status === "published" && "bg-brand-green/25 text-foreground",
         status === "draft" && "text-muted-foreground ring-1 ring-border",
         status === "archived" && "bg-foreground/[0.06] text-muted-foreground"
       )}

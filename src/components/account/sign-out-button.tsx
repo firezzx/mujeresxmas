@@ -15,7 +15,7 @@ export function SignOutButton({ className }: { className?: string }) {
     <form action={signOut} className={className}>
       <RippleButton
         type="submit"
-        rippleColor={BRAND_HEX.light}
+        rippleColor={BRAND_HEX.pink}
         {...triggerProps}
         className={cn(
           "inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-border bg-background/70 px-5 text-sm font-medium text-muted-foreground",

@@ -46,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <MotionProvider>
           <Toaster>
             {/* Barra de progreso de lectura (Scroll Progress de Magic UI) */}
-            <ScrollProgress className="z-[60] h-0.5 from-brand via-[#c882c2] to-[#ef9ca9]" />
+            <ScrollProgress className="z-[60] h-0.5 from-brand via-brand-soft to-brand-green" />
             <Suspense fallback={<SiteHeader user={null} pending />}>
               <SiteHeaderWithSession />
             </Suspense>

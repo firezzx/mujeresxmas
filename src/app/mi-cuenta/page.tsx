@@ -64,7 +64,7 @@ async function AccountDashboard() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
         {/* Membresía */}
         <BlurFade delay={0.26} inView className="md:col-span-3">
-          <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-[28px] bg-primary p-6 text-primary-foreground shadow-[0_24px_64px_-28px_rgb(40_20_40/0.6)] sm:p-7">
+          <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-[28px] bg-primary p-6 text-primary-foreground shadow-[0_24px_64px_-28px_rgb(26_26_26/0.6)] sm:p-7">
             <div
               aria-hidden
               className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-brand/35 blur-3xl"

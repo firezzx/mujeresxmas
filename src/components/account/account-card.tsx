@@ -18,11 +18,11 @@ export function BrandCard({
     <MagicCard
       gradientSize={280}
       gradientFrom={BRAND_HEX.brand}
-      gradientTo={BRAND_HEX.light}
-      gradientColor={BRAND_HEX.soft}
+      gradientTo={BRAND_HEX.pink}
+      gradientColor={BRAND_HEX.pinkTint}
       gradientOpacity={0.7}
       className={cn(
-        "h-full rounded-[28px] shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_16px_48px_-24px_rgb(40_20_40/0.22)]",
+        "h-full rounded-[28px] shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_16px_48px_-24px_rgb(26_26_26/0.22)]",
         className
       )}
     >

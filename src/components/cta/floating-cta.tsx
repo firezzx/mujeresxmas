@@ -51,7 +51,7 @@ export function FloatingCta({ href, label, watchId }: FloatingCtaProps) {
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"
           />
-          <ShimmerLink href={href} className="relative w-full shadow-[0_16px_40px_-16px_rgb(40_20_40/0.55)]">
+          <ShimmerLink href={href} className="relative w-full shadow-[0_16px_40px_-16px_rgb(26_26_26/0.55)]">
             {label}
           </ShimmerLink>
         </motion.div>

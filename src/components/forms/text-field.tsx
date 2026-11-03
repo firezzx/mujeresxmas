@@ -33,7 +33,7 @@ export function TextField({ label, error, trailing, hint, className, ...props }:
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
           className={cn(
-            "h-12 w-full rounded-2xl border border-border bg-background/70 px-4 text-[15px] shadow-[0_1px_2px_0_rgb(40_20_40/0.04)] transition-[border-color,box-shadow] duration-300 ease-premium outline-none",
+            "h-12 w-full rounded-2xl border border-border bg-background/70 px-4 text-[15px] shadow-[0_1px_2px_0_rgb(26_26_26/0.04)] transition-[border-color,box-shadow] duration-300 ease-premium outline-none",
             "placeholder:text-muted-foreground/70 hover:border-foreground/20 focus:border-foreground/30 focus:ring-4 focus:ring-ring/15",
             "aria-invalid:border-destructive/60 aria-invalid:focus:ring-destructive/15",
             trailing && "pr-12",

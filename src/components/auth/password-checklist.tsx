@@ -20,7 +20,7 @@ function RuleCheck({ ok }: { ok: boolean }) {
       aria-hidden
       className={cn(
         "flex size-4 items-center justify-center rounded-full transition-colors duration-300",
-        ok ? "bg-brand text-brand-foreground" : "bg-foreground/[0.07]"
+        ok ? "bg-brand-green text-foreground" : "bg-foreground/[0.07]"
       )}
     >
       <motion.span

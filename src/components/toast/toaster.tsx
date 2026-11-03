@@ -36,7 +36,7 @@ const TONES: Record<ToastTone, { icon: IconName; badge: string; ring: string; du
     ring: "border-destructive/20",
     duration: 8000,
   },
-  success: { icon: "circle-check", badge: "bg-brand text-brand-foreground", ring: "border-brand/25", duration: 5000 },
+  success: { icon: "circle-check", badge: "bg-brand-green text-foreground", ring: "border-brand-green/40", duration: 5000 },
   notice: { icon: "bell", badge: "bg-brand-soft text-foreground", ring: "border-border", duration: 9000 },
 }
 
@@ -115,7 +115,7 @@ function ToastCard({ toast }: { toast: Toast }) {
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       className={cn(
-        "pointer-events-auto relative flex items-start gap-3 rounded-2xl border bg-background/95 p-3 pr-10 shadow-[0_18px_48px_-18px_rgb(40_20_40/0.45)] backdrop-blur-xl",
+        "pointer-events-auto relative flex items-start gap-3 rounded-2xl border bg-background/95 p-3 pr-10 shadow-[0_18px_48px_-18px_rgb(26_26_26/0.45)] backdrop-blur-xl",
         style.ring
       )}
     >
