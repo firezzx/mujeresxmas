@@ -11,7 +11,7 @@ import { RippleButton } from "@/components/ui/ripple-button"
 import { BRAND_HEX } from "@/config/brand-effects"
 import { getAdminView } from "@/lib/admin"
 
-const MAIN_CLASS = "relative mx-auto w-full max-w-5xl flex-1 px-4 pt-28 pb-20 sm:px-6 md:pt-36"
+const MAIN_CLASS = "relative mx-auto w-full max-w-content flex-1 px-4 pt-28 pb-20 sm:px-6 md:pt-36"
 
 // Estructura común del panel: verifica el acceso una sola vez y muestra encabezado y pestañas.
 // Cada sección (usuarias, cursos, eventos, notificaciones) es una página dentro de /admin.

@@ -91,12 +91,12 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
             // overflow-hidden solo en celular (recorta el menú al desplegarse); en escritorio dejaría sin tooltips
             "w-full rounded-[26px] border transition-all duration-500 ease-premium max-md:overflow-hidden md:rounded-full",
             // Cápsula de vidrio (celular siempre; escritorio al scrollear). Al scrollear mide lo
-            // mismo que el contenido más ancho del sitio (max-w-5xl con px-6, como Mi cuenta)
-            "max-w-[61rem] border-border/70 bg-background/85 px-1.5 py-1.5 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_8px_32px_-12px_rgb(26_26_26/0.18)] backdrop-blur-xl backdrop-saturate-150",
+            // mismo que el contenido más ancho del sitio (max-w-content con px-6, como Mi cuenta)
+            "max-w-content-inner border-border/70 bg-background/85 px-1.5 py-1.5 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_8px_32px_-12px_rgb(26_26_26/0.18)] backdrop-blur-xl backdrop-saturate-150",
             menuOpen && "bg-background/95 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_24px_48px_-16px_rgb(26_26_26/0.28)]",
             !scrolled &&
               !menuOpen &&
-              "md:max-w-6xl md:border-transparent md:bg-transparent md:px-0 md:py-3 md:shadow-none md:backdrop-blur-none"
+              "md:max-w-content md:border-transparent md:bg-transparent md:px-0 md:py-3 md:shadow-none md:backdrop-blur-none"
           )}
         >
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">

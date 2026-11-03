@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function MiCuentaPage() {
   return (
-    <main className="relative mx-auto w-full max-w-5xl flex-1 px-4 pt-28 pb-20 sm:px-6 md:pt-36">
+    <main className="relative mx-auto w-full max-w-content flex-1 px-4 pt-28 pb-20 sm:px-6 md:pt-36">
       <Suspense fallback={<AccountSkeleton />}>
         <AccountDashboard />
       </Suspense>

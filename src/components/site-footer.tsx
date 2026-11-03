@@ -17,7 +17,7 @@ const FOOTER_LINKS = [...MAIN_NAV, { href: ROUTES.miCuenta, label: "Mi cuenta" }
 export function SiteFooter() {
   return (
     <footer className="relative px-4 pt-10 pb-8 sm:px-6">
-      <div className="mx-auto flex max-w-[61rem] flex-col">
+      <div className="mx-auto flex max-w-content-inner flex-col">
         <BlurFade inView>
           <section className="relative isolate overflow-hidden rounded-[32px] bg-brand-soft/50 px-6 py-14 text-center ring-1 ring-brand/15 sm:px-12 sm:py-20">
             <FlickeringGrid
