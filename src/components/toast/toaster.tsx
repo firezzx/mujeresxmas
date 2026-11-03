@@ -115,11 +115,11 @@ function ToastCard({ toast }: { toast: Toast }) {
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       className={cn(
-        "pointer-events-auto relative flex items-start gap-3 rounded-2xl border bg-background/95 p-3 pr-10 shadow-[0_18px_48px_-18px_rgb(26_26_26/0.45)] backdrop-blur-xl",
+        "pointer-events-auto relative flex items-start gap-3 rounded-lg border bg-background/95 p-3 pr-10 shadow-[0_18px_48px_-18px_rgb(26_26_26/0.45)] backdrop-blur-xl",
         style.ring
       )}
     >
-      <span className={cn("flex size-9 shrink-0 items-center justify-center rounded-xl", style.badge)}>
+      <span className={cn("flex size-9 shrink-0 items-center justify-center rounded-md", style.badge)}>
         <HoverIcon name={style.icon} size={16} autoPlay />
       </span>
       <div className="min-w-0 pt-0.5">
@@ -134,7 +134,7 @@ function ToastCard({ toast }: { toast: Toast }) {
         onClick={onClose}
         {...triggerProps}
         aria-label="Cerrar aviso"
-        className="absolute top-2 right-2 flex size-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground"
+        className="absolute top-2 right-2 flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground"
       >
         <XIcon ref={iconRef} size={14} className="pointer-events-none" />
       </button>

@@ -18,7 +18,7 @@ export const shimmerStyle = {
 
 export function shimmerClassName(size: keyof typeof shimmerSizes, className?: string) {
   return cn(
-    "group relative z-0 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full max-w-full text-center leading-snug font-medium text-balance text-primary-foreground [background:var(--bg)]",
+    "group relative z-0 inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg max-w-full text-center leading-snug font-medium text-balance text-primary-foreground [background:var(--bg)]",
     // Tailwind v4 mueve con `translate` (no `transform`): por eso se transiciona esa propiedad
     "shadow-[0_1px_2px_0_rgb(0_0_0/0.15),0_8px_24px_-8px_rgb(26_26_26/0.45)] transition-[translate,box-shadow,opacity] duration-500 ease-premium",
     "outline-none hover:-translate-y-0.5 hover:shadow-[0_2px_4px_0_rgb(0_0_0/0.15),0_14px_32px_-10px_rgb(26_26_26/0.55)] focus-visible:ring-3 focus-visible:ring-ring/40 active:translate-y-0",
@@ -44,9 +44,9 @@ export function ShimmerBackdrop() {
     <>
       <span
         aria-hidden
-        className="absolute inset-0 rounded-full shadow-[inset_0_-8px_10px_#ffffff1f] transition-shadow duration-300 group-hover:shadow-[inset_0_-6px_10px_#ffffff3f]"
+        className="absolute inset-0 rounded-lg shadow-[inset_0_-8px_10px_#ffffff1f] transition-shadow duration-300 group-hover:shadow-[inset_0_-6px_10px_#ffffff3f]"
       />
-      <span aria-hidden className="absolute inset-(--cut) -z-20 rounded-full [background:var(--bg)]" />
+      <span aria-hidden className="absolute inset-(--cut) -z-20 rounded-lg [background:var(--bg)]" />
     </>
   )
 }

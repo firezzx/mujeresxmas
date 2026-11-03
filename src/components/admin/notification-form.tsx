@@ -72,7 +72,7 @@ export function NotificationForm() {
           value={values.body}
           onChange={(e) => update("body", e.target.value)}
           aria-invalid={bodyError ? true : undefined}
-          className="w-full resize-y rounded-2xl border border-border bg-background/70 px-4 py-3 text-[15px] shadow-[0_1px_2px_0_rgb(26_26_26/0.04)] transition-[border-color,box-shadow] duration-300 ease-premium outline-none placeholder:text-muted-foreground/70 hover:border-foreground/20 focus:border-foreground/30 focus:ring-4 focus:ring-ring/15 aria-invalid:border-destructive/60"
+          className="w-full resize-y rounded-lg border border-border bg-background/70 px-4 py-3 text-[15px] shadow-[0_1px_2px_0_rgb(26_26_26/0.04)] transition-[border-color,box-shadow] duration-300 ease-premium outline-none placeholder:text-muted-foreground/70 hover:border-foreground/20 focus:border-foreground/30 focus:ring-4 focus:ring-ring/15 aria-invalid:border-destructive/60"
         />
         {bodyError && <p className="text-[13px] text-destructive">{bodyError}</p>}
       </div>

@@ -62,7 +62,7 @@ function ItemCard({ icon, tone, title, meta, detail, unread = false, href }: Ite
     <IconHoverArea>
       <figure
         className={cn(
-          "relative flex items-start gap-3 rounded-2xl border p-3 pr-8 transition-[translate,box-shadow,border-color] duration-500 ease-premium",
+          "relative flex items-start gap-3 rounded-lg border p-3 pr-8 transition-[translate,box-shadow,border-color] duration-500 ease-premium",
           unread ? "border-brand/25 bg-brand-soft/40" : "border-border/70 bg-background",
           href && "hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-14px_rgb(26_26_26/0.35)]"
         )}
@@ -86,7 +86,7 @@ function ItemCard({ icon, tone, title, meta, detail, unread = false, href }: Ite
 
   if (!href) return card
   return (
-    <Link href={href} className="block rounded-2xl outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
+    <Link href={href} className="block rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
       {card}
     </Link>
   )
@@ -178,7 +178,7 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
       title="Notificaciones"
       badge={
         unread > 0 && (
-          <span className="rounded-full bg-brand px-2 py-0.5 text-[11px] leading-none font-semibold text-brand-foreground">
+          <span className="rounded-md bg-brand px-2 py-0.5 text-[11px] leading-none font-semibold text-brand-foreground">
             {unread}
             <span className="sr-only"> sin leer</span>
           </span>
@@ -190,7 +190,7 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
             <IconHoverArea>
               <button
                 type="submit"
-                className="inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-full text-[13px] font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
+                className="inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-lg text-[13px] font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
               >
                 <HoverIcon name="check-check" size={16} />
                 Marcar todas como leídas

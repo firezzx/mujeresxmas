@@ -19,7 +19,7 @@ function RuleCheck({ ok }: { ok: boolean }) {
     <span
       aria-hidden
       className={cn(
-        "flex size-4 items-center justify-center rounded-full transition-colors duration-300",
+        "flex size-4 items-center justify-center rounded-md transition-colors duration-300",
         ok ? "bg-brand-green text-foreground" : "bg-foreground/[0.07]"
       )}
     >

@@ -104,7 +104,7 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
                         onBlur={() => setHovered(null)}
                         aria-current={isActive(item.href) ? "page" : undefined}
                         className={cn(
-                          "relative z-10 block rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300 outline-none",
+                          "relative z-10 block rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-300 outline-none",
                           highlighted === item.href
                             ? "text-foreground"
                             : "text-muted-foreground"
@@ -115,7 +115,7 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
                       {highlighted === item.href && (
                         <motion.span
                           layoutId="nav-highlight"
-                          className="absolute inset-0 rounded-full bg-brand-soft"
+                          className="absolute inset-0 rounded-lg bg-brand-soft"
                           transition={{ type: "spring", stiffness: 420, damping: 34 }}
                         />
                       )}
@@ -130,7 +130,7 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
               href="/"
               onClick={closeMenu}
               aria-label="Mujeres x Más, ir al inicio"
-              className="flex h-10 items-center justify-self-center rounded-full px-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
+              className="flex h-10 items-center justify-self-center rounded-lg px-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
             >
               <LogoShort className="md:hidden" />
               <Logo entrance={pending ? "waiting" : "play"} className="h-9 max-md:hidden" />
@@ -186,7 +186,7 @@ function UserAccess({
   compact?: boolean
 }) {
   if (pending) {
-    return <span aria-hidden className="block size-10 animate-pulse rounded-full bg-muted" />
+    return <span aria-hidden className="block size-10 animate-pulse rounded-lg bg-muted" />
   }
   if (user) return <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} />
   return (
@@ -217,7 +217,7 @@ function MenuToggle({
       aria-controls="menu-movil"
       aria-label={open ? "Cerrar menú" : "Abrir menú"}
       className={cn(
-        "relative size-10 rounded-full transition-colors hover:bg-foreground/5 focus-visible:ring-3 focus-visible:ring-ring/40 outline-none",
+        "relative size-10 rounded-lg transition-colors hover:bg-foreground/5 focus-visible:ring-3 focus-visible:ring-ring/40 outline-none",
         className
       )}
     >

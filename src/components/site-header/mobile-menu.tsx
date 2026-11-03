@@ -46,7 +46,7 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
                   onClick={onNavigate}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "flex h-11 items-center gap-2.5 rounded-full px-4 font-heading text-base font-medium tracking-[-0.01em] transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                    "flex h-11 items-center gap-2.5 rounded-lg px-4 font-heading text-base font-medium tracking-[-0.01em] transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
                     active
                       ? "bg-brand-soft text-foreground"
                       : "text-foreground/60 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
@@ -91,7 +91,7 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
               <Link
                 href={ROUTES.admin}
                 onClick={onNavigate}
-                className="flex h-10 items-center justify-center rounded-full text-[13px] font-medium text-foreground ring-1 ring-border transition-colors hover:ring-foreground/20"
+                className="flex h-10 items-center justify-center rounded-lg text-[13px] font-medium text-foreground ring-1 ring-border transition-colors hover:ring-foreground/20"
               >
                 Panel de administración
               </Link>
@@ -100,14 +100,14 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
               <Link
                 href={ROUTES.miCuenta}
                 onClick={onNavigate}
-                className="flex h-10 items-center justify-center rounded-full bg-primary text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
+                className="flex h-10 items-center justify-center rounded-lg bg-primary text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
               >
                 Mi cuenta
               </Link>
               <form action={signOut}>
                 <button
                   type="submit"
-                  className="flex h-10 w-full cursor-pointer items-center justify-center rounded-full text-[13px] font-medium text-muted-foreground ring-1 ring-border transition-colors hover:text-foreground hover:ring-foreground/20"
+                  className="flex h-10 w-full cursor-pointer items-center justify-center rounded-lg text-[13px] font-medium text-muted-foreground ring-1 ring-border transition-colors hover:text-foreground hover:ring-foreground/20"
                 >
                   Cerrar sesión
                 </button>

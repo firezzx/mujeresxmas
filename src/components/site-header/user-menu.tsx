@@ -61,7 +61,7 @@ export function UserMenu({
             ? `Abrir menú de mi cuenta (${unread} ${unread === 1 ? "notificación sin leer" : "notificaciones sin leer"})`
             : "Abrir menú de mi cuenta"
         }
-        className="relative rounded-full p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/20 focus-visible:ring-3 focus-visible:ring-ring/40"
+        className="relative rounded-lg p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/20 focus-visible:ring-3 focus-visible:ring-ring/40"
       >
         <UserAvatar user={user} />
         {unread > 0 && (
@@ -76,7 +76,7 @@ export function UserMenu({
       <DropdownMenuContent
         align={align}
         sideOffset={10}
-        className="w-64 rounded-2xl p-1.5 shadow-[0_16px_48px_-16px_rgb(26_26_26/0.3)]"
+        className="w-64 rounded-lg p-1.5 shadow-[0_16px_48px_-16px_rgb(26_26_26/0.3)]"
       >
         <div className="flex items-center gap-3 px-2.5 py-2.5">
           <UserAvatar user={user} className="size-10" />
@@ -92,7 +92,7 @@ export function UserMenu({
         <IconMenuItem icon={BellIcon} render={<Link href={`${ROUTES.miCuenta}#notificaciones`} />}>
           Notificaciones
           {unread > 0 && (
-            <span className="ml-auto rounded-full bg-brand px-2 py-0.5 text-[11px] leading-none font-semibold text-brand-foreground">
+            <span className="ml-auto rounded-md bg-brand px-2 py-0.5 text-[11px] leading-none font-semibold text-brand-foreground">
               {unread}
             </span>
           )}
@@ -132,7 +132,7 @@ function IconMenuItem({
 }: React.ComponentProps<typeof DropdownMenuItem> & { icon: AnimatedIcon }) {
   const { iconRef, triggerProps } = useIconAnimation()
   return (
-    <DropdownMenuItem {...props} {...triggerProps} className={cn("rounded-xl px-2.5 py-2", className)}>
+    <DropdownMenuItem {...props} {...triggerProps} className={cn("rounded-md px-2.5 py-2", className)}>
       <Icon ref={iconRef} size={16} className="pointer-events-none" />
       {children}
     </DropdownMenuItem>

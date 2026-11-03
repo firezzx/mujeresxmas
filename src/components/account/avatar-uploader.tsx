@@ -99,12 +99,12 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
           onClick={() => inputRef.current?.click()}
           disabled={pending}
           aria-label="Cambiar foto de perfil"
-          className="group relative size-20 shrink-0 cursor-pointer rounded-full p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/25 focus-visible:ring-3 focus-visible:ring-ring/40 disabled:cursor-wait sm:size-24"
+          className="group relative size-20 shrink-0 cursor-pointer rounded-lg p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/25 focus-visible:ring-3 focus-visible:ring-ring/40 disabled:cursor-wait sm:size-24"
         >
           <UserAvatar user={{ ...user, avatarUrl: shownUrl }} className="size-full text-xl" />
           <span
             aria-hidden
-            className="absolute inset-0.5 flex items-center justify-center rounded-full bg-foreground/45 text-background opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 data-[pending=true]:opacity-100"
+            className="absolute inset-0.5 flex items-center justify-center rounded-lg bg-foreground/45 text-background opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 data-[pending=true]:opacity-100"
             data-pending={pending}
           >
             {pending ? (
@@ -122,7 +122,7 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
               type="button"
               onClick={() => inputRef.current?.click()}
               disabled={pending}
-              className="h-9 cursor-pointer rounded-full bg-primary px-4 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
+              className="h-9 cursor-pointer rounded-lg bg-primary px-4 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
             >
               {pending ? "Guardando…" : shownUrl ? "Cambiar" : "Subir foto"}
             </button>
@@ -131,7 +131,7 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
                 type="button"
                 onClick={handleRemove}
                 disabled={pending}
-                className="h-9 cursor-pointer rounded-full border border-border px-4 text-[13px] font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
+                className="h-9 cursor-pointer rounded-lg border border-border px-4 text-[13px] font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
               >
                 Quitar
               </button>

@@ -15,7 +15,7 @@ export function AdminNav() {
 
   return (
     <nav aria-label="Secciones del panel" className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
-      <ul className="flex w-max gap-1 rounded-full bg-foreground/[0.035] p-1">
+      <ul className="flex w-max gap-1 rounded-lg bg-foreground/[0.035] p-1">
         {ADMIN_NAV.map((item) => {
           const active = pathname === item.href
           return (
@@ -25,7 +25,7 @@ export function AdminNav() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "relative flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors duration-300",
+                    "relative flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors duration-300",
                     active ? "text-foreground" : "text-foreground/55 hover:text-foreground"
                   )}
                 >
@@ -33,7 +33,7 @@ export function AdminNav() {
                     <motion.span
                       layoutId="admin-nav-pill"
                       aria-hidden
-                      className="absolute inset-0 rounded-full bg-brand-soft shadow-[0_1px_2px_0_rgb(26_26_26/0.06)]"
+                      className="absolute inset-0 rounded-lg bg-brand-soft shadow-[0_1px_2px_0_rgb(26_26_26/0.06)]"
                       transition={{ type: "spring", stiffness: 420, damping: 36 }}
                     />
                   )}

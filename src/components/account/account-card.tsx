@@ -23,7 +23,7 @@ export function BrandCard({
       gradientColor={BRAND_HEX.pinkTint}
       gradientOpacity={0.7}
       className={cn(
-        "h-full rounded-[28px] shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_16px_48px_-24px_rgb(26_26_26/0.22)]",
+        "h-full rounded-xl shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_16px_48px_-24px_rgb(26_26_26/0.22)]",
         className
       )}
     >
@@ -59,7 +59,7 @@ export function EmptySection({ icon, tone, title, emptyTitle, emptyText }: Empty
     <IconHoverArea className="h-full">
       <AccountCard>
         <h2 className="text-sm font-medium text-muted-foreground">{title}</h2>
-        <div className="mt-5 flex flex-col items-center rounded-[20px] border border-dashed border-border px-4 py-8 text-center">
+        <div className="mt-5 flex flex-col items-center rounded-lg border border-dashed border-border px-4 py-8 text-center">
           <IconBadge tone={tone}>
             <HoverIcon name={icon} size={20} />
           </IconBadge>

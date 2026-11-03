@@ -68,7 +68,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
                   <RippleButton
                     type="submit"
                     rippleColor={BRAND_HEX.pink}
-                    className="inline-flex h-11 items-center rounded-full border-0 bg-transparent px-5 text-sm font-medium text-foreground ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
+                    className="inline-flex h-11 items-center rounded-lg border-0 bg-transparent px-5 text-sm font-medium text-foreground ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
                   >
                     <span className="flex items-center gap-2">
                       <HoverIcon name="eye" size={16} />
@@ -98,12 +98,12 @@ function AdminSkeleton() {
     <div aria-hidden>
       <GridSection first>
         <div className={cn(HEADER_CELL_CLASS, "flex flex-col gap-4")}>
-          <div className="h-7 w-32 animate-pulse rounded-full bg-foreground/[0.05]" />
-          <div className="h-12 w-72 max-w-full animate-pulse rounded-2xl bg-foreground/[0.06]" />
+          <div className="h-7 w-32 animate-pulse rounded-md bg-foreground/[0.05]" />
+          <div className="h-12 w-72 max-w-full animate-pulse rounded-lg bg-foreground/[0.06]" />
         </div>
       </GridSection>
       <GridSection className="px-5 py-3 sm:px-10">
-        <div className="h-12 w-full max-w-md animate-pulse rounded-full bg-foreground/[0.05]" />
+        <div className="h-12 w-full max-w-md animate-pulse rounded-lg bg-foreground/[0.05]" />
       </GridSection>
       <GridSection>
         <div className="h-96 animate-pulse bg-foreground/[0.03]" />

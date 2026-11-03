@@ -45,11 +45,11 @@ export function ComingSoonButton({ icon, children }: { icon: IconName; children:
         type="button"
         disabled
         title="Próximamente"
-        className="inline-flex h-11 cursor-not-allowed items-center gap-2 rounded-full px-5 text-sm font-medium text-foreground/60 ring-1 ring-border"
+        className="inline-flex h-11 cursor-not-allowed items-center gap-2 rounded-lg px-5 text-sm font-medium text-foreground/60 ring-1 ring-border"
       >
         <HoverIcon name={icon} size={16} />
         {children}
-        <span className="rounded-full bg-brand-soft px-2 py-0.5 text-[11px] text-foreground">Próximamente</span>
+        <span className="rounded-md bg-brand-soft px-2 py-0.5 text-[11px] text-foreground">Próximamente</span>
       </button>
     </IconHoverArea>
   )
@@ -69,7 +69,7 @@ export function AdminEmpty({
 }) {
   return (
     <IconHoverArea>
-      <div className="flex flex-col items-center rounded-[20px] border border-dashed border-border px-4 py-12 text-center">
+      <div className="flex flex-col items-center rounded-lg border border-dashed border-border px-4 py-12 text-center">
         <IconBadge tone={tone}>
           <HoverIcon name={icon} size={20} />
         </IconBadge>
@@ -82,7 +82,7 @@ export function AdminEmpty({
 
 export function AdminLoadError() {
   return (
-    <div className="rounded-[20px] bg-destructive/[0.06] px-4 py-5 text-sm text-destructive">
+    <div className="rounded-lg bg-destructive/[0.06] px-4 py-5 text-sm text-destructive">
       No pudimos cargar estos datos. Revisá que las migraciones estén cargadas en Supabase y volvé a intentar.
     </div>
   )
@@ -92,7 +92,7 @@ export function StatusBadge({ status }: { status: ContentStatus }) {
   return (
     <span
       className={cn(
-        "inline-flex h-6 shrink-0 items-center rounded-full px-2.5 text-[11px] font-medium whitespace-nowrap",
+        "inline-flex h-6 shrink-0 items-center rounded-md px-2.5 text-[11px] font-medium whitespace-nowrap",
         status === "published" && "bg-brand-green/25 text-foreground",
         status === "draft" && "text-muted-foreground ring-1 ring-border",
         status === "archived" && "bg-foreground/[0.06] text-muted-foreground"
@@ -132,5 +132,5 @@ export function AdminList({ children }: { children: React.ReactNode }) {
 
 // Esqueleto mientras carga una sección
 export function AdminSectionSkeleton() {
-  return <div aria-hidden className="h-72 animate-pulse rounded-[28px] bg-foreground/[0.05]" />
+  return <div aria-hidden className="h-72 animate-pulse rounded-xl bg-foreground/[0.05]" />
 }

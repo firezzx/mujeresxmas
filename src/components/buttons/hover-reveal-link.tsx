@@ -31,7 +31,7 @@ export function HoverRevealLink({
       {...props}
       {...triggerProps}
       className={cn(
-        "group relative isolate inline-flex items-center justify-center overflow-hidden rounded-full border border-border bg-background/70 max-w-full text-center leading-snug font-medium text-balance backdrop-blur",
+        "group relative isolate inline-flex items-center justify-center overflow-hidden rounded-lg border border-border bg-background/70 max-w-full text-center leading-snug font-medium text-balance backdrop-blur",
         "transition-[border-color,scale] duration-500 ease-premium outline-none hover:border-brand focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-[0.98]",
         sizes[size],
         className

@@ -25,7 +25,7 @@ function Badge({ tone = "soft", children }: { tone?: "soft" | "solid" | "outline
   return (
     <span
       className={cn(
-        "inline-flex h-6 shrink-0 items-center rounded-full px-2.5 text-[11px] font-medium whitespace-nowrap",
+        "inline-flex h-6 shrink-0 items-center rounded-md px-2.5 text-[11px] font-medium whitespace-nowrap",
         tone === "soft" && "bg-brand-soft text-foreground",
         tone === "solid" && "bg-primary text-primary-foreground",
         tone === "outline" && "text-muted-foreground ring-1 ring-border"
@@ -82,7 +82,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar por nombre, correo, ciudad…"
-            className="h-11 w-full rounded-full border border-border bg-background/80 pr-4 pl-10 text-sm transition-[border-color,box-shadow] outline-none placeholder:text-muted-foreground/70 focus:border-foreground/25 focus:ring-3 focus:ring-ring/20"
+            className="h-11 w-full rounded-lg border border-border bg-background/80 pr-4 pl-10 text-sm transition-[border-color,box-shadow] outline-none placeholder:text-muted-foreground/70 focus:border-foreground/25 focus:ring-3 focus:ring-ring/20"
           />
         </label>
         <p className="text-sm text-muted-foreground">
@@ -93,7 +93,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
       </div>
 
       {visible.length === 0 ? (
-        <div className="flex flex-col items-center rounded-[20px] border border-dashed border-border px-4 py-10 text-center">
+        <div className="flex flex-col items-center rounded-lg border border-dashed border-border px-4 py-10 text-center">
           <IconBadge tone="pink">
             <UsersRoundIcon size={20} />
           </IconBadge>
@@ -107,7 +107,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
       ) : (
         <>
           {/* Escritorio */}
-          <div className="hidden overflow-hidden rounded-[20px] border border-border/70 md:block">
+          <div className="hidden overflow-hidden rounded-lg border border-border/70 md:block">
             <table className="w-full table-fixed text-left text-sm">
               <thead className="bg-foreground/[0.025] text-xs text-muted-foreground">
                 <tr>
@@ -147,7 +147,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
           {/* Celular */}
           <ul className="flex flex-col gap-2 md:hidden">
             {visible.map((member) => (
-              <li key={member.id} className="rounded-[20px] border border-border/70 p-4">
+              <li key={member.id} className="rounded-lg border border-border/70 p-4">
                 <Identity member={member} />
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {member.planName && <Badge>{member.planName}</Badge>}

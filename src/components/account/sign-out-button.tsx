@@ -18,7 +18,7 @@ export function SignOutButton({ className }: { className?: string }) {
         rippleColor={BRAND_HEX.pink}
         {...triggerProps}
         className={cn(
-          "inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-border bg-background/70 px-5 text-sm font-medium text-muted-foreground",
+          "inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-border bg-background/70 px-5 text-sm font-medium text-muted-foreground",
           "transition-colors duration-300 outline-none hover:border-foreground/20 hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40"
         )}
       >

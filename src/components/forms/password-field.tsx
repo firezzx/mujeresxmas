@@ -37,7 +37,7 @@ export function PasswordField({ label = "Contraseña", ...props }: PasswordField
           }}
           aria-label={visible ? "Ocultar contraseña" : "Mostrar contraseña"}
           aria-pressed={visible}
-          className="flex size-9 cursor-pointer items-center justify-center rounded-xl text-muted-foreground transition-colors outline-none hover:bg-foreground/5 hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40"
+          className="flex size-9 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors outline-none hover:bg-foreground/5 hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40"
         >
           {visible ? (
             <EyeOffIcon ref={iconRef} size={18} className="pointer-events-none" />

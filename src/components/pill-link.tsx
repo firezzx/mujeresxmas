@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 // Link con forma de botón: es la forma estándar de los CTAs que navegan.
 export const pillLinkVariants = cva(
-  "group/pill inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-all duration-300 ease-premium outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-[0.98] [&_svg]:size-4 [&_svg]:shrink-0",
+  "group/pill inline-flex shrink-0 items-center justify-center gap-2 rounded-md font-medium whitespace-nowrap transition-all duration-300 ease-premium outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-[0.98] [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {

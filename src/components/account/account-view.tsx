@@ -66,7 +66,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                 <div className="relative flex items-center justify-between gap-3">
                   <h2 className="text-sm font-medium text-primary-foreground/70">Tu membresía</h2>
                   {membership && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/10 px-3 py-1 text-xs font-medium">
+                    <span className="inline-flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-3 py-1 text-xs font-medium">
                       <span className="size-1.5 rounded-full bg-brand" aria-hidden />
                       Activa
                     </span>
@@ -105,7 +105,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                   <IconHoverArea className="inline-flex">
                     <Link
                       href={ROUTES.perfil}
-                      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-foreground/[0.05]"
+                      className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-foreground/[0.05]"
                     >
                       <HoverIcon name="square-pen" size={14} />
                       Editar
@@ -172,8 +172,8 @@ export function AccountSkeleton() {
     <div aria-hidden>
       <GridSection first>
         <div className="flex flex-col gap-4 px-5 pt-28 pb-10 sm:px-10 md:pt-36 md:pb-14">
-          <div className="h-7 w-28 animate-pulse rounded-full bg-foreground/[0.05]" />
-          <div className="h-12 w-64 animate-pulse rounded-2xl bg-foreground/[0.06]" />
+          <div className="h-7 w-28 animate-pulse rounded-md bg-foreground/[0.05]" />
+          <div className="h-12 w-64 animate-pulse rounded-lg bg-foreground/[0.06]" />
         </div>
       </GridSection>
       <GridSection>

@@ -77,7 +77,7 @@ export function HomePhotoStrip() {
           className="[--duration:60s] [--gap:0.75rem] [mask-image:linear-gradient(to_right,transparent,white_6%,white_94%,transparent)]"
         >
           {HOME_PHOTOS.map((src) => (
-            <div key={src} className="relative h-56 w-72 overflow-hidden rounded-[20px] bg-muted sm:h-72 sm:w-96">
+            <div key={src} className="relative h-56 w-72 overflow-hidden rounded-lg bg-muted sm:h-72 sm:w-96">
               <Image src={src} alt="" fill sizes="(min-width: 640px) 384px, 288px" className="object-cover" />
             </div>
           ))}
@@ -143,7 +143,7 @@ const ORBIT_ICONS_INNER: IconName[] = ["users-round", "rocket"]
 
 function OrbitIcon({ icon }: { icon: IconName }) {
   return (
-    <span className="flex size-full items-center justify-center rounded-full border border-border bg-background shadow-[0_8px_20px_-10px_rgb(26_26_26/0.3)]">
+    <span className="flex size-full items-center justify-center rounded-lg border border-border bg-background shadow-[0_8px_20px_-10px_rgb(26_26_26/0.3)]">
       <HoverIcon name={icon} size={18} />
     </span>
   )

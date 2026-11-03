@@ -62,7 +62,7 @@ export function ResendConfirmationForm({ email, justSent = false, className }: R
       <button
         type="submit"
         disabled={pending || secondsLeft > 0}
-        className="h-12 w-full cursor-pointer rounded-full border border-border bg-background/70 text-sm font-medium transition-colors duration-300 hover:border-foreground/20 hover:bg-foreground/[0.03] disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:border-border disabled:hover:bg-background/70"
+        className="h-12 w-full cursor-pointer rounded-lg border border-border bg-background/70 text-sm font-medium transition-colors duration-300 hover:border-foreground/20 hover:bg-foreground/[0.03] disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:border-border disabled:hover:bg-background/70"
       >
         {pending ? "Enviando…" : secondsLeft > 0 ? `Podés reenviarlo en ${secondsLeft} s` : "Reenviar el correo"}
       </button>
