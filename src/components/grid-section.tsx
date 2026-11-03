@@ -1,24 +1,24 @@
 import { cn } from "@/lib/utils"
 
 const CROSS_CLASS =
-  "absolute z-10 size-[13px] animate-grid-cross before:absolute before:inset-x-0 before:top-1/2 before:h-px before:-translate-y-1/2 before:bg-foreground/35 after:absolute after:inset-y-0 after:left-1/2 after:w-px after:-translate-x-1/2 after:bg-foreground/35"
+  "absolute z-10 size-[9px] animate-grid-cross before:absolute before:inset-x-0 before:top-1/2 before:h-px before:-translate-y-1/2 before:bg-foreground/35 after:absolute after:inset-y-0 after:left-1/2 after:w-px after:-translate-x-1/2 after:bg-foreground/35"
 
 // Cruces en los dos encuentros de una línea horizontal con los costados del marco, subiendo y
 // bajando por las líneas verticales. Van dentro del elemento con los bordes laterales. El desfase
 // es negativo para que arranquen ya en movimiento; la de la derecha va un poco corrida.
 export function GridCrosses({ side = "top" }: { side?: "top" | "bottom" }) {
-  const position = side === "top" ? "-top-[7px]" : "-bottom-[7px]"
+  const position = side === "top" ? "-top-[5px]" : "-bottom-[5px]"
   return (
     <>
       <span
         aria-hidden
         style={{ animationDelay: "var(--cross-delay, 0s)" }}
-        className={cn(CROSS_CLASS, position, "-left-[7px]")}
+        className={cn(CROSS_CLASS, position, "-left-[5px]")}
       />
       <span
         aria-hidden
         style={{ animationDelay: "calc(var(--cross-delay, 0s) - 1.2s)" }}
-        className={cn(CROSS_CLASS, position, "-right-[7px]")}
+        className={cn(CROSS_CLASS, position, "-right-[5px]")}
       />
     </>
   )
