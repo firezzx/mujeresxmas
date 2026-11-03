@@ -1,6 +1,7 @@
 import { BrandCard } from "@/components/account/account-card"
 import { Logo } from "@/components/brand/logo"
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
+import { RegisterCta } from "@/components/cta/register-cta"
 import { SectionHeading } from "@/components/home/section-heading"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -9,7 +10,15 @@ import { OrbitingCircles } from "@/components/ui/orbiting-circles"
 import { Particles } from "@/components/ui/particles"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { BRAND_HEX } from "@/config/brand-effects"
-import { HOME_ABOUT, HOME_AREAS, HOME_AREAS_ID, HOME_CLOSING, HOME_COMMUNITY, HOME_STATS } from "@/content/home"
+import {
+  HOME_ABOUT,
+  HOME_AREAS,
+  HOME_AREAS_ID,
+  HOME_CLOSING,
+  HOME_CLOSING_CTA_ID,
+  HOME_COMMUNITY,
+  HOME_STATS,
+} from "@/content/home"
 import { cn } from "@/lib/utils"
 
 function Section({ id, className, children }: { id?: string; className?: string; children: React.ReactNode }) {
@@ -171,7 +180,7 @@ export function HomeAreas() {
   )
 }
 
-// Cierre en negro con partículas; la invitación a registrarse viene justo debajo, en el footer.
+// Cierre en negro con partículas y la invitación a sumarse, con el botón en naranja de la marca.
 export function HomeClosing() {
   return (
     <Section className="pb-4 md:pb-6">
@@ -198,6 +207,9 @@ export function HomeClosing() {
           <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-pretty text-primary-foreground/70 sm:text-lg">
             {HOME_CLOSING.description}
           </p>
+          <div className="mt-8 flex justify-center">
+            <RegisterCta id={HOME_CLOSING_CTA_ID} label={HOME_CLOSING.cta} tone="brand" className="w-full sm:w-auto" />
+          </div>
         </div>
       </BlurFade>
     </Section>

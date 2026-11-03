@@ -16,6 +16,8 @@ type ShimmerLinkProps = Omit<React.ComponentProps<typeof Link>, "children"> & {
   children: React.ReactNode
   size?: keyof typeof shimmerSizes
   arrow?: boolean
+  // "brand": fondo naranja, para usarlo sobre fondos oscuros
+  tone?: "default" | "brand"
 }
 
 // CTA principal: el Shimmer Button de Magic UI adaptado a link (navega como un <a> real)
@@ -24,13 +26,19 @@ export function ShimmerLink({
   children,
   size = "lg",
   arrow = true,
+  tone = "default",
   className,
   ...props
 }: ShimmerLinkProps) {
   const { iconRef, triggerProps } = useIconAnimation<ArrowRightIconHandle>()
 
   return (
-    <Link {...props} {...triggerProps} style={shimmerStyle} className={shimmerClassName(size, className)}>
+    <Link
+      {...props}
+      {...triggerProps}
+      style={tone === "brand" ? ({ ...shimmerStyle, "--bg": "var(--brand)" } as React.CSSProperties) : shimmerStyle}
+      className={shimmerClassName(size, className)}
+    >
       <ShimmerSpark />
       <span className="relative">{children}</span>
       {arrow && <ArrowRightIcon ref={iconRef} size={18} className="relative -mr-1 shrink-0" />}

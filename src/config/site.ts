@@ -6,6 +6,3 @@ export const PILLARS = ["Capacitar", "Relacionar", "Incluir"] as const
 // Redes de la marca. Cuando la clienta pase los links, se agregan acá y aparecen solas en el
 // footer, p. ej. { label: "Instagram", href: "https://instagram.com/..." }
 export const SOCIAL_LINKS: { label: string; href: string }[] = []
-
-// id del CTA del footer: mientras se ve, el botón flotante del celular se esconde
-export const FOOTER_CTA_ID = "cta-footer"

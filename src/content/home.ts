@@ -89,4 +89,7 @@ export const HOME_AREAS = {
 export const HOME_CLOSING = {
   title: "El futuro no se espera, se construye",
   description: "Empezá hoy a armar un negocio real, con estrategia, herramientas y una comunidad que te impulsa.",
+  cta: "Unirme a Mujeres x Más",
 }
+
+export const HOME_CLOSING_CTA_ID = "cta-cierre"

@@ -16,7 +16,7 @@ import { DotPattern } from "@/components/ui/dot-pattern";
 import { Particles } from "@/components/ui/particles";
 import { BRAND_HEX } from "@/config/brand-effects";
 import { PILLARS } from "@/config/site";
-import { HOME_HERO } from "@/content/home";
+import { HOME_CLOSING_CTA_ID, HOME_HERO } from "@/content/home";
 
 const HERO_CTA_ID = "cta-registro";
 
@@ -68,7 +68,10 @@ export default function Home() {
       <HomeAreas />
       <HomeClosing />
 
-      <FloatingRegisterCta watchId={HERO_CTA_ID} />
+      <FloatingRegisterCta
+        watchId={HERO_CTA_ID}
+        hideWhileVisibleId={HOME_CLOSING_CTA_ID}
+      />
     </main>
   );
 }
