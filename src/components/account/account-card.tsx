@@ -32,11 +32,14 @@ export function BrandCard({
   )
 }
 
-// Tarjeta base del panel Mi Cuenta y del panel de administración.
+// Para usar BrandCard como celda de la retícula: la separan las líneas, sin borde, sombra ni curvas.
+export const CELL_CARD_CLASS = "rounded-none border-0 shadow-none"
+
+// Celda base de Mi cuenta y del panel de administración.
 export function AccountCard({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
-    <BrandCard>
-      <section className={cn("relative h-full p-6 sm:p-7", className)}>{children}</section>
+    <BrandCard className={CELL_CARD_CLASS}>
+      <section className={cn("relative h-full p-6 sm:p-8", className)}>{children}</section>
     </BrandCard>
   )
 }

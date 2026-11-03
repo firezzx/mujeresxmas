@@ -4,14 +4,18 @@ import { Suspense } from "react"
 import { setMemberView } from "@/app/actions/admin"
 import NotFound from "@/app/not-found"
 import { AdminNav } from "@/components/admin/admin-nav"
+import { GridSection, HeroGlow } from "@/components/grid-section"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { Eyebrow, PAGE_TITLE_CLASS, PageTitle } from "@/components/page-hero"
+import { BrandHighlight, Eyebrow, PAGE_TITLE_CLASS, PageTitle } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { RippleButton } from "@/components/ui/ripple-button"
 import { BRAND_HEX } from "@/config/brand-effects"
 import { getAdminView } from "@/lib/admin"
+import { cn } from "@/lib/utils"
 
-const MAIN_CLASS = "relative mx-auto w-full max-w-content flex-1 px-4 pt-28 pb-20 sm:px-6 md:pt-36"
+const MAIN_CLASS = "relative flex flex-1 flex-col"
+
+const HEADER_CELL_CLASS = "relative overflow-hidden px-5 pt-28 pb-10 sm:px-10 md:pt-36 md:pb-14"
 
 // Estructura común del panel: verifica el acceso una sola vez y muestra encabezado y pestañas.
 // Cada sección (usuarias, cursos, eventos, notificaciones) es una página dentro de /admin.
@@ -39,59 +43,71 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
 
   return (
     <main className={MAIN_CLASS}>
-      <div className="flex flex-col gap-8">
-        <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-          <div className="flex flex-col items-start gap-4">
-            <BlurFade delay={0.05} inView>
-              <Eyebrow>Administración</Eyebrow>
-            </BlurFade>
-            <PageTitle delay={0.12} className={PAGE_TITLE_CLASS}>
-              Panel de la comunidad
-            </PageTitle>
+      <GridSection first>
+        <header className={HEADER_CELL_CLASS}>
+          <HeroGlow />
+          <div className="relative flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col items-start gap-4">
+              <BlurFade delay={0.05} inView>
+                <Eyebrow>Administración</Eyebrow>
+              </BlurFade>
+              <PageTitle delay={0.12} className={PAGE_TITLE_CLASS}>
+                <>
+                  Panel de <BrandHighlight>la comunidad</BrandHighlight>
+                </>
+              </PageTitle>
+              <BlurFade delay={0.19} inView>
+                <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+                  Usuarios, cursos, eventos y avisos de Mujeres x Más en un solo lugar.
+                </p>
+              </BlurFade>
+            </div>
             <BlurFade delay={0.19} inView>
-              <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-                Usuarios, cursos, eventos y avisos de Mujeres x Más en un solo lugar.
-              </p>
+              <IconHoverArea>
+                <form action={setMemberView.bind(null, true)}>
+                  <RippleButton
+                    type="submit"
+                    rippleColor={BRAND_HEX.pink}
+                    className="inline-flex h-11 items-center rounded-full border-0 bg-transparent px-5 text-sm font-medium text-foreground ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
+                  >
+                    <span className="flex items-center gap-2">
+                      <HoverIcon name="eye" size={16} />
+                      Ver como usuario
+                    </span>
+                  </RippleButton>
+                </form>
+              </IconHoverArea>
             </BlurFade>
           </div>
-          <BlurFade delay={0.19} inView>
-            <IconHoverArea>
-              <form action={setMemberView.bind(null, true)}>
-                <RippleButton
-                  type="submit"
-                  rippleColor={BRAND_HEX.pink}
-                  className="inline-flex h-11 items-center rounded-full border-0 bg-transparent px-5 text-sm font-medium text-foreground ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
-                >
-                  <span className="flex items-center gap-2">
-                    <HoverIcon name="eye" size={16} />
-                    Ver como usuario
-                  </span>
-                </RippleButton>
-              </form>
-            </IconHoverArea>
-          </BlurFade>
         </header>
+      </GridSection>
 
-        <BlurFade delay={0.24} inView>
+      <GridSection>
+        <BlurFade delay={0.24} inView className="px-5 py-3 sm:px-10">
           <AdminNav />
         </BlurFade>
+      </GridSection>
 
-        {children}
-      </div>
+      {children}
     </main>
   )
 }
 
 function AdminSkeleton() {
-  const block = "animate-pulse rounded-[28px] bg-foreground/[0.05]"
   return (
-    <div aria-hidden className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4">
-        <div className="h-7 w-32 animate-pulse rounded-full bg-foreground/[0.05]" />
-        <div className="h-12 w-72 animate-pulse rounded-2xl bg-foreground/[0.06]" />
-      </div>
-      <div className="h-12 w-full max-w-md animate-pulse rounded-full bg-foreground/[0.05]" />
-      <div className={`${block} h-96`} />
+    <div aria-hidden>
+      <GridSection first>
+        <div className={cn(HEADER_CELL_CLASS, "flex flex-col gap-4")}>
+          <div className="h-7 w-32 animate-pulse rounded-full bg-foreground/[0.05]" />
+          <div className="h-12 w-72 max-w-full animate-pulse rounded-2xl bg-foreground/[0.06]" />
+        </div>
+      </GridSection>
+      <GridSection className="px-5 py-3 sm:px-10">
+        <div className="h-12 w-full max-w-md animate-pulse rounded-full bg-foreground/[0.05]" />
+      </GridSection>
+      <GridSection>
+        <div className="h-96 animate-pulse bg-foreground/[0.03]" />
+      </GridSection>
     </div>
   )
 }

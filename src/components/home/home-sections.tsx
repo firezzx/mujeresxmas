@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { BrandCard } from "@/components/account/account-card"
+import { BrandCard, CELL_CARD_CLASS } from "@/components/account/account-card"
 import { Logo } from "@/components/brand/logo"
 import { cycleTone, IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
@@ -43,7 +43,7 @@ function GridCard({
 }) {
   return (
     <IconHoverArea className={cn("h-full bg-background", className)}>
-      <BrandCard className="rounded-none border-0 shadow-none" contentClassName={contentClassName}>
+      <BrandCard className={CELL_CARD_CLASS} contentClassName={contentClassName}>
         {children}
       </BrandCard>
     </IconHoverArea>

@@ -1,4 +1,5 @@
 import { AccountCard } from "@/components/account/account-card"
+import { GridSection } from "@/components/grid-section"
 import { IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -14,23 +15,25 @@ type AdminSectionProps = {
   children: React.ReactNode
 }
 
-// Tarjeta de una sección del panel con título, descripción y acción a la derecha.
+// Sección del panel en la retícula, con título, descripción y acción a la derecha.
 export function AdminSection({ title, description, action, children }: AdminSectionProps) {
   return (
-    <BlurFade delay={0.1} inView>
-      <AccountCard>
-        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <h2 className="font-heading text-xl font-semibold tracking-[-0.01em]">{title}</h2>
-            {description && (
-              <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">{description}</p>
-            )}
+    <GridSection>
+      <BlurFade delay={0.1} inView>
+        <AccountCard>
+          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <h2 className="font-heading text-xl font-semibold tracking-[-0.01em]">{title}</h2>
+              {description && (
+                <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">{description}</p>
+              )}
+            </div>
+            {action}
           </div>
-          {action}
-        </div>
-        {children}
-      </AccountCard>
-    </BlurFade>
+          {children}
+        </AccountCard>
+      </BlurFade>
+    </GridSection>
   )
 }
 
