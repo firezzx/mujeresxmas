@@ -3,15 +3,11 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from "motion/react"
+import { AnimatePresence, motion } from "motion/react"
 
 import { Logo, LogoShort } from "@/components/brand/logo"
 import { IconLink } from "@/components/buttons/icon-link"
+import { GridCrosses } from "@/components/grid-section"
 import { UserIcon } from "@/components/icons/user"
 import { UserPlusIcon } from "@/components/icons/user-plus"
 import { MobileMenu } from "@/components/site-header/mobile-menu"
@@ -33,19 +29,14 @@ type SiteHeaderProps = {
   unread?: number
 }
 
-// Header flotante.
-// Escritorio: links a la izquierda, logo al centro e íconos de usuaria a la derecha. Arranca
-// transparente y al scrollear se convierte en una cápsula de vidrio.
+// Header fijo: una barra de vidrio de borde a borde que sigue las líneas de la retícula.
+// Escritorio: links a la izquierda, logo al centro e íconos de usuaria a la derecha.
 // Celular: perfil a la izquierda, logo corto al centro y menú a la derecha. El menú se abre
-// dentro de la misma cápsula, que se estira hacia abajo.
+// dentro de la misma barra, que se estira hacia abajo.
 export function SiteHeader({ user, adminView = null, pending = false, unread = 0 }: SiteHeaderProps) {
   const pathname = usePathname()
-  const { scrollY } = useScroll()
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [hovered, setHovered] = useState<string | null>(null)
-
-  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24))
 
   // Bloquea el scroll de la página y habilita Escape mientras el menú móvil está abierto
   useEffect(() => {
@@ -84,21 +75,15 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
         )}
       </AnimatePresence>
 
-      {/* Mismo margen lateral que el contenido de las páginas (px-4 sm:px-6) */}
-      <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 sm:px-6 md:pt-4">
-        <div
-          className={cn(
-            // overflow-hidden solo en celular (recorta el menú al desplegarse); en escritorio dejaría sin tooltips
-            "w-full rounded-[26px] border transition-all duration-500 ease-premium max-md:overflow-hidden md:rounded-full",
-            // Cápsula de vidrio (celular siempre; escritorio al scrollear). Al scrollear mide lo
-            // mismo que el contenido más ancho del sitio (max-w-content con px-6, como Mi cuenta)
-            "max-w-content-inner border-border/70 bg-background/85 px-1.5 py-1.5 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_8px_32px_-12px_rgb(26_26_26/0.18)] backdrop-blur-xl backdrop-saturate-150",
-            menuOpen && "bg-background/95 shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_24px_48px_-16px_rgb(26_26_26/0.28)]",
-            !scrolled &&
-              !menuOpen &&
-              "md:max-w-content md:border-transparent md:bg-transparent md:px-0 md:py-3 md:shadow-none md:backdrop-blur-none"
-          )}
-        >
+      {/* Mismos márgenes y ancho que GridSection, para que los costados sigan las líneas de la página */}
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 border-b border-border bg-background/85 px-3 backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 sm:px-6",
+          menuOpen && "bg-background/95"
+        )}
+      >
+        <div className="relative mx-auto max-w-content-inner border-x border-border px-2 py-2 sm:px-3 md:py-3">
+          <GridCrosses side="bottom" />
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
             {/* Izquierda: perfil (celular) o links (escritorio) */}
             <div className="flex items-center">
@@ -172,7 +157,7 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.45, ease }}
-                className="md:hidden"
+                className="overflow-hidden md:hidden"
               >
                 <MobileMenu user={user} adminView={adminView} isActive={isActive} onNavigate={closeMenu} />
               </motion.div>

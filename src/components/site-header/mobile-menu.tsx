@@ -29,7 +29,7 @@ type MobileMenuProps = {
   onNavigate: () => void
 }
 
-// Contenido del menú móvil: se despliega dentro de la cápsula del header.
+// Contenido del menú móvil: se despliega dentro de la barra del header.
 // Links compactos con la tipografía de títulos (el activo, en una pastilla rosa con el punto de marca)
 // y abajo la cuenta: tarjeta con la usuaria y sus accesos, o el registro para visitantes.
 export function MobileMenu({ user, adminView = null, isActive, onNavigate }: MobileMenuProps) {

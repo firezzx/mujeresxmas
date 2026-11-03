@@ -12,7 +12,7 @@ import {
   HomePhotoStrip,
   HomeStats,
 } from "@/components/home/home-sections";
-import { GridSection } from "@/components/home/grid-section";
+import { GridSection, HeroGlow } from "@/components/grid-section";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { Particles } from "@/components/ui/particles";
 import { BRAND_HEX } from "@/config/brand-effects";
@@ -27,11 +27,7 @@ export default function Home() {
     <main className="relative flex flex-1 flex-col">
       <GridSection first>
         <div className="relative flex flex-col items-center justify-center overflow-hidden px-5 pt-36 pb-20 sm:pt-44 sm:pb-28">
-          {/* Resplandor naranja de la marca que sube desde abajo del título */}
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-[radial-gradient(60%_70%_at_50%_100%,color-mix(in_oklab,var(--brand)_24%,transparent),transparent)]"
-          />
+          <HeroGlow />
           {/* Partículas de marca que reaccionan suave al mouse */}
           <Particles
             className="absolute inset-0 motion-reduce:hidden"
