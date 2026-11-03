@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import { AuthShell } from "@/components/auth/auth-shell"
+import { BrandHighlight } from "@/components/page-hero"
 import { ResendConfirmationForm } from "@/components/auth/resend-confirmation-form"
 import { ROUTES } from "@/config/navigation"
 
@@ -14,7 +15,11 @@ export const metadata: Metadata = {
 export default function LinkVencidoPage() {
   return (
     <AuthShell
-      title="Este link ya no funciona"
+      title={
+        <>
+          Este link <BrandHighlight>ya no funciona</BrandHighlight>
+        </>
+      }
       description="Puede que haya vencido (dura 1 hora) o que ya lo hayas usado. Pedí uno nuevo y usá siempre el último que te llegue."
     >
       <p className="mb-4 text-sm font-medium">¿Estabas confirmando tu cuenta?</p>

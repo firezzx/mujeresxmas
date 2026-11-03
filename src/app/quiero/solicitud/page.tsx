@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { AuthShell } from "@/components/auth/auth-shell"
+import { BrandHighlight } from "@/components/page-hero"
 import { IconBadge } from "@/components/icon-badge"
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
@@ -18,7 +19,11 @@ export default function QuieroSolicitudPage() {
   return (
     <AuthShell
       eyebrow="QUIERO"
-      title="Muy pronto vas a poder pedirlo"
+      title={
+        <>
+          Muy pronto <BrandHighlight>vas a poder pedirlo</BrandHighlight>
+        </>
+      }
       description="Estamos terminando de preparar todo para que puedas sumarte a QUIERO desde acá."
     >
       <div className="flex flex-col items-center gap-5 text-center">

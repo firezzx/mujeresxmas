@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { AuthShell } from "@/components/auth/auth-shell"
+import { BrandHighlight } from "@/components/page-hero"
 import { SignUpForm } from "@/components/auth/sign-up-form"
 
 export const metadata: Metadata = {
@@ -12,7 +13,11 @@ export default function RegistroPage() {
   return (
     <AuthShell
       eyebrow="Registrarme en Mujeres x Más"
-      title="Creá tu cuenta"
+      title={
+        <>
+          Creá <BrandHighlight>tu cuenta</BrandHighlight>
+        </>
+      }
       description="Solo necesitás tu correo y una contraseña. Después vas a poder completar tu perfil."
     >
       <SignUpForm />

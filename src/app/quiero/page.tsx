@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function QuieroPage() {
   return (
     <main className="relative flex flex-1 flex-col">
-      <GridSection first last>
+      <GridSection first>
         <div className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-5 pt-32 pb-20">
           <HeroGlow />
           <Ripple

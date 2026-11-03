@@ -1,17 +1,19 @@
 import Link from "next/link"
 
 import { Logo } from "@/components/brand/logo"
+import { GridSection } from "@/components/grid-section"
 import { Marquee } from "@/components/ui/marquee"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
 import { PILLARS, SOCIAL_LINKS } from "@/config/site"
 
 const FOOTER_LINKS = [...MAIN_NAV, { href: ROUTES.miCuenta, label: "Mi cuenta" }]
 
-// Footer del sitio: los pilares de la comunidad en un Marquee y la línea final con logo y links.
+// Footer del sitio, dentro de la retícula: los pilares de la comunidad en un Marquee y la línea
+// final con logo y links.
 export function SiteFooter() {
   return (
-    <footer className="relative px-4 pt-10 pb-8 sm:px-6">
-      <div className="mx-auto flex max-w-content-inner flex-col">
+    <footer>
+      <GridSection className="py-8 sm:py-10">
         {/* Pilares en movimiento, grandes y suaves de fondo */}
         <Marquee
           aria-hidden
@@ -29,8 +31,10 @@ export function SiteFooter() {
             </span>
           ))}
         </Marquee>
+      </GridSection>
 
-        <div className="mt-10 flex flex-col gap-6 border-t border-border/70 pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <GridSection>
+        <div className="flex flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-10">
           <div className="flex flex-col gap-2">
             <Link href="/" className="w-fit rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
               <Logo className="h-9" />
@@ -56,7 +60,7 @@ export function SiteFooter() {
             </ul>
           </nav>
         </div>
-      </div>
+      </GridSection>
     </footer>
   )
 }

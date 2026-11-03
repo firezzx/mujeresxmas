@@ -250,7 +250,7 @@ export function HomeAreas() {
 // con el botón en naranja de la marca. Ocupa todo el ancho del marco.
 export function HomeClosing() {
   return (
-    <GridSection last>
+    <GridSection>
       <div className="relative isolate overflow-hidden bg-primary px-6 py-20 text-center text-primary-foreground sm:px-12 sm:py-32">
         <Image
           src={HOME_CLOSING.image}

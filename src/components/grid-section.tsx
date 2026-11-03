@@ -19,20 +19,15 @@ type GridSectionProps = {
   id?: string
   // Sin línea ni cruces arriba, para la primera sección de la página
   first?: boolean
-  // Con línea abajo, para la última sección de la página
-  last?: boolean
   className?: string
   children: React.ReactNode
 }
 
 // Sección de la retícula: líneas finas a los costados del contenido, una línea de borde a borde
 // arriba y una cruz en cada encuentro. Apiladas forman el marco de toda la página.
-export function GridSection({ id, first, last, className, children }: GridSectionProps) {
+export function GridSection({ id, first, className, children }: GridSectionProps) {
   return (
-    <section
-      id={id}
-      className={cn("scroll-mt-20 border-border px-3 sm:px-6", !first && "border-t", last && "border-b")}
-    >
+    <section id={id} className={cn("scroll-mt-20 border-border px-3 sm:px-6", !first && "border-t")}>
       <div className={cn("relative mx-auto max-w-content-inner border-x border-border", className)}>
         {!first && <GridCrosses />}
         {children}
