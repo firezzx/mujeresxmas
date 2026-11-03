@@ -9,6 +9,7 @@ import {
   HomeAreas,
   HomeClosing,
   HomeCommunity,
+  HomePhotoStrip,
   HomeStats,
 } from "@/components/home/home-sections";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
@@ -62,6 +63,7 @@ export default function Home() {
         />
       </section>
 
+      <HomePhotoStrip />
       <HomeAbout />
       <HomeStats />
       <HomeCommunity />

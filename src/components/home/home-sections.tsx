@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 import { BrandCard } from "@/components/account/account-card"
 import { Logo } from "@/components/brand/logo"
 import { cycleTone, IconBadge, type IconBadgeTone } from "@/components/icon-badge"
@@ -6,6 +8,7 @@ import { RegisterCta } from "@/components/cta/register-cta"
 import { SectionHeading } from "@/components/home/section-heading"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
 import { BlurFade } from "@/components/ui/blur-fade"
+import { Marquee } from "@/components/ui/marquee"
 import { NumberTicker } from "@/components/ui/number-ticker"
 import { OrbitingCircles } from "@/components/ui/orbiting-circles"
 import { Particles } from "@/components/ui/particles"
@@ -18,6 +21,7 @@ import {
   HOME_CLOSING,
   HOME_CLOSING_CTA_ID,
   HOME_COMMUNITY,
+  HOME_PHOTOS,
   HOME_STATS,
 } from "@/content/home"
 import { cn } from "@/lib/utils"
@@ -47,6 +51,25 @@ function FeatureCard({ icon, tone, title, text }: FeatureCardProps) {
         </div>
       </BrandCard>
     </IconHoverArea>
+  )
+}
+
+// Franja de fotos de la comunidad en movimiento (Marquee de Magic UI), de borde a borde.
+export function HomePhotoStrip() {
+  return (
+    <section aria-hidden className="pb-6 md:pb-10">
+      <Marquee
+        pauseOnHover
+        repeat={3}
+        className="[--duration:60s] [--gap:1rem] [mask-image:linear-gradient(to_right,transparent,white_8%,white_92%,transparent)]"
+      >
+        {HOME_PHOTOS.map((src) => (
+          <div key={src} className="relative h-56 w-72 overflow-hidden rounded-[24px] bg-muted sm:h-72 sm:w-96">
+            <Image src={src} alt="" fill sizes="(min-width: 640px) 384px, 288px" className="object-cover" />
+          </div>
+        ))}
+      </Marquee>
+    </section>
   )
 }
 
@@ -156,6 +179,36 @@ export function HomeCommunity() {
   )
 }
 
+type AreaCardProps = FeatureCardProps & { image: string; imageAlt: string }
+
+// Tarjeta de área: la foto arriba, con un zoom suave al pasar el mouse, y el contenido debajo.
+function AreaCard({ icon, tone, title, text, image, imageAlt }: AreaCardProps) {
+  return (
+    <IconHoverArea className="group h-full">
+      <BrandCard contentClassName="flex flex-col gap-5 p-2">
+        <div className="relative h-48 overflow-hidden rounded-[22px] bg-muted sm:h-52 lg:h-56">
+          <Image
+            src={image}
+            alt={imageAlt}
+            fill
+            sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        </div>
+        <div className="flex flex-col gap-5 px-4 pb-5 sm:px-5">
+          <IconBadge tone={tone}>
+            <HoverIcon name={icon} size={22} />
+          </IconBadge>
+          <div className="flex flex-col gap-2">
+            <h3 className="font-heading text-xl leading-snug font-semibold tracking-[-0.02em] text-balance">{title}</h3>
+            <p className="text-[15px] leading-relaxed text-pretty text-muted-foreground">{text}</p>
+          </div>
+        </div>
+      </BrandCard>
+    </IconHoverArea>
+  )
+}
+
 export function HomeAreas() {
   return (
     <Section id={HOME_AREAS_ID}>
@@ -173,7 +226,7 @@ export function HomeAreas() {
               index === HOME_AREAS.items.length - 1 && "sm:max-lg:col-span-2"
             )}
           >
-            <FeatureCard {...item} tone={cycleTone(index)} />
+            <AreaCard {...item} tone={cycleTone(index)} />
           </BlurFade>
         ))}
       </div>
@@ -181,12 +234,21 @@ export function HomeAreas() {
   )
 }
 
-// Cierre en negro con partículas y la invitación a sumarse, con el botón en naranja de la marca.
+// Cierre con una foto de la comunidad bajo un velo oscuro, partículas y la invitación a sumarse,
+// con el botón en naranja de la marca.
 export function HomeClosing() {
   return (
     <Section className="pb-4 md:pb-6">
       <BlurFade inView>
         <div className="relative isolate overflow-hidden rounded-[32px] bg-primary px-6 py-16 text-center text-primary-foreground sm:px-12 sm:py-24">
+          <Image
+            src={HOME_CLOSING.image}
+            alt=""
+            fill
+            sizes="(min-width: 1280px) 1280px, 100vw"
+            className="-z-10 object-cover object-top"
+          />
+          <div className="absolute inset-0 -z-10 bg-primary/75" />
           <Particles
             className="absolute inset-0 -z-10 motion-reduce:hidden"
             quantity={60}
@@ -205,7 +267,7 @@ export function HomeClosing() {
           >
             {HOME_CLOSING.title}
           </TextAnimate>
-          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-pretty text-primary-foreground/70 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-pretty text-primary-foreground/85 sm:text-lg">
             {HOME_CLOSING.description}
           </p>
           <div className="mt-8 flex justify-center">

@@ -1,13 +1,24 @@
 import type { IconName } from "@/components/icons/hover-icon"
 
 // Textos de la home, separados del diseño. Son provisorios: se reemplazan acá cuando esté el
-// contenido definitivo, sin tocar los componentes.
+// contenido definitivo, sin tocar los componentes. Las fotos también son provisorias: están en
+// public/images/home y su origen en docs/IMAGENES-PEXELS.md.
 
 export const HOME_HERO = {
   titleStart: "Convertí tu potencial en",
   titleHighlight: "independencia",
   description: "Capacitación, comunidad y herramientas para que crezcas, emprendas y lideres.",
 }
+
+// Franja de fotos debajo del hero. Es decorativa: no lleva texto alternativo.
+export const HOME_PHOTOS = [
+  "/images/home/comunidad-charla.jpg",
+  "/images/home/florista.jpg",
+  "/images/home/equipo-laptop.jpg",
+  "/images/home/boutique.jpg",
+  "/images/home/colegas-escalera.jpg",
+  "/images/home/socias-negocio.jpg",
+]
 
 export const HOME_ABOUT = {
   eyebrow: "Qué es Mujeres x Más",
@@ -62,34 +73,45 @@ export const HOME_AREAS = {
       icon: "cpu",
       title: "Tecnología e IA aplicada al negocio",
       text: "Usá herramientas digitales, automatización e inteligencia artificial para trabajar mejor y ganar tiempo.",
+      image: "/images/home/tecnologia.jpg",
+      imageAlt: "Mujer trabajando concentrada frente a su computadora",
     },
     {
       icon: "chart-line",
       title: "Comunicación y marketing digital",
       text: "Atraé más clientes con estrategias de contenido, redes sociales y análisis de datos.",
+      image: "/images/home/marketing.jpg",
+      imageAlt: "Creadora de contenido grabando un video con su celular",
     },
     {
       icon: "rocket",
       title: "Emprendimiento",
       text: "Convertí tu idea en un negocio rentable, con bases claras, orden y foco en resultados.",
+      image: "/images/home/emprendimiento.jpg",
+      imageAlt: "Emprendedora sonriendo entre las cajas de su tienda de ropa",
     },
     {
       icon: "wallet",
       title: "Finanzas personales y del negocio",
       text: "Organizá tus ingresos y tomá decisiones inteligentes con tu dinero para crecer.",
+      image: "/images/home/finanzas.jpg",
+      imageAlt: "Mujer sacando cuentas con una calculadora y sus boletas",
     },
     {
       icon: "graduation-cap",
       title: "Formaciones gratuitas para empezar",
       text: "Arrancá desde cero con contenidos simples y prácticos para dar tus primeros pasos.",
+      image: "/images/home/formacion.jpg",
+      imageAlt: "Mujer estudiando con su computadora y un libro abierto",
     },
-  ] satisfies { icon: IconName; title: string; text: string }[],
+  ] satisfies { icon: IconName; title: string; text: string; image: string; imageAlt: string }[],
 }
 
 export const HOME_CLOSING = {
   title: "El futuro no se espera, se construye",
   description: "Empezá hoy a armar un negocio real, con estrategia, herramientas y una comunidad que te impulsa.",
   cta: "Unirme a Mujeres x Más",
+  image: "/images/home/cierre-grupo.jpg",
 }
 
 export const HOME_CLOSING_CTA_ID = "cta-cierre"
