@@ -3,15 +3,17 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
-import { PostArticle } from "@/components/blog/post-article"
+import { PostBody, PostHeader } from "@/components/blog/post-article"
 import { PostComments, PostCommentsSkeleton } from "@/components/blog/post-comments"
 import { PostGrid } from "@/components/blog/post-card"
 import { ShareButtons } from "@/components/blog/share-buttons"
-import { GridSection } from "@/components/grid-section"
+import { Band, OVERLAP_CLASS, SectionTitle } from "@/components/page-band"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
+import { BRAND_HEX } from "@/config/brand-effects"
 import { ROUTES } from "@/config/navigation"
 import { getPublicPost, listRelatedPosts, type PublicPost } from "@/lib/blog"
 import { blogImageUrl } from "@/lib/blog-shared"
+import { cn } from "@/lib/utils"
 
 const SITE_NAME = "Mujeres x Más"
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
@@ -90,43 +92,45 @@ async function Post({ params }: { params: Props["params"] }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd(post) }} />
 
-      <GridSection first>
-        <div className="px-5 pt-28 pb-14 sm:px-8 md:pt-36 md:pb-20">
-          <div className="mx-auto mb-8 w-full max-w-4xl">
-            <IconHoverArea className="w-fit">
-              <Link
-                href={ROUTES.blog}
-                className="flex items-center gap-2 rounded-md text-sm font-medium text-foreground/60 transition-colors duration-300 outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40"
-              >
-                <HoverIcon name="arrow-left" size={16} />
-                Volver al blog
-              </Link>
-            </IconHoverArea>
-          </div>
-          <PostArticle post={post} />
-          <div className="mx-auto w-full max-w-4xl">
-            <ShareButtons url={`${SITE_URL}${ROUTES.blog}/${post.slug}`} title={post.title} />
-          </div>
+      <Band tone="pink" dots className={cn("pt-28 md:pt-36", post.coverPath ? "pb-24 md:pb-32" : "pb-14 md:pb-20")}>
+        <div className="mx-auto mb-8 w-full max-w-4xl">
+          <IconHoverArea className="w-fit">
+            <Link
+              href={ROUTES.blog}
+              className="flex items-center gap-2 rounded-md text-sm font-medium opacity-80 transition-opacity duration-300 outline-none hover:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/40"
+            >
+              <HoverIcon name="arrow-left" size={16} />
+              Volver al blog
+            </Link>
+          </IconHoverArea>
         </div>
-      </GridSection>
+        <PostHeader post={post} />
+      </Band>
 
-      <GridSection>
-        <div className="px-5 py-10 sm:px-8 md:py-14">
-          <Suspense fallback={<PostCommentsSkeleton />}>
-            <PostComments postId={post.id} slug={post.slug} />
-          </Suspense>
+      <Band className={cn("pb-14 md:pb-20", post.coverPath && OVERLAP_CLASS)}>
+        <article>
+          <PostBody post={post} />
+        </article>
+        <div className="mx-auto w-full max-w-4xl">
+          <ShareButtons url={`${SITE_URL}${ROUTES.blog}/${post.slug}`} title={post.title} />
         </div>
-      </GridSection>
+      </Band>
+
+      <Band tone="soft" dots>
+        <Suspense fallback={<PostCommentsSkeleton />}>
+          <PostComments postId={post.id} slug={post.slug} />
+        </Suspense>
+      </Band>
 
       {related.length > 0 && (
-        <>
-          <GridSection className="px-5 py-8 sm:px-8">
-            <h2 className="font-heading text-xl font-semibold tracking-[-0.01em]">Seguí leyendo</h2>
-          </GridSection>
-          <GridSection>
-            <PostGrid posts={related} />
-          </GridSection>
-        </>
+        <Band>
+          <SectionTitle
+            title="Seguí"
+            highlight="leyendo"
+            highlightStyle={{ action: "underline", color: BRAND_HEX.brand }}
+          />
+          <PostGrid posts={related} />
+        </Band>
       )}
     </>
   )
@@ -134,12 +138,12 @@ async function Post({ params }: { params: Props["params"] }) {
 
 function PostSkeleton() {
   return (
-    <GridSection first>
-      <div aria-hidden className="mx-auto flex w-full max-w-4xl flex-col gap-5 px-5 pt-28 pb-20 md:pt-36">
-        <div className="h-7 w-32 animate-pulse rounded-md bg-foreground/[0.05]" />
-        <div className="h-14 w-full animate-pulse rounded-lg bg-foreground/[0.06]" />
-        <div className="aspect-[16/9] w-full animate-pulse rounded-xl bg-foreground/[0.04]" />
+    <Band tone="pink" dots className="pt-28 pb-20 md:pt-36">
+      <div aria-hidden className="mx-auto flex w-full max-w-4xl flex-col gap-5">
+        <div className="h-7 w-32 animate-pulse rounded-md bg-background/50" />
+        <div className="h-14 w-full animate-pulse rounded-lg bg-background/50" />
+        <div className="h-6 w-2/3 animate-pulse rounded-lg bg-background/50" />
       </div>
-    </GridSection>
+    </Band>
   )
 }

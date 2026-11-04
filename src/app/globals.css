@@ -19,18 +19,6 @@
   /* Ancho del contenido del sitio. "content-inner" es el mismo ancho sin el margen lateral (px-6):
      lo usan el header al bajar y el footer para alinearse con el contenido. */
   --animate-logo-letter: logo-letter 0.7s var(--ease-premium) both;
-  /* Cruces de la retícula: suben y bajan por las líneas verticales. Solo transform, para no
-     recalcular la página. */
-  --animate-grid-cross: grid-cross 9s ease-in-out infinite;
-  @keyframes grid-cross {
-    0%,
-    100% {
-      transform: translateY(-24px);
-    }
-    50% {
-      transform: translateY(24px);
-    }
-  }
   --container-content: 90rem;
   --container-content-inner: 87rem;
   --color-sidebar-ring: var(--sidebar-ring);

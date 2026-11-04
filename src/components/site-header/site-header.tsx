@@ -7,7 +7,6 @@ import { AnimatePresence, motion } from "motion/react"
 
 import { Logo, LogoShort } from "@/components/brand/logo"
 import { IconLink } from "@/components/buttons/icon-link"
-import { GridCrosses } from "@/components/grid-section"
 import { UserIcon } from "@/components/icons/user"
 import { UserPlusIcon } from "@/components/icons/user-plus"
 import { MobileMenu } from "@/components/site-header/mobile-menu"
@@ -36,7 +35,7 @@ export function SiteHeader(props: SiteHeaderProps) {
   return <SiteHeaderView {...props} pathname={pathname} />
 }
 
-// Header fijo: una barra de vidrio de borde a borde que sigue las líneas de la retícula.
+// Header fijo: una barra de vidrio de borde a borde.
 // Escritorio: links a la izquierda, logo al centro e íconos de usuaria a la derecha.
 // Celular: perfil a la izquierda, logo corto al centro y menú a la derecha. El menú se abre
 // dentro de la misma barra, que se estira hacia abajo.
@@ -69,8 +68,6 @@ export function SiteHeaderView({
   const activeHref = MAIN_NAV.find((item) => isActive(item.href))?.href
   const highlighted = hovered ?? activeHref
   const closeMenu = () => setMenuOpen(false)
-  // La home no usa la retícula: sin líneas a los costados ni cruces
-  const framed = pathname !== "/"
 
   return (
     <>
@@ -89,20 +86,14 @@ export function SiteHeaderView({
         )}
       </AnimatePresence>
 
-      {/* Mismos márgenes y ancho que GridSection, para que los costados sigan las líneas de la página */}
+      {/* Mismos márgenes y ancho que el contenido de la página */}
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 border-b border-border bg-background/85 px-3 backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 sm:px-6",
           menuOpen && "bg-background/95"
         )}
       >
-        <div
-          className={cn(
-            "relative mx-auto max-w-content-inner px-2 py-2 sm:px-3 md:py-3",
-            framed && "border-x border-border"
-          )}
-        >
-          {framed && <GridCrosses side="bottom" />}
+        <div className="relative mx-auto max-w-content-inner px-2 py-2 sm:px-3 md:py-3">
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
             {/* Izquierda: perfil (celular) o links (escritorio) */}
             <div className="flex items-center">

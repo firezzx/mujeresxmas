@@ -7,12 +7,13 @@ import { BlogPagination } from "@/components/blog/blog-pagination"
 import { BlogSearch } from "@/components/blog/blog-search"
 import { CategoryFilter } from "@/components/blog/category-filter"
 import { FeaturedPostCard, PostGrid } from "@/components/blog/post-card"
-import { GridSection, HeroGlow } from "@/components/grid-section"
-import { BrandHighlight, Eyebrow, PageHero } from "@/components/page-hero"
+import { Band, ColorHero, OVERLAP_CLASS } from "@/components/page-band"
+import { BrandHighlight } from "@/components/page-hero"
 import { pillLinkVariants } from "@/components/pill-link"
 import { ROUTES } from "@/config/navigation"
 import { listPublicCategories, listPublicPosts } from "@/lib/blog"
 import { blogHref, SEARCH_MAX } from "@/lib/blog-shared"
+import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -24,20 +25,17 @@ export const metadata: Metadata = {
 export default function BlogPage({ searchParams }: PageProps<"/blog">) {
   return (
     <main className="relative flex flex-1 flex-col">
-      <GridSection first>
-        <header className="relative overflow-hidden px-5 pt-32 pb-14 sm:px-10 md:pt-40 md:pb-20">
-          <HeroGlow />
-          <PageHero
-            eyebrow={<Eyebrow>Blog</Eyebrow>}
-            title={
-              <>
-                Ideas para <BrandHighlight>seguir creciendo</BrandHighlight>
-              </>
-            }
-            description="Notas sobre tecnología, comunicación, emprendimiento y finanzas para mujeres y emprendedoras."
-          />
-        </header>
-      </GridSection>
+      <ColorHero
+        tone="green"
+        overlap
+        eyebrow="Blog"
+        title={
+          <>
+            Ideas para <BrandHighlight>seguir creciendo</BrandHighlight>
+          </>
+        }
+        description="Notas sobre tecnología, comunicación, emprendimiento y finanzas para mujeres y emprendedoras."
+      />
 
       <Suspense fallback={<BlogSkeleton />}>
         <BlogListing searchParams={searchParams} />
@@ -60,11 +58,11 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
 
   if (!listing || !categories) {
     return (
-      <GridSection className="px-5 py-10 sm:px-10">
+      <Band className={OVERLAP_CLASS}>
         <p className="rounded-lg bg-destructive/[0.06] px-4 py-5 text-sm text-destructive">
           No pudimos cargar el blog. Volvé a intentar en un rato.
         </p>
-      </GridSection>
+      </Band>
     )
   }
 
@@ -73,22 +71,20 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
   const filtered = Boolean(category || query)
 
   return (
-    <>
-      <GridSection className="flex flex-col gap-3 px-5 py-3 sm:px-10 lg:flex-row lg:items-center lg:justify-between">
+    <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-6")}>
+      <div className="flex flex-col gap-3 rounded-xl bg-background p-3 shadow-[0_24px_48px_-24px_rgb(26_26_26/0.35)] lg:flex-row lg:items-center lg:justify-between">
         {categories.length > 0 && <CategoryFilter categories={categories} active={category} query={query} />}
         <BlogSearch query={query} category={category} />
-      </GridSection>
+      </div>
 
       {query && !empty && (
-        <GridSection className="px-5 py-4 text-sm text-muted-foreground sm:px-10">
-          <p role="status" className="[overflow-wrap:anywhere]">
-            {total === 1 ? "1 resultado" : `${total} resultados`} para “{query}”
-          </p>
-        </GridSection>
+        <p role="status" className="text-sm [overflow-wrap:anywhere] text-muted-foreground">
+          {total === 1 ? "1 resultado" : `${total} resultados`} para “{query}”
+        </p>
       )}
 
       {empty ? (
-        <GridSection className="p-5 sm:p-10">
+        <div>
           <AdminEmpty
             icon="file-text"
             tone="green"
@@ -114,52 +110,38 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
               </Link>
             </div>
           )}
-        </GridSection>
+        </div>
       ) : (
         <>
-          {featured && page === 1 && (
-            <GridSection>
-              <FeaturedPostCard post={featured} />
-            </GridSection>
-          )}
-          {posts.length > 0 && (
-            <GridSection>
-              <PostGrid posts={posts} />
-            </GridSection>
-          )}
+          {featured && page === 1 && <FeaturedPostCard post={featured} />}
+          {posts.length > 0 && <PostGrid posts={posts} />}
           {page > totalPages && !posts.length && (
-            <GridSection className="px-5 py-10 text-center text-sm text-muted-foreground sm:px-10">
+            <p className="py-6 text-center text-sm text-muted-foreground">
               Esta página ya no existe.{" "}
               <Link href={blogHref({ category, query })} className="underline decoration-brand underline-offset-3">
                 Volver al blog
               </Link>
-            </GridSection>
+            </p>
           )}
           {totalPages > 1 && (
-            <GridSection>
-              <BlogPagination
-                page={Math.min(page, totalPages)}
-                totalPages={totalPages}
-                category={category}
-                query={query}
-              />
-            </GridSection>
+            <BlogPagination
+              page={Math.min(page, totalPages)}
+              totalPages={totalPages}
+              category={category}
+              query={query}
+            />
           )}
         </>
       )}
-    </>
+    </Band>
   )
 }
 
 function BlogSkeleton() {
   return (
-    <div aria-hidden>
-      <GridSection className="px-5 py-3 sm:px-10">
-        <div className="h-12 w-full max-w-lg animate-pulse rounded-lg bg-foreground/[0.05]" />
-      </GridSection>
-      <GridSection>
-        <div className="h-96 animate-pulse bg-foreground/[0.03]" />
-      </GridSection>
-    </div>
+    <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-6")}>
+      <div aria-hidden className="h-16 animate-pulse rounded-xl bg-background shadow-sm" />
+      <div aria-hidden className="h-96 animate-pulse rounded-xl bg-foreground/[0.04]" />
+    </Band>
   )
 }

@@ -7,7 +7,7 @@ import { z } from "zod"
 import { AdminSectionSkeleton } from "@/components/admin/admin-ui"
 import { PostStatusBadge } from "@/components/admin/blog/post-status-badge"
 import { PostArticle } from "@/components/blog/post-article"
-import { GridSection } from "@/components/grid-section"
+import { Band } from "@/components/page-band"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { pillLinkVariants } from "@/components/pill-link"
 import { ROUTES } from "@/config/navigation"
@@ -22,11 +22,11 @@ export const metadata: Metadata = {
 // La publicación tal como quedó guardada, también si todavía es un borrador.
 export default function PostPreviewPage({ params }: PageProps<"/admin/blog/[id]/vista-previa">) {
   return (
-    <GridSection>
+    <Band className="py-3 pb-16 md:py-3 md:pb-20">
       <Suspense fallback={<AdminSectionSkeleton />}>
         <Preview params={params} />
       </Suspense>
-    </GridSection>
+    </Band>
   )
 }
 
@@ -38,7 +38,7 @@ async function Preview({ params }: { params: PageProps<"/admin/blog/[id]/vista-p
   if (!post) notFound()
 
   return (
-    <>
+    <div className="overflow-hidden rounded-xl border border-border">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">
           <PostStatusBadge status={postDisplayStatus(post.status, post.publishedAt)} />
@@ -54,6 +54,6 @@ async function Preview({ params }: { params: PageProps<"/admin/blog/[id]/vista-p
       <div className="bg-background px-5 py-10 sm:px-8 md:py-16">
         <PostArticle post={post} />
       </div>
-    </>
+    </div>
   )
 }

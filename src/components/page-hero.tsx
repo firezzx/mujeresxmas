@@ -1,7 +1,5 @@
-import { AuroraText } from "@/components/ui/aurora-text"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { TextAnimate } from "@/components/ui/text-animate"
-import { AURORA_COLORS } from "@/config/brand-effects"
 import { cn } from "@/lib/utils"
 
 type PageHeroProps = {
@@ -38,9 +36,13 @@ export function PageTitle({ children, className, delay = 0 }: PageTitleProps) {
   )
 }
 
-// Palabra destacada de un título con el degradé animado de Aurora Text en colores de marca.
+// Parte destacada de un título: un rótulo naranja apenas torcido, con el texto en negro por contraste.
 export function BrandHighlight({ children }: { children: string }) {
-  return <AuroraText colors={AURORA_COLORS}>{children}</AuroraText>
+  return (
+    <span className="inline-block -rotate-1 rounded-lg bg-brand px-2.5 text-foreground shadow-[0_12px_24px_-12px_rgb(26_26_26/0.5)]">
+      {children}
+    </span>
+  )
 }
 
 // Encabezado estándar de página con la animación de aparición escalonada del sitio.
@@ -52,10 +54,7 @@ export function PageHero({ eyebrow, title, description, actions, className, chil
     eyebrow && <div key="eyebrow">{eyebrow}</div>,
     TITLE,
     description && (
-      <p
-        key="description"
-        className="mx-auto max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-lg"
-      >
+      <p key="description" className="mx-auto max-w-xl text-base leading-relaxed text-pretty opacity-80 sm:text-lg">
         {description}
       </p>
     ),

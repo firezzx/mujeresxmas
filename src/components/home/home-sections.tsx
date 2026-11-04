@@ -8,13 +8,22 @@ import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { RegisterCta } from "@/components/cta/register-cta"
 import { cycleTone, IconBadge } from "@/components/icon-badge"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
+import {
+  DOTS_MASK_CLASS,
+  GhostWord,
+  PAGE_WIDTH_CLASS,
+  PHOTO_FRAME_CLASS,
+  PhotoDuo,
+  PhotoTile,
+  SectionTitle,
+} from "@/components/page-band"
 import { BrandHighlight } from "@/components/page-hero"
+import { AuroraText } from "@/components/ui/aurora-text"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { AvatarCircles } from "@/components/ui/avatar-circles"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
 import { DotPattern } from "@/components/ui/dot-pattern"
-import { Highlighter } from "@/components/ui/highlighter"
 import { LightRays } from "@/components/ui/light-rays"
 import { Marquee } from "@/components/ui/marquee"
 import { Particles } from "@/components/ui/particles"
@@ -24,7 +33,7 @@ import { ShineBorder } from "@/components/ui/shine-border"
 import { SparklesText } from "@/components/ui/sparkles-text"
 import { SpinningText } from "@/components/ui/spinning-text"
 import { TextReveal } from "@/components/ui/text-reveal"
-import { BRAND_HEX } from "@/config/brand-effects"
+import { AURORA_COLORS, BRAND_HEX } from "@/config/brand-effects"
 import { ROUTES } from "@/config/navigation"
 import {
   HOME_AVATARS,
@@ -48,14 +57,9 @@ import { listPublishedCourses, listUpcomingEvents } from "@/lib/content"
 import { formatDateParts, formatDateTime } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
-const WIDTH_CLASS = "mx-auto w-full max-w-content px-5 sm:px-8 lg:px-9"
+const WIDTH_CLASS = PAGE_WIDTH_CLASS
 const BAND_CLASS = "scroll-mt-20 py-16 md:py-24"
 const CARDS_PER_SECTION = 3
-// Marco blanco y sombra de las fotos, como copias pegadas sobre el color de la sección
-const PHOTO_FRAME_CLASS =
-  "relative overflow-hidden rounded-xl border-4 border-background bg-background shadow-[0_24px_48px_-20px_rgb(26_26_26/0.45)] sm:border-[6px]"
-// Puntos de fondo que se desvanecen hacia los bordes (Dot Pattern de Magic UI)
-const DOTS_MASK_CLASS = "[mask-image:radial-gradient(70%_70%_at_50%_50%,white,transparent)]"
 
 // Cada tipo de contenido tiene su color, para reconocerlo en cualquier parte del sitio
 const TAG_TONES = {
@@ -71,43 +75,6 @@ function Tag({ tone, children }: { tone: keyof typeof TAG_TONES; children: React
     <span className={cn("w-fit rounded-md px-2.5 py-1 text-[12px] font-medium text-foreground", TAG_TONES[tone])}>
       {children}
     </span>
-  )
-}
-
-type HighlightStyle = { action: "underline" | "highlight" | "circle" | "box"; color: string }
-
-// Título de sección con una parte marcada a mano (Highlighter de Magic UI) cuando entra en pantalla.
-function SectionTitle({
-  title,
-  highlight,
-  highlightStyle,
-  description,
-  action,
-}: {
-  title: string
-  highlight: string
-  highlightStyle: HighlightStyle
-  description?: string
-  action?: React.ReactNode
-}) {
-  return (
-    <BlurFade
-      inView
-      className="mb-8 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-10"
-    >
-      <div className="flex min-w-0 flex-col gap-3">
-        <h2 className="relative font-heading text-[2rem] leading-[1.15] font-semibold tracking-[-0.03em] text-balance sm:text-5xl">
-          {title}{" "}
-          <Highlighter isView {...highlightStyle} strokeWidth={3} iterations={2} padding={4} animationDuration={900}>
-            {highlight}
-          </Highlighter>
-        </h2>
-        {description && (
-          <p className="text-base leading-relaxed text-pretty text-foreground/70 sm:text-lg">{description}</p>
-        )}
-      </div>
-      {action && <div className="shrink-0">{action}</div>}
-    </BlurFade>
   )
 }
 
@@ -129,10 +96,7 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
         <div className="flex flex-col items-start gap-6">
           <BlurFade inView>
             <h1 className="font-heading text-[2.75rem] leading-[1.1] font-semibold tracking-[-0.035em] text-balance sm:text-6xl xl:text-[5rem]">
-              {HOME_HERO.titleStart}{" "}
-              <span className="inline-block -rotate-1 rounded-lg bg-brand px-2.5 shadow-[0_12px_24px_-12px_rgb(26_26_26/0.5)]">
-                {HOME_HERO.titleHighlight}
-              </span>
+              {HOME_HERO.titleStart} <BrandHighlight>{HOME_HERO.titleHighlight}</BrandHighlight>
             </h1>
           </BlurFade>
           <BlurFade inView delay={0.08}>
@@ -399,19 +363,12 @@ function ContentCard({
 const CARD_GRID_CLASS =
   "grid grid-cols-[minmax(0,1fr)] gap-x-5 gap-y-8 md:grid-cols-3 md:[&>*:nth-child(2)]:mt-10 lg:gap-x-8"
 
-// Cómo se reparten las celdas según cuántas secciones tienen contenido (Bento Grid de Magic UI)
+// Cómo se reparten las celdas según cuántas secciones tienen contenido
 const TILE_LAYOUTS: Record<number, string[]> = {
   1: ["col-span-2 lg:col-span-4"],
   2: ["col-span-2", "col-span-2"],
   3: ["col-span-2 lg:row-span-2", "lg:col-span-2", "lg:col-span-2"],
   4: ["col-span-2 lg:row-span-2", "", "", "col-span-2"],
-}
-
-const TILE_TONES = {
-  ink: "from-foreground via-foreground/55",
-  pink: "from-brand-soft via-brand-soft/70",
-  brand: "from-brand via-brand/70",
-  green: "from-brand-green via-brand-green/70",
 }
 
 // Lo que hay en el sitio. Solo aparece lo de las secciones que tienen contenido.
@@ -426,47 +383,11 @@ function HomePaths({ available }: { available: (keyof typeof HOME_PATHS)[] }) {
           highlightStyle={{ action: "box", color: BRAND_HEX.green }}
         />
         <ul className="grid auto-rows-[13rem] grid-cols-2 gap-3 sm:auto-rows-[15rem] sm:gap-4 lg:auto-rows-[17rem] lg:grid-cols-4">
-          {available.map((key, index) => {
-            const path = HOME_PATHS[key]
-            return (
-              <li key={key} className={cn("min-w-0", layout[index])}>
-                <BlurFade inView delay={index * 0.06} className="h-full">
-                  <IconHoverArea className="h-full">
-                    <a
-                      href={`#${HOME_SECTION_IDS[key]}`}
-                      className="group relative flex h-full flex-col justify-between overflow-hidden rounded-xl p-4 outline-none transition-transform duration-500 ease-premium hover:-translate-y-1 focus-visible:ring-3 focus-visible:ring-ring/40 sm:p-6"
-                    >
-                      <Image
-                        src={path.image}
-                        alt=""
-                        fill
-                        sizes="(min-width: 1024px) 45vw, 100vw"
-                        className="object-cover transition-transform duration-700 ease-premium group-hover:scale-105"
-                      />
-                      <span
-                        aria-hidden
-                        className={cn(
-                          "absolute inset-0 bg-linear-to-t from-20% via-45% to-transparent to-75%",
-                          TILE_TONES[path.tone]
-                        )}
-                      />
-                      <span className="relative w-fit rounded-lg bg-background text-foreground">
-                        <IconBadge tone={cycleTone(index)}>
-                          <HoverIcon name={path.icon} size={22} />
-                        </IconBadge>
-                      </span>
-                      <span className={cn("relative flex flex-col gap-1", path.tone === "ink" && "text-background")}>
-                        <span className="font-heading text-2xl leading-tight font-semibold tracking-[-0.02em] sm:text-4xl">
-                          {path.title}
-                        </span>
-                        <span className="text-[13px] leading-snug text-pretty sm:text-base">{path.text}</span>
-                      </span>
-                    </a>
-                  </IconHoverArea>
-                </BlurFade>
-              </li>
-            )
-          })}
+          {available.map((key, index) => (
+            <li key={key} className={cn("min-w-0", layout[index])}>
+              <PhotoTile {...HOME_PATHS[key]} index={index} href={`#${HOME_SECTION_IDS[key]}`} />
+            </li>
+          ))}
         </ul>
       </div>
     </section>
@@ -631,46 +552,16 @@ function HomeProduct() {
         numCircles={5}
         className="[mask-image:radial-gradient(70%_70%_at_50%_50%,white,transparent)]"
       />
-      {/* La palabra gigante pasando de fondo (Scroll Based Velocity de Magic UI) */}
-      <div aria-hidden className="absolute inset-x-0 bottom-0 text-foreground/10">
-        <ScrollVelocityRow baseVelocity={1}>
-          {Array.from({ length: 4 }, (_, index) => (
-            <span
-              key={index}
-              className="px-6 font-heading text-[7rem] leading-[0.85] font-semibold tracking-[-0.04em] md:text-[14rem]"
-            >
-              {HOME_PRODUCT.title}
-            </span>
-          ))}
-        </ScrollVelocityRow>
-      </div>
+      <GhostWord word={HOME_PRODUCT.title} />
       <div className={cn(WIDTH_CLASS, "relative grid items-center gap-14 py-16 md:grid-cols-2 md:py-28")}>
-        <BlurFade inView className="relative mr-6 mb-8 md:mr-10">
-          <div className={cn(PHOTO_FRAME_CLASS, "aspect-[4/3] -rotate-2")}>
-            <Image
-              src={HOME_PRODUCT.image}
-              alt={HOME_PRODUCT.imageAlt}
-              fill
-              sizes="(min-width: 768px) 45vw, 100vw"
-              className="object-cover"
-            />
-            <BorderBeam size={140} duration={8} colorFrom={BRAND_HEX.brand} colorTo={BRAND_HEX.green} />
-          </div>
-          <div
-            className={cn(PHOTO_FRAME_CLASS, "absolute -right-6 -bottom-8 aspect-square w-2/5 rotate-3 md:-right-10")}
-          >
-            <Image
-              src={HOME_PRODUCT.secondImage}
-              alt={HOME_PRODUCT.secondImageAlt}
-              fill
-              sizes="(min-width: 768px) 18vw, 40vw"
-              className="object-cover"
-            />
-          </div>
-          <span className="absolute -top-3 -left-2 z-10 flex animate-float items-center gap-2 rounded-lg bg-background px-3 py-2 text-[13px] font-medium shadow-[0_12px_28px_-10px_rgb(26_26_26/0.4)] motion-reduce:animate-none sm:text-sm">
-            <span aria-hidden className="size-2 rounded-full bg-brand-green" />
-            {HOME_PRODUCT.chip}
-          </span>
+        <BlurFade inView>
+          <PhotoDuo
+            image={HOME_PRODUCT.image}
+            imageAlt={HOME_PRODUCT.imageAlt}
+            secondImage={HOME_PRODUCT.secondImage}
+            secondImageAlt={HOME_PRODUCT.secondImageAlt}
+            chip={HOME_PRODUCT.chip}
+          />
         </BlurFade>
         <BlurFade inView delay={0.08} className="flex flex-col items-start gap-5">
           <span className="w-fit rounded-md bg-background px-2.5 py-1 text-[12px] font-medium">{HOME_PRODUCT.tag}</span>
@@ -886,7 +777,7 @@ export function HomeClosing() {
       <div className={cn(WIDTH_CLASS, "flex flex-col items-center gap-6 py-24 text-center sm:py-36")}>
         <BlurFade inView>
           <h2 className="font-heading text-5xl leading-[1.02] font-semibold tracking-[-0.035em] text-balance sm:text-7xl xl:text-8xl">
-            {HOME_CLOSING.title} <BrandHighlight>{HOME_CLOSING.titleHighlight}</BrandHighlight>
+            {HOME_CLOSING.title} <AuroraText colors={AURORA_COLORS}>{HOME_CLOSING.titleHighlight}</AuroraText>
           </h2>
         </BlurFade>
         <p className="max-w-xl text-base leading-relaxed text-pretty text-primary-foreground/85 sm:text-xl">

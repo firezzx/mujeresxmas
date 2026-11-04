@@ -5,7 +5,7 @@ import { z } from "zod"
 
 import { AdminLoadError, AdminSectionSkeleton } from "@/components/admin/admin-ui"
 import { PostEditor } from "@/components/admin/blog/post-editor"
-import { GridSection } from "@/components/grid-section"
+import { Band } from "@/components/page-band"
 import { getPostForAdmin, listBlogCategories } from "@/lib/blog"
 
 export const metadata: Metadata = {
@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 
 export default function EditPostPage({ params }: PageProps<"/admin/blog/[id]">) {
   return (
-    <GridSection>
+    <Band className="py-3 pb-16 md:py-3 md:pb-20">
       <Suspense fallback={<AdminSectionSkeleton />}>
         <EditPost params={params} />
       </Suspense>
-    </GridSection>
+    </Band>
   )
 }
 

@@ -13,7 +13,6 @@ import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
 import { SelectField } from "@/components/forms/select-field"
 import { TextField } from "@/components/forms/text-field"
 import { TextareaField } from "@/components/forms/textarea-field"
-import { GRID_CELLS_CLASS } from "@/components/grid-section"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { pillLinkVariants } from "@/components/pill-link"
 import { useToast } from "@/components/toast/toaster"
@@ -309,7 +308,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
     values.metaDescription.trim() || values.excerpt.trim() || "La bajada de la publicación va a aparecer acá."
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col rounded-xl border border-border bg-background">
       {/* Acciones siempre a la vista. En escritorio, una barra fija arriba. En celular y tablet, el
           estado va arriba y los botones quedan pegados abajo de la pantalla mientras se edita. */}
       <div className="contents lg:sticky lg:top-[57px] lg:z-30 lg:flex lg:items-center lg:justify-between lg:gap-4 lg:border-b lg:border-border lg:bg-background/90 lg:px-6 lg:py-3 lg:backdrop-blur-xl">
@@ -373,7 +372,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
         </div>
       </div>
 
-      <div className={cn(GRID_CELLS_CLASS, "lg:grid-cols-[minmax(0,1fr)_22rem]")}>
+      <div className="grid gap-px bg-border lg:grid-cols-[minmax(0,1fr)_22rem]">
         {/* Contenido */}
         <div className="flex min-w-0 flex-col gap-6 bg-background p-5 sm:p-8">
           <TextareaField

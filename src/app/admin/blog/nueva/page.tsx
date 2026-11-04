@@ -3,7 +3,7 @@ import { Suspense } from "react"
 
 import { AdminLoadError, AdminSectionSkeleton } from "@/components/admin/admin-ui"
 import { PostEditor } from "@/components/admin/blog/post-editor"
-import { GridSection } from "@/components/grid-section"
+import { Band } from "@/components/page-band"
 import { listBlogCategories } from "@/lib/blog"
 
 export const metadata: Metadata = {
@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 
 export default function NewPostPage() {
   return (
-    <GridSection>
+    <Band className="py-3 pb-16 md:py-3 md:pb-20">
       <Suspense fallback={<AdminSectionSkeleton />}>
         <NewPost />
       </Suspense>
-    </GridSection>
+    </Band>
   )
 }
 

@@ -3,9 +3,9 @@ import Link from "next/link"
 import { AccountCard } from "@/components/account/account-card"
 import { MyCourses, MyEvents, MyNotifications } from "@/components/account/account-sections"
 import { SignOutButton } from "@/components/account/sign-out-button"
-import { GRID_CELLS_CLASS, GridSection, HeroGlow } from "@/components/grid-section"
+import { Band, ColorHero, OVERLAP_CLASS } from "@/components/page-band"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { BrandHighlight, Eyebrow, PAGE_TITLE_CLASS, PageTitle } from "@/components/page-hero"
+import { BrandHighlight } from "@/components/page-hero"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
@@ -22,43 +22,34 @@ type AccountViewProps = NonNullable<Awaited<ReturnType<typeof getAccountSummary>
   notifications: UserNotification[]
 }
 
-// Mi cuenta dentro de la retícula: encabezado, membresía y datos, y una celda por sección.
+// Mi cuenta: encabezado de color, membresía y datos montados sobre el borde, y una tarjeta por sección.
 export function AccountView({ user, membership, memberSince, courses, events, notifications }: AccountViewProps) {
   const fullName = [user.firstName, user.lastName].filter(Boolean).join(" ")
 
   return (
     <>
-      <GridSection first>
-        <header className="relative flex flex-col items-start gap-4 overflow-hidden px-5 pt-28 pb-10 sm:px-10 md:pt-36 md:pb-14">
-          <HeroGlow />
-          <BlurFade delay={0.05} inView className="relative">
-            <Eyebrow>Mi cuenta</Eyebrow>
-          </BlurFade>
-          <div className="relative">
-            <PageTitle delay={0.12} className={PAGE_TITLE_CLASS}>
-              {user.firstName ? (
-                <>
-                  Hola, <BrandHighlight>{user.firstName}</BrandHighlight>
-                </>
-              ) : (
-                "Hola"
-              )}
-            </PageTitle>
-          </div>
-          <BlurFade delay={0.19} inView className="relative">
-            <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-              Acá están tu membresía, tus cursos, tus eventos y tus avisos.
-            </p>
-          </BlurFade>
-        </header>
-      </GridSection>
+      <ColorHero
+        compact
+        overlap
+        eyebrow="Mi cuenta"
+        title={
+          user.firstName ? (
+            <>
+              Hola, <BrandHighlight>{user.firstName}</BrandHighlight>
+            </>
+          ) : (
+            "Hola"
+          )
+        }
+        description="Acá están tu membresía, tus cursos, tus eventos y tus avisos."
+      />
 
-      <GridSection>
-        <div className={cn(GRID_CELLS_CLASS, "grid-cols-1 md:grid-cols-5")}>
+      <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-4")}>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           {/* Membresía */}
-          <div className="bg-background md:col-span-3">
+          <div className="min-w-0 md:col-span-3">
             <BlurFade delay={0.26} inView className="h-full">
-              <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden bg-primary p-6 text-primary-foreground sm:p-10">
+              <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-[0_24px_48px_-24px_rgb(26_26_26/0.45)] sm:p-10">
                 <div
                   aria-hidden
                   className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-brand/35 blur-3xl"
@@ -97,7 +88,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
           </div>
 
           {/* Perfil */}
-          <div className="bg-background md:col-span-2">
+          <div className="min-w-0 md:col-span-2">
             <BlurFade delay={0.33} inView className="h-full">
               <AccountCard className="flex flex-col">
                 <div className="flex items-center justify-between gap-3">
@@ -138,57 +129,45 @@ export function AccountView({ user, membership, memberSince, courses, events, no
             </BlurFade>
           </div>
         </div>
-      </GridSection>
 
-      <GridSection>
-        <div className={cn(GRID_CELLS_CLASS, "grid-cols-1 md:grid-cols-3")}>
-          <div className="bg-background">
-            <BlurFade delay={0.4} inView className="h-full">
-              <MyCourses courses={courses} />
-            </BlurFade>
-          </div>
-          <div className="bg-background">
-            <BlurFade delay={0.47} inView className="h-full">
-              <MyEvents events={events} />
-            </BlurFade>
-          </div>
-          <div className="bg-background">
-            <BlurFade delay={0.54} inView className="h-full">
-              {/* Destino de "Notificaciones" en el menú de la cuenta */}
-              <div id="notificaciones" className="h-full scroll-mt-28">
-                <MyNotifications notifications={notifications} />
-              </div>
-            </BlurFade>
-          </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <BlurFade delay={0.4} inView className="h-full min-w-0">
+            <MyCourses courses={courses} />
+          </BlurFade>
+          <BlurFade delay={0.47} inView className="h-full min-w-0">
+            <MyEvents events={events} />
+          </BlurFade>
+          <BlurFade delay={0.54} inView className="h-full min-w-0">
+            {/* Destino de "Notificaciones" en el menú de la cuenta */}
+            <div id="notificaciones" className="h-full scroll-mt-28">
+              <MyNotifications notifications={notifications} />
+            </div>
+          </BlurFade>
         </div>
-      </GridSection>
+      </Band>
     </>
   )
 }
 
 export function AccountSkeleton() {
-  const cell = "h-60 animate-pulse bg-background"
+  const cell = "h-60 animate-pulse rounded-xl bg-foreground/[0.05]"
   return (
     <div aria-hidden>
-      <GridSection first>
-        <div className="flex flex-col gap-4 px-5 pt-28 pb-10 sm:px-10 md:pt-36 md:pb-14">
-          <div className="h-7 w-28 animate-pulse rounded-md bg-foreground/[0.05]" />
-          <div className="h-12 w-64 animate-pulse rounded-lg bg-foreground/[0.06]" />
-        </div>
-      </GridSection>
-      <GridSection>
-        <div className={cn(GRID_CELLS_CLASS, "grid-cols-1 md:grid-cols-5")}>
+      <Band tone="pink" dots className="flex flex-col gap-4 pt-28 pb-24 md:pt-36 md:pb-32">
+        <div className="h-7 w-28 animate-pulse rounded-md bg-background/50" />
+        <div className="h-12 w-64 animate-pulse rounded-lg bg-background/50" />
+      </Band>
+      <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-4")}>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           <div className={cn(cell, "md:col-span-3")} />
           <div className={cn(cell, "md:col-span-2")} />
         </div>
-      </GridSection>
-      <GridSection>
-        <div className={cn(GRID_CELLS_CLASS, "grid-cols-1 md:grid-cols-3")}>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className={cell} />
           <div className={cell} />
           <div className={cell} />
         </div>
-      </GridSection>
+      </Band>
     </div>
   )
 }

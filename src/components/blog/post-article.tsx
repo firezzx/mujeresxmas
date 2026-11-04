@@ -1,14 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { PHOTO_FRAME_CLASS } from "@/components/page-band"
 import { ROUTES } from "@/config/navigation"
 import type { PostPreview } from "@/lib/blog"
 import { blogImageUrl } from "@/lib/blog-shared"
 import { formatDay } from "@/lib/format"
+import { cn } from "@/lib/utils"
 
 // Una publicación armada: la usan la vista previa del panel y el blog público.
 // El HTML lo genera el servidor al guardar, a partir del documento validado (ver savePost).
-export function PostArticle({ post }: { post: PostPreview }) {
+export function PostHeader({ post }: { post: PostPreview }) {
   const details = [
     post.authorName,
     post.publishedAt && formatDay(post.publishedAt),
@@ -16,29 +18,33 @@ export function PostArticle({ post }: { post: PostPreview }) {
   ].filter(Boolean)
 
   return (
-    <article className="mx-auto w-full max-w-4xl min-w-0">
-      <header>
-        {post.categoryName && post.categorySlug && (
-          <Link
-            href={`${ROUTES.blog}?categoria=${post.categorySlug}`}
-            className="inline-flex rounded-md bg-brand-soft/60 px-2.5 py-2 text-[12px] font-medium transition-colors sm:py-1 duration-200 outline-none hover:bg-brand-soft focus-visible:ring-3 focus-visible:ring-ring/40"
-          >
-            {post.categoryName}
-          </Link>
-        )}
-        <h1 className="mt-4 font-heading text-3xl leading-tight font-semibold tracking-[-0.02em] text-balance [overflow-wrap:anywhere] sm:text-4xl lg:text-[2.75rem]">
-          {post.title}
-        </h1>
-        {post.excerpt && (
-          <p className="mt-4 text-lg leading-relaxed text-pretty [overflow-wrap:anywhere] text-muted-foreground">
-            {post.excerpt}
-          </p>
-        )}
-        <p className="mt-4 text-[13px] text-muted-foreground">{details.join(" · ")}</p>
-      </header>
+    <header className="mx-auto w-full max-w-4xl min-w-0">
+      {post.categoryName && post.categorySlug && (
+        <Link
+          href={`${ROUTES.blog}?categoria=${post.categorySlug}`}
+          className="inline-flex rounded-md bg-background px-2.5 py-2 text-[12px] font-medium ring-1 ring-foreground/10 transition-colors duration-200 outline-none hover:bg-brand-soft/60 focus-visible:ring-3 focus-visible:ring-ring/40 sm:py-1"
+        >
+          {post.categoryName}
+        </Link>
+      )}
+      <h1 className="mt-4 font-heading text-[2.5rem] leading-[1.08] font-semibold tracking-[-0.03em] text-balance [overflow-wrap:anywhere] sm:text-6xl">
+        {post.title}
+      </h1>
+      {post.excerpt && (
+        <p className="mt-4 text-lg leading-relaxed text-pretty [overflow-wrap:anywhere] opacity-80 sm:text-xl">
+          {post.excerpt}
+        </p>
+      )}
+      <p className="mt-4 text-[13px] opacity-70">{details.join(" · ")}</p>
+    </header>
+  )
+}
 
+export function PostBody({ post }: { post: PostPreview }) {
+  return (
+    <div className="mx-auto w-full max-w-4xl min-w-0">
       {post.coverPath && (
-        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-xl bg-foreground/[0.04]">
+        <div className={cn(PHOTO_FRAME_CLASS, "aspect-[16/9] bg-foreground/[0.04]")}>
           <Image
             src={blogImageUrl(post.coverPath)}
             alt={post.coverAlt ?? ""}
@@ -64,6 +70,15 @@ export function PostArticle({ post }: { post: PostPreview }) {
           ))}
         </ul>
       )}
+    </div>
+  )
+}
+
+export function PostArticle({ post }: { post: PostPreview }) {
+  return (
+    <article className="flex flex-col gap-8">
+      <PostHeader post={post} />
+      <PostBody post={post} />
     </article>
   )
 }
