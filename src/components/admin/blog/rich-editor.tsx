@@ -276,7 +276,8 @@ export function RichEditor({ label, content, error, onChange }: RichEditorProps)
         return true
       },
     },
-    onUpdate: ({ editor: current }) => onChange(current.getJSON() as PostDoc),
+    // Los attrs de ProseMirror no son objetos planos y una Server Action no puede leerlos: se copian como JSON
+    onUpdate: ({ editor: current }) => onChange(JSON.parse(JSON.stringify(current.getJSON())) as PostDoc),
   })
 
   async function insertImage(file: File) {
