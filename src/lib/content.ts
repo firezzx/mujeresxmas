@@ -1,5 +1,6 @@
 import { connection } from "next/server"
 
+import type { ContentStatus } from "@/lib/content-status"
 import { createClient } from "@/lib/supabase/server"
 
 // Supabase compara el vencimiento del token con la hora actual: solo puede pasar en el pedido
@@ -11,14 +12,6 @@ async function getClient() {
 
 // Cursos y eventos (supabase/migrations/*_cursos_eventos_notificaciones.sql).
 // Para sumar un campo: columna en la migración, una línea en el tipo y en el select.
-
-export type ContentStatus = "draft" | "published" | "archived"
-
-export const STATUS_LABELS: Record<ContentStatus, string> = {
-  draft: "Borrador",
-  published: "Publicado",
-  archived: "Archivado",
-}
 
 export type Course = {
   id: string

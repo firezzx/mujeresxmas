@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react"
 import { ArrowLeftIcon } from "@/components/icons/arrow-left"
 import { BadgeAlertIcon } from "@/components/icons/badge-alert"
 import { BellIcon } from "@/components/icons/bell"
+import { BoldIcon } from "@/components/icons/bold"
 import { BookTextIcon } from "@/components/icons/book-text"
 import { CalendarDaysIcon } from "@/components/icons/calendar-days"
 import { ChartLineIcon } from "@/components/icons/chart-line"
@@ -13,14 +14,24 @@ import { CircleCheckIcon } from "@/components/icons/circle-check"
 import { CompassIcon } from "@/components/icons/compass"
 import { CpuIcon } from "@/components/icons/cpu"
 import { EyeIcon } from "@/components/icons/eye"
+import { FileTextIcon } from "@/components/icons/file-text"
 import { GraduationCapIcon } from "@/components/icons/graduation-cap"
+import { ItalicIcon } from "@/components/icons/italic"
+import { LinkIcon } from "@/components/icons/link"
 import { MailCheckIcon } from "@/components/icons/mail-check"
+import { PlusIcon } from "@/components/icons/plus"
+import { RedoIcon } from "@/components/icons/redo"
 import { RocketIcon } from "@/components/icons/rocket"
+import { SearchIcon } from "@/components/icons/search"
 import { SparklesIcon } from "@/components/icons/sparkles"
 import { SquarePenIcon } from "@/components/icons/square-pen"
 import { TrendingUpIcon } from "@/components/icons/trending-up"
+import { UnderlineIcon } from "@/components/icons/underline"
+import { UndoIcon } from "@/components/icons/undo"
+import { UploadIcon } from "@/components/icons/upload"
 import { UsersRoundIcon } from "@/components/icons/users-round"
 import { WalletIcon } from "@/components/icons/wallet"
+import { XIcon } from "@/components/icons/x"
 import { cn } from "@/lib/utils"
 
 type AnimatedIconHandle = { startAnimation: () => void; stopAnimation: () => void }
@@ -31,6 +42,7 @@ const ICONS = {
   "arrow-left": ArrowLeftIcon,
   "badge-alert": BadgeAlertIcon,
   bell: BellIcon,
+  bold: BoldIcon,
   "book-text": BookTextIcon,
   "calendar-days": CalendarDaysIcon,
   "chart-line": ChartLineIcon,
@@ -39,14 +51,24 @@ const ICONS = {
   compass: CompassIcon,
   cpu: CpuIcon,
   eye: EyeIcon,
+  "file-text": FileTextIcon,
   "graduation-cap": GraduationCapIcon,
+  italic: ItalicIcon,
+  link: LinkIcon,
   "mail-check": MailCheckIcon,
+  plus: PlusIcon,
+  redo: RedoIcon,
   rocket: RocketIcon,
+  search: SearchIcon,
   sparkles: SparklesIcon,
   "square-pen": SquarePenIcon,
   "trending-up": TrendingUpIcon,
+  underline: UnderlineIcon,
+  undo: UndoIcon,
+  upload: UploadIcon,
   "users-round": UsersRoundIcon,
   wallet: WalletIcon,
+  x: XIcon,
 }
 
 export type IconName = keyof typeof ICONS

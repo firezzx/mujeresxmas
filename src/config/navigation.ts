@@ -19,6 +19,9 @@ export const ROUTES = {
   adminCursos: "/admin/cursos",
   adminEventos: "/admin/eventos",
   adminNotificaciones: "/admin/notificaciones",
+  adminBlog: "/admin/blog",
+  adminBlogNueva: "/admin/blog/nueva",
+  adminBlogCategorias: "/admin/blog/categorias",
   quiero: "/quiero",
   // Provisoria hasta que la clienta defina cómo se pide QUIERO (función 2)
   quieroSolicitud: "/quiero/solicitud",
@@ -36,5 +39,6 @@ export const ADMIN_NAV = [
   { href: ROUTES.admin, label: "Usuarios", icon: "users-round" },
   { href: ROUTES.adminCursos, label: "Cursos", icon: "book-text" },
   { href: ROUTES.adminEventos, label: "Eventos", icon: "calendar-days" },
+  { href: ROUTES.adminBlog, label: "Blog", icon: "file-text" },
   { href: ROUTES.adminNotificaciones, label: "Notificaciones", icon: "bell" },
 ] as const

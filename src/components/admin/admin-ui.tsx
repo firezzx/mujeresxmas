@@ -3,7 +3,7 @@ import { GridSection } from "@/components/grid-section"
 import { IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { type ContentStatus, STATUS_LABELS } from "@/lib/content"
+import { type ContentStatus, STATUS_LABELS } from "@/lib/content-status"
 import { cn } from "@/lib/utils"
 
 // Piezas comunes de las secciones del panel de administración.

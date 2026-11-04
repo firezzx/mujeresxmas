@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { ADMIN_NAV } from "@/config/navigation"
+import { ADMIN_NAV, ROUTES } from "@/config/navigation"
 import { cn } from "@/lib/utils"
 
 // Pestañas del panel de administración. La activa lleva la pastilla rosa, que se desliza
@@ -17,7 +17,8 @@ export function AdminNav() {
     <nav aria-label="Secciones del panel" className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
       <ul className="flex w-max gap-1 rounded-lg bg-foreground/[0.035] p-1">
         {ADMIN_NAV.map((item) => {
-          const active = pathname === item.href
+          // "Usuarios" es la raíz del panel: las demás quedan activas también en sus subpáginas
+          const active = item.href === ROUTES.admin ? pathname === item.href : pathname.startsWith(item.href)
           return (
             <li key={item.href}>
               <IconHoverArea>

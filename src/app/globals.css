@@ -294,6 +294,80 @@
   transform-box: fill-box;
 }
 
+/* Contenido de las publicaciones del blog: el artículo y el editor se ven igual */
+.post-content {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.post-content > * + * {
+  margin-top: 1.25em;
+}
+.post-content h2,
+.post-content h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.post-content h2 {
+  margin-top: 2em;
+  font-size: 1.625rem;
+}
+.post-content h3 {
+  margin-top: 1.75em;
+  font-size: 1.3125rem;
+}
+.post-content > :first-child {
+  margin-top: 0;
+}
+.post-content ul,
+.post-content ol {
+  padding-left: 1.5em;
+}
+.post-content ul {
+  list-style: disc;
+}
+.post-content ol {
+  list-style: decimal;
+}
+.post-content li + li {
+  margin-top: 0.4em;
+}
+.post-content li::marker {
+  color: var(--brand);
+}
+.post-content blockquote {
+  border-left: 3px solid var(--brand);
+  padding-left: 1.25em;
+  color: var(--muted-foreground);
+}
+.post-content a {
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+  text-underline-offset: 3px;
+}
+.post-content img {
+  height: auto;
+  max-width: 100%;
+  border-radius: var(--radius);
+}
+.post-content hr {
+  margin-block: 2.5em;
+  border-color: var(--border);
+}
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+.tiptap img.ProseMirror-selectednode {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
 /* "Reducir movimiento" del sistema: sin animaciones ni transiciones largas */
 @media (prefers-reduced-motion: reduce) {
   *,

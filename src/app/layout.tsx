@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 import { MotionProvider } from "@/components/motion-provider";
 import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header/site-header";
+import { SiteHeader, SiteHeaderView } from "@/components/site-header/site-header";
 import { SiteHeaderWithSession } from "@/components/site-header/site-header-with-session";
 import { Toaster } from "@/components/toast/toaster";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
@@ -47,7 +47,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Toaster>
             {/* Barra de progreso de lectura (Scroll Progress de Magic UI) */}
             <ScrollProgress className="z-[60] h-0.5 from-brand via-brand-soft to-brand-green" />
-            <Suspense fallback={<SiteHeader user={null} pending />}>
+            <Suspense
+              fallback={
+                <Suspense fallback={<SiteHeaderView user={null} pending pathname={null} />}>
+                  <SiteHeader user={null} pending />
+                </Suspense>
+              }
+            >
               <SiteHeaderWithSession />
             </Suspense>
             {children}

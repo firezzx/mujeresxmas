@@ -29,12 +29,24 @@ type SiteHeaderProps = {
   unread?: number
 }
 
+// Header con el link activo según la URL. En una ruta con parámetros (/admin/blog/[id]) la URL
+// se conoce recién en el pedido: necesita un <Suspense> arriba, con SiteHeaderView de fallback.
+export function SiteHeader(props: SiteHeaderProps) {
+  const pathname = usePathname()
+  return <SiteHeaderView {...props} pathname={pathname} />
+}
+
 // Header fijo: una barra de vidrio de borde a borde que sigue las líneas de la retícula.
 // Escritorio: links a la izquierda, logo al centro e íconos de usuaria a la derecha.
 // Celular: perfil a la izquierda, logo corto al centro y menú a la derecha. El menú se abre
 // dentro de la misma barra, que se estira hacia abajo.
-export function SiteHeader({ user, adminView = null, pending = false, unread = 0 }: SiteHeaderProps) {
-  const pathname = usePathname()
+export function SiteHeaderView({
+  user,
+  adminView = null,
+  pending = false,
+  unread = 0,
+  pathname,
+}: SiteHeaderProps & { pathname: string | null }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [hovered, setHovered] = useState<string | null>(null)
 
@@ -53,7 +65,7 @@ export function SiteHeader({ user, adminView = null, pending = false, unread = 0
   }, [menuOpen])
 
   const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href)
+    href === "/" ? pathname === "/" : Boolean(pathname?.startsWith(href))
   const activeHref = MAIN_NAV.find((item) => isActive(item.href))?.href
   const highlighted = hovered ?? activeHref
   const closeMenu = () => setMenuOpen(false)
