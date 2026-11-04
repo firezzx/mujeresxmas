@@ -2,6 +2,7 @@
 export const MAIN_NAV = [
   { href: "/", label: "Inicio" },
   { href: "/quiero", label: "QUIERO" },
+  { href: "/blog", label: "Blog" },
 ] as const
 
 export const ROUTES = {
@@ -23,6 +24,7 @@ export const ROUTES = {
   adminBlogNueva: "/admin/blog/nueva",
   adminBlogCategorias: "/admin/blog/categorias",
   quiero: "/quiero",
+  blog: "/blog",
   // Provisoria hasta que la clienta defina cómo se pide QUIERO (función 2)
   quieroSolicitud: "/quiero/solicitud",
 } as const

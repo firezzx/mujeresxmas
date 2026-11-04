@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react"
 
 import { ArrowLeftIcon } from "@/components/icons/arrow-left"
+import { ArrowRightIcon } from "@/components/icons/arrow-right"
 import { BadgeAlertIcon } from "@/components/icons/badge-alert"
 import { BellIcon } from "@/components/icons/bell"
 import { BoldIcon } from "@/components/icons/bold"
@@ -40,6 +41,7 @@ type AnimatedIconHandle = { startAnimation: () => void; stopAnimation: () => voi
 // un componente no se puede pasar como prop del servidor al navegador.
 const ICONS = {
   "arrow-left": ArrowLeftIcon,
+  "arrow-right": ArrowRightIcon,
   "badge-alert": BadgeAlertIcon,
   bell: BellIcon,
   bold: BoldIcon,

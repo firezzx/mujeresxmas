@@ -47,6 +47,19 @@ export type EditablePost = {
   noindex: boolean
 }
 
+export type PostCardData = {
+  id: string
+  title: string
+  slug: string
+  excerpt: string | null
+  coverPath: string | null
+  coverAlt: string | null
+  readingMinutes: number
+  publishedAt: string
+  categoryName: string | null
+  categorySlug: string | null
+}
+
 export type PostDisplayStatus = ContentStatus | "scheduled"
 
 export const POST_STATUS_LABELS: Record<PostDisplayStatus, string> = {

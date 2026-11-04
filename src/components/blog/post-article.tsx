@@ -1,10 +1,12 @@
 import Image from "next/image"
+import Link from "next/link"
 
+import { ROUTES } from "@/config/navigation"
 import type { PostPreview } from "@/lib/blog"
 import { blogImageUrl } from "@/lib/blog-shared"
 import { formatDay } from "@/lib/format"
 
-// Una publicación armada: la usan la vista previa del panel y, más adelante, el blog público.
+// Una publicación armada: la usan la vista previa del panel y el blog público.
 // El HTML lo genera el servidor al guardar, a partir del documento validado (ver savePost).
 export function PostArticle({ post }: { post: PostPreview }) {
   const details = [
@@ -16,10 +18,13 @@ export function PostArticle({ post }: { post: PostPreview }) {
   return (
     <article className="mx-auto w-full max-w-3xl">
       <header>
-        {post.categoryName && (
-          <p className="inline-flex rounded-md bg-brand-soft/60 px-2.5 py-1 text-[12px] font-medium">
+        {post.categoryName && post.categorySlug && (
+          <Link
+            href={`${ROUTES.blog}?categoria=${post.categorySlug}`}
+            className="inline-flex rounded-md bg-brand-soft/60 px-2.5 py-1 text-[12px] font-medium transition-colors duration-200 outline-none hover:bg-brand-soft focus-visible:ring-3 focus-visible:ring-ring/40"
+          >
             {post.categoryName}
-          </p>
+          </Link>
         )}
         <h1 className="mt-4 font-heading text-3xl leading-tight font-semibold tracking-[-0.02em] text-balance sm:text-[2.75rem]">
           {post.title}
@@ -44,6 +49,16 @@ export function PostArticle({ post }: { post: PostPreview }) {
       )}
 
       <div className="post-content mt-10" dangerouslySetInnerHTML={{ __html: post.html }} />
+
+      {post.tags.length > 0 && (
+        <ul aria-label="Etiquetas" className="mt-10 flex flex-wrap gap-1.5 border-t border-border pt-6">
+          {post.tags.map((tag) => (
+            <li key={tag} className="rounded-md px-2.5 py-1 text-[12px] text-muted-foreground ring-1 ring-border">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
     </article>
   )
 }
