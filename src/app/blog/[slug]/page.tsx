@@ -6,6 +6,7 @@ import { Suspense } from "react"
 import { PostArticle } from "@/components/blog/post-article"
 import { PostComments, PostCommentsSkeleton } from "@/components/blog/post-comments"
 import { PostGrid } from "@/components/blog/post-card"
+import { ShareButtons } from "@/components/blog/share-buttons"
 import { GridSection } from "@/components/grid-section"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { ROUTES } from "@/config/navigation"
@@ -13,6 +14,7 @@ import { getPublicPost, listRelatedPosts, type PublicPost } from "@/lib/blog"
 import { blogImageUrl } from "@/lib/blog-shared"
 
 const SITE_NAME = "Mujeres x Más"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
 
 type Props = PageProps<"/blog/[slug]">
 
@@ -60,7 +62,6 @@ export default function BlogPostPage({ params }: Props) {
 
 // Datos estructurados para que los buscadores entiendan que es un artículo.
 function articleJsonLd(post: PublicPost) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   const data = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -71,7 +72,7 @@ function articleJsonLd(post: PublicPost) {
     dateModified: post.updatedAt,
     author: { "@type": post.authorName ? "Person" : "Organization", name: post.authorName ?? SITE_NAME },
     publisher: { "@type": "Organization", name: SITE_NAME },
-    mainEntityOfPage: `${siteUrl}${ROUTES.blog}/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}${ROUTES.blog}/${post.slug}`,
     articleSection: post.categoryName ?? undefined,
     keywords: post.tags.length ? post.tags.join(", ") : undefined,
   }
@@ -103,6 +104,9 @@ async function Post({ params }: { params: Props["params"] }) {
             </IconHoverArea>
           </div>
           <PostArticle post={post} />
+          <div className="mx-auto w-full max-w-4xl">
+            <ShareButtons url={`${SITE_URL}${ROUTES.blog}/${post.slug}`} title={post.title} />
+          </div>
         </div>
       </GridSection>
 

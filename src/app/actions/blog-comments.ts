@@ -28,7 +28,12 @@ export async function addComment(postId: string, body: string): Promise<CommentR
     .from("blog_comments")
     .insert({ post_id: postId, user_id: userId, body: parsed.data.body })
   if (error?.code === RATE_LIMIT_ERROR) {
-    return { ok: false, message: "Esperá unos segundos antes de volver a comentar." }
+    return {
+      ok: false,
+      message: error.message.includes("duplicate")
+        ? "Ya publicaste este comentario en esta nota."
+        : "Estás comentando muy seguido. Esperá un rato y volvé a intentar.",
+    }
   }
   if (error) {
     console.error("[addComment]", error.code, error.message)

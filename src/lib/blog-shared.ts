@@ -1,9 +1,30 @@
+import { ROUTES } from "@/config/navigation"
 import type { ContentStatus } from "@/lib/content-status"
 import type { PostDoc } from "@/lib/validations/blog"
 
 // Tipos y ayudas del blog que se usan tanto en el servidor como en el navegador.
 
 export const BLOG_BUCKET = "blog"
+
+export const SEARCH_MAX = 80
+
+// Dirección del listado del blog con su categoría, búsqueda y página.
+export function blogHref({
+  category,
+  query,
+  page,
+}: {
+  category?: string | null
+  query?: string | null
+  page?: number
+}) {
+  const params = new URLSearchParams()
+  if (category) params.set("categoria", category)
+  if (query) params.set("q", query)
+  if (page && page > 1) params.set("pagina", String(page))
+  const search = params.toString()
+  return search ? `${ROUTES.blog}?${search}` : ROUTES.blog
+}
 
 export type BlogCategory = {
   id: string

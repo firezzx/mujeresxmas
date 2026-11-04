@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { pillLinkVariants } from "@/components/pill-link"
-import { ROUTES } from "@/config/navigation"
+import { blogHref } from "@/lib/blog-shared"
 
 const LINK_CLASS = pillLinkVariants({ variant: "outline", size: "md", className: "rounded-lg" })
 
@@ -10,17 +10,12 @@ type BlogPaginationProps = {
   page: number
   totalPages: number
   category: string | null
+  query: string | null
 }
 
-// Anterior y siguiente del blog, conservando el filtro de categoría.
-export function BlogPagination({ page, totalPages, category }: BlogPaginationProps) {
-  const href = (target: number) => {
-    const params = new URLSearchParams()
-    if (category) params.set("categoria", category)
-    if (target > 1) params.set("pagina", String(target))
-    const query = params.toString()
-    return query ? `${ROUTES.blog}?${query}` : ROUTES.blog
-  }
+// Anterior y siguiente del blog, conservando el filtro de categoría y la búsqueda.
+export function BlogPagination({ page, totalPages, category, query }: BlogPaginationProps) {
+  const href = (target: number) => blogHref({ category, query, page: target })
 
   return (
     <nav

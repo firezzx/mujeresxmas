@@ -19,7 +19,9 @@ import { FileTextIcon } from "@/components/icons/file-text"
 import { GraduationCapIcon } from "@/components/icons/graduation-cap"
 import { ItalicIcon } from "@/components/icons/italic"
 import { LinkIcon } from "@/components/icons/link"
+import { LinkedinIcon } from "@/components/icons/linkedin"
 import { MailCheckIcon } from "@/components/icons/mail-check"
+import { MessageCircleIcon } from "@/components/icons/message-circle"
 import { PlusIcon } from "@/components/icons/plus"
 import { RedoIcon } from "@/components/icons/redo"
 import { RocketIcon } from "@/components/icons/rocket"
@@ -57,7 +59,9 @@ const ICONS = {
   "graduation-cap": GraduationCapIcon,
   italic: ItalicIcon,
   link: LinkIcon,
+  linkedin: LinkedinIcon,
   "mail-check": MailCheckIcon,
+  "message-circle": MessageCircleIcon,
   plus: PlusIcon,
   redo: RedoIcon,
   rocket: RocketIcon,

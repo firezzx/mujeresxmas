@@ -1,7 +1,7 @@
 import Link from "next/link"
 
-import { ROUTES } from "@/config/navigation"
 import type { PublicCategory } from "@/lib/blog"
+import { blogHref } from "@/lib/blog-shared"
 import { cn } from "@/lib/utils"
 
 function FilterLink({ href, active, children }: { href: string; active: boolean; children: React.ReactNode }) {
@@ -22,18 +22,26 @@ function FilterLink({ href, active, children }: { href: string; active: boolean;
 }
 
 // Filtro por categoría del blog. Son links reales: cada filtro tiene su dirección y se puede compartir.
-export function CategoryFilter({ categories, active }: { categories: PublicCategory[]; active: string | null }) {
+export function CategoryFilter({
+  categories,
+  active,
+  query,
+}: {
+  categories: PublicCategory[]
+  active: string | null
+  query: string | null
+}) {
   return (
     <nav aria-label="Filtrar por categoría">
       <ul className="flex w-fit max-w-full flex-wrap gap-1 rounded-lg bg-foreground/[0.035] p-1">
         <li>
-          <FilterLink href={ROUTES.blog} active={!active}>
+          <FilterLink href={blogHref({ query })} active={!active}>
             Todas
           </FilterLink>
         </li>
         {categories.map((category) => (
           <li key={category.slug}>
-            <FilterLink href={`${ROUTES.blog}?categoria=${category.slug}`} active={active === category.slug}>
+            <FilterLink href={blogHref({ category: category.slug, query })} active={active === category.slug}>
               {category.name}
             </FilterLink>
           </li>

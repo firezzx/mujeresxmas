@@ -179,16 +179,33 @@ const toCard = (row: CardRow): PostCardData => ({
   categorySlug: row.blog_categories?.slug ?? null,
 })
 
-type PublicListing = { featured: PostCardData | null; posts: PostCardData[]; totalPages: number }
+type PublicListing = { featured: PostCardData | null; posts: PostCardData[]; total: number; totalPages: number }
 
-// Una página del blog. Sin filtro de categoría, arriba va la destacada más nueva (o, si no hay,
-// la última publicada) y no se repite en la grilla.
-export async function listPublicPosts(categorySlug: string | null, page: number): Promise<PublicListing | null> {
+// Palabras de una búsqueda, en minúsculas y sin acentos como la columna search_text. Se escapan los
+// comodines de ilike para que "50%" busque ese texto.
+function searchTerms(query: string) {
+  return query
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 8)
+    .map((term) => term.replace(/[\\%_]/g, "\\$&"))
+}
+
+// Una página del blog. Sin filtro ni búsqueda, arriba va la destacada más nueva (o, si no hay, la
+// última publicada) y no se repite en la grilla.
+export async function listPublicPosts(
+  categorySlug: string | null,
+  page: number,
+  search: string | null = null
+): Promise<PublicListing | null> {
   const supabase = await getClient()
   const now = new Date().toISOString()
 
   let featured: PostCardData | null = null
-  if (!categorySlug) {
+  if (!categorySlug && !search) {
     const { data, error } = await supabase
       .from("blog_posts")
       .select(`${CARD_COLUMNS}, blog_categories (name, slug)`)
@@ -214,6 +231,8 @@ export async function listPublicPosts(categorySlug: string | null, page: number)
     .lte("published_at", now)
   if (categorySlug) query = query.eq("blog_categories.slug", categorySlug)
   if (featured) query = query.neq("id", featured.id)
+  // Tienen que aparecer todas las palabras, en cualquier orden
+  for (const term of searchTerms(search ?? "")) query = query.ilike("search_text", `%${term}%`)
 
   const { data, count, error } = await query
     .order("published_at", { ascending: false })
@@ -227,6 +246,7 @@ export async function listPublicPosts(categorySlug: string | null, page: number)
   return {
     featured,
     posts: ((data ?? []) as unknown as CardRow[]).map(toCard),
+    total: count ?? 0,
     totalPages: Math.max(1, Math.ceil((count ?? 0) / POSTS_PER_PAGE)),
   }
 }
@@ -297,24 +317,27 @@ export const getPublicPost = cache(async (slug: string): Promise<PublicPost | nu
   }
 })
 
-// Otras publicaciones de la misma categoría, para el final del artículo.
+// Para el final del artículo: primero las de la misma categoría y, si faltan, las últimas de las demás.
 export async function listRelatedPosts(post: PublicPost, limit = 3): Promise<PostCardData[]> {
-  if (!post.categoryId) return []
   const supabase = await getClient()
-  const { data, error } = await supabase
-    .from("blog_posts")
-    .select(`${CARD_COLUMNS}, blog_categories (name, slug)`)
-    .eq("status", "published")
-    .lte("published_at", new Date().toISOString())
-    .eq("category_id", post.categoryId)
-    .neq("id", post.id)
-    .order("published_at", { ascending: false })
-    .limit(limit)
-  if (error) {
-    console.error("[listRelatedPosts]", error.code, error.message)
-    return []
-  }
-  return (data as unknown as CardRow[]).map(toCard)
+  const others = () =>
+    supabase
+      .from("blog_posts")
+      .select(`${CARD_COLUMNS}, blog_categories (name, slug)`)
+      .eq("status", "published")
+      .lte("published_at", new Date().toISOString())
+      .neq("id", post.id)
+      .order("published_at", { ascending: false })
+      .limit(limit)
+
+  const sameCategory = post.categoryId ? await others().eq("category_id", post.categoryId) : null
+  if (sameCategory?.error) console.error("[listRelatedPosts]", sameCategory.error.code, sameCategory.error.message)
+  const related = ((sameCategory?.data ?? []) as unknown as CardRow[]).map(toCard)
+  if (related.length >= limit) return related
+
+  const recent = post.categoryId ? await others().neq("category_id", post.categoryId) : await others()
+  if (recent.error) console.error("[listRelatedPosts]", recent.error.code, recent.error.message)
+  return [...related, ...((recent.data ?? []) as unknown as CardRow[]).map(toCard)].slice(0, limit)
 }
 
 // Publicaciones para el sitemap (sin las ocultas de los buscadores).

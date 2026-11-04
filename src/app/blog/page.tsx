@@ -4,6 +4,7 @@ import { Suspense } from "react"
 
 import { AdminEmpty } from "@/components/admin/admin-ui"
 import { BlogPagination } from "@/components/blog/blog-pagination"
+import { BlogSearch } from "@/components/blog/blog-search"
 import { CategoryFilter } from "@/components/blog/category-filter"
 import { FeaturedPostCard, PostGrid } from "@/components/blog/post-card"
 import { GridSection, HeroGlow } from "@/components/grid-section"
@@ -11,6 +12,7 @@ import { BrandHighlight, Eyebrow, PageHero } from "@/components/page-hero"
 import { pillLinkVariants } from "@/components/pill-link"
 import { ROUTES } from "@/config/navigation"
 import { listPublicCategories, listPublicPosts } from "@/lib/blog"
+import { blogHref, SEARCH_MAX } from "@/lib/blog-shared"
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -51,9 +53,10 @@ function firstValue(value: string | string[] | undefined) {
 async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">["searchParams"] }) {
   const params = await searchParams
   const category = firstValue(params.categoria)
+  const query = firstValue(params.q)?.trim().slice(0, SEARCH_MAX) || null
   const page = Math.max(1, Number.parseInt(firstValue(params.pagina) ?? "1", 10) || 1)
 
-  const [listing, categories] = await Promise.all([listPublicPosts(category, page), listPublicCategories()])
+  const [listing, categories] = await Promise.all([listPublicPosts(category, page, query), listPublicCategories()])
 
   if (!listing || !categories) {
     return (
@@ -65,14 +68,22 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
     )
   }
 
-  const { featured, posts, totalPages } = listing
-  const empty = !featured && !posts.length
+  const { featured, posts, total, totalPages } = listing
+  const empty = !featured && !posts.length && !total
+  const filtered = Boolean(category || query)
 
   return (
     <>
-      {categories.length > 0 && (
-        <GridSection className="px-5 py-3 sm:px-10">
-          <CategoryFilter categories={categories} active={category} />
+      <GridSection className="flex flex-col gap-3 px-5 py-3 sm:px-10 lg:flex-row lg:items-center lg:justify-between">
+        {categories.length > 0 && <CategoryFilter categories={categories} active={category} query={query} />}
+        <BlogSearch query={query} category={category} />
+      </GridSection>
+
+      {query && !empty && (
+        <GridSection className="px-5 py-4 text-sm text-muted-foreground sm:px-10">
+          <p role="status" className="[overflow-wrap:anywhere]">
+            {total === 1 ? "1 resultado" : `${total} resultados`} para “{query}”
+          </p>
         </GridSection>
       )}
 
@@ -81,12 +92,22 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
           <AdminEmpty
             icon="file-text"
             tone="green"
-            title={category ? "No hay publicaciones en esta categoría" : "Muy pronto, las primeras notas"}
+            title={
+              query
+                ? "No encontramos notas con esa búsqueda"
+                : category
+                  ? "No hay publicaciones en esta categoría"
+                  : "Muy pronto, las primeras notas"
+            }
             text={
-              category ? "Probá con otra categoría o mirá todas las publicaciones." : "Estamos preparando el contenido."
+              query
+                ? "Probá con otras palabras o mirá todas las publicaciones."
+                : category
+                  ? "Probá con otra categoría o mirá todas las publicaciones."
+                  : "Estamos preparando el contenido."
             }
           />
-          {category && (
+          {filtered && (
             <div className="mt-6 flex justify-center">
               <Link href={ROUTES.blog} className={pillLinkVariants({ variant: "outline", className: "rounded-lg" })}>
                 Ver todas
@@ -109,14 +130,19 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
           {page > totalPages && !posts.length && (
             <GridSection className="px-5 py-10 text-center text-sm text-muted-foreground sm:px-10">
               Esta página ya no existe.{" "}
-              <Link href={ROUTES.blog} className="underline decoration-brand underline-offset-3">
+              <Link href={blogHref({ category, query })} className="underline decoration-brand underline-offset-3">
                 Volver al blog
               </Link>
             </GridSection>
           )}
           {totalPages > 1 && (
             <GridSection>
-              <BlogPagination page={Math.min(page, totalPages)} totalPages={totalPages} category={category} />
+              <BlogPagination
+                page={Math.min(page, totalPages)}
+                totalPages={totalPages}
+                category={category}
+                query={query}
+              />
             </GridSection>
           )}
         </>

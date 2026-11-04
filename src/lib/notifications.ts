@@ -36,6 +36,8 @@ export const getMyNotifications = cache(async (userId: string): Promise<UserNoti
   const { data, error } = await supabase
     .from("notifications")
     .select("id, title, body, link, created_at")
+    // Una administradora puede leer todas: acá van solo las generales y las suyas
+    .or(`user_id.is.null,user_id.eq.${userId}`)
     .order("created_at", { ascending: false })
     .limit(RECENT_LIMIT)
   if (error) {
@@ -88,6 +90,8 @@ export async function listSentNotifications(): Promise<SentNotification[] | null
   const { data, error } = await supabase
     .from("notifications")
     .select("id, title, body, link, user_id, created_at, notification_reads (count)")
+    // Sin los avisos automáticos (comentarios nuevos): esos no los mandó ninguna administradora
+    .not("created_by", "is", null)
     .order("created_at", { ascending: false })
     .limit(50)
   if (error) {
