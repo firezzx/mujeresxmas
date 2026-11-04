@@ -35,6 +35,18 @@ export const formatDateTime = (iso: string) => {
   return `${day.replace(",", "")} · ${time}`
 }
 
+// { day: "12", month: "nov", time: "19:00" }, para el calendario de un evento
+export const formatDateParts = (iso: string) => {
+  const date = new Date(iso)
+  const part = (options: Intl.DateTimeFormatOptions) =>
+    new Intl.DateTimeFormat("es-AR", { ...options, timeZone: TIME_ZONE }).format(date)
+  return {
+    day: part({ day: "numeric" }),
+    month: part({ month: "short" }).replace(".", ""),
+    time: part({ hour: "2-digit", minute: "2-digit", hourCycle: "h23" }),
+  }
+}
+
 const relative = new Intl.RelativeTimeFormat("es-AR", { numeric: "auto" })
 const UNITS: [Intl.RelativeTimeFormatUnit, number][] = [
   ["year", 365 * 24 * 3600],

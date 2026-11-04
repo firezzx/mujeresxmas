@@ -69,6 +69,8 @@ export function SiteHeaderView({
   const activeHref = MAIN_NAV.find((item) => isActive(item.href))?.href
   const highlighted = hovered ?? activeHref
   const closeMenu = () => setMenuOpen(false)
+  // La home no usa la retícula: sin líneas a los costados ni cruces
+  const framed = pathname !== "/"
 
   return (
     <>
@@ -94,8 +96,13 @@ export function SiteHeaderView({
           menuOpen && "bg-background/95"
         )}
       >
-        <div className="relative mx-auto max-w-content-inner border-x border-border px-2 py-2 sm:px-3 md:py-3">
-          <GridCrosses side="bottom" />
+        <div
+          className={cn(
+            "relative mx-auto max-w-content-inner px-2 py-2 sm:px-3 md:py-3",
+            framed && "border-x border-border"
+          )}
+        >
+          {framed && <GridCrosses side="bottom" />}
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
             {/* Izquierda: perfil (celular) o links (escritorio) */}
             <div className="flex items-center">

@@ -1,119 +1,201 @@
 import type { IconName } from "@/components/icons/hover-icon"
 
-// Textos de la home, separados del diseño. Son provisorios: se reemplazan acá cuando esté el
-// contenido definitivo, sin tocar los componentes. Las fotos también son provisorias: están en
-// public/images/home y su origen en docs/IMAGENES-PEXELS.md.
+// Textos e imágenes de la home, separados del diseño. Son provisorios: se reemplazan acá cuando esté
+// el contenido definitivo, sin tocar los componentes. Las fotos están en public/images/home y su
+// origen en docs/IMAGENES-PEXELS.md.
+
+// Lo marcado como ejemplo (cursos, notas, voces y eventos de abajo) solo se ve en desarrollo, o con
+// SHOW_SAMPLE_CONTENT=true. En producción cada sección muestra datos reales o no aparece.
+export const SHOW_SAMPLES = process.env.NODE_ENV === "development" || process.env.SHOW_SAMPLE_CONTENT === "true"
 
 export const HOME_HERO = {
-  titleStart: "Convertí tu potencial en",
-  titleHighlight: "independencia",
-  description: "Capacitación, comunidad y herramientas para que crezcas, emprendas y lideres.",
-}
-
-// Franja de fotos debajo del hero. Es decorativa: no lleva texto alternativo.
-export const HOME_PHOTOS = [
-  "/images/home/comunidad-charla.jpg",
-  "/images/home/florista.jpg",
-  "/images/home/equipo-laptop.jpg",
-  "/images/home/boutique.jpg",
-  "/images/home/colegas-escalera.jpg",
-  "/images/home/socias-negocio.jpg",
-]
-
-export const HOME_ABOUT = {
-  eyebrow: "Qué es Mujeres x Más",
-  titleStart: "Un ecosistema para",
-  titleHighlight: "transformar tu negocio",
-  description: "Mucho más que una plataforma: todo lo que necesitás para dar el salto digital, en un solo lugar.",
-  items: [
-    {
-      icon: "trending-up",
-      title: "Crecimiento",
-      text: "Hacé crecer tu negocio con herramientas concretas, contenidos que podés aplicar y acompañamiento para lograr resultados que duren.",
-    },
-    {
-      icon: "users-round",
-      title: "Conexión",
-      text: "Sumate a una red de personas, alianzas y oportunidades que le abren nuevas puertas a tu negocio.",
-    },
-    {
-      icon: "compass",
-      title: "Estrategia",
-      text: "Ordená el rumbo de tu negocio con claridad y foco, y convertí tus ideas en acciones que puedan escalar.",
-    },
-  ] satisfies { icon: IconName; title: string; text: string }[],
-}
-
-export const HOME_STATS = [
-  { prefix: "+", value: 100, suffix: "", decimals: 0, label: "Mujeres capacitadas" },
-  { prefix: "", value: 96, suffix: "%", decimals: 0, label: "Tasa de inserción laboral" },
-  { prefix: "$", value: 1.5, suffix: "M", decimals: 1, label: "Generados por la comunidad" },
-]
-
-export const HOME_COMMUNITY = {
-  eyebrow: "Comunidad",
   titleStart: "Acá no avanzás sola:",
   titleHighlight: "corremos juntas",
-  description:
-    "Contenidos, herramientas y recursos para desarrollar y escalar tu negocio. Combinamos estrategia, acción y aprendizaje continuo, a tu ritmo y con foco en resultados.",
-  items: [
-    { icon: "book-text", text: "Artículos y guías de emprendimiento y tecnología" },
-    { icon: "graduation-cap", text: "Cursos online gratuitos para empezar hoy" },
-    { icon: "sparkles", text: "Recursos prácticos para impulsar tu proyecto" },
-  ] satisfies { icon: IconName; text: string }[],
-  cta: "Ver las áreas",
+  description: "Una comunidad de mujeres para aprender, encontrarnos y hacer crecer lo que estamos armando.",
+  secondaryCta: "Mirá qué hay adentro",
+  chips: ["Aprendemos", "Nos acompañamos", "Crecemos"],
+  badge: "COMUNIDAD · MUJERES X MÁS · ",
+  avatarsText: "Acá hay lugar para vos",
+  ribbonTop: ["Aprendemos", "Nos acompañamos", "Crecemos", "Compartimos", "Emprendemos"],
+  ribbonBottom: ["Cursos", "Notas", "Encuentros", "Productos", "Comunidad"],
+  photos: [
+    { src: "/images/home/comunidad-charla.jpg", alt: "Grupo de mujeres charlando y riéndose en un sillón" },
+    { src: "/images/home/florista.jpg", alt: "Emprendedora trabajando en su taller" },
+    { src: "/images/home/socias-negocio.jpg", alt: "Dos socias conversando sobre su negocio" },
+  ],
 }
 
-export const HOME_AREAS_ID = "areas"
+export const HOME_AVATARS = [
+  "/images/home/florista.jpg",
+  "/images/home/formacion.jpg",
+  "/images/home/marketing.jpg",
+  "/images/home/emprendimiento.jpg",
+]
 
-export const HOME_AREAS = {
-  eyebrow: "Áreas",
-  titleStart: "Lo clave para",
-  titleHighlight: "hacer crecer tu negocio",
-  description: "Elegí por dónde arrancar y desarrollá las habilidades para avanzar, ordenarte y escalar.",
-  items: [
+export const HOME_SECTION_IDS = {
+  inside: "adentro",
+  courses: "cursos",
+  notes: "notas",
+  products: "productos",
+  events: "eventos",
+}
+
+export const HOME_INSIDE = { title: "Lo que vas a encontrar", titleHighlight: "adentro" }
+
+export const HOME_PATHS = {
+  courses: {
+    icon: "graduation-cap",
+    title: "Aprender",
+    text: "Cursos para dar el primer paso",
+    image: "/images/home/formacion.jpg",
+    tone: "ink",
+  },
+  notes: {
+    icon: "book-text",
+    title: "Leer",
+    text: "Notas y guías para tu proyecto",
+    image: "/images/home/tecnologia.jpg",
+    tone: "pink",
+  },
+  products: {
+    icon: "rocket",
+    title: "Crecer",
+    text: "Productos que te acompañan",
+    image: "/images/home/equipo-laptop.jpg",
+    tone: "brand",
+  },
+  events: {
+    icon: "calendar-days",
+    title: "Encontrarnos",
+    text: "Charlas y encuentros de la comunidad",
+    image: "/images/home/colegas-escalera.jpg",
+    tone: "green",
+  },
+} satisfies Record<
+  string,
+  { icon: IconName; title: string; text: string; image: string; tone: "ink" | "pink" | "brand" | "green" }
+>
+
+export const HOME_COURSES = {
+  title: "Cursos para",
+  titleHighlight: "empezar hoy",
+  description: "A tu ritmo, con contenidos simples y prácticos.",
+  topics: ["Tecnología e IA", "Comunicación y marketing", "Emprendimiento", "Finanzas", "Formaciones gratuitas"],
+  cta: "Quiero sumarme",
+  samples: [
     {
-      icon: "cpu",
-      title: "Tecnología e IA aplicada al negocio",
-      text: "Usá herramientas digitales, automatización e inteligencia artificial para trabajar mejor y ganar tiempo.",
-      image: "/images/home/tecnologia.jpg",
-      imageAlt: "Mujer trabajando concentrada frente a su computadora",
-    },
-    {
-      icon: "chart-line",
-      title: "Comunicación y marketing digital",
-      text: "Atraé más clientes con estrategias de contenido, redes sociales y análisis de datos.",
-      image: "/images/home/marketing.jpg",
-      imageAlt: "Creadora de contenido grabando un video con su celular",
-    },
-    {
-      icon: "rocket",
-      title: "Emprendimiento",
-      text: "Convertí tu idea en un negocio rentable, con bases claras, orden y foco en resultados.",
-      image: "/images/home/emprendimiento.jpg",
-      imageAlt: "Emprendedora sonriendo entre las cajas de su tienda de ropa",
-    },
-    {
-      icon: "wallet",
-      title: "Finanzas personales y del negocio",
-      text: "Organizá tus ingresos y tomá decisiones inteligentes con tu dinero para crecer.",
-      image: "/images/home/finanzas.jpg",
-      imageAlt: "Mujer sacando cuentas con una calculadora y sus boletas",
-    },
-    {
-      icon: "graduation-cap",
-      title: "Formaciones gratuitas para empezar",
-      text: "Arrancá desde cero con contenidos simples y prácticos para dar tus primeros pasos.",
+      title: "Tu primer negocio online",
+      text: "De la idea a la primera venta, paso a paso.",
+      meta: "Gratis · 6 clases",
       image: "/images/home/formacion.jpg",
-      imageAlt: "Mujer estudiando con su computadora y un libro abierto",
     },
-  ] satisfies { icon: IconName; title: string; text: string; image: string; imageAlt: string }[],
+    {
+      title: "Redes que venden",
+      text: "Contenido simple para atraer a tus clientas.",
+      meta: "Gratis · 4 clases",
+      image: "/images/home/marketing.jpg",
+    },
+    {
+      title: "Ordená tus números",
+      text: "Ingresos, gastos y precios sin vueltas.",
+      meta: "Gratis · 5 clases",
+      image: "/images/home/finanzas.jpg",
+    },
+  ],
+}
+
+export const HOME_NOTES = {
+  title: "Para leer",
+  titleHighlight: "con un mate",
+  description: "Ideas y experiencias para seguir creciendo.",
+  cta: "Ver todas las notas",
+  samples: [
+    {
+      title: "Cómo usar la IA en tu emprendimiento sin ser experta",
+      text: "Tres herramientas para ganar tiempo esta semana.",
+      meta: "5 min de lectura",
+      image: "/images/home/tecnologia.jpg",
+    },
+    {
+      title: "Del Instagram a la tienda propia",
+      text: "Qué mirar antes de dar el salto.",
+      meta: "4 min de lectura",
+      image: "/images/home/emprendimiento.jpg",
+    },
+    {
+      title: "Ponerle precio a lo que hacés",
+      text: "Una guía para dejar de cobrar de menos.",
+      meta: "6 min de lectura",
+      image: "/images/home/boutique.jpg",
+    },
+  ],
+}
+
+export const HOME_PRODUCT = {
+  tag: "Producto",
+  title: "QUIERO",
+  description: "De vender por redes a tener tu tienda online. Te acompañamos en cada paso.",
+  cta: "Conocé QUIERO",
+  image: "/images/home/boutique.jpg",
+  imageAlt: "Emprendedora preparando prendas en su tienda",
+  secondImage: "/images/home/emprendimiento.jpg",
+  secondImageAlt: "Emprendedora sonriendo en su taller",
+  chip: "Te acompañamos",
+  steps: ["Vender por redes", "Armar tu tienda", "Seguir creciendo"],
+}
+
+export const HOME_STATEMENT = {
+  text: "Arrancar sola cuesta. Por eso armamos un lugar para aprender, encontrarnos y crecer juntas.",
+  highlightWords: ["juntas."],
+}
+
+export const HOME_VOICES = {
+  title: "Lo cuentan",
+  titleHighlight: "ellas",
+  samples: [
+    {
+      quote: "Por primera vez sentí que no estaba haciendo todo esto sola.",
+      name: "Lucía G.",
+      detail: "Tienda de ropa",
+      image: "/images/home/emprendimiento.jpg",
+    },
+    {
+      quote: "Con lo que aprendí ordené mis números y subí los precios sin miedo.",
+      name: "Marina P.",
+      detail: "Pastelería",
+      image: "/images/home/florista.jpg",
+    },
+    {
+      quote: "Conocí a otras emprendedoras y hoy trabajamos juntas.",
+      name: "Sol R.",
+      detail: "Diseño gráfico",
+      image: "/images/home/formacion.jpg",
+    },
+    {
+      quote: "Me animé a abrir mi tienda online gracias al acompañamiento.",
+      name: "Carla M.",
+      detail: "Cosmética natural",
+      image: "/images/home/marketing.jpg",
+    },
+  ],
+}
+
+export const HOME_EVENTS = {
+  title: "Próximos",
+  titleHighlight: "encuentros",
+  cta: "Anotarme",
+  nextLabel: "El próximo",
+  samples: [
+    { title: "Café de emprendedoras", meta: "Presencial · Buenos Aires", startsAt: "2026-11-20T21:00:00.000Z" },
+    { title: "Charla: vender por WhatsApp", meta: "Online", startsAt: "2026-11-26T22:00:00.000Z" },
+    { title: "Taller: tu marca en una tarde", meta: "Online", startsAt: "2026-12-03T22:00:00.000Z" },
+  ],
 }
 
 export const HOME_CLOSING = {
-  titleStart: "El futuro no se espera,",
-  titleHighlight: "se construye",
-  description: "Empezá hoy a armar un negocio real, con estrategia, herramientas y una comunidad que te impulsa.",
+  title: "Sumate a la",
+  titleHighlight: "comunidad",
+  description: "Crear tu cuenta es gratis. Adentro te esperan los cursos, las notas y otras mujeres como vos.",
   cta: "Unirme a Mujeres x Más",
   image: "/images/home/cierre-grupo.jpg",
 }

@@ -67,6 +67,41 @@ const toEvent = (row: EventRow): CommunityEvent => ({
   endsAt: row.ends_at,
 })
 
+// ─── Públicas ──────────────────────────────────────────────────────────────────────────
+
+// Cursos publicados para la home, los más nuevos primero.
+export async function listPublishedCourses(limit: number): Promise<Course[]> {
+  const supabase = await getClient()
+  const { data, error } = await supabase
+    .from("courses")
+    .select(COURSE_COLUMNS)
+    .eq("status", "published")
+    .order("created_at", { ascending: false })
+    .limit(limit)
+  if (error) {
+    console.error("[listPublishedCourses]", error.code, error.message)
+    return []
+  }
+  return (data as CourseRow[]).map(toCourse)
+}
+
+// Próximos eventos publicados para la home, el más cercano primero.
+export async function listUpcomingEvents(limit: number): Promise<CommunityEvent[]> {
+  const supabase = await getClient()
+  const { data, error } = await supabase
+    .from("events")
+    .select(EVENT_COLUMNS)
+    .eq("status", "published")
+    .gte("starts_at", new Date().toISOString())
+    .order("starts_at")
+    .limit(limit)
+  if (error) {
+    console.error("[listUpcomingEvents]", error.code, error.message)
+    return []
+  }
+  return (data as EventRow[]).map(toEvent)
+}
+
 // ─── Usuaria ───────────────────────────────────────────────────────────────────────────
 
 // Cursos en los que está inscripta la usuaria (RLS: solo los suyos y solo publicados)
