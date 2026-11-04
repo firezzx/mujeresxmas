@@ -218,7 +218,7 @@ function ImageAltPanel({ editor }: { editor: Editor }) {
     <div className="flex flex-wrap items-center gap-2 border-t border-border bg-foreground/[0.02] p-2">
       <input
         aria-label="Descripción de la imagen"
-        placeholder="Describí la imagen para quien no pueda verla"
+        placeholder="Descripción de la imagen (opcional)"
         maxLength={160}
         value={alt}
         onChange={(event) => editor.commands.updateAttributes("image", { alt: event.target.value })}

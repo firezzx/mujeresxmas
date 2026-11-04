@@ -99,7 +99,7 @@ function PostCard({ post, index }: { post: PostCardData; index: number }) {
     <IconHoverArea className="min-w-0 bg-background">
       <BlurFade delay={0.1 + (index % 3) * 0.06} inView className="h-full">
         <Link href={postHref(post.slug)} className={cn(CARD_LINK_CLASS, "gap-4 p-5 sm:p-6")}>
-          <Cover post={post} index={index + 1} sizes="(min-width: 1024px) 25rem, (min-width: 640px) 50vw, 100vw" />
+          <Cover post={post} index={index + 1} sizes="(min-width: 1024px) 29rem, (min-width: 640px) 50vw, 100vw" />
           <CategoryLabel post={post} />
           <span className="font-heading text-lg leading-snug font-semibold tracking-[-0.01em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand">
             {post.title}

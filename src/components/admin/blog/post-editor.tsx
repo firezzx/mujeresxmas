@@ -302,7 +302,6 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
     { label: "Contenido", done: words > 0 },
     { label: "Categoría", done: Boolean(values.categoryId) },
     { label: "Portada (recomendada)", done: Boolean(values.coverPath) },
-    { label: "Descripción de la portada", done: !values.coverPath || Boolean(values.coverAlt.trim()) },
   ]
 
   const seoTitle = values.metaTitle.trim() || values.title.trim() || "Título de la publicación"
@@ -677,7 +676,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
                   </button>
                 </div>
                 <TextField
-                  label="Descripción de la imagen"
+                  label="Descripción de la imagen (opcional)"
                   placeholder="Qué se ve en la imagen"
                   maxLength={POST_LIMITS.coverAlt}
                   value={values.coverAlt}

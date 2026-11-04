@@ -16,7 +16,7 @@ export function PostArticle({ post }: { post: PostPreview }) {
   ].filter(Boolean)
 
   return (
-    <article className="mx-auto w-full max-w-3xl min-w-0">
+    <article className="mx-auto w-full max-w-4xl min-w-0">
       <header>
         {post.categoryName && post.categorySlug && (
           <Link
@@ -44,7 +44,7 @@ export function PostArticle({ post }: { post: PostPreview }) {
             alt={post.coverAlt ?? ""}
             fill
             priority
-            sizes="(min-width: 768px) 48rem, 100vw"
+            sizes="(min-width: 896px) 56rem, 100vw"
             className="object-cover"
           />
         </div>

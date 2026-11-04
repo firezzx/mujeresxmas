@@ -24,7 +24,7 @@ export default function PerfilPage() {
       <GridSection first>
         <header className="relative overflow-hidden px-5 pt-28 pb-10 sm:px-10 md:pt-36 md:pb-14">
           <HeroGlow />
-          <div className="relative mx-auto flex max-w-2xl flex-col items-start gap-4">
+          <div className="relative mx-auto flex max-w-3xl flex-col items-start gap-4">
             <BlurFade delay={0.05} inView>
               <IconHoverArea className="inline-flex">
                 <Link
@@ -54,7 +54,7 @@ export default function PerfilPage() {
       </GridSection>
 
       <GridSection>
-        <div className="mx-auto max-w-2xl border-border md:border-x">
+        <div className="mx-auto max-w-3xl border-border md:border-x">
           <Suspense fallback={<div aria-hidden className="h-[520px] animate-pulse bg-foreground/[0.03]" />}>
             <ProfileEditor />
           </Suspense>

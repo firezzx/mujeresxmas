@@ -91,7 +91,7 @@ async function Post({ params }: { params: Props["params"] }) {
 
       <GridSection first>
         <div className="px-5 pt-28 pb-14 sm:px-8 md:pt-36 md:pb-20">
-          <div className="mx-auto mb-8 w-full max-w-3xl">
+          <div className="mx-auto mb-8 w-full max-w-4xl">
             <IconHoverArea className="w-fit">
               <Link
                 href={ROUTES.blog}
@@ -131,7 +131,7 @@ async function Post({ params }: { params: Props["params"] }) {
 function PostSkeleton() {
   return (
     <GridSection first>
-      <div aria-hidden className="mx-auto flex w-full max-w-3xl flex-col gap-5 px-5 pt-28 pb-20 md:pt-36">
+      <div aria-hidden className="mx-auto flex w-full max-w-4xl flex-col gap-5 px-5 pt-28 pb-20 md:pt-36">
         <div className="h-7 w-32 animate-pulse rounded-md bg-foreground/[0.05]" />
         <div className="h-14 w-full animate-pulse rounded-lg bg-foreground/[0.06]" />
         <div className="aspect-[16/9] w-full animate-pulse rounded-xl bg-foreground/[0.04]" />

@@ -76,9 +76,6 @@ export const postSchema = z
   })
   // Un borrador puede estar incompleto; para publicar hacen falta estos datos
   .superRefine((post, ctx) => {
-    if (post.coverPath && !post.coverAlt) {
-      ctx.addIssue({ code: "custom", path: ["coverAlt"], message: "Describí la imagen para quien no pueda verla" })
-    }
     if (post.status !== "published") return
     if (!post.excerpt) ctx.addIssue({ code: "custom", path: ["excerpt"], message: "Escribí la bajada para publicar" })
     if (!post.categoryId) ctx.addIssue({ code: "custom", path: ["categoryId"], message: "Elegí una categoría" })

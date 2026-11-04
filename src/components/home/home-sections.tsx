@@ -256,7 +256,7 @@ export function HomeClosing() {
           src={HOME_CLOSING.image}
           alt=""
           fill
-          sizes="(min-width: 1280px) 1232px, 100vw"
+          sizes="(min-width: 1440px) 1392px, 100vw"
           className="-z-10 object-cover object-top"
         />
         <div className="absolute inset-0 -z-10 bg-primary/75" />

@@ -10,7 +10,7 @@ import { listPostComments, type PostComment } from "@/lib/blog"
 import { formatDay } from "@/lib/format"
 import { getCurrentUser } from "@/lib/supabase/user"
 
-const WIDTH_CLASS = "mx-auto w-full max-w-3xl min-w-0"
+const WIDTH_CLASS = "mx-auto w-full max-w-4xl min-w-0"
 
 // Comentarios de una publicación: lee los datos y la sesión, y los entrega a la vista.
 export async function PostComments({ postId, slug }: { postId: string; slug: string }) {
