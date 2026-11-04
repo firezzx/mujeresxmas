@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
 import type { PostDoc } from "@/lib/validations/blog"
 
 const SMALL_FIELD_CLASS =
-  "h-10 min-w-0 flex-1 rounded-lg border border-border bg-background px-3 text-sm outline-none transition-[border-color,box-shadow] duration-300 ease-premium placeholder:text-muted-foreground/70 focus:border-foreground/30 focus:ring-4 focus:ring-ring/15"
+  "h-10 min-w-0 flex-1 basis-40 rounded-lg border border-border bg-background px-3 text-base outline-none sm:text-sm transition-[border-color,box-shadow] duration-300 ease-premium placeholder:text-muted-foreground/70 focus:border-foreground/30 focus:ring-4 focus:ring-ring/15"
 
 const SMALL_BUTTON_CLASS =
   "h-10 shrink-0 cursor-pointer rounded-lg px-3 text-[13px] font-medium ring-1 ring-border transition-colors duration-300 hover:bg-foreground/[0.04]"
@@ -40,7 +40,7 @@ function Tool({ label, icon, text, active, disabled, onClick }: ToolProps) {
         onMouseDown={(event) => event.preventDefault()}
         onClick={onClick}
         className={cn(
-          "flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-md px-2 text-[13px] font-medium transition-colors duration-200",
+          "flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-md px-2 text-[13px] font-medium whitespace-nowrap lg:h-9 lg:min-w-9 transition-colors duration-200",
           active
             ? "bg-brand-soft text-foreground"
             : "text-foreground/65 hover:bg-foreground/[0.06] hover:text-foreground",
@@ -92,7 +92,7 @@ function Toolbar({
     <div
       role="toolbar"
       aria-label="Formato del texto"
-      className="flex items-center gap-0.5 overflow-x-auto rounded-t-lg border-b border-border bg-background p-1.5 [scrollbar-width:none] lg:flex-wrap [&>*]:shrink-0"
+      className="flex items-center gap-0.5 overflow-x-auto rounded-t-lg border-b border-border bg-background p-1.5 pr-8 [scrollbar-width:none] max-lg:[mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] lg:flex-wrap lg:pr-1.5 [&>*]:shrink-0"
     >
       <Tool
         label="Título de sección"

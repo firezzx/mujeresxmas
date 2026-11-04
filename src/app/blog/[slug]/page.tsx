@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 import { PostArticle } from "@/components/blog/post-article"
+import { PostComments, PostCommentsSkeleton } from "@/components/blog/post-comments"
 import { PostGrid } from "@/components/blog/post-card"
 import { GridSection } from "@/components/grid-section"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
@@ -102,6 +103,14 @@ async function Post({ params }: { params: Props["params"] }) {
             </IconHoverArea>
           </div>
           <PostArticle post={post} />
+        </div>
+      </GridSection>
+
+      <GridSection>
+        <div className="px-5 py-10 sm:px-8 md:py-14">
+          <Suspense fallback={<PostCommentsSkeleton />}>
+            <PostComments postId={post.id} slug={post.slug} />
+          </Suspense>
         </div>
       </GridSection>
 

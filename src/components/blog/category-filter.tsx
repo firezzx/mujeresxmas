@@ -11,7 +11,7 @@ function FilterLink({ href, active, children }: { href: string; active: boolean;
       scroll={false}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-medium whitespace-nowrap transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+        "flex min-h-10 items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors sm:px-4 duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
         active ? "bg-brand-soft text-foreground" : "text-foreground/55 hover:text-foreground"
       )}
     >
@@ -24,11 +24,8 @@ function FilterLink({ href, active, children }: { href: string; active: boolean;
 // Filtro por categoría del blog. Son links reales: cada filtro tiene su dirección y se puede compartir.
 export function CategoryFilter({ categories, active }: { categories: PublicCategory[]; active: string | null }) {
   return (
-    <nav
-      aria-label="Filtrar por categoría"
-      className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0"
-    >
-      <ul className="flex w-max gap-1 rounded-lg bg-foreground/[0.035] p-1">
+    <nav aria-label="Filtrar por categoría">
+      <ul className="flex w-fit max-w-full flex-wrap gap-1 rounded-lg bg-foreground/[0.035] p-1">
         <li>
           <FilterLink href={ROUTES.blog} active={!active}>
             Todas

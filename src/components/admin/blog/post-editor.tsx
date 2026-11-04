@@ -108,7 +108,7 @@ function Toggle({
 
 function PanelCell({ title, children, className }: { title: string; children: React.ReactNode; className?: string }) {
   return (
-    <section className={cn("flex flex-col gap-4 bg-background p-5", className)}>
+    <section className={cn("flex min-w-0 flex-col gap-4 bg-background p-5", className)}>
       <h3 className="font-heading text-base font-semibold tracking-[-0.01em]">{title}</h3>
       {children}
     </section>
@@ -310,10 +310,11 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
     values.metaDescription.trim() || values.excerpt.trim() || "La bajada de la publicación va a aparecer acá."
 
   return (
-    <>
-      {/* Barra de acciones: queda a la vista mientras se escribe */}
-      <div className="z-30 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-border bg-background/90 px-4 py-3 backdrop-blur-xl sm:px-6 lg:sticky lg:top-[57px]">
-        <div className="flex min-w-0 items-center gap-3">
+    <div className="flex flex-col">
+      {/* Acciones siempre a la vista. En escritorio, una barra fija arriba. En celular y tablet, el
+          estado va arriba y los botones quedan pegados abajo de la pantalla mientras se edita. */}
+      <div className="contents lg:sticky lg:top-[57px] lg:z-30 lg:flex lg:items-center lg:justify-between lg:gap-4 lg:border-b lg:border-border lg:bg-background/90 lg:px-6 lg:py-3 lg:backdrop-blur-xl">
+        <div className="flex min-w-0 items-center gap-3 border-b border-border px-4 py-3 sm:px-6 lg:border-0 lg:p-0">
           <IconHoverArea>
             <Link
               href={ROUTES.adminBlog}
@@ -334,17 +335,18 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="sticky bottom-0 z-30 order-last flex items-center gap-2 border-t sm:justify-end border-border bg-background/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl sm:px-6 lg:static lg:order-none lg:border-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
           {id && (
             <IconHoverArea>
               <Link
                 href={`${ROUTES.adminBlog}/${id}/vista-previa`}
                 target="_blank"
                 title={dirty ? "Muestra lo último guardado" : undefined}
-                className={SECONDARY_BUTTON}
+                aria-label="Vista previa"
+                className={cn(SECONDARY_BUTTON, "max-sm:w-10 max-sm:px-0")}
               >
                 <HoverIcon name="eye" size={16} />
-                Vista previa
+                <span className="max-sm:hidden">Vista previa</span>
               </Link>
             </IconHoverArea>
           )}
@@ -352,15 +354,19 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
             type="button"
             disabled={pending}
             onClick={() => save(status === "archived" || status === "published" ? "draft" : status)}
-            className={cn(SECONDARY_BUTTON, "cursor-pointer disabled:cursor-wait disabled:opacity-60")}
+            className={cn(
+              SECONDARY_BUTTON,
+              "min-w-0 flex-1 cursor-pointer disabled:cursor-wait disabled:opacity-60 max-sm:px-3 sm:flex-none"
+            )}
           >
-            {status === "draft" ? "Guardar borrador" : "Pasar a borrador"}
+            <span className="sm:hidden">{status === "draft" ? "Guardar" : "A borrador"}</span>
+            <span className="max-sm:hidden">{status === "draft" ? "Guardar borrador" : "Pasar a borrador"}</span>
           </button>
           <ShimmerSubmit
             size="md"
             pending={pending}
             pendingLabel="Guardando…"
-            className="min-h-10"
+            className="min-h-10 min-w-0 flex-1 max-sm:px-3 sm:flex-none"
             onClick={() => save("published")}
           >
             {status === "published" ? "Actualizar" : scheduled ? "Programar" : "Publicar"}
@@ -371,14 +377,18 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
       <div className={cn(GRID_CELLS_CLASS, "lg:grid-cols-[minmax(0,1fr)_22rem]")}>
         {/* Contenido */}
         <div className="flex min-w-0 flex-col gap-6 bg-background p-5 sm:p-8">
-          <TextField
+          <TextareaField
             label="Título"
             placeholder="Un título claro y atractivo"
+            rows={1}
             maxLength={POST_LIMITS.title}
             value={values.title}
-            onChange={(event) => updateTitle(event.target.value)}
+            onChange={(event) => updateTitle(event.target.value.replace(/\s*\n\s*/g, " "))}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") event.preventDefault()
+            }}
             error={errorFor("title")}
-            className="h-14 font-heading text-xl font-semibold tracking-[-0.01em]"
+            className="min-h-14 resize-none font-heading text-xl font-semibold tracking-[-0.01em] field-sizing-content sm:text-xl"
           />
 
           <TextField
@@ -424,7 +434,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
         </div>
 
         {/* Datos de la publicación */}
-        <aside className="flex min-w-0 flex-col gap-px">
+        <aside className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-px md:grid-cols-2 lg:flex lg:flex-col">
           <PanelCell title="Publicación">
             <TextField
               label="Fecha y hora (Argentina)"
@@ -598,7 +608,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
                               values.tags.filter((item) => item !== tag)
                             )
                           }
-                          className="inline-flex h-7 max-w-full cursor-pointer items-center gap-1 rounded-md bg-brand-soft/60 pr-1.5 pl-2.5 text-[12px] font-medium transition-colors duration-200 hover:bg-brand-soft"
+                          className="inline-flex h-9 max-w-full cursor-pointer items-center gap-1 rounded-md bg-brand-soft/60 pr-1.5 pl-2.5 text-[12px] font-medium transition-colors duration-200 hover:bg-brand-soft lg:h-7"
                         >
                           <span className="truncate">{tag}</span>
                           <HoverIcon name="x" size={12} />
@@ -689,7 +699,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
             />
           </PanelCell>
 
-          <PanelCell title="Buscadores (SEO)" className="flex-1">
+          <PanelCell title="Buscadores (SEO)" className="flex-1 md:col-span-2 lg:col-auto">
             <div className="rounded-lg bg-foreground/[0.03] p-3">
               <p className="text-[11px] font-medium text-muted-foreground">Así se puede ver en Google</p>
               <p className="mt-2 text-[12px] break-all text-muted-foreground">
@@ -738,6 +748,6 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
           </PanelCell>
         </aside>
       </div>
-    </>
+    </div>
   )
 }

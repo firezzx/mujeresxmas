@@ -332,3 +332,40 @@ export async function listPostsForSitemap() {
   }
   return data.map((row) => ({ slug: row.slug as string, updatedAt: row.updated_at as string }))
 }
+
+export type PostComment = {
+  id: string
+  body: string
+  createdAt: string
+  authorName: string
+  avatarUrl: string | null
+  isOwn: boolean
+}
+
+type CommentRow = {
+  id: string
+  body: string
+  created_at: string
+  author_name: string | null
+  avatar_path: string | null
+  is_own: boolean
+}
+
+// Comentarios de una publicación, los más nuevos primero. Los perfiles son privados: la función
+// de la base entrega solo el nombre visible y el avatar de quien comentó.
+export async function listPostComments(postId: string): Promise<PostComment[] | null> {
+  const supabase = await getClient()
+  const { data, error } = await supabase.rpc("list_post_comments", { target_post: postId })
+  if (error) {
+    console.error("[listPostComments]", error.code, error.message)
+    return null
+  }
+  return (data as CommentRow[]).map((row) => ({
+    id: row.id,
+    body: row.body,
+    createdAt: row.created_at,
+    authorName: row.author_name ?? "Integrante de la comunidad",
+    avatarUrl: row.avatar_path ? supabase.storage.from("avatars").getPublicUrl(row.avatar_path).data.publicUrl : null,
+    isOwn: row.is_own,
+  }))
+}

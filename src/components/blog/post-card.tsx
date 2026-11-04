@@ -54,7 +54,9 @@ function Details({ post }: { post: PostCardData }) {
 function CategoryLabel({ post }: { post: PostCardData }) {
   if (!post.categoryName) return null
   return (
-    <span className="w-fit rounded-md bg-brand-soft/60 px-2.5 py-1 text-[12px] font-medium">{post.categoryName}</span>
+    <span className="w-fit max-w-full rounded-md bg-brand-soft/60 px-2.5 py-1 text-[12px] font-medium">
+      {post.categoryName}
+    </span>
   )
 }
 
@@ -68,16 +70,19 @@ export function FeaturedPostCard({ post }: { post: PostCardData }) {
       <BlurFade delay={0.1} inView>
         <Link
           href={postHref(post.slug)}
-          className={cn(CARD_LINK_CLASS, "gap-6 p-5 sm:p-8 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:p-10")}
+          className={cn(
+            CARD_LINK_CLASS,
+            "gap-6 p-5 sm:p-8 md:grid md:grid-cols-2 md:items-center md:gap-8 lg:gap-10 lg:p-10"
+          )}
         >
-          <Cover post={post} index={0} sizes="(min-width: 1024px) 38rem, 100vw" priority />
-          <span className="flex flex-col items-start gap-4">
+          <Cover post={post} index={0} sizes="(min-width: 768px) 50vw, 100vw" priority />
+          <span className="flex min-w-0 flex-col items-start gap-4">
             <CategoryLabel post={post} />
-            <span className="font-heading text-2xl leading-tight font-semibold tracking-[-0.02em] text-balance transition-colors duration-300 group-hover:text-brand sm:text-[2rem]">
+            <span className="font-heading text-2xl leading-tight font-semibold tracking-[-0.02em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand sm:text-[1.75rem] lg:text-[2rem]">
               {post.title}
             </span>
             {post.excerpt && (
-              <span className="text-[15px] leading-relaxed text-pretty text-muted-foreground sm:text-base">
+              <span className="text-[15px] leading-relaxed text-pretty [overflow-wrap:anywhere] text-muted-foreground sm:text-base">
                 {post.excerpt}
               </span>
             )}
@@ -91,16 +96,16 @@ export function FeaturedPostCard({ post }: { post: PostCardData }) {
 
 function PostCard({ post, index }: { post: PostCardData; index: number }) {
   return (
-    <IconHoverArea className="bg-background">
+    <IconHoverArea className="min-w-0 bg-background">
       <BlurFade delay={0.1 + (index % 3) * 0.06} inView className="h-full">
         <Link href={postHref(post.slug)} className={cn(CARD_LINK_CLASS, "gap-4 p-5 sm:p-6")}>
           <Cover post={post} index={index + 1} sizes="(min-width: 1024px) 25rem, (min-width: 640px) 50vw, 100vw" />
           <CategoryLabel post={post} />
-          <span className="font-heading text-lg leading-snug font-semibold tracking-[-0.01em] text-balance transition-colors duration-300 group-hover:text-brand">
+          <span className="font-heading text-lg leading-snug font-semibold tracking-[-0.01em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand">
             {post.title}
           </span>
           {post.excerpt && (
-            <span className="line-clamp-3 text-sm leading-relaxed text-pretty text-muted-foreground">
+            <span className="line-clamp-3 text-sm leading-relaxed text-pretty [overflow-wrap:anywhere] text-muted-foreground">
               {post.excerpt}
             </span>
           )}
@@ -120,7 +125,7 @@ export function PostGrid({ posts }: { posts: PostCardData[] }) {
   const fillerSm = posts.length % 2 === 1
 
   return (
-    <div className={cn(GRID_CELLS_CLASS, "sm:grid-cols-2 lg:grid-cols-3")}>
+    <div className={cn(GRID_CELLS_CLASS, "grid-cols-[minmax(0,1fr)] sm:grid-cols-2 lg:grid-cols-3")}>
       {posts.map((post, index) => (
         <PostCard key={post.id} post={post} index={index} />
       ))}

@@ -54,7 +54,7 @@ export function PostList({ posts, categories }: { posts: AdminPost[]; categories
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_13rem_11rem]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_13rem_11rem] [&>:first-child]:sm:col-span-2 [&>:first-child]:lg:col-span-1">
         <TextField
           label="Buscar"
           type="search"
@@ -120,10 +120,13 @@ function PostRow({ post }: { post: AdminPost }) {
           )}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[15px] font-medium transition-colors duration-200 group-hover:text-brand">
+          <span className="line-clamp-2 text-[15px] font-medium [overflow-wrap:anywhere] transition-colors duration-200 group-hover:text-brand sm:line-clamp-1">
             {post.title}
           </span>
           <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-muted-foreground">
+            <span className="sm:hidden">
+              <PostStatusBadge status={displayStatus} />
+            </span>
             <span>{post.categoryName ?? "Sin categoría"}</span>
             <span aria-hidden>·</span>
             <span>{formatShortDate(date)}</span>
@@ -134,7 +137,9 @@ function PostRow({ post }: { post: AdminPost }) {
             )}
           </span>
         </span>
-        <PostStatusBadge status={displayStatus} />
+        <span className="max-sm:hidden">
+          <PostStatusBadge status={displayStatus} />
+        </span>
       </Link>
     </li>
   )

@@ -26,7 +26,7 @@ export function SelectField({ label, error, className, children, ...props }: Sel
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
           className={cn(
-            "h-12 w-full cursor-pointer appearance-none truncate rounded-lg border border-border bg-background/70 pr-10 pl-4 text-[15px] shadow-[0_1px_2px_0_rgb(26_26_26/0.04)] transition-[border-color,box-shadow] duration-300 ease-premium outline-none",
+            "h-12 w-full cursor-pointer appearance-none truncate rounded-lg border border-border bg-background/70 pr-10 pl-4 text-base shadow-[0_1px_2px_0_rgb(26_26_26/0.04)] transition-[border-color,box-shadow] duration-300 ease-premium outline-none sm:text-[15px]",
             "hover:border-foreground/20 focus:border-foreground/30 focus:ring-4 focus:ring-ring/15",
             "aria-invalid:border-destructive/60 aria-invalid:focus:ring-destructive/15",
             className

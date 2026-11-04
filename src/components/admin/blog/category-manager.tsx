@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useRef, useState, useTransition } from "react"
 import { z } from "zod"
 
 import { deleteCategory, saveCategory } from "@/app/actions/blog"
@@ -29,6 +29,7 @@ export function CategoryManager({ categories }: { categories: BlogCategory[] }) 
   const [slugTouched, setSlugTouched] = useState(false)
   const [errors, setErrors] = useState<FieldErrors>({})
   const [confirmingId, setConfirmingId] = useState<string | null>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   function reset() {
     setEditingId(null)
@@ -42,6 +43,7 @@ export function CategoryManager({ categories }: { categories: BlogCategory[] }) 
     setValues({ name: category.name, slug: category.slug, description: category.description ?? "" })
     setSlugTouched(true)
     setErrors({})
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -83,7 +85,7 @@ export function CategoryManager({ categories }: { categories: BlogCategory[] }) 
 
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-10">
-      <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+      <form ref={formRef} onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
         <h3 className="font-heading text-base font-semibold tracking-[-0.01em]">
           {editingId ? "Editar categoría" : "Nueva categoría"}
         </h3>

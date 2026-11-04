@@ -23,7 +23,10 @@ export function BlogPagination({ page, totalPages, category }: BlogPaginationPro
   }
 
   return (
-    <nav aria-label="Páginas del blog" className="flex items-center justify-between gap-3 px-5 py-5 sm:px-8">
+    <nav
+      aria-label="Páginas del blog"
+      className="flex flex-wrap items-center justify-between gap-3 px-5 py-5 sm:flex-nowrap sm:px-8"
+    >
       {page > 1 ? (
         <IconHoverArea>
           <Link href={href(page - 1)} rel="prev" className={LINK_CLASS}>
@@ -34,7 +37,7 @@ export function BlogPagination({ page, totalPages, category }: BlogPaginationPro
       ) : (
         <span />
       )}
-      <p className="text-[13px] text-muted-foreground">
+      <p className="order-first w-full text-center text-[13px] text-muted-foreground sm:order-none sm:w-auto">
         Página {page} de {totalPages}
       </p>
       {page < totalPages ? (

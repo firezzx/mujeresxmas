@@ -90,6 +90,12 @@ export const postSchema = z
 export type PostInput = z.input<typeof postSchema>
 export type PostField = keyof PostInput
 
+export const COMMENT_MAX = 1000
+
+export const commentSchema = z.object({
+  body: z.string().trim().min(1, "Escribí tu comentario").max(COMMENT_MAX, "Comentario: hasta 1000 caracteres"),
+})
+
 export const categorySchema = z.object({
   name: z.string().trim().min(1, "Escribí un nombre").max(60, "Nombre: hasta 60 caracteres"),
   slug: z

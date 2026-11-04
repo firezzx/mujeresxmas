@@ -16,21 +16,23 @@ export function PostArticle({ post }: { post: PostPreview }) {
   ].filter(Boolean)
 
   return (
-    <article className="mx-auto w-full max-w-3xl">
+    <article className="mx-auto w-full max-w-3xl min-w-0">
       <header>
         {post.categoryName && post.categorySlug && (
           <Link
             href={`${ROUTES.blog}?categoria=${post.categorySlug}`}
-            className="inline-flex rounded-md bg-brand-soft/60 px-2.5 py-1 text-[12px] font-medium transition-colors duration-200 outline-none hover:bg-brand-soft focus-visible:ring-3 focus-visible:ring-ring/40"
+            className="inline-flex rounded-md bg-brand-soft/60 px-2.5 py-2 text-[12px] font-medium transition-colors sm:py-1 duration-200 outline-none hover:bg-brand-soft focus-visible:ring-3 focus-visible:ring-ring/40"
           >
             {post.categoryName}
           </Link>
         )}
-        <h1 className="mt-4 font-heading text-3xl leading-tight font-semibold tracking-[-0.02em] text-balance sm:text-[2.75rem]">
+        <h1 className="mt-4 font-heading text-3xl leading-tight font-semibold tracking-[-0.02em] text-balance [overflow-wrap:anywhere] sm:text-4xl lg:text-[2.75rem]">
           {post.title}
         </h1>
         {post.excerpt && (
-          <p className="mt-4 text-lg leading-relaxed text-pretty text-muted-foreground">{post.excerpt}</p>
+          <p className="mt-4 text-lg leading-relaxed text-pretty [overflow-wrap:anywhere] text-muted-foreground">
+            {post.excerpt}
+          </p>
         )}
         <p className="mt-4 text-[13px] text-muted-foreground">{details.join(" · ")}</p>
       </header>
@@ -53,7 +55,10 @@ export function PostArticle({ post }: { post: PostPreview }) {
       {post.tags.length > 0 && (
         <ul aria-label="Etiquetas" className="mt-10 flex flex-wrap gap-1.5 border-t border-border pt-6">
           {post.tags.map((tag) => (
-            <li key={tag} className="rounded-md px-2.5 py-1 text-[12px] text-muted-foreground ring-1 ring-border">
+            <li
+              key={tag}
+              className="max-w-full rounded-md px-2.5 py-1 text-[12px] [overflow-wrap:anywhere] text-muted-foreground ring-1 ring-border"
+            >
               {tag}
             </li>
           ))}
