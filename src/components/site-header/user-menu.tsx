@@ -47,26 +47,22 @@ export function UserMenu({
   adminView = null,
   unread = 0,
   align = "end",
-  unreadDot = false,
 }: {
   user: CurrentUser
   adminView?: AdminView | null
   unread?: number
   align?: "start" | "end"
-  // Avisa en el avatar si hay sin leer, para cuando no está la campana al lado
-  unreadDot?: boolean
 }) {
   const displayName = [user.firstName, user.lastName].filter(Boolean).join(" ") || "Mi cuenta"
-  const showDot = unreadDot && unread > 0
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label={showDot ? `Abrir menú de mi cuenta (${unread} sin leer)` : "Abrir menú de mi cuenta"}
+        aria-label={unread ? `Abrir menú de mi cuenta (${unread} sin leer)` : "Abrir menú de mi cuenta"}
         className="relative rounded-lg p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/20 focus-visible:ring-3 focus-visible:ring-ring/40"
       >
         <UserAvatar user={user} />
-        {showDot && (
+        {unread > 0 && (
           <span
             aria-hidden
             className="absolute -top-0.5 -right-0.5 size-3.5 rounded-full bg-brand ring-2 ring-background"

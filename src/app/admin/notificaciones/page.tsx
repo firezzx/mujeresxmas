@@ -24,7 +24,7 @@ export default function AdminNotificationsPage() {
     <>
       <AdminSection
         title="Nueva notificación"
-        description="Le llega a todos los usuarios en su panel y en la campanita del menú."
+        description="Le llega a todos los usuarios en su panel de notificaciones."
       >
         <NotificationForm />
       </AdminSection>

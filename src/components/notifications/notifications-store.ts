@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react"
 
 // Estado del panel de notificaciones. El panel vive junto al header, pero se abre desde lugares que no
-// comparten árbol de componentes: la campana, el menú de la cuenta, el aviso flotante y Mi cuenta.
+// comparten árbol de componentes: el menú de la cuenta, el aviso flotante y Mi cuenta.
 let open = false
 const listeners = new Set<() => void>()
 
