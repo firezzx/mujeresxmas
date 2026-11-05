@@ -42,7 +42,16 @@ export function PageTitle({ children, className, delay = 0 }: PageTitleProps) {
 // es lo que resalta sobre el verde y el negro; sobre otros fondos se le pasa el color.
 export function BrandHighlight({ children, color = BRAND_HEX.pink }: { children: string; color?: string }) {
   return (
-    <Highlighter isView inline action="underline" color={color} strokeWidth={4} iterations={2} padding={3} animationDuration={900}>
+    <Highlighter
+      isView
+      inline
+      action="underline"
+      color={color}
+      strokeWidth={3}
+      iterations={1}
+      padding={3}
+      animationDuration={700}
+    >
       {children}
     </Highlighter>
   )

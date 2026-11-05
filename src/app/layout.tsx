@@ -7,7 +7,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader, SiteHeaderView } from "@/components/site-header/site-header";
 import { SiteHeaderWithSession } from "@/components/site-header/site-header-with-session";
 import { Toaster } from "@/components/toast/toaster";
-import { ScrollProgress } from "@/components/ui/scroll-progress";
 import "./globals.css";
 
 // Textos y botones
@@ -50,8 +49,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Avisos flotantes abajo a la derecha (formularios, notificaciones nuevas) */}
         <MotionProvider>
           <Toaster>
-            {/* Barra de progreso de lectura (Scroll Progress de Magic UI) */}
-            <ScrollProgress className="z-[60] h-0.5 from-brand-green via-brand-soft to-brand-green" />
             <Suspense
               fallback={
                 <Suspense fallback={<SiteHeaderView user={null} pending pathname={null} />}>

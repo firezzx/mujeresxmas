@@ -82,7 +82,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
 function AdminSkeleton() {
   return (
     <div aria-hidden>
-      <Band tone="ink" dots className="flex flex-col gap-4 pt-28 pb-14 md:pt-36 md:pb-20">
+      <Band tone="ink" className="flex flex-col gap-4 pt-28 pb-14 md:pt-36 md:pb-20">
         <div className="h-7 w-32 animate-pulse rounded-md bg-background/15" />
         <div className="h-12 w-72 max-w-full animate-pulse rounded-lg bg-background/15" />
       </Band>

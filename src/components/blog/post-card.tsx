@@ -60,7 +60,7 @@ function CategoryLabel({ post }: { post: PostCardData }) {
 }
 
 const CARD_LINK_CLASS =
-  "group block h-full rounded-xl outline-none transition-transform duration-500 ease-premium hover:-translate-y-1 focus-visible:ring-3 focus-visible:ring-ring/40"
+  "group block h-full rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
 
 // La publicación principal del blog, a todo el ancho.
 export function FeaturedPostCard({ post }: { post: PostCardData }) {

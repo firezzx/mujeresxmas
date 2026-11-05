@@ -9,7 +9,6 @@ import { PostGrid } from "@/components/blog/post-card"
 import { ShareButtons } from "@/components/blog/share-buttons"
 import { Band, OVERLAP_CLASS, SectionTitle } from "@/components/page-band"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { BRAND_HEX } from "@/config/brand-effects"
 import { ROUTES } from "@/config/navigation"
 import { getPublicPost, listRelatedPosts, type PublicPost } from "@/lib/blog"
 import { blogImageUrl } from "@/lib/blog-shared"
@@ -92,7 +91,7 @@ async function Post({ params }: { params: Props["params"] }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd(post) }} />
 
-      <Band tone="green" dots zigzag className={cn("pt-28 md:pt-36", post.coverPath ? "pb-24 md:pb-32" : "pb-20 md:pb-28")}>
+      <Band tone="green" zigzag className={cn("pt-28 md:pt-36", post.coverPath ? "pb-24 md:pb-32" : "pb-20 md:pb-28")}>
         <div className="mx-auto mb-8 w-full max-w-4xl">
           <IconHoverArea className="w-fit">
             <Link
@@ -116,7 +115,7 @@ async function Post({ params }: { params: Props["params"] }) {
         </div>
       </Band>
 
-      <Band tone="soft" dots>
+      <Band>
         <Suspense fallback={<PostCommentsSkeleton />}>
           <PostComments postId={post.id} slug={post.slug} />
         </Suspense>
@@ -124,11 +123,7 @@ async function Post({ params }: { params: Props["params"] }) {
 
       {related.length > 0 && (
         <Band>
-          <SectionTitle
-            title="Seguí"
-            highlight="leyendo"
-            highlightStyle={{ action: "underline", color: BRAND_HEX.green }}
-          />
+          <SectionTitle title="Seguí leyendo" />
           <PostGrid posts={related} />
         </Band>
       )}
@@ -138,7 +133,7 @@ async function Post({ params }: { params: Props["params"] }) {
 
 function PostSkeleton() {
   return (
-    <Band tone="green" dots zigzag className="pt-28 pb-20 md:pt-36">
+    <Band tone="green" zigzag className="pt-28 pb-20 md:pt-36">
       <div aria-hidden className="mx-auto flex w-full max-w-4xl flex-col gap-5">
         <div className="h-7 w-32 animate-pulse rounded-md bg-background/50" />
         <div className="h-14 w-full animate-pulse rounded-lg bg-background/50" />

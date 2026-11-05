@@ -2,13 +2,7 @@
 
 import Link from "next/link"
 
-import {
-  ShimmerBackdrop,
-  shimmerClassName,
-  type shimmerSizes,
-  ShimmerSpark,
-  shimmerStyle,
-} from "@/components/buttons/shimmer"
+import { shimmerClassName, type shimmerSizes } from "@/components/buttons/shimmer"
 import { ArrowRightIcon, type ArrowRightIconHandle } from "@/components/icons/arrow-right"
 import { useIconAnimation } from "@/hooks/use-icon-animation"
 
@@ -33,13 +27,10 @@ export function ShimmerLink({
     <Link
       {...props}
       {...triggerProps}
-      style={shimmerStyle}
       className={shimmerClassName(size, className)}
     >
-      <ShimmerSpark />
       <span className="relative">{children}</span>
       {arrow && <ArrowRightIcon ref={iconRef} size={18} className="relative -mr-1 shrink-0" />}
-      <ShimmerBackdrop />
     </Link>
   )
 }

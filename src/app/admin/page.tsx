@@ -9,14 +9,11 @@ import { BlurFade } from "@/components/ui/blur-fade"
 import { NumberTicker } from "@/components/ui/number-ticker"
 import { listMembers, memberStats } from "@/lib/admin"
 import { formatShortDate } from "@/lib/format"
-import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Administración",
   robots: { index: false },
 }
-
-const STAT_TONES = ["bg-brand-green", "bg-brand-soft", "bg-primary text-primary-foreground", "bg-brand-green"]
 
 // Sección Usuarias: números de la comunidad y lista con buscador. El acceso lo valida el layout.
 export default function AdminMembersPage() {
@@ -56,10 +53,7 @@ async function MembersDashboard() {
         {stats.map((stat, i) => (
           <BlurFade key={stat.label} delay={0.1 + i * 0.05} inView className="h-full">
             <div
-              className={cn(
-                "flex h-full flex-col justify-between gap-4 rounded-xl p-5 sm:p-6",
-                STAT_TONES[i % STAT_TONES.length]
-              )}
+              className="flex h-full flex-col justify-between gap-4 rounded-xl border border-border p-5 sm:p-6"
             >
               <p className="text-sm leading-snug opacity-85">{stat.label}</p>
               <p className="font-heading text-5xl leading-none font-semibold tracking-[-0.01em]">

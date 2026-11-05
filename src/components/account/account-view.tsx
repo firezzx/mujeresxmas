@@ -8,7 +8,6 @@ import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { BrandHighlight } from "@/components/page-hero"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { BorderBeam } from "@/components/ui/border-beam"
 import { ROUTES } from "@/config/navigation"
 import type { getAccountSummary } from "@/lib/account"
 import type { CommunityEvent, Course } from "@/lib/content"
@@ -49,11 +48,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
           {/* Membresía */}
           <div className="min-w-0 md:col-span-3">
             <BlurFade delay={0.26} inView className="h-full">
-              <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-[0_24px_48px_-24px_rgb(26_26_26/0.45)] sm:p-10">
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-brand-green/35 blur-3xl"
-                />
+              <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground sm:p-10">
                 <div className="relative flex items-center justify-between gap-3">
                   <h2 className="text-sm font-medium text-primary-foreground/70">Tu membresía</h2>
                   {membership && (
@@ -82,7 +77,6 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                     No encontramos una membresía activa. Escribinos y lo revisamos.
                   </p>
                 )}
-                <BorderBeam size={140} duration={9} colorFrom="var(--brand-green)" colorTo="oklch(1 0 0 / 0.8)" />
               </section>
             </BlurFade>
           </div>
@@ -153,7 +147,7 @@ export function AccountSkeleton() {
   const cell = "h-60 animate-pulse rounded-xl bg-foreground/[0.05]"
   return (
     <div aria-hidden>
-      <Band tone="green" dots zigzag className="flex flex-col gap-4 pt-28 pb-24 md:pt-36 md:pb-32">
+      <Band tone="green" zigzag className="flex flex-col gap-4 pt-28 pb-24 md:pt-36 md:pb-32">
         <div className="h-7 w-28 animate-pulse rounded-md bg-background/50" />
         <div className="h-12 w-64 animate-pulse rounded-lg bg-background/50" />
       </Band>
