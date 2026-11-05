@@ -1,7 +1,9 @@
 import { BrandCard } from "@/components/account/account-card"
-import { PAGE_WIDTH_CLASS, ZigzagEdge } from "@/components/page-band"
+import { BandBackdrop, PAGE_WIDTH_CLASS, ZigzagEdge } from "@/components/page-band"
 import { Eyebrow, HERO_TITLE_CLASS, PageTitle } from "@/components/page-hero"
+import { AvatarCircles } from "@/components/ui/avatar-circles"
 import { BlurFade } from "@/components/ui/blur-fade"
+import { HOME_AVATARS, HOME_HERO } from "@/content/home"
 import { cn } from "@/lib/utils"
 
 type AuthShellProps = {
@@ -14,11 +16,12 @@ type AuthShellProps = {
 }
 
 // Estructura de las páginas de cuenta (registro, login, confirmaciones): franja verde con el título de
-// un lado y la tarjeta del otro.
+// un lado y la tarjeta del otro, sobre un bloque de color.
 export function AuthShell({ eyebrow, title, description, children, backdrop }: AuthShellProps) {
   return (
     <main className="relative flex flex-1 flex-col">
-      <section className="relative flex min-h-svh items-center overflow-hidden bg-brand-green">
+      <section className="relative flex min-h-svh items-center overflow-hidden">
+        <BandBackdrop tone="green" image="/images/home/cierre-grupo.jpg" />
         <ZigzagEdge />
         {backdrop}
 
@@ -39,14 +42,28 @@ export function AuthShell({ eyebrow, title, description, children, backdrop }: A
             </PageTitle>
             {description && (
               <BlurFade inView delay={0.12}>
-                <p className="max-w-xl text-base leading-relaxed text-pretty opacity-80 sm:text-lg">{description}</p>
+                <p className="max-w-xl text-base leading-relaxed text-pretty sm:text-lg">{description}</p>
               </BlurFade>
             )}
+            <BlurFade inView delay={0.18} className="max-lg:hidden">
+              <div className="flex items-center gap-3">
+                <AvatarCircles images={HOME_AVATARS} />
+                <span className="font-heading text-lg font-medium tracking-[-0.01em]">{HOME_HERO.avatarsText}</span>
+              </div>
+            </BlurFade>
           </div>
 
           <BlurFade inView delay={0.14} className="relative w-full min-w-0">
+            <div
+              aria-hidden
+              className="absolute -top-4 -right-3 h-1/2 w-3/5 rotate-3 rounded-xl bg-brand-soft sm:-right-5"
+            />
+            <div
+              aria-hidden
+              className="absolute -bottom-4 -left-3 h-2/5 w-1/2 -rotate-3 rounded-xl bg-foreground sm:-left-5"
+            />
             <BrandCard
-              className="relative"
+              className="relative shadow-[0_24px_64px_-24px_rgb(26_26_26/0.35)]"
               contentClassName="p-5 text-left sm:p-7"
             >
               {children}

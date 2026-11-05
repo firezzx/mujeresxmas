@@ -26,7 +26,7 @@ export default function BlogPage({ searchParams }: PageProps<"/blog">) {
   return (
     <main className="relative flex flex-1 flex-col">
       <ColorHero
-        tone="green"
+        image="/images/home/tecnologia.jpg"
         overlap
         eyebrow="Blog"
         title={

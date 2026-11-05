@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 
 import { SessionCta } from "@/components/cta/session-cta";
-import { cycleTone, IconBadge } from "@/components/icon-badge";
-import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon";
-import { Band, Photo, SectionTitle, ZigzagEdge } from "@/components/page-band";
+import { Band, BandBackdrop, PhotoDuo, PhotoTile, SectionTitle, ZigzagEdge } from "@/components/page-band";
 import { Eyebrow, HERO_TITLE_CLASS } from "@/components/page-hero";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ROUTES } from "@/config/navigation";
@@ -33,7 +31,8 @@ function QuieroCta() {
 export default function QuieroPage() {
   return (
     <main className="relative flex flex-1 flex-col">
-      <section className="relative overflow-hidden bg-brand-green">
+      <section className="relative overflow-hidden">
+        <BandBackdrop tone="green" image="/images/home/florista.jpg" />
         <ZigzagEdge />
         <div className="relative mx-auto grid w-full max-w-content items-center gap-14 px-5 pt-28 pb-24 sm:px-8 md:grid-cols-2 md:pt-36 md:pb-32 lg:px-9">
           <div className="flex flex-col items-start gap-6">
@@ -55,25 +54,17 @@ export default function QuieroPage() {
             </BlurFade>
           </div>
           <BlurFade inView delay={0.1}>
-            <Photo src={QUIERO_PAGE.image} alt={QUIERO_PAGE.imageAlt} priority sizes="(min-width: 768px) 45vw, 100vw" />
+            <PhotoDuo {...QUIERO_PAGE.photos} priority />
           </BlurFade>
         </div>
       </section>
 
       <Band>
         <SectionTitle title={`${QUIERO_PAGE.stepsTitle} ${QUIERO_PAGE.stepsHighlight}`} />
-        <ul className="grid grid-cols-[minmax(0,1fr)] gap-10 md:grid-cols-3">
+        <ul className="grid auto-rows-[15rem] grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-3 lg:auto-rows-[20rem]">
           {QUIERO_PAGE.steps.map((step, index) => (
             <li key={step.title} className="min-w-0">
-              <BlurFade inView delay={index * 0.06}>
-                <IconHoverArea className="flex flex-col gap-4">
-                  <IconBadge tone={cycleTone(index + 1)}>
-                    <HoverIcon name={step.icon} size={22} />
-                  </IconBadge>
-                  <h3 className="font-heading text-2xl leading-[1.1] font-semibold">{step.title}</h3>
-                  <p className="text-base leading-relaxed text-muted-foreground">{step.text}</p>
-                </IconHoverArea>
-              </BlurFade>
+              <PhotoTile {...step} index={index} />
             </li>
           ))}
         </ul>

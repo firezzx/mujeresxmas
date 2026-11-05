@@ -23,6 +23,7 @@ export default function PerfilPage() {
   return (
     <main className="relative flex flex-1 flex-col">
       <ColorHero
+        image="/images/home/florista.jpg"
         compact
         overlap
         eyebrow={

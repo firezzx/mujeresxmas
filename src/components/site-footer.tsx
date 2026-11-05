@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { Logo } from "@/components/brand/logo"
+import { BandBackdrop } from "@/components/page-band"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
 import { SOCIAL_LINKS } from "@/config/site"
 
@@ -9,8 +10,9 @@ const FOOTER_LINKS = [...MAIN_NAV, { href: ROUTES.miCuenta, label: "Mi cuenta" }
 // Footer del sitio: logo, eslogan y links.
 export function SiteFooter() {
   return (
-    <footer className="bg-brand-green">
-      <div>
+    <footer className="relative">
+      <BandBackdrop tone="green" />
+      <div className="relative">
         <div className="mx-auto flex max-w-content flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-9">
           <div className="flex flex-col gap-2">
             <Link href="/" className="w-fit rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
