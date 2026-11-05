@@ -15,7 +15,7 @@ import { getAdminView } from "@/lib/admin"
 const MAIN_CLASS = "relative flex flex-1 flex-col"
 
 // Estructura común del panel: verifica el acceso una sola vez y muestra encabezado y pestañas.
-// Cada sección (usuarias, cursos, eventos, notificaciones) es una página dentro de /admin.
+// Cada sección (usuarias, cursos, eventos, notificaciones, planes) es una página dentro de /admin.
 export default function AdminLayout({ children }: LayoutProps<"/admin">) {
   return (
     <Suspense
@@ -48,7 +48,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
             Panel de <BrandHighlight>la comunidad</BrandHighlight>
           </>
         }
-        description="Usuarios, cursos, eventos y avisos de Mujeres x Más en un solo lugar."
+        description="Usuarios, cursos, eventos, avisos y planes de Mujeres x Más en un solo lugar."
         actions={
           <IconHoverArea className="w-fit">
             <form action={setMemberView.bind(null, true)}>

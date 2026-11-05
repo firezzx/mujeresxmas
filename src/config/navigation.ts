@@ -24,6 +24,7 @@ export const ROUTES = {
   adminCursos: "/admin/cursos",
   adminEventos: "/admin/eventos",
   adminNotificaciones: "/admin/notificaciones",
+  adminPlanes: "/admin/planes",
   adminBlog: "/admin/blog",
   adminBlogNueva: "/admin/blog/nueva",
   adminBlogCategorias: "/admin/blog/categorias",
@@ -50,4 +51,5 @@ export const ADMIN_NAV = [
   { href: ROUTES.adminEventos, label: "Eventos", icon: "calendar-days" },
   { href: ROUTES.adminBlog, label: "Blog", icon: "file-text" },
   { href: ROUTES.adminNotificaciones, label: "Notificaciones", icon: "bell" },
+  { href: ROUTES.adminPlanes, label: "Planes", icon: "sparkles" },
 ] as const

@@ -45,7 +45,7 @@ export default function CuentaConfirmadaPage({ searchParams }: PageProps<"/regis
           <HoverIcon name="circle-check" size={24} autoPlay />
         </IconBadge>
         <p className="text-[15px] leading-relaxed text-muted-foreground">
-          Ya iniciaste sesión. Tu membresía Gratis quedó activada.
+          Ya iniciaste sesión. Tu membresía gratuita quedó activada.
         </p>
         <Suspense fallback={<ContinueLink href="/" label="Ir al inicio" />}>
           <ContinueCta searchParams={searchParams} />

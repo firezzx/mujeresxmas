@@ -1,11 +1,12 @@
 "use client"
 
-import { useActionState, useId, useState } from "react"
+import { useActionState, useState } from "react"
 import { z } from "zod"
 
 import { sendNotification, type SendNotificationState } from "@/app/actions/notifications"
 import { ShimmerSubmit } from "@/components/buttons/shimmer-submit"
 import { FormMessage } from "@/components/forms/form-message"
+import { TextAreaField } from "@/components/forms/text-area-field"
 import { TextField } from "@/components/forms/text-field"
 import { type NotificationField, notificationSchema } from "@/lib/validations/notification"
 
@@ -26,7 +27,6 @@ export function NotificationForm() {
     { status: "idle" }
   )
   const [clientErrors, setClientErrors] = useState<FieldErrors>({})
-  const bodyId = useId()
 
   const serverErrors = state.status === "error" ? state.fieldErrors : undefined
   const errorFor = (field: NotificationField) => (clientErrors[field] ?? serverErrors?.[field])?.[0]
@@ -45,8 +45,6 @@ export function NotificationForm() {
     }
   }
 
-  const bodyError = errorFor("body")
-
   return (
     <form action={formAction} onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       <TextField
@@ -59,23 +57,16 @@ export function NotificationForm() {
         error={errorFor("title")}
       />
 
-      <div className="flex flex-col gap-2">
-        <label htmlFor={bodyId} className="text-sm font-medium">
-          Mensaje (opcional)
-        </label>
-        <textarea
-          id={bodyId}
-          name="body"
-          rows={3}
-          maxLength={600}
-          placeholder="Contá en pocas líneas de qué se trata."
-          value={values.body}
-          onChange={(e) => update("body", e.target.value)}
-          aria-invalid={bodyError ? true : undefined}
-          className="w-full resize-y rounded-lg border border-border bg-background/70 px-4 py-3 text-[15px] shadow-[0_1px_2px_0_rgb(26_26_26/0.04)] transition-[border-color,box-shadow] duration-300 ease-premium outline-none placeholder:text-muted-foreground/70 hover:border-foreground/20 focus:border-foreground/30 focus:ring-4 focus:ring-ring/15 aria-invalid:border-destructive/60"
-        />
-        {bodyError && <p className="text-sm text-destructive">{bodyError}</p>}
-      </div>
+      <TextAreaField
+        label="Mensaje (opcional)"
+        name="body"
+        rows={3}
+        maxLength={600}
+        placeholder="Contá en pocas líneas de qué se trata."
+        value={values.body}
+        onChange={(e) => update("body", e.target.value)}
+        error={errorFor("body")}
+      />
 
       <TextField
         label="Link (opcional)"
