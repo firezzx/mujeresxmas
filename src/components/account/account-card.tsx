@@ -21,7 +21,7 @@ export function BrandCard({
       gradientFrom={BRAND_HEX.green}
       gradientTo={BRAND_HEX.pink}
       gradientColor={BRAND_HEX.pinkTint}
-      gradientOpacity={0.7}
+      gradientOpacity={0.35}
       className={cn(
         "h-full rounded-xl shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_16px_48px_-24px_rgb(26_26_26/0.22)]",
         className

@@ -1,5 +1,5 @@
 import { BrandCard } from "@/components/account/account-card"
-import { BandBackdrop, PAGE_WIDTH_CLASS, ZigzagEdge } from "@/components/page-band"
+import { BandBackdrop, PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { Eyebrow, HERO_TITLE_CLASS, PageTitle } from "@/components/page-hero"
 import { AvatarCircles } from "@/components/ui/avatar-circles"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -22,7 +22,6 @@ export function AuthShell({ eyebrow, title, description, children, backdrop }: A
     <main className="relative flex flex-1 flex-col">
       <section className="relative flex min-h-svh items-center overflow-hidden">
         <BandBackdrop tone="green" image="/images/home/cierre-grupo.jpg" />
-        <ZigzagEdge />
         {backdrop}
 
         <div

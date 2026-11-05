@@ -47,33 +47,26 @@ export const HOME_PATHS = {
     title: "Aprender",
     text: "Cursos para dar el primer paso",
     image: "/images/home/formacion.jpg",
-    tone: "green",
   },
   notes: {
     icon: "book-text",
     title: "Leer",
     text: "Notas y guías para tu proyecto",
     image: "/images/home/tecnologia.jpg",
-    tone: "pink",
   },
   products: {
     icon: "rocket",
     title: "Crecer",
     text: "Productos que te acompañan",
     image: "/images/home/equipo-laptop.jpg",
-    tone: "ink",
   },
   events: {
     icon: "calendar-days",
     title: "Encontrarnos",
     text: "Charlas y encuentros de la comunidad",
     image: "/images/home/colegas-escalera.jpg",
-    tone: "green",
   },
-} satisfies Record<
-  string,
-  { icon: IconName; title: string; text: string; image: string; tone: "ink" | "pink" | "green" }
->
+} satisfies Record<string, { icon: IconName; title: string; text: string; image: string }>
 
 export const HOME_COURSES = {
   title: "Cursos para",

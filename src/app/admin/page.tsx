@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   robots: { index: false },
 }
 
-const STAT_TONES = ["bg-mesh-green", "bg-mesh-pink", "bg-mesh-ink text-primary-foreground", "bg-mesh-green"]
+const STAT_TONES = ["bg-brand-green/15", "bg-brand-soft/35", "bg-foreground/5", "bg-brand-green/15"]
 
 // Sección Usuarias: números de la comunidad y lista con buscador. El acceso lo valida el layout.
 export default function AdminMembersPage() {

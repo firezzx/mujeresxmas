@@ -154,7 +154,7 @@ export function AccountSkeleton() {
   const cell = "h-60 animate-pulse rounded-xl bg-foreground/[0.05]"
   return (
     <div aria-hidden>
-      <Band tone="green" zigzag className="flex flex-col gap-4 pt-28 pb-24 md:pt-36 md:pb-32">
+      <Band tone="green" className="flex flex-col gap-4 pt-28 pb-24 md:pt-36 md:pb-32">
         <div className="h-7 w-28 animate-pulse rounded-md bg-background/50" />
         <div className="h-12 w-64 animate-pulse rounded-lg bg-background/50" />
       </Band>

@@ -5,10 +5,11 @@ import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hove
 import { Eyebrow, HERO_TITLE_CLASS, PAGE_TITLE_CLASS, PageTitle } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { DotPattern } from "@/components/ui/dot-pattern"
+import { TextAnimate } from "@/components/ui/text-animate"
 import { cn } from "@/lib/utils"
 
 // Piezas del estilo del sitio: franjas con gradientes de marca, textura de puntos y fotos, nunca un
-// color plano a todo el ancho. El corte en zigzag del manual cierra las franjas verdes.
+// color plano a todo el ancho. El corte en zigzag del manual va solo en el hero del inicio.
 
 export const PAGE_WIDTH_CLASS = "mx-auto w-full max-w-content px-5 sm:px-8 lg:px-9"
 // Marco blanco y sombra de las fotos, como copias pegadas sobre la franja
@@ -40,7 +41,9 @@ export function BandBackdrop({ tone, image }: { tone: BandTone; image?: string }
           sizes="100vw"
           className={cn(
             "object-cover",
-            tone === "ink" ? "opacity-30 mix-blend-luminosity" : "opacity-30 brightness-125 contrast-75 mix-blend-multiply"
+            tone === "ink"
+              ? "opacity-30 mix-blend-luminosity"
+              : "opacity-30 brightness-125 contrast-75 mix-blend-multiply"
           )}
         />
       )}
@@ -60,7 +63,7 @@ export function BandBackdrop({ tone, image }: { tone: BandTone; image?: string }
 // se funde hacia abajo con el fondo de la página.
 const ZIGZAG_POINTS = "0,39 138,84 298,10 459,64 619,0 802,57 962,12 1123,50 1283,5 1467,41 1467,90 0,90"
 
-export function ZigzagEdge({ className }: { className?: string }) {
+function ZigzagEdge({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden
@@ -93,7 +96,7 @@ export function Band({
   tone?: BandTone
   // Foto de fondo, teñida con el color de la franja
   image?: string
-  // Termina abajo con el corte en zigzag rosa (para las franjas verdes)
+  // Termina abajo con el corte en zigzag rosa (solo el hero del inicio)
   zigzag?: boolean
   className?: string
   children: React.ReactNode
@@ -135,7 +138,6 @@ export function ColorHero({
     <Band
       tone={tone}
       image={image}
-      zigzag={tone === "green"}
       className={cn(
         "grid items-center gap-10 pt-28 pb-20 md:pt-36 md:pb-28",
         aside && "lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16",
@@ -178,31 +180,36 @@ export function SectionTitle({
   action?: React.ReactNode
 }) {
   return (
-    <BlurFade
-      inView
-      className="mb-8 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-10"
-    >
+    <div className="mb-8 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-10">
       <div className="flex min-w-0 flex-col gap-3">
-        <h2 className="font-heading text-[2rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-5xl">
+        <TextAnimate
+          as="h2"
+          animation="blurInUp"
+          by="word"
+          once
+          duration={0.5}
+          className="font-heading text-[2rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-5xl"
+        >
           {title}
-        </h2>
-        {description && <p className="text-base leading-relaxed text-pretty opacity-70 sm:text-lg">{description}</p>}
+        </TextAnimate>
+        {description && (
+          <BlurFade inView delay={0.15}>
+            <p className="text-base leading-relaxed text-pretty opacity-70 sm:text-lg">{description}</p>
+          </BlurFade>
+        )}
       </div>
-      {action && <div className="shrink-0">{action}</div>}
-    </BlurFade>
+      {action && (
+        <BlurFade inView delay={0.15} className="shrink-0">
+          {action}
+        </BlurFade>
+      )}
+    </div>
   )
 }
 
-const TILE_TONES = {
-  ink: "from-foreground via-foreground/55",
-  pink: "from-brand-soft via-brand-soft/70",
-  green: "from-brand-green via-brand-green/70",
-}
-
-// Mosaico de foto con degradé de marca, para las grillas tipo bento.
+// Mosaico de foto con una sombra suave abajo para el texto, para las grillas tipo bento.
 export function PhotoTile({
   image,
-  tone,
   icon,
   index,
   title,
@@ -210,7 +217,6 @@ export function PhotoTile({
   href,
 }: {
   image: string
-  tone: keyof typeof TILE_TONES
   icon: IconName
   index: number
   title: string
@@ -228,14 +234,14 @@ export function PhotoTile({
       />
       <span
         aria-hidden
-        className={cn("absolute inset-0 bg-linear-to-t from-20% via-45% to-transparent to-75%", TILE_TONES[tone])}
+        className="absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/35 via-35% to-transparent to-70%"
       />
       <span className="relative w-fit rounded-lg bg-background text-foreground">
         <IconBadge tone={cycleTone(index)}>
           <HoverIcon name={icon} size={22} />
         </IconBadge>
       </span>
-      <span className={cn("relative flex flex-col gap-1", tone === "ink" && "text-background")}>
+      <span className="relative flex flex-col gap-1 text-background">
         <span className="font-heading text-2xl leading-tight font-semibold tracking-[-0.01em] sm:text-4xl">
           {title}
         </span>

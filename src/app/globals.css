@@ -409,7 +409,7 @@
 }
 .bg-mesh-ink {
   background:
-    radial-gradient(50% 70% at 90% 0%, color-mix(in srgb, var(--brand-green) 28%, transparent), transparent 70%),
-    radial-gradient(45% 60% at 5% 100%, color-mix(in srgb, var(--brand-soft) 14%, transparent), transparent 70%),
+    radial-gradient(50% 70% at 90% 0%, color-mix(in srgb, var(--brand-green) 8%, transparent), transparent 70%),
+    radial-gradient(45% 60% at 5% 100%, color-mix(in srgb, var(--brand-soft) 6%, transparent), transparent 70%),
     var(--primary);
 }

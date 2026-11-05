@@ -10,13 +10,13 @@ const FOOTER_LINKS = [...MAIN_NAV, { href: ROUTES.miCuenta, label: "Mi cuenta" }
 // Footer del sitio: logo, eslogan y links.
 export function SiteFooter() {
   return (
-    <footer className="relative">
-      <BandBackdrop tone="green" />
+    <footer className="relative text-primary-foreground">
+      <BandBackdrop tone="ink" />
       <div className="relative">
         <div className="mx-auto flex max-w-content flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-9">
           <div className="flex flex-col gap-2">
             <Link href="/" className="w-fit rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
-              <Logo className="h-9" />
+              <Logo className="h-9 fill-background" />
             </Link>
             <p className="text-sm">© Mujeres x Más · crecemos juntas</p>
           </div>
@@ -29,7 +29,7 @@ export function SiteFooter() {
                     <Link
                       href={link.href}
                       {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                      className="text-foreground/80 underline-offset-4 transition-colors duration-300 hover:text-foreground hover:underline"
+                      className="text-background/75 underline-offset-4 transition-colors duration-300 hover:text-background hover:underline"
                     >
                       {link.label}
                     </Link>

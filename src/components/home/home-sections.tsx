@@ -21,7 +21,9 @@ import { BrandHighlight } from "@/components/page-hero"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { AvatarCircles } from "@/components/ui/avatar-circles"
 import { BlurFade } from "@/components/ui/blur-fade"
+import { BorderBeam } from "@/components/ui/border-beam"
 import { LightRays } from "@/components/ui/light-rays"
+import { Marquee } from "@/components/ui/marquee"
 import { Particles } from "@/components/ui/particles"
 import { ScrollVelocityContainer, ScrollVelocityRow } from "@/components/ui/scroll-based-velocity"
 import { TextReveal } from "@/components/ui/text-reveal"
@@ -50,7 +52,6 @@ import { formatDateParts, formatDateTime } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
 const CARDS_PER_SECTION = 3
-const VOICES_SHOWN = 3
 const CARD_GRID_CLASS = "grid grid-cols-[minmax(0,1fr)] gap-x-8 gap-y-12 md:grid-cols-3"
 
 function SampleTag() {
@@ -79,9 +80,9 @@ export function HomeRibbons() {
   return (
     <div aria-hidden className="relative z-10 -mt-16 h-36 overflow-x-clip sm:-mt-20 sm:h-48">
       <ScrollVelocityContainer className="absolute inset-0">
-        <div className="absolute top-1/2 -left-[5%] w-[110%] -translate-y-1/2 rotate-2 bg-brand-green py-2.5 sm:py-3.5">
+        <div className="absolute top-1/2 -left-[5%] w-[110%] -translate-y-1/2 rotate-2 bg-brand py-2.5 text-brand-foreground sm:py-3.5">
           <ScrollVelocityRow baseVelocity={2} direction={-1}>
-            <RibbonWords words={HOME_HERO.ribbonBottom} dotClass="bg-background" />
+            <RibbonWords words={HOME_HERO.ribbonBottom} dotClass="bg-foreground" />
           </ScrollVelocityRow>
         </div>
         <div className="absolute top-1/2 -left-[5%] w-[110%] -translate-y-1/2 -rotate-2 bg-foreground py-2.5 text-background shadow-[0_18px_36px_-16px_rgb(26_26_26/0.6)] sm:py-3.5">
@@ -157,6 +158,7 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
               sizes="(min-width: 1024px) 28vw, 60vw"
               className="object-cover"
             />
+            <BorderBeam size={160} duration={9} borderWidth={3} colorFrom="var(--brand)" colorTo="var(--brand-soft)" />
           </div>
           <div className={cn(PHOTO_FRAME_CLASS, "col-span-2 rotate-2")}>
             <Image
@@ -271,7 +273,7 @@ const getShowcase = cache(async () => {
       })),
       HOME_EVENTS.samples.map((item) => ({ ...item, key: item.title, sample: true }))
     ),
-    voices: SHOW_SAMPLES ? HOME_VOICES.samples.slice(0, VOICES_SHOWN) : [],
+    voices: SHOW_SAMPLES ? HOME_VOICES.samples : [],
   }
 })
 
@@ -426,37 +428,42 @@ function HomeProduct() {
 
 type Voice = (typeof HOME_VOICES.samples)[number]
 
+// Voces de la comunidad en movimiento, que se frenan al pasar el mouse (Marquee de Magic UI).
 function HomeVoices({ voices }: { voices: Voice[] }) {
   return (
-    <Band tone="pink">
-      <SectionTitle title={`${HOME_VOICES.title} ${HOME_VOICES.titleHighlight}`} />
-      <div className="grid grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-3">
-        {voices.map((voice, index) => (
-          <BlurFade key={voice.name} inView delay={index * 0.06}>
-            <figure className="flex h-full flex-col justify-between gap-6 rounded-xl bg-background p-6 shadow-[0_20px_36px_-20px_rgb(26_26_26/0.45)]">
-              <blockquote className="font-heading text-xl leading-snug font-medium text-pretty">
-                {voice.quote}
-              </blockquote>
-              <figcaption className="flex items-center gap-3">
-                <Avatar className="size-11">
-                  <AvatarImage src={voice.image} alt="" className="object-cover" />
-                  <AvatarFallback className="bg-brand-soft/60 text-sm font-medium">
-                    {voice.name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-                <span className="flex flex-col text-sm">
-                  <span className="font-medium">{voice.name}</span>
-                  <span className="flex flex-wrap items-center gap-2 text-muted-foreground">
-                    {voice.detail}
-                    <SampleTag />
-                  </span>
-                </span>
-              </figcaption>
-            </figure>
-          </BlurFade>
-        ))}
+    <section className="relative flow-root overflow-hidden py-16 md:py-24">
+      <BandBackdrop tone="pink" />
+      <div className={cn(PAGE_WIDTH_CLASS, "relative")}>
+        <SectionTitle title={`${HOME_VOICES.title} ${HOME_VOICES.titleHighlight}`} />
       </div>
-    </Band>
+      <Marquee
+        pauseOnHover
+        repeat={4}
+        className="relative py-4 [--duration:55s] [--gap:1.25rem] [mask-image:linear-gradient(to_right,transparent,white_5%,white_95%,transparent)]"
+      >
+        {voices.map((voice) => (
+          <figure
+            key={voice.name}
+            className="flex h-full w-[19rem] flex-col justify-between gap-6 rounded-xl bg-background p-6 shadow-[0_20px_36px_-20px_rgb(26_26_26/0.45)] sm:w-[24rem]"
+          >
+            <blockquote className="font-heading text-xl leading-snug font-medium text-pretty">{voice.quote}</blockquote>
+            <figcaption className="flex items-center gap-3">
+              <Avatar className="size-11">
+                <AvatarImage src={voice.image} alt="" className="object-cover" />
+                <AvatarFallback className="bg-brand-soft/60 text-sm font-medium">{voice.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <span className="flex flex-col text-sm">
+                <span className="font-medium">{voice.name}</span>
+                <span className="flex flex-wrap items-center gap-2 text-muted-foreground">
+                  {voice.detail}
+                  <SampleTag />
+                </span>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </Marquee>
+    </section>
   )
 }
 
@@ -472,9 +479,12 @@ function HomeEvents({ events }: { events: EventRow[] }) {
           return (
             <li key={event.key}>
               <BlurFade inView delay={index * 0.06}>
-                <BrandCard contentClassName="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:gap-6 sm:p-5">
+                <BrandCard contentClassName="relative flex flex-col gap-4 rounded-xl p-4 sm:flex-row sm:items-center sm:gap-6 sm:p-5">
+                  {index === 0 && (
+                    <BorderBeam size={140} duration={9} colorFrom="var(--brand)" colorTo="var(--brand-soft)" />
+                  )}
                   <div className="flex min-w-0 flex-1 items-center gap-4 sm:gap-6">
-                    <div className="flex size-20 shrink-0 flex-col items-center justify-center rounded-lg bg-mesh-pink">
+                    <div className="flex size-20 shrink-0 flex-col items-center justify-center rounded-lg bg-brand-soft/40">
                       <span className="font-heading text-3xl leading-none font-semibold">{date.day}</span>
                       <span className="mt-1 text-[13px] font-medium uppercase">{date.month}</span>
                     </div>

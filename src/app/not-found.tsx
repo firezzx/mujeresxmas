@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link";
 import { ShimmerLink } from "@/components/buttons/shimmer-link";
-import { BandBackdrop, ZigzagEdge } from "@/components/page-band";
+import { BandBackdrop } from "@/components/page-band";
 import { BrandHighlight, Eyebrow, PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
@@ -16,7 +16,6 @@ export default function NotFound() {
     <main className="relative flex flex-1 flex-col">
       <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-5 pt-32 pb-40">
         <BandBackdrop tone="green" image="/images/home/colegas-escalera.jpg" />
-        <ZigzagEdge />
         <PageHero
           eyebrow={
             <Eyebrow>Error 404</Eyebrow>

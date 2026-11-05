@@ -2,7 +2,13 @@
 
 import { LoaderCircle } from "lucide-react"
 
-import { shimmerClassName, type shimmerSizes } from "@/components/buttons/shimmer"
+import {
+  ShimmerBackdrop,
+  shimmerClassName,
+  type shimmerSizes,
+  ShimmerSpark,
+  shimmerStyle,
+} from "@/components/buttons/shimmer"
 import { ArrowRightIcon, type ArrowRightIconHandle } from "@/components/icons/arrow-right"
 import { useIconAnimation } from "@/hooks/use-icon-animation"
 import { cn } from "@/lib/utils"
@@ -32,14 +38,17 @@ export function ShimmerSubmit({
       type="submit"
       disabled={disabled || pending}
       aria-busy={pending}
+      style={shimmerStyle}
       className={shimmerClassName(size, cn("cursor-pointer disabled:cursor-wait disabled:opacity-80", className))}
     >
+      <ShimmerSpark />
       <span className="relative">{pending ? pendingLabel : children}</span>
       {pending ? (
         <LoaderCircle aria-hidden className="relative -mr-1 size-[18px] shrink-0 animate-spin" />
       ) : (
         <ArrowRightIcon ref={iconRef} size={18} className="relative -mr-1 shrink-0" />
       )}
+      <ShimmerBackdrop />
     </button>
   )
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { SessionCta } from "@/components/cta/session-cta";
-import { Band, BandBackdrop, PhotoDuo, PhotoTile, SectionTitle, ZigzagEdge } from "@/components/page-band";
+import { Band, BandBackdrop, PhotoDuo, PhotoTile, SectionTitle } from "@/components/page-band";
 import { Eyebrow, HERO_TITLE_CLASS } from "@/components/page-hero";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ROUTES } from "@/config/navigation";
@@ -33,7 +33,6 @@ export default function QuieroPage() {
     <main className="relative flex flex-1 flex-col">
       <section className="relative overflow-hidden">
         <BandBackdrop tone="green" image="/images/home/florista.jpg" />
-        <ZigzagEdge />
         <div className="relative mx-auto grid w-full max-w-content items-center gap-14 px-5 pt-28 pb-24 sm:px-8 md:grid-cols-2 md:pt-36 md:pb-32 lg:px-9">
           <div className="flex flex-col items-start gap-6">
             <BlurFade inView>
