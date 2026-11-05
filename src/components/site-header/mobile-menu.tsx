@@ -6,7 +6,7 @@ import { motion } from "motion/react"
 import { signOut } from "@/app/actions/auth"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { UserAvatar } from "@/components/site-header/user-menu"
-import { MAIN_NAV, ROUTES } from "@/config/navigation"
+import { JOIN_LABEL, MAIN_NAV, ROUTES } from "@/config/navigation"
 import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
 import { cn } from "@/lib/utils"
@@ -49,7 +49,7 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
                     "flex h-11 items-center gap-2.5 rounded-lg px-4 font-heading text-base font-medium tracking-[-0.01em] transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
                     active
                       ? "bg-brand-soft text-foreground"
-                      : "text-foreground/60 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
+                      : "text-foreground/75 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
                   )}
                 >
                   <span
@@ -117,7 +117,7 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
         ) : (
           <div className="flex flex-col items-center gap-3">
             <ShimmerLink href={ROUTES.registro} size="md" arrow={false} onClick={onNavigate} className="h-11 w-full">
-              Registrarme en Mujeres x Más
+              {JOIN_LABEL}
             </ShimmerLink>
             <p className="pb-1 text-sm text-muted-foreground">
               ¿Ya tenés cuenta?{" "}

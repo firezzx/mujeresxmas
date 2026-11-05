@@ -58,7 +58,7 @@ async function MembersDashboard() {
             <div
               className={cn("flex h-full flex-col justify-between gap-4 rounded-xl p-5 sm:p-6", STAT_TONES[i % STAT_TONES.length])}
             >
-              <p className="text-sm leading-snug opacity-85">{stat.label}</p>
+              <p className="text-sm leading-snug">{stat.label}</p>
               <p className="font-heading text-5xl leading-none font-semibold tracking-[-0.01em]">
                 {stat.value === 0 ? 0 : <NumberTicker value={stat.value} className="text-inherit" />}
               </p>

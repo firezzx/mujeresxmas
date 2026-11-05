@@ -57,7 +57,7 @@ function Word({
       <span aria-hidden className="absolute opacity-15">
         {children}
       </span>
-      <motion.span style={{ opacity }} className={highlight ? "text-brand" : "text-foreground"}>
+      <motion.span style={{ opacity }} className={highlight ? "text-brand-strong" : "text-foreground"}>
         {children}
       </motion.span>
     </span>

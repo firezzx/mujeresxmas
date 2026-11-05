@@ -1,9 +1,13 @@
 // Links del menú principal. Para sumar una sección nueva alcanza con agregarla acá.
 export const MAIN_NAV = [
   { href: "/", label: "Inicio" },
-  { href: "/quiero", label: "QUIERO" },
-  { href: "/blog", label: "Blog" },
+  { href: "/desarrollo", label: "Desarrollo" },
+  { href: "/bienestar", label: "Bienestar" },
+  { href: "/conexion", label: "Conexión" },
 ] as const
+
+// Texto del botón destacado del menú, que lleva al registro
+export const JOIN_LABEL = "Unirse a MX+"
 
 export const ROUTES = {
   login: "/ingresar",
@@ -23,6 +27,9 @@ export const ROUTES = {
   adminBlog: "/admin/blog",
   adminBlogNueva: "/admin/blog/nueva",
   adminBlogCategorias: "/admin/blog/categorias",
+  desarrollo: "/desarrollo",
+  bienestar: "/bienestar",
+  conexion: "/conexion",
   quiero: "/quiero",
   blog: "/blog",
   // Provisoria hasta que la clienta defina cómo se pide QUIERO (función 2)

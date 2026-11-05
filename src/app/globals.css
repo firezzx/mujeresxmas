@@ -16,6 +16,7 @@
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
   --color-brand-green: var(--brand-green);
+  --color-brand-strong: var(--brand-strong);
   --color-brand-green-strong: var(--brand-green-strong);
   --color-brand-pink-strong: var(--brand-pink-strong);
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
@@ -215,7 +216,8 @@
   /* Paleta oficial de la marca: naranja, rosa, verde, negro 90% y blanco.
      Sobre el naranja, las etiquetas chicas van en negro; el botón secundario usa blanco a pedido. */
   --brand: #ff4f00;
-  --brand-foreground: #1a1a1a;
+  --brand-strong: #d43e00;
+  --brand-foreground: #ffffff;
   --brand-soft: #eabbd2;
   --brand-green: #5aad8b;
   /* Más oscuros que la paleta, solo para íconos sobre el fondo suave de su color */

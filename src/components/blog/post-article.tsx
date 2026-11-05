@@ -31,11 +31,11 @@ export function PostHeader({ post }: { post: PostPreview }) {
         {post.title}
       </h1>
       {post.excerpt && (
-        <p className="mt-4 text-lg leading-relaxed text-pretty [overflow-wrap:anywhere] opacity-80 sm:text-xl">
+        <p className="mt-4 text-lg leading-relaxed text-pretty [overflow-wrap:anywhere] sm:text-xl">
           {post.excerpt}
         </p>
       )}
-      <p className="mt-4 text-sm opacity-70">{details.join(" · ")}</p>
+      <p className="mt-4 text-sm">{details.join(" · ")}</p>
     </header>
   )
 }

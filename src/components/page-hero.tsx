@@ -66,7 +66,7 @@ export function PageHero({ eyebrow, title, description, actions, className, chil
     eyebrow && <div key="eyebrow">{eyebrow}</div>,
     TITLE,
     description && (
-      <p key="description" className="mx-auto max-w-xl text-base leading-relaxed text-pretty opacity-80 sm:text-lg">
+      <p key="description" className="mx-auto max-w-xl text-base leading-relaxed text-pretty sm:text-lg">
         {description}
       </p>
     ),

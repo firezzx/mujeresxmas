@@ -7,11 +7,11 @@ import { AnimatePresence, motion } from "motion/react"
 
 import { Logo, LogoShort } from "@/components/brand/logo"
 import { IconLink } from "@/components/buttons/icon-link"
+import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { UserIcon } from "@/components/icons/user"
-import { UserPlusIcon } from "@/components/icons/user-plus"
 import { MobileMenu } from "@/components/site-header/mobile-menu"
 import { UserMenu } from "@/components/site-header/user-menu"
-import { MAIN_NAV, ROUTES } from "@/config/navigation"
+import { JOIN_LABEL, MAIN_NAV, ROUTES } from "@/config/navigation"
 import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
 import { cn } from "@/lib/utils"
@@ -36,7 +36,7 @@ export function SiteHeader(props: SiteHeaderProps) {
 }
 
 // Header fijo: una barra de vidrio de borde a borde.
-// Escritorio: links a la izquierda, logo al centro e íconos de usuaria a la derecha.
+// Escritorio: links a la izquierda, logo al centro y accesos de usuaria a la derecha.
 // Celular: perfil a la izquierda, logo corto al centro y menú a la derecha. El menú se abre
 // dentro de la misma barra, que se estira hacia abajo.
 export function SiteHeaderView({
@@ -81,7 +81,7 @@ export function SiteHeaderView({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease }}
-            className="fixed inset-0 z-40 bg-foreground/10 backdrop-blur-[3px] md:hidden"
+            className="fixed inset-0 z-40 bg-foreground/10 backdrop-blur-[3px] lg:hidden"
           />
         )}
       </AnimatePresence>
@@ -93,14 +93,14 @@ export function SiteHeaderView({
           menuOpen && "bg-background/95"
         )}
       >
-        <div className="relative mx-auto max-w-content-inner px-2 py-2 sm:px-3 md:py-3">
+        <div className="relative mx-auto max-w-content-inner px-2 py-2 sm:px-3 lg:py-3">
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
             {/* Izquierda: perfil (celular) o links (escritorio) */}
             <div className="flex items-center">
-              <div className="md:hidden">
+              <div className="lg:hidden">
                 <UserAccess user={user} adminView={adminView} unread={unread} pending={pending} onNavigate={closeMenu} compact />
               </div>
-              <nav aria-label="Principal" className="hidden md:block">
+              <nav aria-label="Principal" className="hidden lg:block">
                 <ul
                   className="flex items-center gap-1"
                   onMouseLeave={() => setHovered(null)}
@@ -142,8 +142,8 @@ export function SiteHeaderView({
               aria-label="Mujeres x Más, ir al inicio"
               className="flex h-10 items-center justify-self-center rounded-lg px-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
             >
-              <LogoShort className="md:hidden" />
-              <Logo entrance={pending ? "waiting" : "play"} className="h-9 max-md:hidden" />
+              <LogoShort className="lg:hidden" />
+              <Logo entrance={pending ? "waiting" : "play"} className="h-9 max-lg:hidden" />
             </Link>
 
             {/* Derecha: menú (celular) o accesos de usuaria (escritorio) */}
@@ -151,9 +151,9 @@ export function SiteHeaderView({
               <MenuToggle
                 open={menuOpen}
                 onToggle={() => setMenuOpen((o) => !o)}
-                className="md:hidden"
+                className="lg:hidden"
               />
-              <div className="hidden items-center gap-1.5 md:flex">
+              <div className="hidden items-center gap-1.5 lg:flex">
                 <UserAccess user={user} adminView={adminView} unread={unread} pending={pending} onNavigate={closeMenu} />
               </div>
             </div>
@@ -167,7 +167,7 @@ export function SiteHeaderView({
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.45, ease }}
-                className="overflow-hidden md:hidden"
+                className="overflow-hidden lg:hidden"
               >
                 <MobileMenu user={user} adminView={adminView} isActive={isActive} onNavigate={closeMenu} />
               </motion.div>
@@ -179,7 +179,7 @@ export function SiteHeaderView({
   )
 }
 
-// Accesos de usuaria: avatar con sesión; sin sesión, Iniciar sesión (y Registrarme en escritorio).
+// Accesos de usuaria: avatar con sesión; sin sesión, Iniciar sesión (y el destacado Unirse a MX+ en escritorio).
 function UserAccess({
   user,
   adminView,
@@ -203,7 +203,9 @@ function UserAccess({
     <>
       <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={onNavigate} />
       {!compact && (
-        <IconLink href={ROUTES.registro} icon={UserPlusIcon} label="Registrarme" variant="solid" onClick={onNavigate} />
+        <ShimmerLink href={ROUTES.registro} size="md" arrow={false} onClick={onNavigate} className="min-h-10">
+          {JOIN_LABEL}
+        </ShimmerLink>
       )}
     </>
   )

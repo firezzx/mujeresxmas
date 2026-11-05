@@ -194,7 +194,7 @@ export function SectionTitle({
         </TextAnimate>
         {description && (
           <BlurFade inView delay={0.15}>
-            <p className="text-base leading-relaxed text-pretty opacity-70 sm:text-lg">{description}</p>
+            <p className="text-base leading-relaxed text-pretty sm:text-lg">{description}</p>
           </BlurFade>
         )}
       </div>

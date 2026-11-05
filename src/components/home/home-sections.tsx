@@ -80,9 +80,9 @@ export function HomeRibbons() {
   return (
     <div aria-hidden className="relative z-10 -mt-16 h-36 overflow-x-clip sm:-mt-20 sm:h-48">
       <ScrollVelocityContainer className="absolute inset-0">
-        <div className="absolute top-1/2 -left-[5%] w-[110%] -translate-y-1/2 rotate-2 bg-brand py-2.5 text-brand-foreground sm:py-3.5">
+        <div className="absolute top-1/2 -left-[5%] w-[110%] -translate-y-1/2 rotate-2 bg-brand-strong py-2.5 text-brand-foreground sm:py-3.5">
           <ScrollVelocityRow baseVelocity={2} direction={-1}>
-            <RibbonWords words={HOME_HERO.ribbonBottom} dotClass="bg-foreground" />
+            <RibbonWords words={HOME_HERO.ribbonBottom} dotClass="bg-background" />
           </ScrollVelocityRow>
         </div>
         <div className="absolute top-1/2 -left-[5%] w-[110%] -translate-y-1/2 -rotate-2 bg-foreground py-2.5 text-background shadow-[0_18px_36px_-16px_rgb(26_26_26/0.6)] sm:py-3.5">
@@ -118,7 +118,7 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
           </h1>
         </BlurFade>
         <BlurFade inView delay={0.08}>
-          <p className="max-w-xl text-lg leading-relaxed text-pretty text-foreground/80 sm:text-xl">
+          <p className="max-w-xl text-lg leading-relaxed text-pretty sm:text-xl">
             {HOME_HERO.description}
           </p>
         </BlurFade>

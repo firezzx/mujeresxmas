@@ -178,7 +178,7 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
       title="Notificaciones"
       badge={
         unread > 0 && (
-          <span className="rounded-md bg-brand px-2 py-0.5 text-xs leading-none font-semibold text-brand-foreground">
+          <span className="rounded-md bg-brand-strong px-2 py-0.5 text-xs leading-none font-semibold text-brand-foreground">
             {unread}
             <span className="sr-only"> sin leer</span>
           </span>
