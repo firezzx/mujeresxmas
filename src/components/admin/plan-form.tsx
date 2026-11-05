@@ -61,7 +61,7 @@ export function PlanForm({ plan }: { plan: Plan }) {
           name="price"
           inputMode="numeric"
           disabled={isFree}
-          className="disabled:cursor-not-allowed disabled:opacity-60"
+          className="disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:hover:border-border"
           value={values.price}
           onChange={(e) => update("price", e.target.value)}
           error={errorFor("price")}
