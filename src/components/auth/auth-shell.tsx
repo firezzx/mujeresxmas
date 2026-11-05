@@ -1,9 +1,8 @@
 import { BrandCard } from "@/components/account/account-card"
+import { LatestMembers } from "@/components/latest-members"
 import { BandBackdrop, PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { Eyebrow, HERO_TITLE_CLASS, PageTitle } from "@/components/page-hero"
-import { AvatarCircles } from "@/components/ui/avatar-circles"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { HOME_AVATARS, HOME_HERO } from "@/content/home"
 import { cn } from "@/lib/utils"
 
 type AuthShellProps = {
@@ -45,10 +44,7 @@ export function AuthShell({ eyebrow, title, description, children, backdrop }: A
               </BlurFade>
             )}
             <BlurFade inView delay={0.18} className="max-lg:hidden">
-              <div className="flex items-center gap-3">
-                <AvatarCircles images={HOME_AVATARS} />
-                <span className="font-heading text-lg font-medium tracking-[-0.01em]">{HOME_HERO.avatarsText}</span>
-              </div>
+              <LatestMembers />
             </BlurFade>
           </div>
 

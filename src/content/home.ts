@@ -24,13 +24,6 @@ export const HOME_HERO = {
   ],
 }
 
-export const HOME_AVATARS = [
-  "/images/home/florista.jpg",
-  "/images/home/formacion.jpg",
-  "/images/home/marketing.jpg",
-  "/images/home/emprendimiento.jpg",
-]
-
 export const HOME_SECTION_IDS = {
   inside: "adentro",
   courses: "cursos",

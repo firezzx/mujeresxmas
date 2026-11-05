@@ -19,7 +19,7 @@ import {
 } from "@/components/page-band"
 import { BrandHighlight } from "@/components/page-hero"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { AvatarCircles } from "@/components/ui/avatar-circles"
+import { LatestMembers } from "@/components/latest-members"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
 import { LightRays } from "@/components/ui/light-rays"
@@ -30,7 +30,6 @@ import { TextReveal } from "@/components/ui/text-reveal"
 import { BRAND_HEX } from "@/config/brand-effects"
 import { ROUTES } from "@/config/navigation"
 import {
-  HOME_AVATARS,
   HOME_CLOSING,
   HOME_CLOSING_CTA_ID,
   HOME_COURSES,
@@ -131,10 +130,7 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
           </div>
         </BlurFade>
         <BlurFade inView delay={0.24}>
-          <div className="flex items-center gap-3">
-            <AvatarCircles images={HOME_AVATARS} />
-            <span className="font-heading text-lg font-medium">{HOME_HERO.avatarsText}</span>
-          </div>
+          <LatestMembers />
         </BlurFade>
       </div>
 
@@ -573,10 +569,7 @@ export function HomeClosing() {
           <RegisterCta id={HOME_CLOSING_CTA_ID} label={HOME_CLOSING.cta} className="w-full sm:w-auto" />
         </div>
         <p className="font-hand text-3xl font-semibold text-brand sm:text-4xl">{HOME_CLOSING.hashtag}</p>
-        <div className="flex items-center gap-3">
-          <AvatarCircles images={HOME_AVATARS} />
-          <span className="font-heading text-lg font-medium">{HOME_HERO.avatarsText}</span>
-        </div>
+        <LatestMembers />
       </div>
     </section>
   )

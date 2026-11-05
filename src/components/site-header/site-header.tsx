@@ -25,7 +25,7 @@ type SiteHeaderProps = {
   adminView?: AdminView | null
   // true mientras se resuelve la sesión: muestra un lugar reservado en vez de botones
   pending?: boolean
-  // Notificaciones sin leer de la usuaria (contador de la campana)
+  // Notificaciones sin leer de la usuaria (contador de la campana; en celular, punto en el avatar)
   unread?: number
 }
 
@@ -199,11 +199,13 @@ function UserAccess({
   if (pending) {
     return <span aria-hidden className="block size-10 animate-pulse rounded-lg bg-muted" />
   }
+  // En celular solo va el avatar: las notificaciones se abren desde su menú
+  if (user && compact) return <UserMenu user={user} adminView={adminView} unread={unread} align="start" unreadDot />
   if (user) {
     return (
       <div className="flex items-center gap-2.5">
         <NotificationsBell unread={unread} />
-        <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} />
+        <UserMenu user={user} adminView={adminView} unread={unread} />
       </div>
     )
   }
