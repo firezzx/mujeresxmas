@@ -49,7 +49,7 @@ export function ComingSoonButton({ icon, children }: { icon: IconName; children:
       >
         <HoverIcon name={icon} size={16} />
         {children}
-        <span className="rounded-md bg-brand-soft px-2 py-0.5 text-[11px] text-foreground">Próximamente</span>
+        <span className="rounded-md bg-brand-soft px-2 py-0.5 text-xs text-foreground">Próximamente</span>
       </button>
     </IconHoverArea>
   )
@@ -92,7 +92,7 @@ export function StatusBadge({ status }: { status: ContentStatus }) {
   return (
     <span
       className={cn(
-        "inline-flex h-6 shrink-0 items-center rounded-md px-2.5 text-[11px] font-medium whitespace-nowrap",
+        "inline-flex h-6 shrink-0 items-center rounded-md px-2.5 text-xs font-medium whitespace-nowrap",
         status === "published" && "bg-brand-green/25 text-foreground",
         status === "draft" && "text-muted-foreground ring-1 ring-border",
         status === "archived" && "bg-foreground/[0.06] text-muted-foreground"
@@ -117,10 +117,10 @@ export function AdminRow({
     <li className="flex flex-col gap-3 py-4 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
         <p className="truncate text-[15px] font-medium">{title}</p>
-        {detail && <p className="mt-0.5 line-clamp-2 text-[13px] text-muted-foreground">{detail}</p>}
+        {detail && <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{detail}</p>}
       </div>
       {aside && (
-        <div className="flex shrink-0 flex-wrap items-center gap-2 text-[13px] text-muted-foreground">{aside}</div>
+        <div className="flex shrink-0 flex-wrap items-center gap-2 text-sm text-muted-foreground">{aside}</div>
       )}
     </li>
   )

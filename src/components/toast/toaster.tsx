@@ -125,9 +125,9 @@ function ToastCard({ toast }: { toast: Toast }) {
       <div className="min-w-0 pt-0.5">
         <p className="text-sm leading-snug font-medium">{toast.title}</p>
         {toast.message && (
-          <div className="mt-0.5 text-[13px] leading-relaxed text-muted-foreground">{toast.message}</div>
+          <div className="mt-0.5 text-sm leading-relaxed text-muted-foreground">{toast.message}</div>
         )}
-        {toast.action && <div className="mt-2 text-[13px] font-medium">{toast.action}</div>}
+        {toast.action && <div className="mt-2 text-sm font-medium">{toast.action}</div>}
       </div>
       <button
         type="button"

@@ -44,7 +44,7 @@ export function PasswordChecklist({ value }: { value: string }) {
           <li
             key={rule.id}
             className={cn(
-              "flex items-center gap-1.5 text-[13px] transition-colors duration-300",
+              "flex items-center gap-1.5 text-sm transition-colors duration-300",
               ok ? "text-foreground" : "text-muted-foreground"
             )}
           >

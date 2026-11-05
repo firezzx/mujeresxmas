@@ -40,7 +40,7 @@ export function SelectField({ label, error, className, children, ...props }: Sel
         />
       </div>
       {error && (
-        <p id={errorId} role="alert" className="text-[13px] text-destructive">
+        <p id={errorId} role="alert" className="text-sm text-destructive">
           {error}
         </p>
       )}

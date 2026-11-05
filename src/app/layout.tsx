@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Poppins } from "next/font/google";
+import { Caveat, Jost, Saira } from "next/font/google";
 import { Suspense } from "react";
 
 import { MotionProvider } from "@/components/motion-provider";
@@ -11,15 +11,20 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 import "./globals.css";
 
 // Textos y botones
-const poppins = Poppins({
+const jost = Jost({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
 });
 
-// Títulos
-const display = Outfit({
+// Títulos y rótulos
+const display = Saira({
   variable: "--font-display",
+  subsets: ["latin"],
+});
+
+// Acentos manuscritos: solo palabras sueltas, hashtag o rótulos de foto
+const script = Caveat({
+  variable: "--font-script",
   subsets: ["latin"],
 });
 
@@ -32,21 +37,21 @@ export const metadata: Metadata = {
     template: "%s | Mujeres x Más",
   },
   description:
-    "Capacitamos, relacionamos e incluimos a mujeres y emprendedoras. Sumate a la comunidad.",
+    "Una comunidad de emprendedoras que se acompañan para vender más, ordenar sus números y crecer.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="es-AR"
-      className={`${poppins.variable} ${display.variable} h-full antialiased`}
+      className={`${jost.variable} ${display.variable} ${script.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {/* Avisos flotantes abajo a la derecha (formularios, notificaciones nuevas) */}
         <MotionProvider>
           <Toaster>
             {/* Barra de progreso de lectura (Scroll Progress de Magic UI) */}
-            <ScrollProgress className="z-[60] h-0.5 from-brand via-brand-soft to-brand-green" />
+            <ScrollProgress className="z-[60] h-0.5 from-brand-green via-brand-soft to-brand-green" />
             <Suspense
               fallback={
                 <Suspense fallback={<SiteHeaderView user={null} pending pathname={null} />}>

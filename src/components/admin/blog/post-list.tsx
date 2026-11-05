@@ -120,10 +120,10 @@ function PostRow({ post }: { post: AdminPost }) {
           )}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="line-clamp-2 text-[15px] font-medium [overflow-wrap:anywhere] transition-colors duration-200 group-hover:text-brand sm:line-clamp-1">
+          <span className="line-clamp-2 text-[15px] font-medium [overflow-wrap:anywhere] transition-colors duration-200 group-hover:text-brand-green-strong sm:line-clamp-1">
             {post.title}
           </span>
-          <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-muted-foreground">
+          <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
             <span className="sm:hidden">
               <PostStatusBadge status={displayStatus} />
             </span>
@@ -131,7 +131,7 @@ function PostRow({ post }: { post: AdminPost }) {
             <span aria-hidden>·</span>
             <span>{formatShortDate(date)}</span>
             {post.featured && (
-              <span className="rounded-md bg-brand/12 px-2 py-0.5 text-[11px] font-medium text-foreground">
+              <span className="rounded-md bg-brand/12 px-2 py-0.5 text-xs font-medium text-foreground">
                 Destacada
               </span>
             )}

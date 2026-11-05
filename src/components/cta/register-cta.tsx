@@ -12,16 +12,14 @@ type RegisterCtaProps = {
   className?: string
   // Texto para visitantes, si hace falta otro distinto del oficial
   label?: string
-  tone?: "default" | "brand"
 }
 
 // CTA principal del sitio: "Registrarme" para visitantes e "Ir a mi cuenta" con sesión iniciada.
-export function RegisterCta({ id, className, label = REGISTER_LABEL, tone }: RegisterCtaProps) {
+export function RegisterCta({ id, className, label = REGISTER_LABEL }: RegisterCtaProps) {
   return (
     <SessionCta
       id={id}
       className={className}
-      tone={tone}
       guest={{ href: ROUTES.registro, label }}
       member={{ href: ROUTES.miCuenta, label: "Ir a mi cuenta" }}
     />

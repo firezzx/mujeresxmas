@@ -36,7 +36,7 @@ export function TextareaField({ label, error, hint, className, rows = 3, ...prop
         )}
       />
       {error && (
-        <p id={errorId} role="alert" className="text-[13px] text-destructive">
+        <p id={errorId} role="alert" className="text-sm text-destructive">
           {error}
         </p>
       )}

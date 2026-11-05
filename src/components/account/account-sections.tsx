@@ -73,7 +73,7 @@ function ItemCard({ icon, tone, title, meta, detail, unread = false, href }: Ite
         <figcaption className="min-w-0 flex-1">
           <p className="line-clamp-2 text-sm leading-snug font-medium">{title}</p>
           {meta && <p className="mt-0.5 text-xs text-muted-foreground">{meta}</p>}
-          {detail && <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground">{detail}</p>}
+          {detail && <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{detail}</p>}
         </figcaption>
         {unread && (
           <span className="absolute top-3.5 right-3.5 size-2 rounded-full bg-brand">
@@ -178,7 +178,7 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
       title="Notificaciones"
       badge={
         unread > 0 && (
-          <span className="rounded-md bg-brand px-2 py-0.5 text-[11px] leading-none font-semibold text-brand-foreground">
+          <span className="rounded-md bg-brand px-2 py-0.5 text-xs leading-none font-semibold text-brand-foreground">
             {unread}
             <span className="sr-only"> sin leer</span>
           </span>
@@ -190,7 +190,7 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
             <IconHoverArea>
               <button
                 type="submit"
-                className="inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-lg text-[13px] font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
+                className="inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-lg text-sm font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
               >
                 <HoverIcon name="check-check" size={16} />
                 Marcar todas como leídas

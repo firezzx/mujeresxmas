@@ -44,7 +44,7 @@ function Cover({
 
 function Details({ post }: { post: PostCardData }) {
   return (
-    <span className="block text-[13px] text-muted-foreground">
+    <span className="block text-sm text-muted-foreground">
       {formatDay(post.publishedAt)} · {post.readingMinutes} min de lectura
     </span>
   )
@@ -53,7 +53,7 @@ function Details({ post }: { post: PostCardData }) {
 function CategoryLabel({ post }: { post: PostCardData }) {
   if (!post.categoryName) return null
   return (
-    <span className="w-fit max-w-full rounded-md bg-brand-soft/60 px-2.5 py-1 text-[12px] font-medium">
+    <span className="w-fit max-w-full rounded-md bg-brand-soft/60 px-2.5 py-1 text-[13px] font-medium">
       {post.categoryName}
     </span>
   )
@@ -72,7 +72,7 @@ export function FeaturedPostCard({ post }: { post: PostCardData }) {
             <Cover post={post} index={0} sizes="(min-width: 768px) 50vw, 100vw" priority />
             <span className="flex min-w-0 flex-col items-start gap-4 px-2 pb-3 md:pb-0">
               <CategoryLabel post={post} />
-              <span className="font-heading text-2xl leading-tight font-semibold tracking-[-0.02em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand sm:text-4xl lg:text-5xl">
+              <span className="font-heading text-2xl leading-tight font-semibold tracking-[-0.01em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand-green-strong sm:text-4xl lg:text-5xl">
                 {post.title}
               </span>
               {post.excerpt && (
@@ -98,7 +98,7 @@ function PostCard({ post, index }: { post: PostCardData; index: number }) {
             <Cover post={post} index={index + 1} sizes="(min-width: 1024px) 29rem, (min-width: 640px) 50vw, 100vw" />
             <span className="flex flex-1 flex-col items-start gap-3 px-2">
               <CategoryLabel post={post} />
-              <span className="font-heading text-xl leading-snug font-semibold tracking-[-0.02em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand sm:text-2xl">
+              <span className="font-heading text-xl leading-snug font-semibold tracking-[-0.01em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand-green-strong sm:text-2xl">
                 {post.title}
               </span>
               {post.excerpt && (

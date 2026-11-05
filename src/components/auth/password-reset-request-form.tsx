@@ -44,7 +44,7 @@ export function PasswordResetRequestForm() {
           <IconBadge size="lg" tone="green">
             <HoverIcon name="mail-check" size={24} autoPlay />
           </IconBadge>
-          <h2 className="font-heading text-2xl font-semibold tracking-[-0.02em]">Revisá tu correo</h2>
+          <h2 className="font-heading text-2xl font-semibold tracking-[-0.01em]">Revisá tu correo</h2>
           <p className="text-[15px] leading-relaxed text-pretty text-muted-foreground">
             Si <span className="font-medium break-all text-foreground">{state.email}</span> tiene una cuenta, te
             enviamos un link para elegir una contraseña nueva. Vence en 1 hora.

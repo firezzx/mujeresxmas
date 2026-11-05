@@ -16,7 +16,7 @@ const SMALL_FIELD_CLASS =
   "h-10 min-w-0 flex-1 basis-40 rounded-lg border border-border bg-background px-3 text-base outline-none sm:text-sm transition-[border-color,box-shadow] duration-300 ease-premium placeholder:text-muted-foreground/70 focus:border-foreground/30 focus:ring-4 focus:ring-ring/15"
 
 const SMALL_BUTTON_CLASS =
-  "h-10 shrink-0 cursor-pointer rounded-lg px-3 text-[13px] font-medium ring-1 ring-border transition-colors duration-300 hover:bg-foreground/[0.04]"
+  "h-10 shrink-0 cursor-pointer rounded-lg px-3 text-sm font-medium ring-1 ring-border transition-colors duration-300 hover:bg-foreground/[0.04]"
 
 type ToolProps = {
   label: string
@@ -40,7 +40,7 @@ function Tool({ label, icon, text, active, disabled, onClick }: ToolProps) {
         onMouseDown={(event) => event.preventDefault()}
         onClick={onClick}
         className={cn(
-          "flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-md px-2 text-[13px] font-medium whitespace-nowrap lg:h-9 lg:min-w-9 transition-colors duration-200",
+          "flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-md px-2 text-sm font-medium whitespace-nowrap lg:h-9 lg:min-w-9 transition-colors duration-200",
           active
             ? "bg-brand-soft text-foreground"
             : "text-foreground/65 hover:bg-foreground/[0.06] hover:text-foreground",
@@ -201,7 +201,7 @@ function LinkPanel({ editor, onClose }: { editor: Editor; onClose: () => void })
           </button>
         )}
       </div>
-      {error && <p className="mt-2 text-[13px] text-destructive">Esa dirección no es válida.</p>}
+      {error && <p className="mt-2 text-sm text-destructive">Esa dirección no es válida.</p>}
     </div>
   )
 }
@@ -328,7 +328,7 @@ export function RichEditor({ label, content, error, onChange }: RichEditorProps)
         )}
       </div>
       {error && (
-        <p role="alert" className="text-[13px] text-destructive">
+        <p role="alert" className="text-sm text-destructive">
           {error}
         </p>
       )}

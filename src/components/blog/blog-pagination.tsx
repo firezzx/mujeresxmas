@@ -32,7 +32,7 @@ export function BlogPagination({ page, totalPages, category, query }: BlogPagina
       ) : (
         <span />
       )}
-      <p className="order-first w-full text-center text-[13px] text-muted-foreground sm:order-none sm:w-auto">
+      <p className="order-first w-full text-center text-sm text-muted-foreground sm:order-none sm:w-auto">
         Página {page} de {totalPages}
       </p>
       {page < totalPages ? (

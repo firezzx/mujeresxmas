@@ -102,12 +102,12 @@ function CommentItem({ comment, canDelete }: { comment: PostComment; canDelete: 
     <li className="flex gap-3 py-5 sm:gap-4">
       <Avatar className="size-9 shrink-0 sm:size-10">
         {comment.avatarUrl && <AvatarImage src={comment.avatarUrl} alt="" />}
-        <AvatarFallback className="bg-brand-soft/60 text-[13px] font-medium text-foreground">
+        <AvatarFallback className="bg-brand-soft/60 text-sm font-medium text-foreground">
           {comment.authorName.charAt(0).toUpperCase()}
         </AvatarFallback>
       </Avatar>
       <div className="min-w-0 flex-1">
-        <p className="flex flex-wrap items-baseline gap-x-2 text-[13px]">
+        <p className="flex flex-wrap items-baseline gap-x-2 text-sm">
           <span className="text-sm font-medium [overflow-wrap:anywhere]">{comment.authorName}</span>
           <span className="text-muted-foreground">{formatDay(comment.createdAt)}</span>
         </p>

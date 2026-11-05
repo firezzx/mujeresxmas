@@ -42,7 +42,7 @@ async function Preview({ params }: { params: PageProps<"/admin/blog/[id]/vista-p
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">
           <PostStatusBadge status={postDisplayStatus(post.status, post.publishedAt)} />
-          <p className="text-[13px] text-muted-foreground">Vista previa: muestra lo último guardado.</p>
+          <p className="text-sm text-muted-foreground">Vista previa: muestra lo último guardado.</p>
         </div>
         <IconHoverArea>
           <Link href={`${ROUTES.adminBlog}/${id}`} className={pillLinkVariants({ variant: "outline", size: "md" })}>

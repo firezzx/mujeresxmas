@@ -25,7 +25,7 @@ function Badge({ tone = "soft", children }: { tone?: "soft" | "solid" | "outline
   return (
     <span
       className={cn(
-        "inline-flex h-6 shrink-0 items-center rounded-md px-2.5 text-[11px] font-medium whitespace-nowrap",
+        "inline-flex h-6 shrink-0 items-center rounded-md px-2.5 text-xs font-medium whitespace-nowrap",
         tone === "soft" && "bg-brand-soft text-foreground",
         tone === "solid" && "bg-primary text-primary-foreground",
         tone === "outline" && "text-muted-foreground ring-1 ring-border"
@@ -53,7 +53,7 @@ function Identity({ member }: { member: MemberRow }) {
         <p className="truncate text-sm font-medium">
           {fullName(member) || <span className="text-muted-foreground">Sin nombre</span>}
         </p>
-        <p className="truncate text-[13px] text-muted-foreground">{member.email}</p>
+        <p className="truncate text-sm text-muted-foreground">{member.email}</p>
       </div>
     </div>
   )
@@ -133,7 +133,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
                       <p className="truncate">
                         {member.businessName || <span className="text-muted-foreground">—</span>}
                       </p>
-                      {member.city && <p className="truncate text-[13px] text-muted-foreground">{member.city}</p>}
+                      {member.city && <p className="truncate text-sm text-muted-foreground">{member.city}</p>}
                     </td>
                     <td className="px-4 py-3">{member.planName ? <Badge>{member.planName}</Badge> : "—"}</td>
                     <td className="px-4 py-3 text-muted-foreground">{member.joinedLabel}</td>
@@ -153,7 +153,7 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
                   {member.planName && <Badge>{member.planName}</Badge>}
                   <MemberBadges member={member} />
                 </div>
-                <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-[13px]">
+                <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                   {member.businessName && (
                     <div className="col-span-2">
                       <dt className="text-muted-foreground">Emprendimiento</dt>

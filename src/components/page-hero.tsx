@@ -1,5 +1,7 @@
 import { BlurFade } from "@/components/ui/blur-fade"
+import { Highlighter } from "@/components/ui/highlighter"
 import { TextAnimate } from "@/components/ui/text-animate"
+import { BRAND_HEX } from "@/config/brand-effects"
 import { cn } from "@/lib/utils"
 
 type PageHeroProps = {
@@ -12,10 +14,10 @@ type PageHeroProps = {
 }
 
 export const HERO_TITLE_CLASS =
-  "font-heading text-[2.5rem] leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-6xl md:text-7xl"
+  "relative font-heading text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-6xl md:text-[4rem]"
 
 export const PAGE_TITLE_CLASS =
-  "font-heading text-[2.25rem] leading-[1.05] font-semibold tracking-[-0.03em] text-balance sm:text-5xl"
+  "relative font-heading text-[2.25rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-5xl"
 
 type PageTitleProps = { children: React.ReactNode; className?: string; delay?: number }
 
@@ -36,12 +38,13 @@ export function PageTitle({ children, className, delay = 0 }: PageTitleProps) {
   )
 }
 
-// Parte destacada de un título: un rótulo naranja apenas torcido, con el texto en negro por contraste.
-export function BrandHighlight({ children }: { children: string }) {
+// Parte destacada de un título: subrayada a mano (Highlighter de Magic UI). Por defecto en rosa, que
+// es lo que resalta sobre el verde y el negro; sobre otros fondos se le pasa el color.
+export function BrandHighlight({ children, color = BRAND_HEX.pink }: { children: string; color?: string }) {
   return (
-    <span className="inline-block -rotate-1 rounded-lg bg-brand px-2.5 text-foreground shadow-[0_12px_24px_-12px_rgb(26_26_26/0.5)]">
+    <Highlighter isView inline action="underline" color={color} strokeWidth={4} iterations={2} padding={3} animationDuration={900}>
       {children}
-    </span>
+    </Highlighter>
   )
 }
 
@@ -90,8 +93,7 @@ export function PageHero({ eyebrow, title, description, actions, className, chil
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-md border border-border bg-background/70 px-3.5 py-1.5 text-xs font-medium tracking-wide text-muted-foreground backdrop-blur">
-      <span className="size-1.5 rounded-full bg-brand" aria-hidden />
+    <span className="inline-flex items-center font-heading text-[13px] font-medium tracking-[0.16em] uppercase">
       {children}
     </span>
   )

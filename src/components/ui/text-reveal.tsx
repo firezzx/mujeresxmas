@@ -23,7 +23,7 @@ export function TextReveal({
   return (
     <div ref={sectionRef} className={cn("relative z-0 h-[180vh]", className)}>
       <div className="sticky top-0 mx-auto flex h-dvh max-w-5xl items-center px-5 sm:px-8">
-        <p className="flex flex-wrap font-heading text-4xl leading-[1.15] font-semibold tracking-[-0.03em] sm:text-6xl lg:text-7xl">
+        <p className="flex flex-wrap font-heading text-4xl leading-[1.1] font-semibold tracking-[-0.01em] sm:text-6xl lg:text-7xl">
           {words.map((word, index) => (
             <Word
               key={index}

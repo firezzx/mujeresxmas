@@ -51,7 +51,7 @@ export function TextField({ label, error, trailing, hint, className, ...props }:
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[13px] text-destructive"
+            className="text-sm text-destructive"
           >
             {error}
           </motion.p>

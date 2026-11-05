@@ -18,7 +18,7 @@ export function BrandCard({
   return (
     <MagicCard
       gradientSize={280}
-      gradientFrom={BRAND_HEX.brand}
+      gradientFrom={BRAND_HEX.green}
       gradientTo={BRAND_HEX.pink}
       gradientColor={BRAND_HEX.pinkTint}
       gradientOpacity={0.7}

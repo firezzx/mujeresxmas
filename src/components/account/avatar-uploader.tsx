@@ -122,7 +122,7 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
               type="button"
               onClick={() => inputRef.current?.click()}
               disabled={pending}
-              className="h-9 cursor-pointer rounded-lg bg-primary px-4 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
+              className="h-9 cursor-pointer rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
             >
               {pending ? "Guardando…" : shownUrl ? "Cambiar" : "Subir foto"}
             </button>
@@ -131,7 +131,7 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
                 type="button"
                 onClick={handleRemove}
                 disabled={pending}
-                className="h-9 cursor-pointer rounded-lg border border-border px-4 text-[13px] font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
+                className="h-9 cursor-pointer rounded-lg border border-border px-4 text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
               >
                 Quitar
               </button>

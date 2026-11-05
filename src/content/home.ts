@@ -10,11 +10,10 @@ export const SHOW_SAMPLES = process.env.NODE_ENV === "development" || process.en
 
 export const HOME_HERO = {
   titleStart: "Acá no avanzás sola:",
-  titleHighlight: "corremos juntas",
-  description: "Una comunidad de mujeres para aprender, encontrarnos y hacer crecer lo que estamos armando.",
+  titleHighlight: "crecemos juntas",
+  description: "Una comunidad de emprendedoras que se acompañan para vender más, ordenar sus números y crecer.",
   secondaryCta: "Mirá qué hay adentro",
   chips: ["Aprendemos", "Nos acompañamos", "Crecemos"],
-  badge: "COMUNIDAD · MUJERES X MÁS · ",
   avatarsText: "Acá hay lugar para vos",
   ribbonTop: ["Aprendemos", "Nos acompañamos", "Crecemos", "Compartimos", "Emprendemos"],
   ribbonBottom: ["Cursos", "Notas", "Encuentros", "Productos", "Comunidad"],
@@ -48,7 +47,7 @@ export const HOME_PATHS = {
     title: "Aprender",
     text: "Cursos para dar el primer paso",
     image: "/images/home/formacion.jpg",
-    tone: "ink",
+    tone: "green",
   },
   notes: {
     icon: "book-text",
@@ -62,7 +61,7 @@ export const HOME_PATHS = {
     title: "Crecer",
     text: "Productos que te acompañan",
     image: "/images/home/equipo-laptop.jpg",
-    tone: "brand",
+    tone: "ink",
   },
   events: {
     icon: "calendar-days",
@@ -73,7 +72,7 @@ export const HOME_PATHS = {
   },
 } satisfies Record<
   string,
-  { icon: IconName; title: string; text: string; image: string; tone: "ink" | "pink" | "brand" | "green" }
+  { icon: IconName; title: string; text: string; image: string; tone: "ink" | "pink" | "green" }
 >
 
 export const HOME_COURSES = {
@@ -193,6 +192,7 @@ export const HOME_EVENTS = {
 }
 
 export const HOME_CLOSING = {
+  hashtag: "#HoyTambiénSoyMás",
   title: "Sumate a la",
   titleHighlight: "comunidad",
   description: "Crear tu cuenta es gratis. Adentro te esperan los cursos, las notas y otras mujeres como vos.",

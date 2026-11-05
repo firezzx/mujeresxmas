@@ -28,7 +28,6 @@ const BAND_TONES = {
   soft: "bg-brand-soft/25",
   pink: "bg-brand-soft",
   green: "bg-brand-green",
-  brand: "bg-brand",
   ink: "bg-primary text-primary-foreground",
 }
 
@@ -37,29 +36,51 @@ const DOT_TONES: Record<keyof typeof BAND_TONES, string> = {
   soft: "text-brand-pink-strong/25",
   pink: "text-foreground/15",
   green: "text-background/30",
-  brand: "text-foreground/15",
   ink: "text-background/20",
 }
 
 export type BandTone = keyof typeof BAND_TONES
+
+// Corte en zigzag de la portada del manual de marca: rosa contra el verde, siempre irregular.
+const ZIGZAG_POINTS = "0,39 138,84 298,10 459,64 619,0 802,57 962,12 1123,50 1283,5 1467,41 1467,90 0,90"
+
+export function ZigzagEdge({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 1467 90"
+      preserveAspectRatio="none"
+      className={cn(
+        "pointer-events-none absolute inset-x-0 -bottom-px block h-10 w-full fill-brand-soft sm:h-14 md:h-20",
+        className
+      )}
+    >
+      <polygon points={ZIGZAG_POINTS} />
+    </svg>
+  )
+}
 
 // Franja a todo el ancho con el contenido centrado.
 export function Band({
   id,
   tone = "white",
   dots,
+  zigzag,
   className,
   children,
 }: {
   id?: string
   tone?: BandTone
   dots?: boolean
+  // Termina abajo con el corte en zigzag rosa (para las franjas verdes)
+  zigzag?: boolean
   className?: string
   children: React.ReactNode
 }) {
   return (
     <section id={id} className={cn("relative flow-root scroll-mt-20", BAND_TONES[tone], dots && "overflow-hidden")}>
       {dots && <DotPattern width={22} height={22} cr={1.2} className={cn(DOT_TONES[tone], DOTS_MASK_CLASS)} />}
+      {zigzag && <ZigzagEdge />}
       <div className={cn(PAGE_WIDTH_CLASS, "relative py-12 md:py-20", className)}>{children}</div>
     </section>
   )
@@ -67,7 +88,7 @@ export function Band({
 
 // Encabezado de página: franja de color con puntos, título marcado y, opcional, algo al costado.
 export function ColorHero({
-  tone = "pink",
+  tone = "green",
   eyebrow,
   title,
   description,
@@ -91,8 +112,9 @@ export function ColorHero({
     <Band
       tone={tone}
       dots
+      zigzag={tone === "green"}
       className={cn(
-        "grid items-center gap-10 pt-28 pb-14 md:pt-36 md:pb-20",
+        "grid items-center gap-10 pt-28 pb-20 md:pt-36 md:pb-28",
         aside && "lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16",
         overlap && "pb-24 md:pb-32"
       )}
@@ -144,7 +166,7 @@ export function SectionTitle({
       className="mb-8 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-10"
     >
       <div className="flex min-w-0 flex-col gap-3">
-        <h2 className="relative font-heading text-[2rem] leading-[1.15] font-semibold tracking-[-0.03em] text-balance sm:text-5xl">
+        <h2 className="relative font-heading text-[2rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-5xl">
           {title}{" "}
           <Highlighter isView {...highlightStyle} strokeWidth={3} iterations={2} padding={4} animationDuration={900}>
             {highlight}
@@ -160,7 +182,6 @@ export function SectionTitle({
 const TILE_TONES = {
   ink: "from-foreground via-foreground/55",
   pink: "from-brand-soft via-brand-soft/70",
-  brand: "from-brand via-brand/70",
   green: "from-brand-green via-brand-green/70",
 }
 
@@ -201,10 +222,10 @@ export function PhotoTile({
         </IconBadge>
       </span>
       <span className={cn("relative flex flex-col gap-1", tone === "ink" && "text-background")}>
-        <span className="font-heading text-2xl leading-tight font-semibold tracking-[-0.02em] sm:text-4xl">
+        <span className="font-heading text-2xl leading-tight font-semibold tracking-[-0.01em] sm:text-4xl">
           {title}
         </span>
-        <span className="text-[13px] leading-snug text-pretty sm:text-base">{text}</span>
+        <span className="text-sm leading-snug text-pretty sm:text-base">{text}</span>
       </span>
     </>
   )
@@ -253,7 +274,7 @@ export function PhotoDuo({
           sizes="(min-width: 768px) 45vw, 100vw"
           className="object-cover"
         />
-        <BorderBeam size={140} duration={8} colorFrom={BRAND_HEX.brand} colorTo={BRAND_HEX.green} />
+        <BorderBeam size={140} duration={8} colorFrom={BRAND_HEX.green} colorTo={BRAND_HEX.pink} />
       </div>
       <div className={cn(PHOTO_FRAME_CLASS, "absolute -right-6 -bottom-8 aspect-square w-2/5 rotate-3 md:-right-10")}>
         <Image
@@ -265,7 +286,7 @@ export function PhotoDuo({
           className="object-cover"
         />
       </div>
-      <span className="absolute -top-3 -left-2 z-10 flex animate-float items-center gap-2 rounded-lg bg-background px-3 py-2 text-[13px] font-medium text-foreground shadow-[0_12px_28px_-10px_rgb(26_26_26/0.4)] motion-reduce:animate-none sm:text-sm">
+      <span className="absolute -top-3 -left-2 z-10 flex animate-float items-center gap-2 rounded-lg bg-background px-3 py-1.5 font-hand text-xl leading-none font-semibold text-foreground shadow-[0_12px_28px_-10px_rgb(26_26_26/0.4)] motion-reduce:animate-none sm:text-2xl">
         <span aria-hidden className="size-2 rounded-full bg-brand-green" />
         {chip}
       </span>
@@ -281,7 +302,7 @@ export function GhostWord({ word }: { word: string }) {
         {Array.from({ length: 4 }, (_, index) => (
           <span
             key={index}
-            className="px-6 font-heading text-[7rem] leading-[0.85] font-semibold tracking-[-0.04em] md:text-[14rem]"
+            className="px-6 font-heading text-[7rem] leading-[0.85] font-semibold tracking-[-0.01em] md:text-[14rem]"
           >
             {word}
           </span>

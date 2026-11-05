@@ -16,7 +16,7 @@ export const pillLinkVariants = cva(
         ghost: "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
       },
       size: {
-        sm: "h-9 px-4 text-[13px]",
+        sm: "h-9 px-4 text-sm",
         md: "h-10 px-5 text-sm",
         lg: "h-12 px-6 text-[15px]",
         xl: "h-14 px-7 text-base",

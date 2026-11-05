@@ -18,6 +18,8 @@ interface HighlighterProps {
   padding?: number
   multiline?: boolean
   isView?: boolean
+  // Adaptado: deja que el texto se parta en varias líneas y subraya cada una
+  inline?: boolean
 }
 
 export function Highlighter({
@@ -30,6 +32,7 @@ export function Highlighter({
   padding = 2,
   multiline = true,
   isView = false,
+  inline = false,
 }: HighlighterProps) {
   const elementRef = useRef<HTMLSpanElement>(null)
 
@@ -93,7 +96,7 @@ export function Highlighter({
   }, [shouldShow, action, color, strokeWidth, animationDuration, iterations, padding, multiline])
 
   return (
-    <span ref={elementRef} className="relative inline-block bg-transparent">
+    <span ref={elementRef} className={inline ? "relative inline bg-transparent" : "relative inline-block bg-transparent"}>
       {children}
     </span>
   )

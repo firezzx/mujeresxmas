@@ -51,7 +51,7 @@ export function CommentForm({ postId, authorName }: { postId: string; authorName
         error={error}
       />
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[13px] text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           Comentás como <span className="font-medium text-foreground">{authorName}</span> · {body.length}/{COMMENT_MAX}
         </p>
         <ShimmerSubmit size="md" pending={pending} pendingLabel="Publicando…" className="w-full sm:w-auto">
@@ -68,7 +68,7 @@ export function CommentDelete({ id }: { id: string }) {
   const [pending, startTransition] = useTransition()
   const [confirming, setConfirming] = useState(false)
   const buttonClass =
-    "inline-flex min-h-9 cursor-pointer items-center rounded-md px-2 text-[13px] font-medium transition-colors duration-200 disabled:cursor-wait disabled:opacity-60"
+    "inline-flex min-h-9 cursor-pointer items-center rounded-md px-2 text-sm font-medium transition-colors duration-200 disabled:cursor-wait disabled:opacity-60"
 
   if (!confirming) {
     return (

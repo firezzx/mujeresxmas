@@ -30,7 +30,7 @@ export const QUIERO_PAGE = {
       title: "Armar tu tienda",
       text: "Damos el salto a tu tienda online.",
       image: "/images/home/florista.jpg",
-      tone: "brand",
+      tone: "ink",
     },
     {
       icon: "trending-up",
@@ -39,7 +39,7 @@ export const QUIERO_PAGE = {
       image: "/images/home/socias-negocio.jpg",
       tone: "green",
     },
-  ] satisfies { icon: IconName; title: string; text: string; image: string; tone: "pink" | "brand" | "green" }[],
+  ] satisfies { icon: IconName; title: string; text: string; image: string; tone: "pink" | "ink" | "green" }[],
   closingTitle: "¿Arrancamos",
   closingHighlight: "juntas?",
 }

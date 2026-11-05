@@ -22,12 +22,12 @@ export function PostHeader({ post }: { post: PostPreview }) {
       {post.categoryName && post.categorySlug && (
         <Link
           href={`${ROUTES.blog}?categoria=${post.categorySlug}`}
-          className="inline-flex rounded-md bg-background px-2.5 py-2 text-[12px] font-medium ring-1 ring-foreground/10 transition-colors duration-200 outline-none hover:bg-brand-soft/60 focus-visible:ring-3 focus-visible:ring-ring/40 sm:py-1"
+          className="inline-flex rounded-md bg-background px-2.5 py-2 text-[13px] font-medium ring-1 ring-foreground/10 transition-colors duration-200 outline-none hover:bg-brand-soft/60 focus-visible:ring-3 focus-visible:ring-ring/40 sm:py-1"
         >
           {post.categoryName}
         </Link>
       )}
-      <h1 className="mt-4 font-heading text-[2.5rem] leading-[1.08] font-semibold tracking-[-0.03em] text-balance [overflow-wrap:anywhere] sm:text-6xl">
+      <h1 className="mt-4 font-heading text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance [overflow-wrap:anywhere] sm:text-6xl">
         {post.title}
       </h1>
       {post.excerpt && (
@@ -35,7 +35,7 @@ export function PostHeader({ post }: { post: PostPreview }) {
           {post.excerpt}
         </p>
       )}
-      <p className="mt-4 text-[13px] opacity-70">{details.join(" · ")}</p>
+      <p className="mt-4 text-sm opacity-70">{details.join(" · ")}</p>
     </header>
   )
 }
@@ -63,7 +63,7 @@ export function PostBody({ post }: { post: PostPreview }) {
           {post.tags.map((tag) => (
             <li
               key={tag}
-              className="max-w-full rounded-md px-2.5 py-1 text-[12px] [overflow-wrap:anywhere] text-muted-foreground ring-1 ring-border"
+              className="max-w-full rounded-md px-2.5 py-1 text-[13px] [overflow-wrap:anywhere] text-muted-foreground ring-1 ring-border"
             >
               {tag}
             </li>

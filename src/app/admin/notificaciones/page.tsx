@@ -63,7 +63,7 @@ async function SentList() {
             <>
               <span>{formatDateTime(notification.createdAt)}</span>
               <span>{notification.forEveryone ? "A todos" : "Personal"}</span>
-              <span className="rounded-md bg-brand-soft px-2.5 py-0.5 text-[11px] font-medium text-foreground">
+              <span className="rounded-md bg-brand-soft px-2.5 py-0.5 text-xs font-medium text-foreground">
                 {notification.reads} {notification.reads === 1 ? "lectura" : "lecturas"}
               </span>
             </>

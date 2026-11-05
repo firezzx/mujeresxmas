@@ -83,7 +83,7 @@ export function SignInForm() {
           />
           <Link
             href={ROUTES.recuperar}
-            className="self-end text-[13px] font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+            className="self-end text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
           >
             ¿Olvidaste tu contraseña?
           </Link>

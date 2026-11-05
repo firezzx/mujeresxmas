@@ -91,7 +91,7 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
               <Link
                 href={ROUTES.admin}
                 onClick={onNavigate}
-                className="flex h-10 items-center justify-center rounded-lg text-[13px] font-medium text-foreground ring-1 ring-border transition-colors hover:ring-foreground/20"
+                className="flex h-10 items-center justify-center rounded-lg text-sm font-medium text-foreground ring-1 ring-border transition-colors hover:ring-foreground/20"
               >
                 Panel de administración
               </Link>
@@ -100,14 +100,14 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
               <Link
                 href={ROUTES.miCuenta}
                 onClick={onNavigate}
-                className="flex h-10 items-center justify-center rounded-lg bg-primary text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
+                className="flex h-10 items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
               >
                 Mi cuenta
               </Link>
               <form action={signOut}>
                 <button
                   type="submit"
-                  className="flex h-10 w-full cursor-pointer items-center justify-center rounded-lg text-[13px] font-medium text-muted-foreground ring-1 ring-border transition-colors hover:text-foreground hover:ring-foreground/20"
+                  className="flex h-10 w-full cursor-pointer items-center justify-center rounded-lg text-sm font-medium text-muted-foreground ring-1 ring-border transition-colors hover:text-foreground hover:ring-foreground/20"
                 >
                   Cerrar sesión
                 </button>
@@ -119,7 +119,7 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
             <ShimmerLink href={ROUTES.registro} size="md" arrow={false} onClick={onNavigate} className="h-11 w-full">
               Registrarme en Mujeres x Más
             </ShimmerLink>
-            <p className="pb-1 text-[13px] text-muted-foreground">
+            <p className="pb-1 text-sm text-muted-foreground">
               ¿Ya tenés cuenta?{" "}
               <Link href={ROUTES.login} onClick={onNavigate} className="font-medium text-foreground underline-offset-4 hover:underline">
                 Iniciá sesión

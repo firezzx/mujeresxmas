@@ -48,7 +48,7 @@ export function NewPasswordForm() {
           <IconBadge size="lg" tone="green">
             <HoverIcon name="circle-check" size={24} autoPlay />
           </IconBadge>
-          <h2 className="font-heading text-2xl font-semibold tracking-[-0.02em]">Listo, ya la cambiaste</h2>
+          <h2 className="font-heading text-2xl font-semibold tracking-[-0.01em]">Listo, ya la cambiaste</h2>
           <p className="text-[15px] leading-relaxed text-muted-foreground">
             Tu contraseña nueva ya está activa y tu sesión sigue iniciada.
           </p>

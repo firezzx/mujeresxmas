@@ -65,7 +65,7 @@ export function SignUpForm() {
           <IconBadge size="lg" tone="green">
             <HoverIcon name="mail-check" size={24} autoPlay />
           </IconBadge>
-          <h2 className="mt-5 font-heading text-2xl font-semibold tracking-[-0.02em]">Revisá tu correo</h2>
+          <h2 className="mt-5 font-heading text-2xl font-semibold tracking-[-0.01em]">Revisá tu correo</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-pretty text-muted-foreground">
             Te enviamos un link a <span className="font-medium break-all text-foreground">{state.email}</span> para
             confirmar tu cuenta. Si no lo ves en unos minutos, buscalo en spam o promociones.

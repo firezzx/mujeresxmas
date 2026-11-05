@@ -71,7 +71,7 @@ const SMALL_BUTTON = cn(pillLinkVariants({ variant: "outline", size: "sm" }), "r
 
 function CharCount({ length, max, recommended }: { length: number; max: number; recommended?: string }) {
   return (
-    <p className={cn("text-[13px] text-muted-foreground", length > max && "text-destructive")}>
+    <p className={cn("text-sm text-muted-foreground", length > max && "text-destructive")}>
       {length}/{max}
       {recommended && ` · ${recommended}`}
     </p>
@@ -99,7 +99,7 @@ function Toggle({
       />
       <span>
         <span className="block text-sm font-medium">{label}</span>
-        <span className="block text-[13px] leading-snug text-muted-foreground">{hint}</span>
+        <span className="block text-sm leading-snug text-muted-foreground">{hint}</span>
       </span>
     </label>
   )
@@ -324,7 +324,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
             </Link>
           </IconHoverArea>
           <PostStatusBadge status={postDisplayStatus(status, publishedAtIso)} />
-          <p aria-live="polite" className="text-[13px] whitespace-nowrap text-muted-foreground">
+          <p aria-live="polite" className="text-sm whitespace-nowrap text-muted-foreground">
             {dirty ? "Sin guardar" : id ? "Guardado" : "Nueva"}
             <span className="hidden sm:inline">
               {" "}
@@ -401,7 +401,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
             onBlur={() => update("slug", slugify(values.slug))}
             error={errorFor("slug")}
             hint={
-              <p className="text-[13px] break-all text-muted-foreground">
+              <p className="text-sm break-all text-muted-foreground">
                 {SITE_HOST}/blog/{values.slug || "…"}
                 {status === "published" && (
                   <span className="mt-1 block break-normal text-foreground/70">
@@ -441,7 +441,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
               onChange={(event) => update("publishedLocal", event.target.value)}
               error={errorFor("publishedAt")}
               hint={
-                <p className="text-[13px] leading-snug text-muted-foreground">
+                <p className="text-sm leading-snug text-muted-foreground">
                   {scheduled
                     ? "Se va a ver sola en el blog cuando llegue esta fecha."
                     : "Vacía: se publica en el momento. Con una fecha futura, queda programada."}
@@ -472,7 +472,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
                       type="button"
                       disabled={pending}
                       onClick={handleDelete}
-                      className="inline-flex h-9 cursor-pointer items-center rounded-lg bg-destructive px-4 text-[13px] font-medium text-white transition-opacity duration-300 hover:opacity-90"
+                      className="inline-flex h-9 cursor-pointer items-center rounded-lg bg-destructive px-4 text-sm font-medium text-white transition-opacity duration-300 hover:opacity-90"
                     >
                       Sí, eliminar
                     </button>
@@ -488,7 +488,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
                   <button
                     type="button"
                     onClick={() => setConfirmDelete(true)}
-                    className="inline-flex h-9 cursor-pointer items-center rounded-lg px-4 text-[13px] font-medium text-destructive ring-1 ring-destructive/30 transition-colors duration-300 hover:bg-destructive/[0.06]"
+                    className="inline-flex h-9 cursor-pointer items-center rounded-lg px-4 text-sm font-medium text-destructive ring-1 ring-destructive/30 transition-colors duration-300 hover:bg-destructive/[0.06]"
                   >
                     Eliminar
                   </button>
@@ -500,7 +500,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
           <PanelCell title="Antes de publicar">
             <ul className="flex flex-col gap-2">
               {checklist.map((item) => (
-                <li key={item.label} className="flex items-center gap-2.5 text-[13px]">
+                <li key={item.label} className="flex items-center gap-2.5 text-sm">
                   <span
                     aria-hidden
                     className={cn("size-2 shrink-0 rounded-full", item.done ? "bg-brand-green" : "bg-foreground/15")}
@@ -606,7 +606,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
                               values.tags.filter((item) => item !== tag)
                             )
                           }
-                          className="inline-flex h-9 max-w-full cursor-pointer items-center gap-1 rounded-md bg-brand-soft/60 pr-1.5 pl-2.5 text-[12px] font-medium transition-colors duration-200 hover:bg-brand-soft lg:h-7"
+                          className="inline-flex h-9 max-w-full cursor-pointer items-center gap-1 rounded-md bg-brand-soft/60 pr-1.5 pl-2.5 text-[13px] font-medium transition-colors duration-200 hover:bg-brand-soft lg:h-7"
                         >
                           <span className="truncate">{tag}</span>
                           <HoverIcon name="x" size={12} />
@@ -645,7 +645,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
                   type="button"
                   disabled={uploadingCover}
                   onClick={() => coverInput.current?.click()}
-                  className="flex aspect-[16/9] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border text-[13px] text-muted-foreground transition-colors duration-300 hover:border-foreground/25 hover:text-foreground disabled:cursor-wait"
+                  className="flex aspect-[16/9] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border text-sm text-muted-foreground transition-colors duration-300 hover:border-foreground/25 hover:text-foreground disabled:cursor-wait"
                 >
                   <HoverIcon name="upload" size={20} />
                   {uploadingCover ? "Subiendo…" : "Subir imagen (JPG, PNG o WEBP)"}
@@ -699,12 +699,12 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
 
           <PanelCell title="Buscadores (SEO)" className="flex-1 md:col-span-2 lg:col-auto">
             <div className="rounded-lg bg-foreground/[0.03] p-3">
-              <p className="text-[11px] font-medium text-muted-foreground">Así se puede ver en Google</p>
-              <p className="mt-2 text-[12px] break-all text-muted-foreground">
+              <p className="text-xs font-medium text-muted-foreground">Así se puede ver en Google</p>
+              <p className="mt-2 text-[13px] break-all text-muted-foreground">
                 {SITE_HOST} › blog › {values.slug || "…"}
               </p>
               <p className="mt-0.5 line-clamp-2 text-[15px] leading-snug font-medium text-foreground">{seoTitle}</p>
-              <p className="mt-1 line-clamp-3 text-[13px] leading-snug text-muted-foreground">{seoDescription}</p>
+              <p className="mt-1 line-clamp-3 text-sm leading-snug text-muted-foreground">{seoDescription}</p>
             </div>
             <TextField
               label="Título SEO (opcional)"
@@ -732,7 +732,7 @@ export function PostEditor({ post, categories: initialCategories }: PostEditorPr
               onChange={(event) => update("canonicalUrl", event.target.value)}
               error={errorFor("canonicalUrl")}
               hint={
-                <p className="text-[13px] leading-snug text-muted-foreground">
+                <p className="text-sm leading-snug text-muted-foreground">
                   Solo si el texto se publicó primero en otro sitio.
                 </p>
               }

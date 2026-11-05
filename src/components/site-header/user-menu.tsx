@@ -92,7 +92,7 @@ export function UserMenu({
         <IconMenuItem icon={BellIcon} render={<Link href={`${ROUTES.miCuenta}#notificaciones`} />}>
           Notificaciones
           {unread > 0 && (
-            <span className="ml-auto rounded-md bg-brand px-2 py-0.5 text-[11px] leading-none font-semibold text-brand-foreground">
+            <span className="ml-auto rounded-md bg-brand px-2 py-0.5 text-xs leading-none font-semibold text-brand-foreground">
               {unread}
             </span>
           )}

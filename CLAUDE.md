@@ -12,8 +12,8 @@
 - **Componentes:** Magic UI (magicui.design) es la librería principal; se agregan con `npx shadcn@latest add @magicui/<componente>`.
 - **Íconos animados:** Lucide Animated (lucide-animated.com, MIT). Se agregan con `npx shadcn@latest add "https://lucide-animated.com/r/<icono>.json"` y se mueven a `src/components/icons/`. Para animarlos al pasar sobre todo el botón, usar `useIconAnimation`.
 - **Botones:** los CTAs que navegan son links (`ShimmerLink` principal, `HoverRevealLink` secundario, `IconLink` para íconos), adaptados de los botones de Magic UI.
-- **Tipografías:** Outfit para títulos y Poppins para textos y botones.
-- **Colores de marca:** Naranja `#FF4F00`, Rosa `#EABBD2`, Verde `#5AAD8B`, Negro 90% `#1A1A1A` y Blanco `#FFFFFF`. Se usan los tokens de `globals.css` (`brand`, `brand-soft`, `brand-green`) y `BRAND_HEX` de `src/config/brand-effects.ts`, nunca hex sueltos en los componentes.
+- **Tipografías:** Saira para títulos y rótulos, Jost para textos y botones, y Caveat solo para acentos manuscritos (rótulos de foto, hashtag), nunca párrafos.
+- **Colores de marca (manual de marca):** Verde `#5AAD8B` principal 40 %, Blanco `#FFFFFF` 30 %, Rosa `#EABBD2` 15 %, Negro 90% `#1A1A1A` 10 % y Naranja `#FF4F00` acento 5 %: el naranja queda para botones principales, un dato o el hashtag, nunca como fondo grande, y con texto negro encima. Se usan los tokens de `globals.css` (`brand`, `brand-soft`, `brand-green`) y `BRAND_HEX` de `src/config/brand-effects.ts`, nunca hex sueltos en los componentes.
 - **Idioma:** español rioplatense con voseo, tono cercano, inclusivo y profesional.
 
 ## Documento de funciones MVP

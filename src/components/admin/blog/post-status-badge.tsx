@@ -6,7 +6,7 @@ export function PostStatusBadge({ status }: { status: PostDisplayStatus }) {
   return (
     <span
       className={cn(
-        "inline-flex h-6 shrink-0 items-center rounded-md px-2.5 text-[11px] font-medium whitespace-nowrap",
+        "inline-flex h-6 shrink-0 items-center rounded-md px-2.5 text-xs font-medium whitespace-nowrap",
         status === "published" && "bg-brand-green/25 text-foreground",
         status === "scheduled" && "bg-brand-soft text-foreground",
         status === "draft" && "text-muted-foreground ring-1 ring-border",

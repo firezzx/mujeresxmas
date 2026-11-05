@@ -3,7 +3,7 @@ import Link from "next/link"
 import { cache } from "react"
 
 import { BrandCard } from "@/components/account/account-card"
-import { LogoShort } from "@/components/brand/logo"
+import { LogoSeal } from "@/components/brand/logo"
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { RegisterCta } from "@/components/cta/register-cta"
 import { cycleTone, IconBadge } from "@/components/icon-badge"
@@ -16,9 +16,9 @@ import {
   PhotoDuo,
   PhotoTile,
   SectionTitle,
+  ZigzagEdge,
 } from "@/components/page-band"
 import { BrandHighlight } from "@/components/page-hero"
-import { AuroraText } from "@/components/ui/aurora-text"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { AvatarCircles } from "@/components/ui/avatar-circles"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -31,9 +31,8 @@ import { Ripple } from "@/components/ui/ripple"
 import { ScrollVelocityContainer, ScrollVelocityRow } from "@/components/ui/scroll-based-velocity"
 import { ShineBorder } from "@/components/ui/shine-border"
 import { SparklesText } from "@/components/ui/sparkles-text"
-import { SpinningText } from "@/components/ui/spinning-text"
 import { TextReveal } from "@/components/ui/text-reveal"
-import { AURORA_COLORS, BRAND_HEX } from "@/config/brand-effects"
+import { BRAND_HEX } from "@/config/brand-effects"
 import { ROUTES } from "@/config/navigation"
 import {
   HOME_AVATARS,
@@ -66,13 +65,12 @@ const TAG_TONES = {
   course: "bg-brand-green",
   note: "bg-brand-soft",
   event: "bg-brand-soft",
-  product: "bg-brand",
   sample: "bg-background ring-1 ring-foreground/20",
 }
 
 function Tag({ tone, children }: { tone: keyof typeof TAG_TONES; children: React.ReactNode }) {
   return (
-    <span className={cn("w-fit rounded-md px-2.5 py-1 text-[12px] font-medium text-foreground", TAG_TONES[tone])}>
+    <span className={cn("w-fit rounded-md px-2.5 py-1 text-[13px] font-medium text-foreground", TAG_TONES[tone])}>
       {children}
     </span>
   )
@@ -80,13 +78,14 @@ function Tag({ tone, children }: { tone: keyof typeof TAG_TONES; children: React
 
 // ─── Primera pantalla ────────────────────────────────────────────────────────────────────
 
-const CHIP_POSITIONS = ["-left-2 top-[12%] sm:-left-5", "-right-2 top-[44%] sm:-right-4", "bottom-[8%] left-[18%]"]
+const CHIP_POSITIONS = ["-left-2 top-[12%] sm:-left-5", "-right-2 top-[44%] sm:-right-4", "bottom-[24%] -left-2 sm:-left-5"]
 
 export function HomeHero({ ctaId }: { ctaId: string }) {
   const [first, second, third] = HOME_HERO.photos
   return (
-    <section className="relative overflow-hidden bg-brand-soft pt-28 pb-24 md:pt-36 md:pb-32">
-      <DotPattern width={22} height={22} cr={1.2} className={cn("text-foreground/15", DOTS_MASK_CLASS)} />
+    <section className="relative overflow-hidden bg-brand-green pt-28 pb-24 md:pt-36 md:pb-32">
+      <DotPattern width={22} height={22} cr={1.2} className={cn("text-background/30", DOTS_MASK_CLASS)} />
+      <ZigzagEdge />
       <div
         className={cn(
           WIDTH_CLASS,
@@ -95,7 +94,7 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
       >
         <div className="flex flex-col items-start gap-6">
           <BlurFade inView>
-            <h1 className="font-heading text-[2.75rem] leading-[1.1] font-semibold tracking-[-0.035em] text-balance sm:text-6xl xl:text-[5rem]">
+            <h1 className="relative font-heading text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-6xl lg:text-[3.25rem] xl:text-[3.5rem] 2xl:text-[4.25rem]">
               {HOME_HERO.titleStart} <BrandHighlight>{HOME_HERO.titleHighlight}</BrandHighlight>
             </h1>
           </BlurFade>
@@ -124,11 +123,11 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
           {/* Bloques de color detrás de las fotos, como un collage */}
           <div
             aria-hidden
-            className="absolute -top-5 -left-4 h-3/5 w-1/2 -rotate-6 rounded-xl bg-brand-green sm:-left-7"
+            className="absolute -top-5 -left-4 h-3/5 w-1/2 -rotate-6 rounded-xl bg-brand-soft sm:-left-7"
           />
           <div
             aria-hidden
-            className="absolute -right-3 -bottom-5 h-2/5 w-2/5 rotate-6 rounded-xl bg-brand sm:-right-6"
+            className="absolute -right-3 -bottom-5 h-2/5 w-2/5 rotate-6 rounded-xl bg-foreground sm:-right-6"
           />
           <div className="relative grid grid-cols-5 grid-rows-2 gap-3 sm:gap-4">
             <div className={cn(PHOTO_FRAME_CLASS, "col-span-3 row-span-2 aspect-[4/5] -rotate-1")}>
@@ -140,7 +139,7 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
                 sizes="(min-width: 1024px) 28vw, 60vw"
                 className="object-cover"
               />
-              <BorderBeam size={120} duration={9} colorFrom={BRAND_HEX.brand} colorTo={BRAND_HEX.pink} />
+              <BorderBeam size={120} duration={9} colorFrom={BRAND_HEX.green} colorTo={BRAND_HEX.pink} />
             </div>
             <div className={cn(PHOTO_FRAME_CLASS, "col-span-2 rotate-2")}>
               <Image
@@ -168,7 +167,7 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
               key={chip}
               style={{ animationDelay: `${index * -2}s` }}
               className={cn(
-                "absolute z-10 flex animate-float items-center gap-2 rounded-lg bg-background px-3 py-2 text-[13px] font-medium whitespace-nowrap shadow-[0_12px_28px_-10px_rgb(26_26_26/0.4)] motion-reduce:animate-none sm:text-sm",
+                "absolute z-10 flex animate-float items-center gap-2 rounded-lg bg-background px-3 py-1.5 font-hand text-xl leading-none font-semibold whitespace-nowrap shadow-[0_12px_28px_-10px_rgb(26_26_26/0.4)] motion-reduce:animate-none sm:text-2xl",
                 CHIP_POSITIONS[index]
               )}
             >
@@ -179,12 +178,9 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
               {chip}
             </span>
           ))}
-          {/* Sello que gira (Spinning Text de Magic UI) */}
-          <div className="absolute -bottom-9 left-1/2 z-20 flex size-28 -translate-x-1/2 items-center justify-center rounded-full bg-foreground text-background shadow-[0_16px_32px_-12px_rgb(26_26_26/0.6)] motion-reduce:hidden sm:size-32">
-            <SpinningText duration={16} radius={5.6} className="text-[11px] font-medium sm:text-xs">
-              {HOME_HERO.badge}
-            </SpinningText>
-            <LogoShort className="absolute" />
+          {/* Sello oficial: blanco sobre negro y fijo, como pide el manual */}
+          <div className="absolute -bottom-9 left-1/2 z-20 size-28 -translate-x-1/2 rounded-full bg-foreground p-1.5 text-background shadow-[0_16px_32px_-12px_rgb(26_26_26/0.6)] sm:size-36">
+            <LogoSeal className="size-full" />
           </div>
         </BlurFade>
       </div>
@@ -198,7 +194,7 @@ function RibbonWords({ words, dotClass }: { words: string[]; dotClass: string })
     <span className="flex items-center">
       {[...words, ...words].map((word, index) => (
         <span key={index} className="flex items-center">
-          <span className="px-5 font-heading text-2xl font-semibold tracking-[-0.02em] sm:px-8 sm:text-4xl">
+          <span className="px-5 font-heading text-2xl font-semibold tracking-[-0.01em] sm:px-8 sm:text-4xl">
             {word}
           </span>
           <span aria-hidden className={cn("size-2.5 rounded-full sm:size-3", dotClass)} />
@@ -337,7 +333,7 @@ function ContentCard({
                   <HoverIcon name={icon} size={24} />
                 </IconBadge>
               )}
-              <span className="absolute bottom-3 left-3 rounded-md bg-background px-2.5 py-1 text-[12px] font-medium shadow-[0_8px_16px_-8px_rgb(26_26_26/0.5)]">
+              <span className="absolute bottom-3 left-3 rounded-md bg-background px-2.5 py-1 text-[13px] font-medium shadow-[0_8px_16px_-8px_rgb(26_26_26/0.5)]">
                 {card.meta}
               </span>
             </span>
@@ -345,7 +341,7 @@ function ContentCard({
               <Tag tone={tone}>{tag}</Tag>
               {card.sample && <Tag tone="sample">Ejemplo</Tag>}
             </span>
-            <span className="px-2 font-heading text-xl leading-snug font-semibold tracking-[-0.02em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand sm:text-2xl">
+            <span className="px-2 font-heading text-xl leading-snug font-semibold tracking-[-0.01em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand-green-strong sm:text-2xl">
               {card.title}
             </span>
             {card.text && (
@@ -401,12 +397,12 @@ function HomeCourses({ cards }: { cards: ShowcaseCard[] }) {
         <SectionTitle
           title={HOME_COURSES.title}
           highlight={HOME_COURSES.titleHighlight}
-          highlightStyle={{ action: "underline", color: BRAND_HEX.brand }}
+          highlightStyle={{ action: "underline", color: BRAND_HEX.green }}
           description={HOME_COURSES.description}
         />
         <ul aria-label="Temas" className="mb-8 flex flex-wrap gap-2 md:mb-10">
           {HOME_COURSES.topics.map((topic) => (
-            <li key={topic} className="rounded-md bg-foreground/[0.05] px-3 py-1.5 text-[13px] font-medium">
+            <li key={topic} className="rounded-md bg-foreground/[0.05] px-3 py-1.5 text-sm font-medium">
               {topic}
             </li>
           ))}
@@ -446,7 +442,7 @@ function NoteMedia({ card, sizes, className }: { card: ShowcaseCard; sizes: stri
 const NOTE_LINK_CLASS =
   "group block h-full rounded-xl outline-none transition-transform duration-500 ease-premium hover:-translate-y-1 focus-visible:ring-3 focus-visible:ring-ring/40"
 const NOTE_TITLE_CLASS =
-  "font-heading font-semibold tracking-[-0.02em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand"
+  "font-heading font-semibold tracking-[-0.01em] text-balance [overflow-wrap:anywhere] transition-colors duration-300 group-hover:text-brand-green-strong"
 
 function NoteTags({ sample }: { sample: boolean }) {
   return (
@@ -476,7 +472,7 @@ function FeaturedNote({ card, alone }: { card: ShowcaseCard; alone: boolean }) {
                 {card.text}
               </span>
             )}
-            <span className="text-[13px] text-muted-foreground">{card.meta}</span>
+            <span className="text-sm text-muted-foreground">{card.meta}</span>
           </span>
         </BrandCard>
       </Link>
@@ -497,7 +493,7 @@ function SideNote({ card }: { card: ShowcaseCard }) {
           <span className="flex min-w-0 flex-col gap-2">
             <NoteTags sample={card.sample} />
             <span className={cn(NOTE_TITLE_CLASS, "text-lg leading-snug sm:text-xl")}>{card.title}</span>
-            <span className="text-[13px] text-muted-foreground">{card.meta}</span>
+            <span className="text-sm text-muted-foreground">{card.meta}</span>
           </span>
         </BrandCard>
       </Link>
@@ -541,11 +537,10 @@ function HomeNotes({ cards }: { cards: ShowcaseCard[] }) {
   )
 }
 
-// El producto de la comunidad: el naranja de la marca a todo el ancho, con ondas (Ripple de Magic UI).
-// El texto va en negro por contraste.
+// El producto de la comunidad: el verde de la marca a todo el ancho, con ondas (Ripple de Magic UI).
 function HomeProduct() {
   return (
-    <section id={HOME_SECTION_IDS.products} className="relative scroll-mt-20 overflow-hidden bg-brand">
+    <section id={HOME_SECTION_IDS.products} className="relative scroll-mt-20 overflow-hidden bg-brand-green">
       <Ripple
         mainCircleSize={320}
         mainCircleOpacity={0.12}
@@ -564,8 +559,8 @@ function HomeProduct() {
           />
         </BlurFade>
         <BlurFade inView delay={0.08} className="flex flex-col items-start gap-5">
-          <span className="w-fit rounded-md bg-background px-2.5 py-1 text-[12px] font-medium">{HOME_PRODUCT.tag}</span>
-          <h2 className="font-heading text-6xl leading-none font-semibold tracking-[-0.03em] sm:text-8xl xl:text-[7.5rem]">
+          <span className="w-fit rounded-md bg-background px-2.5 py-1 text-[13px] font-medium">{HOME_PRODUCT.tag}</span>
+          <h2 className="font-heading text-6xl leading-none font-semibold tracking-[-0.01em] sm:text-8xl xl:text-[7.5rem]">
             <SparklesText
               colors={{ first: BRAND_HEX.white, second: BRAND_HEX.pink }}
               sparklesCount={6}
@@ -577,7 +572,7 @@ function HomeProduct() {
           <p className="max-w-lg text-lg leading-relaxed text-pretty sm:text-xl">{HOME_PRODUCT.description}</p>
           <ul className="flex flex-wrap gap-2">
             {HOME_PRODUCT.steps.map((step) => (
-              <li key={step} className="rounded-md bg-foreground px-3 py-1.5 text-[13px] font-medium text-background">
+              <li key={step} className="rounded-md bg-foreground px-3 py-1.5 text-sm font-medium text-background">
                 {step}
               </li>
             ))}
@@ -595,9 +590,9 @@ type Voice = (typeof HOME_VOICES.samples)[number]
 
 const VOICE_TONES = [
   "bg-background -rotate-1",
-  "bg-brand rotate-1",
-  "bg-foreground text-background -rotate-1",
   "bg-brand-green rotate-1",
+  "bg-foreground text-background -rotate-1",
+  "bg-background rotate-1",
 ]
 
 function VoiceCard({ voice, index }: { voice: Voice; index: number }) {
@@ -622,7 +617,7 @@ function VoiceCard({ voice, index }: { voice: Voice; index: number }) {
       <figcaption className="flex items-center gap-3">
         <Avatar className="size-10">
           <AvatarImage src={voice.image} alt="" className="object-cover" />
-          <AvatarFallback className="bg-brand-soft/60 text-[13px] font-medium">{voice.name.charAt(0)}</AvatarFallback>
+          <AvatarFallback className="bg-brand-soft/60 text-sm font-medium">{voice.name.charAt(0)}</AvatarFallback>
         </Avatar>
         <span className="flex flex-col text-sm">
           <span className="font-medium">{voice.name}</span>
@@ -643,7 +638,7 @@ function HomeVoices({ voices }: { voices: Voice[] }) {
         <SectionTitle
           title={HOME_VOICES.title}
           highlight={HOME_VOICES.titleHighlight}
-          highlightStyle={{ action: "circle", color: BRAND_HEX.brand }}
+          highlightStyle={{ action: "circle", color: BRAND_HEX.ink }}
         />
       </div>
       <div className="flex flex-col gap-4">
@@ -690,14 +685,14 @@ function HomeEvents({ events }: { events: EventRow[] }) {
                       {/* Hojita de calendario */}
                       <div className="flex size-20 shrink-0 flex-col items-center justify-center rounded-lg bg-brand-soft -rotate-2 shadow-[0_10px_20px_-12px_rgb(26_26_26/0.5)]">
                         <span className="font-heading text-3xl leading-none font-semibold">{date.day}</span>
-                        <span className="mt-1 text-[12px] font-medium uppercase">{date.month}</span>
+                        <span className="mt-1 text-[13px] font-medium uppercase">{date.month}</span>
                       </div>
                       <div className="flex min-w-0 flex-1 flex-col gap-1">
-                        <h3 className="font-heading text-xl leading-snug font-semibold tracking-[-0.02em] [overflow-wrap:anywhere] sm:text-2xl">
+                        <h3 className="font-heading text-xl leading-snug font-semibold tracking-[-0.01em] [overflow-wrap:anywhere] sm:text-2xl">
                           {event.title}
                         </h3>
                         {index === 0 && (
-                          <span className="order-first w-fit rounded-md bg-brand px-2.5 py-1 text-[12px] font-medium">
+                          <span className="order-first w-fit rounded-md bg-brand px-2.5 py-1 text-[13px] font-medium">
                             {HOME_EVENTS.nextLabel}
                           </span>
                         )}
@@ -712,7 +707,7 @@ function HomeEvents({ events }: { events: EventRow[] }) {
                     </HoverRevealLink>
                   </BrandCard>
                   {index === 0 && (
-                    <ShineBorder borderWidth={3} duration={10} shineColor={[BRAND_HEX.brand, BRAND_HEX.pink]} />
+                    <ShineBorder borderWidth={3} duration={10} shineColor={[BRAND_HEX.green, BRAND_HEX.pink]} />
                   )}
                 </BlurFade>
               </li>
@@ -765,7 +760,7 @@ export function HomeClosing() {
     <section className="relative isolate overflow-hidden bg-primary text-primary-foreground">
       <Image src={HOME_CLOSING.image} alt="" fill sizes="100vw" className="-z-20 object-cover opacity-25" />
       <div aria-hidden className="absolute inset-0 -z-20 bg-linear-to-t from-primary via-primary/70 to-primary/40" />
-      <LightRays color={`${BRAND_HEX.brand}66`} count={6} blur={48} className="-z-10 motion-reduce:hidden" />
+      <LightRays color={`${BRAND_HEX.pink}40`} count={6} blur={48} className="-z-10 motion-reduce:hidden" />
       <Particles
         className="absolute inset-0 -z-10 motion-reduce:hidden"
         quantity={70}
@@ -776,17 +771,18 @@ export function HomeClosing() {
       />
       <div className={cn(WIDTH_CLASS, "flex flex-col items-center gap-6 py-24 text-center sm:py-36")}>
         <BlurFade inView>
-          <h2 className="font-heading text-5xl leading-[1.02] font-semibold tracking-[-0.035em] text-balance sm:text-7xl xl:text-8xl">
-            {HOME_CLOSING.title} <AuroraText colors={AURORA_COLORS}>{HOME_CLOSING.titleHighlight}</AuroraText>
+          <h2 className="font-heading text-5xl leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-7xl xl:text-8xl">
+            {HOME_CLOSING.title} <span className="text-brand-soft">{HOME_CLOSING.titleHighlight}</span>
           </h2>
         </BlurFade>
         <p className="max-w-xl text-base leading-relaxed text-pretty text-primary-foreground/85 sm:text-xl">
           {HOME_CLOSING.description}
         </p>
         <div className="mt-3 flex w-full justify-center">
-          <RegisterCta id={HOME_CLOSING_CTA_ID} label={HOME_CLOSING.cta} tone="brand" className="w-full sm:w-auto" />
+          <RegisterCta id={HOME_CLOSING_CTA_ID} label={HOME_CLOSING.cta} className="w-full sm:w-auto" />
         </div>
-        <div className="mt-2 flex items-center gap-3">
+        <p className="font-hand text-3xl font-semibold text-brand sm:text-4xl">{HOME_CLOSING.hashtag}</p>
+        <div className="flex items-center gap-3">
           <AvatarCircles images={HOME_AVATARS} />
           <span className="font-heading text-lg font-medium tracking-[-0.01em]">{HOME_HERO.avatarsText}</span>
         </div>

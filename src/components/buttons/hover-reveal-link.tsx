@@ -31,8 +31,8 @@ export function HoverRevealLink({
       {...props}
       {...triggerProps}
       className={cn(
-        "group relative isolate inline-flex items-center justify-center overflow-hidden rounded-lg border border-border bg-background/70 max-w-full text-center leading-snug font-medium text-balance backdrop-blur",
-        "transition-[border-color,scale] duration-500 ease-premium outline-none hover:border-brand focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-[0.98]",
+        "group relative isolate inline-flex items-center justify-center overflow-hidden rounded-lg border border-border bg-background text-foreground max-w-full text-center leading-snug font-medium text-balance",
+        "transition-[border-color,scale] duration-500 ease-premium outline-none hover:border-foreground focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-[0.98]",
         sizes[size],
         className
       )}
@@ -43,8 +43,8 @@ export function HoverRevealLink({
             60% (llena botones de hasta ~450px): si llegara al 100%, cubriría el botón en los
             primeros milisegundos y el relleno se vería instantáneo. Entra con una curva pareja y
             sale más rápido, para que al sacar el mouse reaccione enseguida. */}
-        <span aria-hidden className="relative size-2 rounded-full bg-brand">
-          <span className="absolute top-1/2 left-1/2 size-[900px] -translate-x-1/2 -translate-y-1/2 scale-[0.009] rounded-full bg-brand transition-[scale] duration-[450ms] ease-out group-hover:scale-60 group-hover:duration-[800ms] group-hover:ease-[cubic-bezier(0.45,0,0.3,1)] group-focus-visible:scale-60" />
+        <span aria-hidden className="relative size-2 rounded-full bg-foreground">
+          <span className="absolute top-1/2 left-1/2 size-[900px] -translate-x-1/2 -translate-y-1/2 scale-[0.009] rounded-full bg-foreground transition-[scale] duration-[450ms] ease-out group-hover:scale-60 group-hover:duration-[800ms] group-hover:ease-[cubic-bezier(0.45,0,0.3,1)] group-focus-visible:scale-60" />
         </span>
         <span className="transition-[translate,opacity] duration-[400ms] ease-premium group-hover:translate-x-10 group-hover:opacity-0 group-focus-visible:translate-x-10 group-focus-visible:opacity-0">
           {children}

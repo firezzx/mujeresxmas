@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   robots: { index: false },
 }
 
-const STAT_TONES = ["bg-brand", "bg-brand-soft", "bg-brand-green", "bg-primary text-primary-foreground"]
+const STAT_TONES = ["bg-brand-green", "bg-brand-soft", "bg-primary text-primary-foreground", "bg-brand-green"]
 
 // Sección Usuarias: números de la comunidad y lista con buscador. El acceso lo valida el layout.
 export default function AdminMembersPage() {
@@ -61,8 +61,8 @@ async function MembersDashboard() {
                 STAT_TONES[i % STAT_TONES.length]
               )}
             >
-              <p className="text-[13px] leading-snug opacity-85">{stat.label}</p>
-              <p className="font-heading text-5xl leading-none font-semibold tracking-[-0.03em]">
+              <p className="text-sm leading-snug opacity-85">{stat.label}</p>
+              <p className="font-heading text-5xl leading-none font-semibold tracking-[-0.01em]">
                 {stat.value === 0 ? 0 : <NumberTicker value={stat.value} className="text-inherit" />}
               </p>
             </div>

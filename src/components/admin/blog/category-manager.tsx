@@ -112,7 +112,7 @@ export function CategoryManager({ categories }: { categories: BlogCategory[] }) 
             setErrors((prev) => ({ ...prev, slug: undefined }))
           }}
           error={errors.slug?.[0]}
-          hint={<p className="text-[13px] text-muted-foreground">Se usa para filtrar el blog: /blog?categoria=…</p>}
+          hint={<p className="text-sm text-muted-foreground">Se usa para filtrar el blog: /blog?categoria=…</p>}
         />
         <TextareaField
           label="Descripción (opcional)"
@@ -153,7 +153,7 @@ export function CategoryManager({ categories }: { categories: BlogCategory[] }) 
                         type="button"
                         disabled={pending}
                         onClick={() => handleDelete(category.id)}
-                        className="inline-flex h-9 cursor-pointer items-center rounded-lg bg-destructive px-4 text-[13px] font-medium text-white transition-opacity duration-300 hover:opacity-90"
+                        className="inline-flex h-9 cursor-pointer items-center rounded-lg bg-destructive px-4 text-sm font-medium text-white transition-opacity duration-300 hover:opacity-90"
                       >
                         Sí, eliminar
                       </button>

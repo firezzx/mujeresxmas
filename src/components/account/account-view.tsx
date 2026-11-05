@@ -52,20 +52,20 @@ export function AccountView({ user, membership, memberSince, courses, events, no
               <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-[0_24px_48px_-24px_rgb(26_26_26/0.45)] sm:p-10">
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-brand/35 blur-3xl"
+                  className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-brand-green/35 blur-3xl"
                 />
                 <div className="relative flex items-center justify-between gap-3">
                   <h2 className="text-sm font-medium text-primary-foreground/70">Tu membresía</h2>
                   {membership && (
                     <span className="inline-flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-3 py-1 text-xs font-medium">
-                      <span className="size-1.5 rounded-full bg-brand" aria-hidden />
+                      <span className="size-1.5 rounded-full bg-brand-green" aria-hidden />
                       Activa
                     </span>
                   )}
                 </div>
                 {membership ? (
                   <div className="relative mt-10">
-                    <p className="font-heading text-5xl leading-none font-semibold tracking-[-0.03em] sm:text-6xl">
+                    <p className="font-heading text-5xl leading-none font-semibold tracking-[-0.01em] sm:text-6xl">
                       {membership.planName}
                     </p>
                     {membership.planDescription && (
@@ -82,7 +82,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                     No encontramos una membresía activa. Escribinos y lo revisamos.
                   </p>
                 )}
-                <BorderBeam size={140} duration={9} colorFrom="var(--brand)" colorTo="oklch(1 0 0 / 0.8)" />
+                <BorderBeam size={140} duration={9} colorFrom="var(--brand-green)" colorTo="oklch(1 0 0 / 0.8)" />
               </section>
             </BlurFade>
           </div>
@@ -96,7 +96,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                   <IconHoverArea className="inline-flex">
                     <Link
                       href={ROUTES.perfil}
-                      className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-foreground/[0.05]"
+                      className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors hover:bg-foreground/[0.05]"
                     >
                       <HoverIcon name="square-pen" size={14} />
                       Editar
@@ -153,7 +153,7 @@ export function AccountSkeleton() {
   const cell = "h-60 animate-pulse rounded-xl bg-foreground/[0.05]"
   return (
     <div aria-hidden>
-      <Band tone="pink" dots className="flex flex-col gap-4 pt-28 pb-24 md:pt-36 md:pb-32">
+      <Band tone="green" dots zigzag className="flex flex-col gap-4 pt-28 pb-24 md:pt-36 md:pb-32">
         <div className="h-7 w-28 animate-pulse rounded-md bg-background/50" />
         <div className="h-12 w-64 animate-pulse rounded-lg bg-background/50" />
       </Band>
