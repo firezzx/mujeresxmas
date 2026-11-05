@@ -1,5 +1,6 @@
 import { MemberViewBar } from "@/components/admin/member-view-bar"
 import { NotificationsDrawer } from "@/components/notifications/notifications-drawer"
+import { SessionHintSync } from "@/components/session/session-hint"
 import { SiteHeader } from "@/components/site-header/site-header"
 import { NewNotificationsToast } from "@/components/toast/new-notifications-toast"
 import { getAdminView } from "@/lib/admin"
@@ -16,6 +17,7 @@ export async function SiteHeaderWithSession() {
   const unread = notifications.filter((n) => !n.read)
   return (
     <>
+      <SessionHintSync signedIn={Boolean(user)} />
       <SiteHeader user={user} adminView={adminView} unread={unread.length} />
       {user && <NotificationsDrawer notifications={notifications} />}
       <NewNotificationsToast unread={unread.map(({ id, title }) => ({ id, title }))} />

@@ -295,6 +295,13 @@
   }
 }
 
+/* Según <html data-session> (ver session-hint.tsx): lo que se ve mientras el servidor confirma la sesión.
+   Sin el dato, como los buscadores, queda la versión de visitante. */
+html[data-session="in"] .only-guest,
+html:not([data-session="in"]) .only-member {
+  display: none !important;
+}
+
 /* Entrada del logo: cada letra sube y aparece */
 @keyframes logo-letter {
   from {

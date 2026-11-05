@@ -1,6 +1,5 @@
 "use client"
 
-import { memo } from "react"
 import {
   AnimatePresence,
   motion,
@@ -328,7 +327,9 @@ const defaultItemAnimationVariants: Record<
   },
 }
 
-const TextAnimateBase = ({
+// Sin el memo() que trae Magic UI: al llegar la página completa, React recreaba el título y la
+// animación de entrada arrancaba dos veces.
+export const TextAnimate = ({
   children,
   delay = 0,
   duration = 0.3,
@@ -440,6 +441,3 @@ const TextAnimateBase = ({
     </AnimatePresence>
   )
 }
-
-// Export the memoized version
-export const TextAnimate = memo(TextAnimateBase)

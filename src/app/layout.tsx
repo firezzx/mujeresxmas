@@ -3,6 +3,7 @@ import { Caveat, Jost, Saira } from "next/font/google";
 import { Suspense } from "react";
 
 import { MotionProvider } from "@/components/motion-provider";
+import { SessionHintScript } from "@/components/session/session-hint";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader, SiteHeaderView } from "@/components/site-header/site-header";
 import { SiteHeaderWithSession } from "@/components/site-header/site-header-with-session";
@@ -44,7 +45,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="es-AR"
       className={`${jost.variable} ${display.variable} ${script.variable} h-full antialiased`}
+      // El script de sesión agrega data-session antes de que React hidrate
+      suppressHydrationWarning
     >
+      <head>
+        <SessionHintScript />
+      </head>
       <body className="min-h-full flex flex-col">
         {/* Avisos flotantes abajo a la derecha (formularios, notificaciones nuevas) */}
         <MotionProvider>

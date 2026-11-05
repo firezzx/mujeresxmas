@@ -22,7 +22,7 @@ type SiteHeaderProps = {
   user: CurrentUser | null
   // Solo para administradoras: muestra los accesos al panel según la vista elegida
   adminView?: AdminView | null
-  // true mientras se resuelve la sesión: muestra un lugar reservado en vez de botones
+  // true mientras el servidor confirma la sesión: los accesos salen del aviso de <html data-session>
   pending?: boolean
   // Notificaciones sin leer de la usuaria (punto en el avatar)
   unread?: number
@@ -195,11 +195,7 @@ function UserAccess({
   onNavigate: () => void
   compact?: boolean
 }) {
-  if (pending) {
-    return <span aria-hidden className="block size-10 animate-pulse rounded-lg bg-muted" />
-  }
-  if (user) return <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} />
-  return (
+  const guestAccess = (
     <>
       <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={onNavigate} />
       {!compact && (
@@ -209,6 +205,17 @@ function UserAccess({
       )}
     </>
   )
+  if (pending) {
+    // Mismo tamaño que el avatar, para que no se mueva nada cuando llega la usuaria
+    return (
+      <>
+        <span aria-hidden className="only-member block size-10 rounded-lg bg-muted ring-1 ring-border" />
+        <div className="only-guest contents">{guestAccess}</div>
+      </>
+    )
+  }
+  if (user) return <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} />
+  return guestAccess
 }
 
 function MenuToggle({
