@@ -393,15 +393,15 @@
 /* Fondos de las franjas: gradientes con los colores de la marca, nunca un color plano a todo el ancho */
 .bg-mesh-green {
   background:
-    radial-gradient(55% 70% at 88% 8%, color-mix(in srgb, var(--background) 32%, transparent), transparent 70%),
-    radial-gradient(45% 60% at 5% 95%, color-mix(in srgb, var(--background) 30%, transparent), transparent 70%),
-    linear-gradient(135deg, var(--brand-green), color-mix(in srgb, var(--brand-green) 82%, var(--background)));
+    radial-gradient(55% 75% at 100% 0%, color-mix(in srgb, var(--brand-soft) 35%, transparent), transparent 70%),
+    radial-gradient(70% 90% at 0% 100%, color-mix(in srgb, var(--brand-green) 65%, transparent), transparent 72%),
+    linear-gradient(135deg, color-mix(in srgb, var(--brand-green) 38%, var(--background)), color-mix(in srgb, var(--brand-green) 6%, var(--background)));
 }
 .bg-mesh-pink {
   background:
-    radial-gradient(50% 70% at 90% 10%, color-mix(in srgb, var(--background) 60%, transparent), transparent 70%),
-    radial-gradient(45% 60% at 5% 90%, color-mix(in srgb, var(--brand-pink-strong) 30%, transparent), transparent 70%),
-    linear-gradient(135deg, var(--brand-soft), color-mix(in srgb, var(--brand-soft) 70%, var(--background)));
+    radial-gradient(60% 80% at 100% 0%, color-mix(in srgb, var(--background) 70%, transparent), transparent 70%),
+    radial-gradient(70% 90% at 0% 100%, color-mix(in srgb, var(--brand-soft) 80%, transparent), transparent 72%),
+    linear-gradient(135deg, color-mix(in srgb, var(--brand-soft) 45%, var(--background)), color-mix(in srgb, var(--brand-soft) 12%, var(--background)));
 }
 .bg-mesh-soft {
   background:

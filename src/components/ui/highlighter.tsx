@@ -16,6 +16,9 @@ interface HighlighterProps {
   animationDuration?: number
   iterations?: number
   padding?: number
+  // Adaptado: separación relativa al tamaño de letra, en em. Si se pasa, reemplaza a padding. Negativa
+  // acerca el subrayado al texto, porque la caja de la tipografía baja bastante más que las letras.
+  paddingEm?: number
   multiline?: boolean
   isView?: boolean
   // Adaptado: deja que el texto se parta en varias líneas y subraya cada una
@@ -30,6 +33,7 @@ export function Highlighter({
   animationDuration = 600,
   iterations = 2,
   padding = 2,
+  paddingEm,
   multiline = true,
   isView = false,
   inline = false,
@@ -50,13 +54,16 @@ export function Highlighter({
     let resizeObserver: ResizeObserver | null = null
 
     if (shouldShow && element) {
+      const currentPadding = () =>
+        paddingEm === undefined ? padding : paddingEm * parseFloat(getComputedStyle(element).fontSize)
+
       const annotationConfig = {
         type: action,
         color,
         strokeWidth,
         animationDuration,
         iterations,
-        padding,
+        padding: currentPadding(),
         multiline,
       }
 
@@ -77,6 +84,7 @@ export function Highlighter({
         if (current === lastMeasure) return
         lastMeasure = current
         currentAnnotation.animate = false
+        currentAnnotation.padding = currentPadding()
         currentAnnotation.hide()
         currentAnnotation.show()
       }
@@ -93,7 +101,7 @@ export function Highlighter({
         resizeObserver.disconnect()
       }
     }
-  }, [shouldShow, action, color, strokeWidth, animationDuration, iterations, padding, multiline])
+  }, [shouldShow, action, color, strokeWidth, animationDuration, iterations, padding, paddingEm, multiline])
 
   return (
     <span ref={elementRef} className={inline ? "relative inline bg-transparent" : "relative inline-block bg-transparent"}>

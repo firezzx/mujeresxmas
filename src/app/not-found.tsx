@@ -15,7 +15,7 @@ export default function NotFound() {
   return (
     <main className="relative flex flex-1 flex-col">
       <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-5 pt-32 pb-40">
-        <BandBackdrop tone="green" image="/images/home/colegas-escalera.jpg" />
+        <BandBackdrop tone="green" />
         <PageHero
           eyebrow={
             <Eyebrow>Error 404</Eyebrow>

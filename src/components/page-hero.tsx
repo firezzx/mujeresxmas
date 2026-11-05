@@ -38,9 +38,9 @@ export function PageTitle({ children, className, delay = 0 }: PageTitleProps) {
   )
 }
 
-// Parte destacada de un título: subrayada a mano (Highlighter de Magic UI). Por defecto en rosa, que
-// es lo que resalta sobre el verde y el negro; sobre otros fondos se le pasa el color.
-export function BrandHighlight({ children, color = BRAND_HEX.pink }: { children: string; color?: string }) {
+// Parte destacada de un título: subrayada a mano, pegada al texto (Highlighter de Magic UI). Por defecto
+// en naranja, que resalta sobre los gradientes claros; sobre otros fondos se le pasa el color.
+export function BrandHighlight({ children, color = BRAND_HEX.brand }: { children: string; color?: string }) {
   return (
     <Highlighter
       isView
@@ -49,7 +49,7 @@ export function BrandHighlight({ children, color = BRAND_HEX.pink }: { children:
       color={color}
       strokeWidth={3}
       iterations={1}
-      padding={3}
+      paddingEm={-0.28}
       animationDuration={700}
     >
       {children}

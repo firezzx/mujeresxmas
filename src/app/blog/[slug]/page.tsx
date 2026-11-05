@@ -91,7 +91,7 @@ async function Post({ params }: { params: Props["params"] }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd(post) }} />
 
-      <Band tone="green" image="/images/home/marketing.jpg" className={cn("pt-28 md:pt-36", post.coverPath ? "pb-24 md:pb-32" : "pb-20 md:pb-28")}>
+      <Band tone="green" className={cn("pt-28 md:pt-36", post.coverPath ? "pb-24 md:pb-32" : "pb-20 md:pb-28")}>
         <div className="mx-auto mb-8 w-full max-w-4xl">
           <IconHoverArea className="w-fit">
             <Link

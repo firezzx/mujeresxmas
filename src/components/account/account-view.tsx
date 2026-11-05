@@ -29,7 +29,6 @@ export function AccountView({ user, membership, memberSince, courses, events, no
   return (
     <>
       <ColorHero
-        image="/images/home/comunidad-charla.jpg"
         compact
         overlap
         eyebrow="Mi cuenta"

@@ -41,8 +41,6 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
   return (
     <main className={MAIN_CLASS}>
       <ColorHero
-        tone="ink"
-        image="/images/home/equipo-laptop.jpg"
         compact
         eyebrow="Administración"
         title={

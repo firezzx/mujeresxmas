@@ -401,7 +401,6 @@ function HomeProduct() {
     <Band
       id={HOME_SECTION_IDS.products}
       tone="green"
-      image="/images/home/equipo-laptop.jpg"
       className="grid items-center gap-14 md:grid-cols-2"
     >
       <BlurFade inView>
@@ -471,7 +470,7 @@ type EventRow = { key: string; title: string; meta: string; startsAt: string; sa
 
 function HomeEvents({ events }: { events: EventRow[] }) {
   return (
-    <Band id={HOME_SECTION_IDS.events} tone="green" image="/images/home/colegas-escalera.jpg">
+    <Band id={HOME_SECTION_IDS.events} tone="green">
       <SectionTitle title={`${HOME_EVENTS.title} ${HOME_EVENTS.titleHighlight}`} />
       <ul className="flex flex-col gap-4">
         {events.map((event, index) => {

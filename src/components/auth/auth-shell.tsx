@@ -21,7 +21,7 @@ export function AuthShell({ eyebrow, title, description, children, backdrop }: A
   return (
     <main className="relative flex flex-1 flex-col">
       <section className="relative flex min-h-svh items-center overflow-hidden">
-        <BandBackdrop tone="green" image="/images/home/cierre-grupo.jpg" />
+        <BandBackdrop tone="green" />
         {backdrop}
 
         <div

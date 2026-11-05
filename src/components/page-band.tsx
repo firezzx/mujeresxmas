@@ -8,8 +8,8 @@ import { DotPattern } from "@/components/ui/dot-pattern"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { cn } from "@/lib/utils"
 
-// Piezas del estilo del sitio: franjas con gradientes de marca, textura de puntos y fotos, nunca un
-// color plano a todo el ancho. El corte en zigzag del manual va solo en el hero del inicio.
+// Piezas del estilo del sitio: franjas con gradientes suaves de marca y textura de puntos, nunca un
+// color plano ni una foto teñida a todo el ancho; las fotos van siempre enmarcadas. El corte en zigzag del manual va solo en el hero del inicio.
 
 export const PAGE_WIDTH_CLASS = "mx-auto w-full max-w-content px-5 sm:px-8 lg:px-9"
 // Marco blanco y sombra de las fotos, como copias pegadas sobre la franja
@@ -21,32 +21,18 @@ export const OVERLAP_CLASS = "z-10 -mt-12 pt-0 md:-mt-16 md:pt-0"
 const TONES = {
   white: { bg: "bg-background", text: "", dots: "" },
   soft: { bg: "bg-mesh-soft", text: "", dots: "text-brand-pink-strong/25" },
-  pink: { bg: "bg-mesh-pink", text: "", dots: "text-foreground/15" },
-  green: { bg: "bg-mesh-green", text: "", dots: "text-background/30" },
+  pink: { bg: "bg-mesh-pink", text: "", dots: "text-foreground/10" },
+  green: { bg: "bg-mesh-green", text: "", dots: "text-foreground/10" },
   ink: { bg: "bg-mesh-ink", text: "text-primary-foreground", dots: "text-background/20" },
 }
 
 export type BandTone = keyof typeof TONES
 
-// Fondo de una franja: gradiente, textura de puntos y, opcional, una foto teñida con el color.
-export function BandBackdrop({ tone, image }: { tone: BandTone; image?: string }) {
+// Fondo de una franja: gradiente y textura de puntos.
+export function BandBackdrop({ tone }: { tone: BandTone }) {
   const { bg, dots } = TONES[tone]
   return (
     <div aria-hidden className={cn("absolute inset-0 isolate overflow-hidden", bg)}>
-      {image && (
-        <Image
-          src={image}
-          alt=""
-          fill
-          sizes="100vw"
-          className={cn(
-            "object-cover",
-            tone === "ink"
-              ? "opacity-30 mix-blend-luminosity"
-              : "opacity-30 brightness-125 contrast-75 mix-blend-multiply"
-          )}
-        />
-      )}
       {dots && (
         <DotPattern
           width={22}
@@ -87,15 +73,12 @@ function ZigzagEdge({ className }: { className?: string }) {
 export function Band({
   id,
   tone = "white",
-  image,
   zigzag,
   className,
   children,
 }: {
   id?: string
   tone?: BandTone
-  // Foto de fondo, teñida con el color de la franja
-  image?: string
   // Termina abajo con el corte en zigzag rosa (solo el hero del inicio)
   zigzag?: boolean
   className?: string
@@ -103,17 +86,16 @@ export function Band({
 }) {
   return (
     <section id={id} className={cn("relative flow-root scroll-mt-20", TONES[tone].text)}>
-      <BandBackdrop tone={tone} image={image} />
+      <BandBackdrop tone={tone} />
       {zigzag && <ZigzagEdge />}
       <div className={cn(PAGE_WIDTH_CLASS, "relative py-16 md:py-24", className)}>{children}</div>
     </section>
   )
 }
 
-// Encabezado de página: franja con gradiente y foto, título y, opcional, algo al costado.
+// Encabezado de página: franja con gradiente, título y, opcional, algo al costado.
 export function ColorHero({
   tone = "green",
-  image,
   eyebrow,
   title,
   description,
@@ -123,7 +105,6 @@ export function ColorHero({
   overlap,
 }: {
   tone?: BandTone
-  image?: string
   eyebrow?: React.ReactNode
   title: React.ReactNode
   description?: React.ReactNode
@@ -137,7 +118,6 @@ export function ColorHero({
   return (
     <Band
       tone={tone}
-      image={image}
       className={cn(
         "grid items-center gap-10 pt-28 pb-20 md:pt-36 md:pb-28",
         aside && "lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16",
