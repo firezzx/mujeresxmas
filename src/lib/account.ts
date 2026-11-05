@@ -8,6 +8,8 @@ export type ActiveMembership = {
   planId: string
   planName: string
   planDescription: string | null
+  planPriceArs: number
+  planFeatures: string[]
   startedAt: string
 }
 
@@ -28,7 +30,7 @@ export const getAccountSummary = cache(async (): Promise<AccountSummary | null> 
     supabase.from("profiles").select("created_at").eq("id", user.id).maybeSingle(),
     supabase
       .from("memberships")
-      .select("started_at, plans (id, name, description)")
+      .select("started_at, plans (id, name, description, price_ars, features)")
       .eq("user_id", user.id)
       .eq("status", "active")
       .maybeSingle(),
@@ -36,7 +38,7 @@ export const getAccountSummary = cache(async (): Promise<AccountSummary | null> 
 
   // Sin tipos generados, Supabase no sabe que la relación es uno a uno
   const plan = membership?.plans as unknown as
-    | { id: string; name: string; description: string | null }
+    | { id: string; name: string; description: string | null; price_ars: number | null; features: string[] }
     | null
     | undefined
 
@@ -49,6 +51,8 @@ export const getAccountSummary = cache(async (): Promise<AccountSummary | null> 
             planId: plan.id,
             planName: plan.name,
             planDescription: plan.description,
+            planPriceArs: plan.price_ars ?? 0,
+            planFeatures: plan.features,
             startedAt: membership.started_at,
           }
         : null,

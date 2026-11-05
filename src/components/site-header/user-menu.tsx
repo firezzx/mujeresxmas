@@ -8,6 +8,7 @@ import { BellIcon } from "@/components/icons/bell"
 import { EyeIcon } from "@/components/icons/eye"
 import { LayoutPanelTopIcon } from "@/components/icons/layout-panel-top"
 import { LogoutIcon } from "@/components/icons/logout"
+import { SparklesIcon } from "@/components/icons/sparkles"
 import { UserIcon } from "@/components/icons/user"
 import { setNotificationsOpen } from "@/components/notifications/notifications-store"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -87,6 +88,9 @@ export function UserMenu({
         <DropdownMenuSeparator />
         <IconMenuItem icon={UserIcon} render={<Link href={ROUTES.miCuenta} />}>
           Mi cuenta
+        </IconMenuItem>
+        <IconMenuItem icon={SparklesIcon} render={<Link href={ROUTES.planes} />}>
+          Planes
         </IconMenuItem>
         <IconMenuItem icon={BellIcon} onClick={() => setNotificationsOpen(true)}>
           Notificaciones

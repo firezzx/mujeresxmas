@@ -12,7 +12,7 @@ import { BorderBeam } from "@/components/ui/border-beam"
 import { ROUTES } from "@/config/navigation"
 import type { getAccountSummary } from "@/lib/account"
 import type { CommunityEvent, Course } from "@/lib/content"
-import { formatDay, formatMonth } from "@/lib/format"
+import { formatDay, formatMonth, formatPrice } from "@/lib/format"
 import type { UserNotification } from "@/lib/notifications"
 import { cn } from "@/lib/utils"
 
@@ -41,12 +41,12 @@ export function AccountView({ user, membership, memberSince, courses, events, no
             "Hola"
           )
         }
-        description="Acá están tu membresía, tus cursos, tus eventos y tus avisos."
+        description="Acá están tu plan, tus cursos, tus eventos y tus avisos."
       />
 
       <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-4")}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
-          {/* Membresía */}
+          {/* Plan */}
           <div className="min-w-0 md:col-span-3">
             <BlurFade delay={0.26} inView className="h-full">
               <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-[0_24px_48px_-24px_rgb(26_26_26/0.45)] sm:p-10">
@@ -55,7 +55,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                   className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-brand-green/35 blur-3xl"
                 />
                 <div className="relative flex items-center justify-between gap-3">
-                  <h2 className="text-sm font-medium text-primary-foreground/70">Tu membresía</h2>
+                  <h2 className="text-sm font-medium text-primary-foreground/70">Tu plan</h2>
                   {membership && (
                     <span className="inline-flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-3 py-1 text-xs font-medium">
                       <span className="size-1.5 rounded-full bg-brand-green" aria-hidden />
@@ -74,8 +74,33 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                       </p>
                     )}
                     <p className="mt-4 text-sm text-primary-foreground/70">
-                      Desde el {formatDay(membership.startedAt)}
+                      {membership.planPriceArs > 0
+                        ? `${formatPrice(membership.planPriceArs)} por mes · `
+                        : "Sin costo · "}
+                      desde el {formatDay(membership.startedAt)}
                     </p>
+                    {membership.planFeatures.length > 0 && (
+                      <IconHoverArea className="mt-6 border-t border-primary-foreground/15 pt-6">
+                        <h3 className="text-sm font-medium text-primary-foreground/70">Qué incluye</h3>
+                        <ul className="mt-3 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
+                          {membership.planFeatures.map((feature) => (
+                            <li key={feature} className="flex items-start gap-2 text-sm leading-relaxed">
+                              <HoverIcon name="circle-check" size={16} className="mt-0.5 shrink-0 text-brand-green" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </IconHoverArea>
+                    )}
+                    <IconHoverArea className="mt-6 w-fit">
+                      <Link
+                        href={ROUTES.planes}
+                        className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-background px-5 py-2 text-sm font-medium text-foreground transition-colors duration-300 outline-none hover:bg-brand-soft focus-visible:ring-3 focus-visible:ring-ring/40"
+                      >
+                        <HoverIcon name="sparkles" size={16} />
+                        Ver los planes
+                      </Link>
+                    </IconHoverArea>
                   </div>
                 ) : (
                   <p className="relative mt-10 text-sm text-primary-foreground/70">

@@ -32,6 +32,7 @@ export const ROUTES = {
   bienestar: "/bienestar",
   conexion: "/conexion",
   quiero: "/quiero",
+  planes: "/planes",
   blog: "/blog",
   // Provisoria hasta que la clienta defina cómo se pide QUIERO (función 2)
   quieroSolicitud: "/quiero/solicitud",

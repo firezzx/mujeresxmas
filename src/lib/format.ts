@@ -65,3 +65,8 @@ export const formatTimeAgo = (iso: string, now: number) => {
   }
   return "recién"
 }
+
+// "$24.999": precio en pesos, sin centavos
+export function formatPrice(value: number) {
+  return `$${new Intl.NumberFormat("es-AR", { maximumFractionDigits: 0 }).format(value)}`
+}
