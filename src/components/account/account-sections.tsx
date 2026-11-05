@@ -1,9 +1,9 @@
 import Link from "next/link"
 
-import { markNotificationsRead } from "@/app/actions/notifications"
 import { AccountCard, EmptySection } from "@/components/account/account-card"
 import { IconBadge, type IconBadgeTone } from "@/components/icon-badge"
 import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hover-icon"
+import { OpenNotificationsButton } from "@/components/notifications/open-notifications-button"
 import { AnimatedList } from "@/components/ui/animated-list"
 import type { CommunityEvent, Course } from "@/lib/content"
 import { formatDateTime, formatDay } from "@/lib/format"
@@ -154,7 +154,7 @@ export function MyEvents({ events }: { events: CommunityEvent[] }) {
   )
 }
 
-// Cuántas se muestran en Mi cuenta (las demás quedan para una página propia más adelante)
+// Cuántas se muestran en Mi cuenta: todas se ven en el panel lateral
 const VISIBLE_NOTIFICATIONS = 4
 
 export function MyNotifications({ notifications }: { notifications: UserNotification[] }) {
@@ -171,7 +171,6 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
   }
 
   const unread = countUnread(notifications)
-  const unreadIds = notifications.filter((n) => !n.read).map((n) => n.id)
 
   return (
     <SectionCard
@@ -184,21 +183,7 @@ export function MyNotifications({ notifications }: { notifications: UserNotifica
           </span>
         )
       }
-      footer={
-        unread > 0 && (
-          <form action={markNotificationsRead.bind(null, unreadIds)}>
-            <IconHoverArea>
-              <button
-                type="submit"
-                className="inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-lg text-sm font-medium ring-1 ring-border transition-[background-color,box-shadow] duration-300 hover:bg-foreground/[0.04] hover:ring-foreground/20"
-              >
-                <HoverIcon name="check-check" size={16} />
-                Marcar todas como leídas
-              </button>
-            </IconHoverArea>
-          </form>
-        )
-      }
+      footer={<OpenNotificationsButton label="Ver todas" />}
     >
       <ItemList>
         {notifications.slice(0, VISIBLE_NOTIFICATIONS).map((notification) => (

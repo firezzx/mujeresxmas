@@ -138,10 +138,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
             <MyEvents events={events} />
           </BlurFade>
           <BlurFade delay={0.54} inView className="h-full min-w-0">
-            {/* Destino de "Notificaciones" en el menú de la cuenta */}
-            <div id="notificaciones" className="h-full scroll-mt-28">
-              <MyNotifications notifications={notifications} />
-            </div>
+            <MyNotifications notifications={notifications} />
           </BlurFade>
         </div>
       </Band>

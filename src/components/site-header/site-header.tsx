@@ -10,6 +10,7 @@ import { IconLink } from "@/components/buttons/icon-link"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { UserIcon } from "@/components/icons/user"
 import { MobileMenu } from "@/components/site-header/mobile-menu"
+import { NotificationsBell } from "@/components/notifications/notifications-bell"
 import { UserMenu } from "@/components/site-header/user-menu"
 import { JOIN_LABEL, MAIN_NAV, ROUTES } from "@/config/navigation"
 import type { AdminView } from "@/lib/admin"
@@ -24,7 +25,7 @@ type SiteHeaderProps = {
   adminView?: AdminView | null
   // true mientras se resuelve la sesión: muestra un lugar reservado en vez de botones
   pending?: boolean
-  // Notificaciones sin leer de la usuaria (punto en el avatar)
+  // Notificaciones sin leer de la usuaria (contador de la campana)
   unread?: number
 }
 
@@ -198,7 +199,14 @@ function UserAccess({
   if (pending) {
     return <span aria-hidden className="block size-10 animate-pulse rounded-lg bg-muted" />
   }
-  if (user) return <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} />
+  if (user) {
+    return (
+      <div className="flex items-center gap-2.5">
+        <NotificationsBell unread={unread} />
+        <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} />
+      </div>
+    )
+  }
   return (
     <>
       <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={onNavigate} />

@@ -9,6 +9,7 @@ import { EyeIcon } from "@/components/icons/eye"
 import { LayoutPanelTopIcon } from "@/components/icons/layout-panel-top"
 import { LogoutIcon } from "@/components/icons/logout"
 import { UserIcon } from "@/components/icons/user"
+import { setNotificationsOpen } from "@/components/notifications/notifications-store"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -56,22 +57,10 @@ export function UserMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label={
-          unread
-            ? `Abrir menú de mi cuenta (${unread} ${unread === 1 ? "notificación sin leer" : "notificaciones sin leer"})`
-            : "Abrir menú de mi cuenta"
-        }
+        aria-label="Abrir menú de mi cuenta"
         className="relative rounded-lg p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/20 focus-visible:ring-3 focus-visible:ring-ring/40"
       >
         <UserAvatar user={user} />
-        {unread > 0 && (
-          <span
-            aria-hidden
-            className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-brand ring-2 ring-background"
-          >
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-50" />
-          </span>
-        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align={align}
@@ -89,7 +78,7 @@ export function UserMenu({
         <IconMenuItem icon={UserIcon} render={<Link href={ROUTES.miCuenta} />}>
           Mi cuenta
         </IconMenuItem>
-        <IconMenuItem icon={BellIcon} render={<Link href={`${ROUTES.miCuenta}#notificaciones`} />}>
+        <IconMenuItem icon={BellIcon} onClick={() => setNotificationsOpen(true)}>
           Notificaciones
           {unread > 0 && (
             <span className="ml-auto rounded-md bg-brand-strong px-2 py-0.5 text-xs leading-none font-semibold text-brand-foreground">

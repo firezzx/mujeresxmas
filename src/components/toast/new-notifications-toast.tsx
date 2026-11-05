@@ -1,14 +1,15 @@
 "use client"
 
-import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useEffectEvent } from "react"
 
+import { setNotificationsOpen } from "@/components/notifications/notifications-store"
 import { useToast } from "@/components/toast/toaster"
 import { ROUTES } from "@/config/navigation"
 
 // Recuerda en el navegador qué avisos ya se mostraron, para no repetirlos en cada página
 const SEEN_KEY = "mxm_avisos_vistos"
+const TOAST_ID = "notificaciones-nuevas"
 
 type NewNotificationsToastProps = {
   // Notificaciones sin leer, de la más nueva a la más vieja
@@ -18,7 +19,7 @@ type NewNotificationsToastProps = {
 // Al entrar al sitio con notificaciones sin leer, avisa abajo a la derecha una sola vez por
 // notificación. En Mi cuenta no hace falta: ahí ya se ven.
 export function NewNotificationsToast({ unread }: NewNotificationsToastProps) {
-  const { toast } = useToast()
+  const { toast, dismiss } = useToast()
   const pathname = usePathname()
   const latestId = unread[0]?.id
 
@@ -37,17 +38,21 @@ export function NewNotificationsToast({ unread }: NewNotificationsToastProps) {
     } catch {}
 
     toast({
-      id: "notificaciones-nuevas",
+      id: TOAST_ID,
       tone: "notice",
       title: fresh.length === 1 ? "Tenés una notificación nueva" : `Tenés ${fresh.length} notificaciones nuevas`,
       message: fresh[0].title,
       action: (
-        <Link
-          href={`${ROUTES.miCuenta}#notificaciones`}
-          className="text-foreground underline decoration-brand underline-offset-4"
+        <button
+          type="button"
+          onClick={() => {
+            dismiss(TOAST_ID)
+            setNotificationsOpen(true)
+          }}
+          className="cursor-pointer text-foreground underline decoration-brand underline-offset-4"
         >
           Ver notificaciones
-        </Link>
+        </button>
       ),
     })
   })
