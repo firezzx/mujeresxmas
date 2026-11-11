@@ -342,7 +342,7 @@ export function LandingMoments() {
 // Franja oscura: los pasos unidos por un hilo punteado
 export function LandingSteps() {
   return (
-    <DarkSection>
+    <DarkSection screen={false}>
       <SectionHeading eyebrow={HOME_STEPS.eyebrow} title={HOME_STEPS.title} accent={HOME_STEPS.titleHighlight} />
       <ol className="relative grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
         {/* Hilo que une los pasos en escritorio */}
@@ -354,9 +354,10 @@ export function LandingSteps() {
           <li key={step.title} className="relative min-w-0">
             <BlurFade inView delay={0.08 * index} className="flex flex-col items-center gap-4 text-center">
               <IconHoverArea className="flex flex-col items-center gap-4">
-                <span className="surface-light relative rounded-xl bg-background p-1.5 shadow-[0_12px_28px_-14px_rgb(26_26_26/0.35)] ring-1 ring-border">
-                  <IconBadge tone={cycleTone(index)}>
-                    <HoverIcon name={step.icon} size={22} />
+                {/* Fondo del color de la franja debajo del tinte, para que el hilo no se vea a través */}
+                <span className="relative rounded-xl bg-primary">
+                  <IconBadge tone={cycleTone(index)} size="lg">
+                    <HoverIcon name={step.icon} size={24} />
                   </IconBadge>
                   <span className="absolute -top-2.5 -right-2.5 flex size-6 items-center justify-center rounded-full bg-foreground font-heading text-xs font-semibold text-background">
                     {index + 1}
@@ -369,7 +370,7 @@ export function LandingSteps() {
           </li>
         ))}
       </ol>
-      <BlurFade inView delay={0.1} className="mt-12 flex justify-center">
+      <BlurFade inView delay={0.1} className="mt-10 flex justify-center">
         <RegisterCta className="w-full sm:w-auto" />
       </BlurFade>
     </DarkSection>

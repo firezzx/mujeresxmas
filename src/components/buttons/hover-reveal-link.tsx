@@ -18,7 +18,7 @@ type HoverRevealLinkProps = Omit<React.ComponentProps<typeof Link>, "children"> 
 
 // CTA secundario: el Interactive Hover Button de Magic UI adaptado a link.
 // Al pasar el mouse, el punto de color crece hasta llenar el botón y aparece la flecha. Sobre una
-// franja negra (surface-dark) el relleno es verde con texto oscuro, para que no se pierda en el fondo.
+// franja negra (surface-dark) el relleno es verde con texto blanco, para que no se pierda en el fondo.
 export function HoverRevealLink({ children, size = "lg", className, ...props }: HoverRevealLinkProps) {
   const { iconRef, triggerProps } = useIconAnimation<ArrowRightIconHandle>()
 
@@ -48,7 +48,7 @@ export function HoverRevealLink({ children, size = "lg", className, ...props }: 
       </span>
       <span
         aria-hidden
-        className="absolute inset-0 z-10 flex translate-x-10 items-center justify-center gap-2 text-white opacity-0 in-[.surface-dark]:text-primary transition-[translate,opacity] duration-[400ms] ease-premium group-hover:translate-x-0 group-hover:delay-100 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+        className="absolute inset-0 z-10 flex translate-x-10 items-center justify-center gap-2 text-white opacity-0 in-[.surface-dark]:font-semibold transition-[translate,opacity] duration-[400ms] ease-premium group-hover:translate-x-0 group-hover:delay-100 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
       >
         {children}
         <ArrowRightIcon ref={iconRef} size={16} className="pointer-events-none" />
