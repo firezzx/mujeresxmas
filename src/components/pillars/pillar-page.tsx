@@ -166,10 +166,10 @@ export function PillarPage({ pillar }: { pillar: Pillar }) {
         </Band>
       )}
 
-      <Band tone={pillar.extra ? "white" : "soft"}>
+      <Band image={pillar.image}>
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
           <BlurFade inView>
-            <p className="font-hand text-3xl leading-none font-semibold text-brand-green-strong sm:text-4xl">
+            <p className="font-hand text-3xl leading-none font-semibold text-brand-soft sm:text-4xl">
               {PILLAR_CLOSING.hand}
             </p>
           </BlurFade>
@@ -190,8 +190,10 @@ export function PillarPage({ pillar }: { pillar: Pillar }) {
             </div>
           </BlurFade>
         </div>
+      </Band>
 
-        <div className="mt-16 md:mt-24">
+      <Band tone={pillar.extra ? "white" : "soft"}>
+        <div>
           <BlurFade inView>
             <h2 className="mb-6 font-heading text-2xl font-semibold tracking-[-0.01em]">
               {PILLAR_CLOSING.othersTitle}

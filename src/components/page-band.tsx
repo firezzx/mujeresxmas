@@ -23,7 +23,7 @@ const TONES = {
   soft: { bg: "bg-mesh-soft", text: "", dots: "text-brand-pink-strong/25" },
   pink: { bg: "bg-mesh-pink", text: "", dots: "text-foreground/10" },
   green: { bg: "bg-mesh-green", text: "", dots: "text-foreground/10" },
-  ink: { bg: "bg-mesh-ink", text: "text-primary-foreground", dots: "text-background/20" },
+  ink: { bg: "bg-mesh-ink", text: "surface-dark", dots: "text-background/20" },
 }
 
 export type BandTone = keyof typeof TONES
@@ -69,24 +69,45 @@ function ZigzagEdge({ className }: { className?: string }) {
   )
 }
 
-// Franja a todo el ancho con el contenido centrado.
+// Fondo de foto para las franjas de contraste: la imagen a todo el ancho con un velo oscuro de
+// marca y la textura de puntos encima, para que el texto blanco se lea siempre.
+function PhotoBackdrop({ image }: { image: string }) {
+  return (
+    <div aria-hidden className="absolute inset-0 isolate overflow-hidden bg-primary">
+      <Image src={image} alt="" fill sizes="100vw" className="object-cover" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/90 via-primary/80 to-primary/70" />
+      <div className="absolute inset-0 bg-[radial-gradient(60%_80%_at_100%_100%,color-mix(in_srgb,var(--brand-green)_30%,transparent),transparent_70%)]" />
+      <DotPattern
+        width={22}
+        height={22}
+        cr={1.2}
+        className="text-background/20 [mask-image:radial-gradient(70%_70%_at_50%_50%,white,transparent)]"
+      />
+    </div>
+  )
+}
+
+// Franja a todo el ancho con el contenido centrado. Con `image`, es una franja de contraste: la foto
+// de fondo con velo oscuro y el texto en blanco.
 export function Band({
   id,
   tone = "white",
+  image,
   zigzag,
   className,
   children,
 }: {
   id?: string
   tone?: BandTone
+  image?: string
   // Termina abajo con el corte en zigzag rosa (solo el hero del inicio)
   zigzag?: boolean
   className?: string
   children: React.ReactNode
 }) {
   return (
-    <section id={id} className={cn("relative flow-root scroll-mt-20", TONES[tone].text)}>
-      <BandBackdrop tone={tone} />
+    <section id={id} className={cn("relative flow-root scroll-mt-20", image ? "surface-dark" : TONES[tone].text)}>
+      {image ? <PhotoBackdrop image={image} /> : <BandBackdrop tone={tone} />}
       {zigzag && <ZigzagEdge />}
       <div className={cn(PAGE_WIDTH_CLASS, "relative py-16 md:py-24", className)}>{children}</div>
     </section>

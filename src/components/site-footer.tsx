@@ -14,7 +14,7 @@ const FOOTER_LINKS = [
 // Footer del sitio: logo, eslogan y links.
 export function SiteFooter() {
   return (
-    <footer className="relative text-primary-foreground">
+    <footer className="relative border-t border-background/10 text-primary-foreground">
       <BandBackdrop tone="ink" />
       <div className="relative">
         <div className="mx-auto flex max-w-content flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-9">

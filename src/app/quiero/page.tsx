@@ -69,7 +69,7 @@ export default function QuieroPage() {
         </ul>
       </Band>
 
-      <Band tone="pink" className="flex flex-col items-center gap-8 text-center">
+      <Band tone="ink" className="flex flex-col items-center gap-8 text-center">
         <BlurFade inView>
           <h2 className={HERO_TITLE_CLASS}>
             {QUIERO_PAGE.closingTitle} {QUIERO_PAGE.closingHighlight}

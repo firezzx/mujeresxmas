@@ -264,6 +264,8 @@ export const PILLARS_PAGE = {
   academyLabel: "Academia",
   // Dato destacado de Conexión
   networkStat: { value: "+28", label: "localidades con encuentros abiertos" },
+  // Foto de fondo del cierre (va con un velo oscuro encima)
+  closingImage: "/images/home/colegas-escalera.jpg",
   closingHand: "no caminás sola",
   closingTitle: "Elegí tu membresía y",
   closingHighlight: "empezá hoy",

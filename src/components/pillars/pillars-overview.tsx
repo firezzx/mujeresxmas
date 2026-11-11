@@ -126,11 +126,11 @@ function DesarrolloSection({ pillar }: { pillar: Pillar }) {
 
       {pillar.extra && (
         <BlurFade inView delay={0.08} className="mt-14 sm:mt-20">
-          <div className="relative overflow-hidden rounded-xl px-6 py-8 ring-1 ring-foreground/10 sm:px-10 sm:py-10">
-            <BandBackdrop tone="green" />
+          <div className="surface-dark relative overflow-hidden rounded-xl px-6 py-8 sm:px-10 sm:py-10">
+            <BandBackdrop tone="ink" />
             <div className="relative grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
               <div className="flex flex-col gap-3">
-                <span className="w-fit rounded-md bg-background px-2.5 py-1 font-heading text-xs font-semibold tracking-[0.16em] uppercase">
+                <span className="w-fit rounded-md bg-brand-soft px-2.5 py-1 font-heading text-xs font-semibold tracking-[0.16em] text-primary uppercase">
                   {PILLARS_PAGE.academyLabel}
                 </span>
                 <h3 className="font-heading text-2xl leading-tight font-semibold tracking-[-0.01em] text-balance sm:text-3xl">
@@ -141,7 +141,7 @@ function DesarrolloSection({ pillar }: { pillar: Pillar }) {
               <ul className="flex flex-wrap gap-2.5">
                 {pillar.extra.items.map((item, i) => (
                   <li key={item.title}>
-                    <IconHoverArea className="flex items-center gap-2.5 rounded-lg bg-background/90 py-1.5 pr-3.5 pl-1.5 shadow-[0_8px_24px_-14px_rgb(26_26_26/0.45)] ring-1 ring-foreground/10">
+                    <IconHoverArea className="surface-light flex items-center gap-2.5 rounded-lg bg-background py-1.5 pr-3.5 pl-1.5 shadow-[0_8px_24px_-14px_rgb(0_0_0/0.6)]">
                       <IconBadge tone={cycleTone(i)} size="sm">
                         <HoverIcon name={item.icon} size={16} />
                       </IconBadge>
@@ -307,7 +307,7 @@ export function PillarsOverview() {
       <BienestarSection pillar={PILLARS.bienestar} />
       <ConexionSection pillar={PILLARS.conexion} />
 
-      <Band tone="green">
+      <Band image={PILLARS_PAGE.closingImage}>
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
           <BlurFade inView>
             <p className="font-hand text-3xl leading-none font-semibold sm:text-4xl">{PILLARS_PAGE.closingHand}</p>

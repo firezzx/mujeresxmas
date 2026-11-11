@@ -116,6 +116,8 @@ export const HOME_PLANS = {
 } satisfies { perks: { icon: IconName; hand: string; title: string; text: string }[] } & Record<string, unknown>
 
 export const HOME_STEPS = {
+  // Foto de fondo de la franja (va con un velo oscuro encima)
+  image: "/images/home/socias-negocio.jpg",
   eyebrow: "Cómo funciona",
   title: "Empezá en",
   titleHighlight: "tres pasos",

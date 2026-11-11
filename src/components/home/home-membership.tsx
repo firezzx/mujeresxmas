@@ -76,9 +76,10 @@ function SectionIntro({
 
 const STAT_COLORS = ["text-brand-green-strong", "text-brand-pink-strong", "text-brand"]
 
+// Franja oscura con textura: el primer golpe de contraste de la página
 export function HomeImpact() {
   return (
-    <Band className="pt-10 pb-16 md:pt-14 md:pb-24">
+    <Band tone="ink">
       <section aria-label={HOME_IMPACT.label} className="flex flex-col gap-10">
         <BlurFade inView>
           <Eyebrow>{HOME_IMPACT.label}</Eyebrow>
@@ -261,9 +262,10 @@ export function HomePlans() {
 
 // ─── Cómo funciona ───────────────────────────────────────────────────────────────────────
 
+// Sobre foto con velo oscuro, para cortar la seguidilla de franjas claras
 export function HomeSteps() {
   return (
-    <Band>
+    <Band image={HOME_STEPS.image}>
       <SectionIntro
         center
         eyebrow={HOME_STEPS.eyebrow}
@@ -280,7 +282,7 @@ export function HomeSteps() {
           <li key={step.title} className="relative min-w-0">
             <BlurFade inView delay={0.08 * index} className="flex flex-col items-center gap-4 text-center">
               <IconHoverArea className="flex flex-col items-center gap-4">
-                <span className="relative rounded-xl bg-background p-1.5 shadow-[0_12px_28px_-14px_rgb(26_26_26/0.35)] ring-1 ring-border">
+                <span className="surface-light relative rounded-xl bg-background p-1.5 shadow-[0_12px_28px_-14px_rgb(26_26_26/0.35)] ring-1 ring-border">
                   <IconBadge tone={cycleTone(index)}>
                     <HoverIcon name={step.icon} size={22} />
                   </IconBadge>
