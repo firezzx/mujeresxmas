@@ -426,18 +426,26 @@ html:not([data-session="in"]) .only-member {
    fuertes de marca se aclaran. Las piezas blancas de adentro (tarjetas, botones) vuelven a los
    colores normales con .surface-light. */
 .surface-dark {
+  --background: color-mix(in srgb, var(--primary-foreground) 7%, var(--primary));
   --foreground: var(--primary-foreground);
   --muted-foreground: color-mix(in srgb, var(--primary-foreground) 74%, transparent);
-  --border: color-mix(in srgb, var(--primary-foreground) 18%, transparent);
-  --brand-green-strong: var(--brand-green);
-  --brand-pink-strong: var(--brand-soft);
+  --border: color-mix(in srgb, var(--primary-foreground) 16%, transparent);
+  --brand-green-strong: color-mix(in srgb, var(--brand-green) 75%, var(--primary-foreground));
+  --brand-pink-strong: color-mix(in srgb, var(--brand-soft) 70%, var(--primary-foreground));
+  /* Las que leen --color-* directo (Magic Card) toman los valores de esta franja */
+  --color-background: var(--background);
+  --color-border: var(--border);
   color: var(--foreground);
 }
 .surface-light {
+  --background: var(--primary-foreground);
   --foreground: var(--primary);
   --muted-foreground: #666666;
   --border: #e5e5e5;
   --brand-green-strong: #3a8f6d;
   --brand-pink-strong: #c4488a;
+  /* Las que leen --color-* directo (Magic Card) toman los valores de esta franja */
+  --color-background: var(--background);
+  --color-border: var(--border);
   color: var(--foreground);
 }

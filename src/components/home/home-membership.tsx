@@ -76,10 +76,9 @@ function SectionIntro({
 
 const STAT_COLORS = ["text-brand-green-strong", "text-brand-pink-strong", "text-brand"]
 
-// Franja oscura con textura: el primer golpe de contraste de la página
 export function HomeImpact() {
   return (
-    <Band tone="ink">
+    <Band className="pt-10 pb-16 md:pt-14 md:pb-24">
       <section aria-label={HOME_IMPACT.label} className="flex flex-col gap-10">
         <BlurFade inView>
           <Eyebrow>{HOME_IMPACT.label}</Eyebrow>
@@ -182,9 +181,10 @@ export function HomePillars() {
 
 // ─── Momentos ────────────────────────────────────────────────────────────────────────────
 
+// Franja oscura con textura: las tarjetas toman el tema oscuro
 export function HomeMoments() {
   return (
-    <Band>
+    <Band tone="ink">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-16">
         <SectionIntro
           eyebrow={HOME_MOMENTS.eyebrow}

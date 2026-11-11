@@ -53,7 +53,7 @@ function PillarHeading({ pillar, centered = false }: { pillar: Pillar; centered?
 
 function FramedPhoto({ pillar, className, sizes }: { pillar: Pillar; className?: string; sizes: string }) {
   return (
-    <div className="relative">
+    <div className="surface-light relative">
       <div className={cn(PHOTO_FRAME_CLASS, className)}>
         <Image src={pillar.image} alt={pillar.imageAlt} fill sizes={sizes} className="object-cover" />
       </div>
@@ -100,7 +100,7 @@ function MoreLink({ pillar, className }: { pillar: Pillar; className?: string })
 function DesarrolloSection({ pillar }: { pillar: Pillar }) {
   const [featured, ...rest] = pillar.services.items
   return (
-    <Band id={pillar.slug} tone="white">
+    <Band id={pillar.slug} tone="ink">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
         <div className="flex flex-col gap-8 lg:sticky lg:top-28 lg:self-start">
           <PillarHeading pillar={pillar} />
@@ -126,11 +126,11 @@ function DesarrolloSection({ pillar }: { pillar: Pillar }) {
 
       {pillar.extra && (
         <BlurFade inView delay={0.08} className="mt-14 sm:mt-20">
-          <div className="surface-dark relative overflow-hidden rounded-xl px-6 py-8 sm:px-10 sm:py-10">
-            <BandBackdrop tone="ink" />
+          <div className="surface-light relative overflow-hidden rounded-xl px-6 py-8 sm:px-10 sm:py-10">
+            <BandBackdrop tone="green" />
             <div className="relative grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
               <div className="flex flex-col gap-3">
-                <span className="w-fit rounded-md bg-brand-soft px-2.5 py-1 font-heading text-xs font-semibold tracking-[0.16em] text-primary uppercase">
+                <span className="w-fit rounded-md bg-background px-2.5 py-1 font-heading text-xs font-semibold tracking-[0.16em] uppercase">
                   {PILLARS_PAGE.academyLabel}
                 </span>
                 <h3 className="font-heading text-2xl leading-tight font-semibold tracking-[-0.01em] text-balance sm:text-3xl">
@@ -141,7 +141,7 @@ function DesarrolloSection({ pillar }: { pillar: Pillar }) {
               <ul className="flex flex-wrap gap-2.5">
                 {pillar.extra.items.map((item, i) => (
                   <li key={item.title}>
-                    <IconHoverArea className="surface-light flex items-center gap-2.5 rounded-lg bg-background py-1.5 pr-3.5 pl-1.5 shadow-[0_8px_24px_-14px_rgb(0_0_0/0.6)]">
+                    <IconHoverArea className="flex items-center gap-2.5 rounded-lg bg-background/90 py-1.5 pr-3.5 pl-1.5 shadow-[0_8px_24px_-14px_rgb(26_26_26/0.45)] ring-1 ring-foreground/10">
                       <IconBadge tone={cycleTone(i)} size="sm">
                         <HoverIcon name={item.icon} size={16} />
                       </IconBadge>

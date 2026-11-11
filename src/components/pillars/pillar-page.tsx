@@ -134,7 +134,8 @@ export function PillarPage({ pillar }: { pillar: Pillar }) {
         }
       />
 
-      <Band>
+      {/* Franja oscura con textura: las tarjetas toman el tema oscuro */}
+      <Band tone="ink">
         <SectionHead
           eyebrow={`Pilar ${pillar.name}`}
           title={pillar.services.title}
@@ -166,6 +167,29 @@ export function PillarPage({ pillar }: { pillar: Pillar }) {
         </Band>
       )}
 
+      <Band tone="white">
+        <div>
+          <BlurFade inView>
+            <h2 className="mb-6 font-heading text-2xl font-semibold tracking-[-0.01em]">
+              {PILLAR_CLOSING.othersTitle}
+            </h2>
+          </BlurFade>
+          <ul className="grid auto-rows-[14rem] grid-cols-1 gap-4 sm:auto-rows-[16rem] md:grid-cols-2">
+            {others.map((other, index) => (
+              <li key={other.slug} className="min-w-0">
+                <PhotoTile
+                  image={other.image}
+                  icon={other.icon}
+                  index={index}
+                  title={other.name}
+                  text={other.summary}
+                  href={other.href}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Band>
       <Band image={pillar.image}>
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
           <BlurFade inView>
@@ -189,30 +213,6 @@ export function PillarPage({ pillar }: { pillar: Pillar }) {
               </HoverRevealLink>
             </div>
           </BlurFade>
-        </div>
-      </Band>
-
-      <Band tone={pillar.extra ? "white" : "soft"}>
-        <div>
-          <BlurFade inView>
-            <h2 className="mb-6 font-heading text-2xl font-semibold tracking-[-0.01em]">
-              {PILLAR_CLOSING.othersTitle}
-            </h2>
-          </BlurFade>
-          <ul className="grid auto-rows-[14rem] grid-cols-1 gap-4 sm:auto-rows-[16rem] md:grid-cols-2">
-            {others.map((other, index) => (
-              <li key={other.slug} className="min-w-0">
-                <PhotoTile
-                  image={other.image}
-                  icon={other.icon}
-                  index={index}
-                  title={other.name}
-                  text={other.summary}
-                  href={other.href}
-                />
-              </li>
-            ))}
-          </ul>
         </div>
       </Band>
     </main>
