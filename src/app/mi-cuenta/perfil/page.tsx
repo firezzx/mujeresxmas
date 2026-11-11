@@ -6,9 +6,9 @@ import { Suspense } from "react"
 import { AccountCard } from "@/components/account/account-card"
 import { AvatarUploader } from "@/components/account/avatar-uploader"
 import { ProfileForm } from "@/components/account/profile-form"
-import { Band, ColorHero, OVERLAP_CLASS } from "@/components/page-band"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { BrandHighlight } from "@/components/page-hero"
+import { PageIntro } from "@/components/landing/screen"
+import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { ROUTES } from "@/config/navigation"
 import { getEditableProfile } from "@/lib/account"
@@ -22,9 +22,7 @@ export const metadata: Metadata = {
 export default function PerfilPage() {
   return (
     <main className="relative flex flex-1 flex-col">
-      <ColorHero
-        compact
-        overlap
+      <PageIntro
         eyebrow={
           <IconHoverArea className="inline-flex">
             <Link
@@ -38,17 +36,19 @@ export default function PerfilPage() {
         }
         title={
           <>
-            Editá <BrandHighlight>tus datos</BrandHighlight>
+            Editá <span className="text-brand-green-strong">tus datos</span>
           </>
         }
         description="Así te van a conocer en la comunidad. Podés cambiarlos cuando quieras."
       />
 
-      <Band className={cn(OVERLAP_CLASS, "max-w-3xl")}>
-        <Suspense fallback={<div aria-hidden className="h-[520px] animate-pulse rounded-xl bg-foreground/[0.04]" />}>
-          <ProfileEditor />
-        </Suspense>
-      </Band>
+      <div className={cn(PAGE_WIDTH_CLASS, "pb-20 md:pb-28")}>
+        <div className="max-w-3xl">
+          <Suspense fallback={<div aria-hidden className="h-[520px] animate-pulse rounded-xl bg-foreground/[0.04]" />}>
+            <ProfileEditor />
+          </Suspense>
+        </div>
+      </div>
     </main>
   )
 }

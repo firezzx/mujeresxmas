@@ -2,16 +2,6 @@ import { BlurFade } from "@/components/ui/blur-fade"
 import { Highlighter } from "@/components/ui/highlighter"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { BRAND_HEX } from "@/config/brand-effects"
-import { cn } from "@/lib/utils"
-
-type PageHeroProps = {
-  eyebrow?: React.ReactNode
-  title: React.ReactNode
-  description?: React.ReactNode
-  actions?: React.ReactNode
-  className?: string
-  children?: React.ReactNode
-}
 
 export const HERO_TITLE_CLASS =
   "relative font-heading text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-6xl md:text-[4rem]"
@@ -56,50 +46,6 @@ export function BrandHighlight({ children, color = BRAND_HEX.brand }: { children
     </Highlighter>
   )
 }
-
-// Encabezado estándar de página con la animación de aparición escalonada del sitio.
-// Todas las páginas lo usan para que entren igual.
-export function PageHero({ eyebrow, title, description, actions, className, children }: PageHeroProps) {
-  // El título tiene su propia animación; el resto entra con Blur Fade, todo escalonado
-  const TITLE = "title"
-  const items = [
-    eyebrow && <div key="eyebrow">{eyebrow}</div>,
-    TITLE,
-    description && (
-      <p key="description" className="mx-auto max-w-xl text-base leading-relaxed text-pretty sm:text-lg">
-        {description}
-      </p>
-    ),
-    actions && (
-      <div key="actions" className="flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
-        {actions}
-      </div>
-    ),
-    children,
-  ].filter(Boolean)
-
-  return (
-    <div
-      className={cn(
-        "relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center sm:gap-7",
-        className
-      )}
-    >
-      {items.map((item, i) =>
-        item === TITLE ? (
-          <PageTitle key={TITLE} delay={0.08 + i * 0.08} className={cn(HERO_TITLE_CLASS, "w-full")}>
-            {title}
-          </PageTitle>
-        ) : (
-          <BlurFade key={i} delay={0.08 + i * 0.08} inView className="w-full">
-            {item}
-          </BlurFade>
-        )
-      )}
-    </div>
-  )
-}
-
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center font-heading text-[13px] font-medium tracking-[0.16em] uppercase">

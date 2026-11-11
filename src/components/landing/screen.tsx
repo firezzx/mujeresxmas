@@ -1,6 +1,6 @@
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { RegisterCta } from "@/components/cta/register-cta"
-import { DarkBackdrop, HEADING_CLASS } from "@/components/landing/landing-ui"
+import { DarkBackdrop, HEADING_CLASS, Pill } from "@/components/landing/landing-ui"
 import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { BrandHighlight } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -75,6 +75,39 @@ export function ScreenClosing({
         <div className="mt-2 w-full sm:w-auto">{children}</div>
       </BlurFade>
     </ScreenSection>
+  )
+}
+
+// Portada clara y corta para páginas de trabajo (Mi cuenta, perfil): rótulo, título y bajada,
+// con las luces de marca detrás. No ocupa toda la pantalla porque el contenido va enseguida.
+export function PageIntro({
+  eyebrow,
+  title,
+  description,
+  className,
+}: {
+  eyebrow?: React.ReactNode
+  title: React.ReactNode
+  description?: string
+  className?: string
+}) {
+  return (
+    <section className="relative isolate overflow-hidden">
+      <HeroLights />
+      <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col items-start pt-32 pb-10 md:pt-40 md:pb-12", className)}>
+        {eyebrow && <BlurFade>{typeof eyebrow === "string" ? <Pill>{eyebrow}</Pill> : eyebrow}</BlurFade>}
+        <BlurFade delay={0.06}>
+          <h1 className={cn(HEADING_CLASS, "mt-6 text-[2.75rem] leading-[1] sm:text-6xl lg:text-7xl")}>{title}</h1>
+        </BlurFade>
+        {description && (
+          <BlurFade delay={0.12}>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">
+              {description}
+            </p>
+          </BlurFade>
+        )}
+      </div>
+    </section>
   )
 }
 

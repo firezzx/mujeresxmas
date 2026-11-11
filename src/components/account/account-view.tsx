@@ -3,12 +3,12 @@ import Link from "next/link"
 import { AccountCard } from "@/components/account/account-card"
 import { MyCourses, MyEvents, MyNotifications } from "@/components/account/account-sections"
 import { SignOutButton } from "@/components/account/sign-out-button"
-import { Band, ColorHero, OVERLAP_CLASS } from "@/components/page-band"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { BrandHighlight } from "@/components/page-hero"
+import { DarkBackdrop } from "@/components/landing/landing-ui"
+import { PageIntro } from "@/components/landing/screen"
+import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { BorderBeam } from "@/components/ui/border-beam"
 import { ROUTES } from "@/config/navigation"
 import type { getAccountSummary } from "@/lib/account"
 import type { CommunityEvent, Course } from "@/lib/content"
@@ -22,20 +22,19 @@ type AccountViewProps = NonNullable<Awaited<ReturnType<typeof getAccountSummary>
   notifications: UserNotification[]
 }
 
-// Mi cuenta: encabezado de color, membresía y datos montados sobre el borde, y una tarjeta por sección.
+// Mi cuenta, con el estilo del inicio: portada clara con el saludo, el plan en una tarjeta negra con
+// textura, los datos al lado y una tarjeta por sección.
 export function AccountView({ user, membership, memberSince, courses, events, notifications }: AccountViewProps) {
   const fullName = [user.firstName, user.lastName].filter(Boolean).join(" ")
 
   return (
     <>
-      <ColorHero
-        compact
-        overlap
+      <PageIntro
         eyebrow="Mi cuenta"
         title={
           user.firstName ? (
             <>
-              Hola, <BrandHighlight>{user.firstName}</BrandHighlight>
+              Hola, <span className="text-brand-green-strong">{user.firstName}</span>
             </>
           ) : (
             "Hola"
@@ -44,16 +43,13 @@ export function AccountView({ user, membership, memberSince, courses, events, no
         description="Acá están tu plan, tus cursos, tus eventos y tus avisos."
       />
 
-      <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-4")}>
+      <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col gap-4 pb-20 md:pb-28")}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           {/* Plan */}
           <div className="min-w-0 md:col-span-3">
             <BlurFade delay={0.26} inView className="h-full">
-              <section className="relative flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-[0_24px_48px_-24px_rgb(26_26_26/0.45)] sm:p-10">
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-brand-green/35 blur-3xl"
-                />
+              <section className="relative isolate flex h-full min-h-56 flex-col justify-between overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground sm:p-10">
+                <DarkBackdrop />
                 <div className="relative flex items-center justify-between gap-3">
                   <h2 className="text-sm font-medium text-primary-foreground/70">Tu plan</h2>
                   {membership && (
@@ -107,7 +103,6 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                     No encontramos una membresía activa. Escribinos y lo revisamos.
                   </p>
                 )}
-                <BorderBeam size={140} duration={9} colorFrom="var(--brand-green)" colorTo="oklch(1 0 0 / 0.8)" />
               </section>
             </BlurFade>
           </div>
@@ -166,7 +161,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
             <MyNotifications notifications={notifications} />
           </BlurFade>
         </div>
-      </Band>
+      </div>
     </>
   )
 }
@@ -175,11 +170,11 @@ export function AccountSkeleton() {
   const cell = "h-60 animate-pulse rounded-xl bg-foreground/[0.05]"
   return (
     <div aria-hidden>
-      <Band tone="green" className="flex flex-col gap-4 pt-28 pb-24 md:pt-36 md:pb-32">
-        <div className="h-7 w-28 animate-pulse rounded-md bg-background/50" />
-        <div className="h-12 w-64 animate-pulse rounded-lg bg-background/50" />
-      </Band>
-      <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-4")}>
+      <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col gap-5 pt-32 pb-10 md:pt-40 md:pb-12")}>
+        <div className="h-7 w-28 animate-pulse rounded-md bg-foreground/[0.05]" />
+        <div className="h-16 w-80 max-w-full animate-pulse rounded-lg bg-foreground/[0.05]" />
+      </div>
+      <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col gap-4 pb-20")}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           <div className={cn(cell, "md:col-span-3")} />
           <div className={cn(cell, "md:col-span-2")} />
@@ -189,7 +184,7 @@ export function AccountSkeleton() {
           <div className={cell} />
           <div className={cell} />
         </div>
-      </Band>
+      </div>
     </div>
   )
 }
