@@ -23,10 +23,11 @@ export const HOME_HERO = {
   ribbonTop: ["Desarrollo", "Bienestar", "Conexión", "Crecemos juntas", "#HoyTambiénSoyMás"],
   ribbonBottom: ["Cursos", "Encuentros", "Tienda online", "Red de proveedoras", "Comunidad"],
   avatarsText: "Acá hay lugar para vos",
+  // Collage de la portada: la grande, la vertical de la izquierda y la apaisada de abajo
   photos: [
-    { src: "/images/home/comunidad-charla.jpg", alt: "Grupo de mujeres charlando y riéndose en un sillón" },
-    { src: "/images/home/florista.jpg", alt: "Emprendedora trabajando en su taller" },
     { src: "/images/home/socias-negocio.jpg", alt: "Dos socias conversando sobre su negocio" },
+    { src: "/images/home/emprendimiento.jpg", alt: "Emprendedora sonriendo en su taller" },
+    { src: "/images/home/colegas-escalera.jpg", alt: "Colegas charlando en una escalera" },
   ],
 }
 
@@ -243,8 +244,8 @@ export const HOME_PRODUCT = {
   cta: "Conocé QUIERO",
   image: "/images/home/boutique.jpg",
   imageAlt: "Emprendedora preparando prendas en su tienda",
-  secondImage: "/images/home/emprendimiento.jpg",
-  secondImageAlt: "Emprendedora sonriendo en su taller",
+  secondImage: "/images/home/marketing.jpg",
+  secondImageAlt: "Emprendedora grabando un video para sus redes",
   chip: "Te acompañamos",
   steps: ["Vender por redes", "Armar tu tienda", "Seguir creciendo"],
 }
@@ -255,6 +256,7 @@ export const HOME_STATEMENT = {
 }
 
 export const HOME_VOICES = {
+  kicker: "Comunidad",
   title: "Lo cuentan",
   titleHighlight: "ellas",
   samples: [

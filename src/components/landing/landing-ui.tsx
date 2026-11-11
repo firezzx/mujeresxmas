@@ -1,0 +1,195 @@
+import Link from "next/link"
+
+import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
+import { PAGE_WIDTH_CLASS } from "@/components/page-band"
+import { BrandHighlight } from "@/components/page-hero"
+import { BlurFade } from "@/components/ui/blur-fade"
+import { FlickeringGrid } from "@/components/ui/flickering-grid"
+import { BRAND_HEX } from "@/config/brand-effects"
+import { cn } from "@/lib/utils"
+
+// Piezas del inicio: secciones blancas y el color en las tarjetas (grilla tipo bento). El título
+// lleva la parte destacada subrayada en naranja, como en el resto del sitio.
+
+export function Section({ id, className, children }: { id?: string; className?: string; children: React.ReactNode }) {
+  return (
+    <section id={id} className="relative scroll-mt-20">
+      <div className={cn(PAGE_WIDTH_CLASS, "py-20 md:py-28", className)}>{children}</div>
+    </section>
+  )
+}
+
+// Etiqueta chica arriba de los títulos
+export function Pill({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex w-fit items-center gap-2 rounded-md bg-brand-green/15 px-3 py-1 font-heading text-xs font-semibold tracking-[0.08em] text-brand-green-strong uppercase",
+        className
+      )}
+    >
+      {children}
+    </span>
+  )
+}
+
+export const HEADING_CLASS = "font-heading font-semibold tracking-[-0.025em] text-balance"
+
+export function SectionHeading({
+  eyebrow,
+  title,
+  accent,
+  hand,
+  description,
+  action,
+  align = "center",
+  className,
+}: {
+  eyebrow?: string
+  title: string
+  accent?: string
+  // Frase manuscrita debajo del título
+  hand?: string
+  description?: string
+  action?: React.ReactNode
+  align?: "center" | "left"
+  className?: string
+}) {
+  const center = align === "center"
+  return (
+    <div
+      className={cn(
+        "mb-12 flex flex-col gap-5 md:mb-16",
+        center ? "mx-auto max-w-3xl items-center text-center" : "md:flex-row md:items-end md:justify-between",
+        className
+      )}
+    >
+      <div className={cn("flex flex-col gap-5", center && "items-center")}>
+        {eyebrow && (
+          <BlurFade inView>
+            <Pill>{eyebrow}</Pill>
+          </BlurFade>
+        )}
+        <BlurFade inView delay={0.05}>
+          <h2 className={cn(HEADING_CLASS, "text-4xl leading-[1.05] sm:text-5xl lg:text-6xl")}>
+            {title} {accent && <BrandHighlight>{accent}</BrandHighlight>}
+          </h2>
+        </BlurFade>
+        {hand && (
+          <BlurFade inView delay={0.08}>
+            <p className="font-hand text-3xl leading-none font-semibold text-brand-green-strong sm:text-4xl">{hand}</p>
+          </BlurFade>
+        )}
+        {description && (
+          <BlurFade inView delay={0.1}>
+            <p className={cn("text-lg leading-relaxed text-pretty text-muted-foreground", center && "max-w-2xl")}>
+              {description}
+            </p>
+          </BlurFade>
+        )}
+      </div>
+      {action && (
+        <BlurFade inView delay={0.12} className="shrink-0">
+          {action}
+        </BlurFade>
+      )}
+    </div>
+  )
+}
+
+// Tarjetas de la grilla: el color de marca vive acá, en tintes suaves
+const CARD_TONES = {
+  white:
+    "bg-background ring-1 ring-foreground/[0.07] shadow-[0_1px_2px_rgb(26_26_26/0.04),0_12px_32px_-16px_rgb(26_26_26/0.12)]",
+  paper: "bg-paper",
+  green: "bg-brand-green/15",
+  pink: "bg-brand-soft/40",
+  orange: "bg-brand/10",
+  ink: "surface-dark bg-primary",
+}
+
+export type CardTone = keyof typeof CARD_TONES
+
+export function cardClass(tone: CardTone, className?: string) {
+  return cn("relative overflow-hidden rounded-xl", CARD_TONES[tone], className)
+}
+
+// Link de texto con la flecha animada
+export function ArrowLink({
+  href,
+  children,
+  className,
+}: {
+  href: string
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <IconHoverArea className={cn("inline-flex", className)}>
+      <Link
+        href={href}
+        className="inline-flex items-center gap-2 rounded-md text-[15px] font-semibold underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/40"
+      >
+        {children}
+        <HoverIcon name="arrow-right" size={16} />
+      </Link>
+    </IconHoverArea>
+  )
+}
+
+// Botón cuadrado con la flecha, para las tarjetas que son links
+export function ArrowBadge({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        "flex size-10 shrink-0 items-center justify-center rounded-lg bg-background text-foreground shadow-[0_6px_16px_-8px_rgb(26_26_26/0.35)] transition-transform duration-300 ease-premium group-hover:translate-x-0.5",
+        className
+      )}
+    >
+      <HoverIcon name="arrow-right" size={16} />
+    </span>
+  )
+}
+
+export function SampleTag() {
+  return (
+    <span className="rounded-md bg-foreground/[0.07] px-2 py-0.5 text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
+      Ejemplo
+    </span>
+  )
+}
+
+// ─── Franjas oscuras ─────────────────────────────────────────────────────────────────────
+
+// Fondo negro de marca con la grilla titilante de Magic UI (Flickering Grid), sin más adornos
+export function DarkBackdrop() {
+  return (
+    <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden bg-primary">
+      <FlickeringGrid
+        squareSize={3}
+        gridGap={7}
+        flickerChance={0.1}
+        maxOpacity={0.3}
+        color={BRAND_HEX.white}
+        className="absolute inset-0 opacity-50 [mask-image:radial-gradient(75%_70%_at_50%_50%,white,transparent)]"
+      />
+    </div>
+  )
+}
+
+export function DarkSection({
+  id,
+  className,
+  children,
+}: {
+  id?: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <section id={id} className="surface-dark relative isolate scroll-mt-20 overflow-hidden text-foreground">
+      <DarkBackdrop />
+      <div className={cn(PAGE_WIDTH_CLASS, "relative py-24 md:py-28", className)}>{children}</div>
+    </section>
+  )
+}

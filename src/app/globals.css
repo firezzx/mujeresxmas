@@ -12,6 +12,7 @@
   --font-hand: var(--font-script);
   /* Interlineado de texto del manual de marca */
   --leading-relaxed: 1.5;
+  --color-paper: var(--paper);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
@@ -215,6 +216,8 @@
   --chart-5: oklch(0.269 0 0);
   /* Paleta oficial de la marca: naranja, rosa, verde, negro 90% y blanco.
      Sobre el naranja, las etiquetas chicas van en negro; el botón secundario usa blanco a pedido. */
+  /* Blanco hueso para alternar secciones sin usar color */
+  --paper: #f6f4f1;
   --brand: #ff4f00;
   --brand-strong: #d43e00;
   --brand-foreground: #ffffff;
