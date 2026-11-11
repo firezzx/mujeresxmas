@@ -20,7 +20,8 @@ import {
   type CardTone,
 } from "@/components/landing/landing-ui"
 import { LatestMembers } from "@/components/latest-members"
-import { Band, BandBackdrop, PAGE_WIDTH_CLASS } from "@/components/page-band"
+import { ScreenSection } from "@/components/landing/screen"
+import { BandBackdrop, PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { BrandHighlight } from "@/components/page-hero"
 import { PlansList, PlansListSkeleton } from "@/components/plans/plans-list"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -230,7 +231,9 @@ function SmallPillarCard({ pillar, tone }: { pillar: Pillar; tone: CardTone }) {
             <HoverIcon name={pillar.icon} size={22} />
           </IconBadge>
           <h3 className={cn(HEADING_CLASS, "mt-auto text-2xl sm:text-3xl")}>{pillar.name}</h3>
-          <p className="line-clamp-3 text-sm leading-relaxed text-pretty sm:text-[15px]">{pillar.summary}</p>
+          <p className="line-clamp-3 text-sm leading-relaxed text-pretty sm:text-[15px] lg:line-clamp-2">
+            {pillar.summary}
+          </p>
           <ArrowBadge className="mt-1" />
         </div>
         <div className="relative overflow-hidden rounded-lg">
@@ -250,19 +253,19 @@ function SmallPillarCard({ pillar, tone }: { pillar: Pillar; tone: CardTone }) {
 export function LandingPillars() {
   const { desarrollo, bienestar, conexion } = PILLARS
   return (
-    <Section id={HOME_SECTION_IDS.pillars}>
+    <Section id={HOME_SECTION_IDS.pillars} className="lg:pt-20 lg:pb-8">
       <SectionHeading
         eyebrow={HOME_PILLARS.eyebrow}
         title={HOME_PILLARS.title}
         accent={HOME_PILLARS.titleHighlight}
         description={HOME_PILLARS.description}
       />
-      <div className="grid gap-4 md:grid-cols-2 md:grid-rows-[repeat(2,minmax(18rem,auto))] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+      <div className="grid gap-4 md:grid-cols-2 md:grid-rows-[repeat(2,minmax(18rem,auto))] lg:grid-rows-[repeat(2,minmax(15rem,auto))] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <BlurFade inView className="md:row-span-2">
           <IconHoverArea className="h-full">
             <Link
               href={desarrollo.href}
-              className="group relative flex h-full min-h-[26rem] flex-col justify-end overflow-hidden rounded-xl p-6 text-white outline-none focus-visible:ring-3 focus-visible:ring-ring/40 sm:p-8"
+              className="group relative flex h-full min-h-[26rem] flex-col justify-end lg:min-h-0 overflow-hidden rounded-xl p-6 text-white outline-none focus-visible:ring-3 focus-visible:ring-ring/40 sm:p-8"
             >
               <Image
                 src={desarrollo.image}
@@ -303,7 +306,7 @@ const MOMENT_TONES: CardTone[] = ["green", "pink", "orange", "paper"]
 
 export function LandingMoments() {
   return (
-    <Section className="pt-0 md:pt-0">
+    <Section>
       <SectionHeading
         eyebrow={HOME_MOMENTS.eyebrow}
         title={HOME_MOMENTS.title}
@@ -378,35 +381,46 @@ export function LandingSteps() {
 export function LandingPlans() {
   return (
     <Section id={HOME_SECTION_IDS.plans}>
-      <SectionHeading
-        eyebrow={HOME_PLANS.eyebrow}
-        title={HOME_PLANS.title}
-        accent={HOME_PLANS.titleHighlight}
-        description={HOME_PLANS.description}
-      />
-      <Suspense fallback={<PlansListSkeleton />}>
-        <PlansList />
-      </Suspense>
-      <ul className="mx-auto mt-4 grid max-w-4xl gap-4 md:grid-cols-2">
-        {HOME_PLANS.perks.map((perk, index) => (
-          <li key={perk.title} className="min-w-0">
-            <BlurFade inView delay={index * 0.06} className="h-full">
-              <IconHoverArea className={cardClass(index === 0 ? "orange" : "green", "flex h-full gap-4 p-6")}>
-                <IconBadge tone={index === 0 ? "brand" : "green"} className="bg-background">
-                  <HoverIcon name={perk.icon} size={22} />
-                </IconBadge>
-                <div className="flex min-w-0 flex-col gap-1">
-                  <p className="font-hand text-2xl leading-none font-semibold">{perk.hand}</p>
-                  <h3 className={cn(HEADING_CLASS, "text-xl")}>{perk.title}</h3>
-                  <p className="text-sm leading-relaxed text-pretty">{perk.text}</p>
-                </div>
-              </IconHoverArea>
-            </BlurFade>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-10 flex justify-center">
-        <ArrowLink href={ROUTES.planes}>{HOME_PLANS.moreCta}</ArrowLink>
+      {/* En escritorio: título y beneficios a la izquierda, los planes a la derecha */}
+      <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
+        <SectionHeading
+          align="left"
+          eyebrow={HOME_PLANS.eyebrow}
+          title={HOME_PLANS.title}
+          accent={HOME_PLANS.titleHighlight}
+          description={HOME_PLANS.description}
+          className="mb-0 md:mb-0 lg:mb-0 lg:self-end"
+        />
+        <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <Suspense fallback={<PlansListSkeleton />}>
+            <PlansList />
+          </Suspense>
+        </div>
+        <div className="flex flex-col gap-4 lg:self-start">
+          <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
+            {HOME_PLANS.perks.map((perk, index) => (
+              <li key={perk.title} className="min-w-0">
+                <BlurFade inView delay={index * 0.06} className="h-full">
+                  <IconHoverArea
+                    className={cardClass(index === 0 ? "orange" : "green", "flex h-full gap-4 p-6 lg:p-5")}
+                  >
+                    <IconBadge tone={index === 0 ? "brand" : "green"} className="bg-background">
+                      <HoverIcon name={perk.icon} size={22} />
+                    </IconBadge>
+                    <div className="flex min-w-0 flex-col gap-1">
+                      <p className="font-hand text-2xl leading-none font-semibold">{perk.hand}</p>
+                      <h3 className={cn(HEADING_CLASS, "text-xl")}>{perk.title}</h3>
+                      <p className="text-sm leading-relaxed text-pretty">{perk.text}</p>
+                    </div>
+                  </IconHoverArea>
+                </BlurFade>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-4 flex justify-center lg:justify-start">
+            <ArrowLink href={ROUTES.planes}>{HOME_PLANS.moreCta}</ArrowLink>
+          </div>
+        </div>
       </div>
     </Section>
   )
@@ -432,7 +446,7 @@ const STORY_DOTS = ["bg-brand-soft", "bg-brand-green", "bg-brand"]
 // Franja verde: el título y el sello a la izquierda, lo que se mantiene y lo que crece a la derecha
 export function LandingStory() {
   return (
-    <Band tone="green" className="py-20 md:py-28">
+    <ScreenSection backdrop={<BandBackdrop tone="green" />}>
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="flex flex-col gap-8">
           <SectionHeading
@@ -466,7 +480,7 @@ export function LandingStory() {
           ))}
         </ol>
       </div>
-    </Band>
+    </ScreenSection>
   )
 }
 

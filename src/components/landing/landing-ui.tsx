@@ -8,13 +8,13 @@ import { FlickeringGrid } from "@/components/ui/flickering-grid"
 import { BRAND_HEX } from "@/config/brand-effects"
 import { cn } from "@/lib/utils"
 
-// Piezas del inicio: secciones blancas y el color en las tarjetas (grilla tipo bento). El título
+// Piezas del inicio: cada sección ocupa la pantalla en escritorio. Secciones blancas y el color en las tarjetas (grilla tipo bento). El título
 // lleva la parte destacada subrayada en naranja, como en el resto del sitio.
 
 export function Section({ id, className, children }: { id?: string; className?: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="relative scroll-mt-20">
-      <div className={cn(PAGE_WIDTH_CLASS, "py-20 md:py-28", className)}>{children}</div>
+    <section id={id} className="relative scroll-mt-0 lg:flex lg:min-h-svh lg:flex-col">
+      <div className={cn(PAGE_WIDTH_CLASS, "py-20 md:py-28 lg:my-auto lg:pt-24 lg:pb-12", className)}>{children}</div>
     </section>
   )
 }
@@ -59,7 +59,7 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "mb-12 flex flex-col gap-5 md:mb-16",
+        "mb-12 flex flex-col gap-5 md:mb-16 lg:mb-10",
         center ? "mx-auto max-w-3xl items-center text-center" : "md:flex-row md:items-end md:justify-between",
         className
       )}
@@ -187,9 +187,14 @@ export function DarkSection({
   children: React.ReactNode
 }) {
   return (
-    <section id={id} className="surface-dark relative isolate scroll-mt-20 overflow-hidden text-foreground">
+    <section
+      id={id}
+      className="surface-dark relative isolate scroll-mt-0 overflow-hidden text-foreground lg:flex lg:min-h-svh lg:flex-col"
+    >
       <DarkBackdrop />
-      <div className={cn(PAGE_WIDTH_CLASS, "relative py-24 md:py-28", className)}>{children}</div>
+      <div className={cn(PAGE_WIDTH_CLASS, "relative py-24 md:py-28 w-full lg:my-auto lg:pt-24 lg:pb-12", className)}>
+        {children}
+      </div>
     </section>
   )
 }

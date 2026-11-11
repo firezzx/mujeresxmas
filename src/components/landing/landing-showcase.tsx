@@ -172,9 +172,12 @@ function Product() {
 function Notes({ items }: { items: ShowcaseCard[] }) {
   if (items.length === 0) return null
   return (
-    <section id={HOME_SECTION_IDS.notes} className="relative isolate scroll-mt-20 overflow-hidden">
+    <section
+      id={HOME_SECTION_IDS.notes}
+      className="relative isolate scroll-mt-0 overflow-hidden lg:flex lg:min-h-svh lg:flex-col"
+    >
       <BandBackdrop tone="soft" />
-      <div className={cn(PAGE_WIDTH_CLASS, "relative py-20 md:py-28")}>
+      <div className={cn(PAGE_WIDTH_CLASS, "relative w-full py-20 md:py-28 lg:my-auto lg:pt-24 lg:pb-12")}>
         <SectionHeading
           align="left"
           eyebrow="Leer"
@@ -198,8 +201,8 @@ const VOICE_TONES = ["pink", "green", "orange", "paper"] as const
 function Voices({ items }: { items: ShowcaseVoice[] }) {
   if (items.length === 0) return null
   return (
-    <section className="relative py-20 md:py-28">
-      <div className={PAGE_WIDTH_CLASS}>
+    <section className="relative py-20 md:py-28 lg:flex lg:min-h-svh lg:flex-col lg:justify-center lg:pt-24 lg:pb-12">
+      <div className={cn(PAGE_WIDTH_CLASS, "w-full")}>
         <SectionHeading eyebrow={HOME_VOICES.kicker} title={HOME_VOICES.title} accent={HOME_VOICES.titleHighlight} />
       </div>
       <div className="relative">
@@ -243,7 +246,7 @@ function Voices({ items }: { items: ShowcaseVoice[] }) {
 function Events({ items }: { items: ShowcaseEvent[] }) {
   if (items.length === 0) return null
   return (
-    <Section id={HOME_SECTION_IDS.events} className="pt-0 md:pt-0">
+    <Section id={HOME_SECTION_IDS.events}>
       <SectionHeading
         align="left"
         eyebrow="Encontrarnos"
