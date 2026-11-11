@@ -97,14 +97,18 @@ export function SectionHeading({
   )
 }
 
-// Tarjetas de la grilla: el color de marca vive acá, en tintes suaves
+// Tarjetas: blancas con borde fino y sombra suave, como las de los planes. El color de marca va solo
+// en el recuadro del ícono (IconBadge), nunca de fondo de la tarjeta. Los tonos de color quedan como
+// nombres para no tocar cada llamada; todos se ven blancos.
+const WHITE_CARD =
+  "bg-background ring-1 ring-foreground/[0.08] shadow-[0_1px_2px_rgb(26_26_26/0.04),0_16px_40px_-20px_rgb(26_26_26/0.18)]"
+
 const CARD_TONES = {
-  white:
-    "bg-background ring-1 ring-foreground/[0.07] shadow-[0_1px_2px_rgb(26_26_26/0.04),0_12px_32px_-16px_rgb(26_26_26/0.12)]",
-  paper: "bg-paper",
-  green: "bg-brand-green/15",
-  pink: "bg-brand-soft/40",
-  orange: "bg-brand/10",
+  white: WHITE_CARD,
+  paper: WHITE_CARD,
+  green: WHITE_CARD,
+  pink: WHITE_CARD,
+  orange: WHITE_CARD,
   ink: "surface-dark bg-primary",
 }
 
@@ -177,22 +181,35 @@ export function DarkBackdrop() {
   )
 }
 
+// `screen` hace que ocupe la pantalla en escritorio; los cierres con botones van más bajos.
 export function DarkSection({
   id,
   className,
+  screen = true,
   children,
 }: {
   id?: string
   className?: string
+  screen?: boolean
   children: React.ReactNode
 }) {
   return (
     <section
       id={id}
-      className="surface-dark relative isolate scroll-mt-0 overflow-hidden text-foreground lg:flex lg:min-h-svh lg:flex-col"
+      className={cn(
+        "surface-dark relative isolate scroll-mt-0 overflow-hidden text-foreground",
+        screen && "lg:flex lg:min-h-svh lg:flex-col"
+      )}
     >
       <DarkBackdrop />
-      <div className={cn(PAGE_WIDTH_CLASS, "relative py-24 md:py-28 w-full lg:my-auto lg:pt-24 lg:pb-12", className)}>
+      <div
+        className={cn(
+          PAGE_WIDTH_CLASS,
+          "relative w-full py-24 md:py-28",
+          screen && "lg:my-auto lg:pt-24 lg:pb-12",
+          className
+        )}
+      >
         {children}
       </div>
     </section>

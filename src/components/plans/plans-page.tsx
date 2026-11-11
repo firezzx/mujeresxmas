@@ -68,7 +68,7 @@ function Perks() {
                     "flex flex-col gap-5 p-7 transition-transform duration-500 ease-premium hover:-translate-y-1 sm:flex-row sm:p-8"
                   )}
                 >
-                  <IconBadge tone={index === 0 ? "brand" : "green"} size="lg" className="bg-background">
+                  <IconBadge tone={index === 0 ? "brand" : "green"} size="lg">
                     <HoverIcon name={perk.icon} size={24} />
                   </IconBadge>
                   <div className="flex min-w-0 flex-col gap-2">

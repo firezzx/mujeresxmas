@@ -20,13 +20,7 @@ type IconLinkProps = Omit<React.ComponentProps<typeof Link>, "children"> & {
 
 // Botón redondo con un ícono animado de Lucide Animated.
 // El texto queda para lectores de pantalla y aparece como etiqueta al pasar el mouse.
-export function IconLink({
-  icon: Icon,
-  label,
-  variant = "ghost",
-  className,
-  ...props
-}: IconLinkProps) {
+export function IconLink({ icon: Icon, label, variant = "ghost", className, ...props }: IconLinkProps) {
   const { iconRef, triggerProps } = useIconAnimation()
 
   return (

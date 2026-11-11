@@ -227,7 +227,7 @@ function SmallPillarCard({ pillar, tone }: { pillar: Pillar; tone: CardTone }) {
         )}
       >
         <div className="flex min-w-0 flex-col gap-3 p-1">
-          <IconBadge tone={pillar.badgeTone} className="bg-background">
+          <IconBadge tone={pillar.badgeTone}>
             <HoverIcon name={pillar.icon} size={22} />
           </IconBadge>
           <h3 className={cn(HEADING_CLASS, "mt-auto text-2xl sm:text-3xl")}>{pillar.name}</h3>
@@ -323,7 +323,7 @@ export function LandingMoments() {
                   "flex h-full min-h-64 flex-col gap-4 p-6 transition-transform duration-500 ease-premium hover:-translate-y-1 sm:p-7"
                 )}
               >
-                <IconBadge tone={cycleTone(index)} className="bg-background">
+                <IconBadge tone={cycleTone(index)}>
                   <HoverIcon name={item.icon} size={22} />
                 </IconBadge>
                 <h3 className={cn(HEADING_CLASS, "mt-auto text-2xl")}>{item.title}</h3>
@@ -404,7 +404,7 @@ export function LandingPlans() {
                   <IconHoverArea
                     className={cardClass(index === 0 ? "orange" : "green", "flex h-full gap-4 p-6 lg:p-5")}
                   >
-                    <IconBadge tone={index === 0 ? "brand" : "green"} className="bg-background">
+                    <IconBadge tone={index === 0 ? "brand" : "green"}>
                       <HoverIcon name={perk.icon} size={22} />
                     </IconBadge>
                     <div className="flex min-w-0 flex-col gap-1">
@@ -489,7 +489,7 @@ export function LandingStory() {
 // Franja oscura con textura a todo el ancho; el contenido queda centrado con el ancho de siempre
 export function LandingClosing() {
   return (
-    <DarkSection className="text-center">
+    <DarkSection screen={false} className="text-center">
       <BlurFade inView className="mx-auto flex max-w-3xl flex-col items-center gap-6">
         <p className="font-hand text-3xl leading-none font-semibold text-brand-soft sm:text-4xl">
           {HOME_CLOSING.hashtag}

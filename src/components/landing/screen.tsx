@@ -1,6 +1,6 @@
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { RegisterCta } from "@/components/cta/register-cta"
-import { DarkBackdrop, HEADING_CLASS, Pill } from "@/components/landing/landing-ui"
+import { DarkSection, HEADING_CLASS, Pill } from "@/components/landing/landing-ui"
 import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { BrandHighlight } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -48,7 +48,7 @@ export function ScreenSection({
   )
 }
 
-// Cierre negro con textura, centrado: frase manuscrita, título con subrayado y los dos botones
+// Cierre negro con textura, centrado y sin ocupar toda la pantalla: frase manuscrita, título con subrayado y los dos botones
 export function ScreenClosing({
   hand,
   title,
@@ -63,7 +63,7 @@ export function ScreenClosing({
   children?: React.ReactNode
 }) {
   return (
-    <ScreenSection backdrop={<DarkBackdrop />} className="surface-dark text-center text-foreground">
+    <DarkSection screen={false} className="text-center">
       <BlurFade inView className="mx-auto flex max-w-3xl flex-col items-center gap-6">
         {hand && <p className="font-hand text-3xl leading-none font-semibold text-brand-soft sm:text-4xl">{hand}</p>}
         <h2 className={cn(HEADING_CLASS, "text-4xl leading-[1.02] sm:text-6xl lg:text-7xl")}>
@@ -74,7 +74,7 @@ export function ScreenClosing({
         )}
         <div className="mt-2 w-full sm:w-auto">{children}</div>
       </BlurFade>
-    </ScreenSection>
+    </DarkSection>
   )
 }
 

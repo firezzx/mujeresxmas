@@ -49,7 +49,7 @@ function ServiceCard({ item, index, wide }: { item: PillarItem; index: number; w
           )
         )}
       >
-        <IconBadge tone={cycleTone(index)} className="bg-background">
+        <IconBadge tone={cycleTone(index)}>
           <HoverIcon name={item.icon} size={22} />
         </IconBadge>
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
