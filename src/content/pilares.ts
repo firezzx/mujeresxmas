@@ -250,3 +250,28 @@ export const PILLAR_CLOSING = {
   plansCta: "Ver los planes",
   othersTitle: "Conocé los otros pilares",
 }
+
+// Página general de los pilares (/pilares)
+export const PILLARS_PAGE = {
+  eyebrow: "Crecemos con vos",
+  titleStart: "Tres pilares,",
+  titleHighlight: "una sola membresía",
+  description:
+    "Todo lo que ofrece Mujeres x Más, ordenado por pilar. En cada servicio ves si es gratis o si viene con la membresía.",
+  pillarEyebrow: "Pilar",
+  moreLabel: "Ver todo",
+  academyNote: "Además, la Academia: cursos online y con certificado para cada paso de tu negocio.",
+  academyLabel: "Academia",
+  // Dato destacado de Conexión
+  networkStat: { value: "+28", label: "localidades con encuentros abiertos" },
+  closingHand: "no caminás sola",
+  closingTitle: "Elegí tu membresía y",
+  closingHighlight: "empezá hoy",
+}
+
+// Super menú de Pilares en el encabezado (escritorio)
+export const PILLARS_MENU = {
+  eyebrow: "Pilares",
+  description: "Elegí por dónde empezar: cada pilar suma servicios gratis y otros que vienen con la membresía.",
+  allLabel: "Ver todos los pilares",
+}

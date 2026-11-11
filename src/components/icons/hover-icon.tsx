@@ -11,6 +11,7 @@ import { BookTextIcon } from "@/components/icons/book-text"
 import { CalendarDaysIcon } from "@/components/icons/calendar-days"
 import { ChartLineIcon } from "@/components/icons/chart-line"
 import { CheckIcon } from "@/components/icons/check"
+import { ChevronDownIcon } from "@/components/icons/chevron-down"
 import { CheckCheckIcon } from "@/components/icons/check-check"
 import { CircleCheckIcon } from "@/components/icons/circle-check"
 import { CompassIcon } from "@/components/icons/compass"
@@ -55,6 +56,7 @@ const ICONS = {
   "chart-line": ChartLineIcon,
   check: CheckIcon,
   "check-check": CheckCheckIcon,
+  "chevron-down": ChevronDownIcon,
   "circle-check": CircleCheckIcon,
   compass: CompassIcon,
   cpu: CpuIcon,

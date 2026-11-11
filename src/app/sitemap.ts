@@ -10,6 +10,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await listPostsForSitemap()
   return [
     { url: SITE_URL },
+    { url: `${SITE_URL}${ROUTES.pilares}` },
+    { url: `${SITE_URL}${ROUTES.desarrollo}` },
+    { url: `${SITE_URL}${ROUTES.bienestar}` },
+    { url: `${SITE_URL}${ROUTES.conexion}` },
     { url: `${SITE_URL}${ROUTES.quiero}` },
     { url: `${SITE_URL}${ROUTES.planes}` },
     { url: `${SITE_URL}${ROUTES.blog}` },

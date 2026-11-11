@@ -5,7 +5,11 @@ import { BandBackdrop } from "@/components/page-band"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
 import { SOCIAL_LINKS } from "@/config/site"
 
-const FOOTER_LINKS = [...MAIN_NAV, { href: ROUTES.miCuenta, label: "Mi cuenta" }]
+// El menú con los submenús aplanados, más Mi cuenta
+const FOOTER_LINKS = [
+  ...MAIN_NAV.flatMap(({ href, label, children = [] }) => [{ href, label }, ...children]),
+  { href: ROUTES.miCuenta, label: "Mi cuenta" },
+]
 
 // Footer del sitio: logo, eslogan y links.
 export function SiteFooter() {

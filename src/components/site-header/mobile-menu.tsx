@@ -26,19 +26,22 @@ type MobileMenuProps = {
   user: CurrentUser | null
   adminView?: AdminView | null
   isActive: (href: string) => boolean
+  // true solo en esa misma página (sin contar sus subpáginas)
+  pathnameIs: (href: string) => boolean
   onNavigate: () => void
 }
 
 // Contenido del menú móvil: se despliega dentro de la barra del header.
 // Links compactos con la tipografía de títulos (el activo, en una pastilla rosa con el punto de marca)
 // y abajo la cuenta: tarjeta con la usuaria y sus accesos, o el registro para visitantes.
-export function MobileMenu({ user, adminView = null, isActive, onNavigate }: MobileMenuProps) {
+export function MobileMenu({ user, adminView = null, isActive, pathnameIs, onNavigate }: MobileMenuProps) {
   return (
     <div className="px-1.5 pt-3 pb-1.5">
       <nav aria-label="Principal">
         <ul className="flex flex-col gap-1">
           {MAIN_NAV.map((link, i) => {
-            const active = isActive(link.href)
+            // Con submenú, el de arriba se marca solo en su propia página; en las de abajo se marca el hijo
+            const active = link.children ? pathnameIs(link.href) : isActive(link.href)
             return (
               <motion.li key={link.href} custom={i} variants={item} initial="hidden" animate="show">
                 <Link
@@ -63,6 +66,31 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
                     {link.label}
                   </span>
                 </Link>
+                {link.children && (
+                  <ul className="mt-1 ml-6 flex flex-col gap-0.5 border-l border-border/70 pl-2">
+                    {link.children.map((child) => {
+                      const childActive = isActive(child.href)
+                      return (
+                        <li key={child.href}>
+                          <Link
+                            href={child.href}
+                            onClick={onNavigate}
+                            aria-current={childActive ? "page" : undefined}
+                            className={cn(
+                              "flex h-10 items-center gap-2.5 rounded-lg px-3 text-[15px] font-medium transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                              childActive
+                                ? "bg-brand-soft text-foreground"
+                                : "text-foreground/70 hover:bg-foreground/[0.04] hover:text-foreground"
+                            )}
+                          >
+                            {childActive && <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-brand" />}
+                            {child.label}
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
               </motion.li>
             )
           })}
@@ -121,7 +149,11 @@ export function MobileMenu({ user, adminView = null, isActive, onNavigate }: Mob
             </ShimmerLink>
             <p className="pb-1 text-sm text-muted-foreground">
               ¿Ya tenés cuenta?{" "}
-              <Link href={ROUTES.login} onClick={onNavigate} className="font-medium text-foreground underline-offset-4 hover:underline">
+              <Link
+                href={ROUTES.login}
+                onClick={onNavigate}
+                className="font-medium text-foreground underline-offset-4 hover:underline"
+              >
                 Iniciá sesión
               </Link>
             </p>

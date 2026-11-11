@@ -27,7 +27,7 @@ const ACCESS_CLASS: Record<Access, string> = {
   member: "bg-brand-soft/45 text-foreground",
 }
 
-function AccessTag({ access }: { access: Access }) {
+export function AccessTag({ access }: { access: Access }) {
   return (
     <span
       className={cn(

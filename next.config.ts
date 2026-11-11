@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 
 const nextConfig: NextConfig = {
   images: {
@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
         ]
       : [],
   },
+  // Los pilares pasaron a ser subpáginas de /pilares
+  async redirects() {
+    return ["desarrollo", "bienestar", "conexion"].map((slug) => ({
+      source: `/${slug}`,
+      destination: `/pilares/${slug}`,
+      permanent: true,
+    }))
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -27,6 +35,6 @@ const nextConfig: NextConfig = {
       },
     },
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

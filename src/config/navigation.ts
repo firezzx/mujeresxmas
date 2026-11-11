@@ -1,10 +1,19 @@
-// Links del menú principal. Para sumar una sección nueva alcanza con agregarla acá.
-export const MAIN_NAV = [
+export type NavLink = { href: string; label: string; children?: readonly NavLink[] }
+
+// Links del menú principal. Para sumar una sección nueva alcanza con agregarla acá; los hijos se
+// muestran como submenú (en escritorio, al pasar sobre el link; en celular, debajo).
+export const MAIN_NAV: readonly NavLink[] = [
   { href: "/", label: "Inicio" },
-  { href: "/desarrollo", label: "Desarrollo" },
-  { href: "/bienestar", label: "Bienestar" },
-  { href: "/conexion", label: "Conexión" },
-] as const
+  {
+    href: "/pilares",
+    label: "Pilares",
+    children: [
+      { href: "/pilares/desarrollo", label: "Desarrollo" },
+      { href: "/pilares/bienestar", label: "Bienestar" },
+      { href: "/pilares/conexion", label: "Conexión" },
+    ],
+  },
+]
 
 // Texto del botón destacado del menú, que lleva al registro
 export const JOIN_LABEL = "Unirse a MX+"
@@ -28,9 +37,10 @@ export const ROUTES = {
   adminBlog: "/admin/blog",
   adminBlogNueva: "/admin/blog/nueva",
   adminBlogCategorias: "/admin/blog/categorias",
-  desarrollo: "/desarrollo",
-  bienestar: "/bienestar",
-  conexion: "/conexion",
+  pilares: "/pilares",
+  desarrollo: "/pilares/desarrollo",
+  bienestar: "/pilares/bienestar",
+  conexion: "/pilares/conexion",
   quiero: "/quiero",
   planes: "/planes",
   blog: "/blog",
