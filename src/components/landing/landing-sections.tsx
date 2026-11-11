@@ -231,10 +231,9 @@ function SmallPillarCard({ pillar, tone }: { pillar: Pillar; tone: CardTone }) {
             <HoverIcon name={pillar.icon} size={22} />
           </IconBadge>
           <h3 className={cn(HEADING_CLASS, "mt-auto text-2xl sm:text-3xl")}>{pillar.name}</h3>
-          <p className="line-clamp-3 text-sm leading-relaxed text-pretty sm:text-[15px] lg:line-clamp-2">
+          <p className="line-clamp-3 text-sm leading-relaxed text-pretty sm:text-[15px]">
             {pillar.summary}
           </p>
-          <ArrowBadge className="mt-1" />
         </div>
         <div className="relative overflow-hidden rounded-lg">
           <Image
