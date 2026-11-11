@@ -7,8 +7,11 @@ import { BlogPagination } from "@/components/blog/blog-pagination"
 import { BlogSearch } from "@/components/blog/blog-search"
 import { CategoryFilter } from "@/components/blog/category-filter"
 import { FeaturedPostCard, PostGrid } from "@/components/blog/post-card"
-import { Band, ColorHero, OVERLAP_CLASS } from "@/components/page-band"
-import { BrandHighlight } from "@/components/page-hero"
+import { HEADING_CLASS, Pill } from "@/components/landing/landing-ui"
+import { HeroLights, JoinActions, ScreenClosing } from "@/components/landing/screen"
+import { PAGE_WIDTH_CLASS } from "@/components/page-band"
+import { BlurFade } from "@/components/ui/blur-fade"
+import { PILLAR_CLOSING } from "@/content/pilares"
 import { pillLinkVariants } from "@/components/pill-link"
 import { ROUTES } from "@/config/navigation"
 import { listPublicCategories, listPublicPosts } from "@/lib/blog"
@@ -25,20 +28,40 @@ export const metadata: Metadata = {
 export default function BlogPage({ searchParams }: PageProps<"/blog">) {
   return (
     <main className="relative flex flex-1 flex-col">
-      <ColorHero
-        overlap
-        eyebrow="Blog"
-        title={
-          <>
-            Ideas para <BrandHighlight>seguir creciendo</BrandHighlight>
-          </>
-        }
-        description="Notas sobre tecnología, comunicación, emprendimiento y finanzas para mujeres y emprendedoras."
-      />
+      {/* Portada clara con las luces de marca, como la del inicio */}
+      <section className="relative isolate overflow-hidden">
+        <HeroLights />
+        <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col items-center pt-32 pb-12 text-center md:pt-40 md:pb-16")}>
+          <BlurFade>
+            <Pill>Blog</Pill>
+          </BlurFade>
+          <BlurFade delay={0.06}>
+            <h1
+              className={cn(HEADING_CLASS, "mt-7 max-w-4xl text-[2.9rem] leading-[0.98] sm:text-7xl xl:text-[5.5rem]")}
+            >
+              Ideas para <span className="text-brand-green-strong">seguir creciendo</span>
+            </h1>
+          </BlurFade>
+          <BlurFade delay={0.12}>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">
+              Notas sobre tecnología, comunicación, emprendimiento y finanzas para mujeres y emprendedoras.
+            </p>
+          </BlurFade>
+        </div>
+      </section>
 
       <Suspense fallback={<BlogSkeleton />}>
         <BlogListing searchParams={searchParams} />
       </Suspense>
+
+      <ScreenClosing
+        hand={PILLAR_CLOSING.hand}
+        title={PILLAR_CLOSING.title}
+        highlight={PILLAR_CLOSING.titleHighlight}
+        description={PILLAR_CLOSING.description}
+      >
+        <JoinActions plansLabel={PILLAR_CLOSING.plansCta} />
+      </ScreenClosing>
     </main>
   )
 }
@@ -57,11 +80,11 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
 
   if (!listing || !categories) {
     return (
-      <Band className={OVERLAP_CLASS}>
+      <ListingSection>
         <p className="rounded-lg bg-destructive/[0.06] px-4 py-5 text-sm text-destructive">
           No pudimos cargar el blog. Volvé a intentar en un rato.
         </p>
-      </Band>
+      </ListingSection>
     )
   }
 
@@ -70,8 +93,8 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
   const filtered = Boolean(category || query)
 
   return (
-    <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-6")}>
-      <div className="flex flex-col gap-3 rounded-xl bg-background p-3 shadow-[0_24px_48px_-24px_rgb(26_26_26/0.35)] lg:flex-row lg:items-center lg:justify-between">
+    <ListingSection>
+      <div className="flex flex-col gap-3 rounded-xl bg-background p-3 shadow-[0_12px_32px_-16px_rgb(26_26_26/0.18)] ring-1 ring-foreground/[0.07] lg:flex-row lg:items-center lg:justify-between">
         {categories.length > 0 && <CategoryFilter categories={categories} active={category} query={query} />}
         <BlogSearch query={query} category={category} />
       </div>
@@ -132,15 +155,24 @@ async function BlogListing({ searchParams }: { searchParams: PageProps<"/blog">[
           )}
         </>
       )}
-    </Band>
+    </ListingSection>
+  )
+}
+
+// Contenedor del listado: el ancho de siempre, debajo de la portada
+function ListingSection({ children }: { children: React.ReactNode }) {
+  return (
+    <section className="relative">
+      <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col gap-6 pb-20 md:pb-28")}>{children}</div>
+    </section>
   )
 }
 
 function BlogSkeleton() {
   return (
-    <Band className={cn(OVERLAP_CLASS, "flex flex-col gap-6")}>
-      <div aria-hidden className="h-16 animate-pulse rounded-xl bg-background shadow-sm" />
+    <ListingSection>
+      <div aria-hidden className="h-16 animate-pulse rounded-xl bg-foreground/[0.04]" />
       <div aria-hidden className="h-96 animate-pulse rounded-xl bg-foreground/[0.04]" />
-    </Band>
+    </ListingSection>
   )
 }

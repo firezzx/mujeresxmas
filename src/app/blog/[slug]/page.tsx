@@ -7,8 +7,10 @@ import { PostBody, PostHeader } from "@/components/blog/post-article"
 import { PostComments, PostCommentsSkeleton } from "@/components/blog/post-comments"
 import { PostGrid } from "@/components/blog/post-card"
 import { ShareButtons } from "@/components/blog/share-buttons"
-import { Band, OVERLAP_CLASS, SectionTitle } from "@/components/page-band"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
+import { SectionHeading } from "@/components/landing/landing-ui"
+import { HeroLights } from "@/components/landing/screen"
+import { BandBackdrop, PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { ROUTES } from "@/config/navigation"
 import { getPublicPost, listRelatedPosts, type PublicPost } from "@/lib/blog"
 import { blogImageUrl } from "@/lib/blog-shared"
@@ -91,41 +93,48 @@ async function Post({ params }: { params: Props["params"] }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd(post) }} />
 
-      <Band tone="green" className={cn("pt-28 md:pt-36", post.coverPath ? "pb-24 md:pb-32" : "pb-20 md:pb-28")}>
-        <div className="mx-auto mb-8 w-full max-w-4xl">
-          <IconHoverArea className="w-fit">
-            <Link
-              href={ROUTES.blog}
-              className="flex items-center gap-2 rounded-md text-sm font-medium opacity-80 transition-opacity duration-300 outline-none hover:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/40"
-            >
-              <HoverIcon name="arrow-left" size={16} />
-              Volver al blog
-            </Link>
-          </IconHoverArea>
+      {/* Portada clara con las luces de marca */}
+      <section className="relative isolate overflow-hidden">
+        <HeroLights />
+        <div className={cn(PAGE_WIDTH_CLASS, "pt-32 pb-10 md:pt-40 md:pb-12")}>
+          <div className="mx-auto mb-8 w-full max-w-4xl">
+            <IconHoverArea className="w-fit">
+              <Link
+                href={ROUTES.blog}
+                className="flex items-center gap-2 rounded-md text-sm font-medium opacity-80 transition-opacity duration-300 outline-none hover:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/40"
+              >
+                <HoverIcon name="arrow-left" size={16} />
+                Volver al blog
+              </Link>
+            </IconHoverArea>
+          </div>
+          <PostHeader post={post} />
         </div>
-        <PostHeader post={post} />
-      </Band>
+      </section>
 
-      <Band className={cn("pb-14 md:pb-20", post.coverPath && OVERLAP_CLASS)}>
+      <section className={cn(PAGE_WIDTH_CLASS, "pb-16 md:pb-24")}>
         <article>
           <PostBody post={post} />
         </article>
         <div className="mx-auto w-full max-w-4xl">
           <ShareButtons url={`${SITE_URL}${ROUTES.blog}/${post.slug}`} title={post.title} />
         </div>
-      </Band>
+      </section>
 
-      <Band tone="soft">
-        <Suspense fallback={<PostCommentsSkeleton />}>
-          <PostComments postId={post.id} slug={post.slug} />
-        </Suspense>
-      </Band>
+      <section className="relative isolate overflow-hidden">
+        <BandBackdrop tone="soft" />
+        <div className={cn(PAGE_WIDTH_CLASS, "relative py-20 md:py-24")}>
+          <Suspense fallback={<PostCommentsSkeleton />}>
+            <PostComments postId={post.id} slug={post.slug} />
+          </Suspense>
+        </div>
+      </section>
 
       {related.length > 0 && (
-        <Band>
-          <SectionTitle title="Seguí leyendo" />
+        <section className={cn(PAGE_WIDTH_CLASS, "py-20 md:py-28")}>
+          <SectionHeading align="left" eyebrow="Blog" title="Seguí" accent="leyendo" />
           <PostGrid posts={related} />
-        </Band>
+        </section>
       )}
     </>
   )
@@ -133,12 +142,12 @@ async function Post({ params }: { params: Props["params"] }) {
 
 function PostSkeleton() {
   return (
-    <Band tone="green" className="pt-28 pb-20 md:pt-36">
+    <section className={cn(PAGE_WIDTH_CLASS, "pt-32 pb-20 md:pt-40")}>
       <div aria-hidden className="mx-auto flex w-full max-w-4xl flex-col gap-5">
-        <div className="h-7 w-32 animate-pulse rounded-md bg-background/50" />
-        <div className="h-14 w-full animate-pulse rounded-lg bg-background/50" />
-        <div className="h-6 w-2/3 animate-pulse rounded-lg bg-background/50" />
+        <div className="h-7 w-32 animate-pulse rounded-md bg-foreground/[0.05]" />
+        <div className="h-14 w-full animate-pulse rounded-lg bg-foreground/[0.05]" />
+        <div className="h-6 w-2/3 animate-pulse rounded-lg bg-foreground/[0.05]" />
       </div>
-    </Band>
+    </section>
   )
 }

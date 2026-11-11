@@ -22,20 +22,20 @@ export function PostHeader({ post }: { post: PostPreview }) {
       {post.categoryName && post.categorySlug && (
         <Link
           href={`${ROUTES.blog}?categoria=${post.categorySlug}`}
-          className="inline-flex rounded-md bg-background px-2.5 py-2 text-[13px] font-medium ring-1 ring-foreground/10 transition-colors duration-200 outline-none hover:bg-brand-soft/60 focus-visible:ring-3 focus-visible:ring-ring/40 sm:py-1"
+          className="inline-flex rounded-md bg-brand-green/15 px-3 py-1.5 font-heading text-xs font-semibold tracking-[0.08em] text-brand-green-strong uppercase transition-colors duration-200 outline-none hover:bg-brand-green/25 focus-visible:ring-3 focus-visible:ring-ring/40"
         >
           {post.categoryName}
         </Link>
       )}
-      <h1 className="mt-4 font-heading text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance [overflow-wrap:anywhere] sm:text-6xl">
+      <h1 className="mt-6 font-heading text-[2.5rem] leading-[1.02] font-semibold tracking-[-0.025em] text-balance [overflow-wrap:anywhere] sm:text-6xl lg:text-7xl">
         {post.title}
       </h1>
       {post.excerpt && (
-        <p className="mt-4 text-lg leading-relaxed text-pretty [overflow-wrap:anywhere] sm:text-xl">
+        <p className="mt-5 text-lg leading-relaxed text-pretty text-muted-foreground [overflow-wrap:anywhere] sm:text-xl">
           {post.excerpt}
         </p>
       )}
-      <p className="mt-4 text-sm">{details.join(" · ")}</p>
+      <p className="mt-5 text-sm text-muted-foreground">{details.join(" · ")}</p>
     </header>
   )
 }

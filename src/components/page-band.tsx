@@ -5,7 +5,6 @@ import { HoverIcon, IconHoverArea, type IconName } from "@/components/icons/hove
 import { Eyebrow, HERO_TITLE_CLASS, PAGE_TITLE_CLASS, PageTitle } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { DotPattern } from "@/components/ui/dot-pattern"
-import { TextAnimate } from "@/components/ui/text-animate"
 import { cn } from "@/lib/utils"
 
 // Piezas del estilo del sitio: franjas con gradientes suaves de marca y textura de puntos, nunca un
@@ -169,45 +168,6 @@ export function ColorHero({
     </Band>
   )
 }
-
-// Título de sección, con una bajada y una acción opcionales.
-export function SectionTitle({
-  title,
-  description,
-  action,
-}: {
-  title: string
-  description?: string
-  action?: React.ReactNode
-}) {
-  return (
-    <div className="mb-8 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-10">
-      <div className="flex min-w-0 flex-col gap-3">
-        <TextAnimate
-          as="h2"
-          animation="blurInUp"
-          by="word"
-          once
-          duration={0.5}
-          className="font-heading text-[2rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-5xl"
-        >
-          {title}
-        </TextAnimate>
-        {description && (
-          <BlurFade inView delay={0.15}>
-            <p className="text-base leading-relaxed text-pretty sm:text-lg">{description}</p>
-          </BlurFade>
-        )}
-      </div>
-      {action && (
-        <BlurFade inView delay={0.15} className="shrink-0">
-          {action}
-        </BlurFade>
-      )}
-    </div>
-  )
-}
-
 // Mosaico de foto con una sombra suave abajo para el texto, para las grillas tipo bento.
 export function PhotoTile({
   image,
@@ -265,51 +225,5 @@ export function PhotoTile({
         )}
       </IconHoverArea>
     </BlurFade>
-  )
-}
-
-// Dos fotos superpuestas con un rótulo manuscrito.
-export function PhotoDuo({
-  image,
-  imageAlt,
-  secondImage,
-  secondImageAlt,
-  chip,
-  priority,
-}: {
-  image: string
-  imageAlt: string
-  secondImage: string
-  secondImageAlt: string
-  chip: string
-  priority?: boolean
-}) {
-  return (
-    <div className="relative mr-6 mb-8 md:mr-10">
-      <div className={cn(PHOTO_FRAME_CLASS, "aspect-[4/3] -rotate-2")}>
-        <Image
-          src={image}
-          alt={imageAlt}
-          fill
-          priority={priority}
-          sizes="(min-width: 768px) 45vw, 100vw"
-          className="object-cover"
-        />
-      </div>
-      <div className={cn(PHOTO_FRAME_CLASS, "absolute -right-6 -bottom-8 aspect-square w-2/5 rotate-3 md:-right-10")}>
-        <Image
-          src={secondImage}
-          alt={secondImageAlt}
-          fill
-          priority={priority}
-          sizes="(min-width: 768px) 18vw, 40vw"
-          className="object-cover"
-        />
-      </div>
-      <span className="absolute -top-3 -left-2 z-10 flex items-center gap-2 rounded-lg bg-background px-3 py-1.5 font-hand text-xl leading-none font-semibold text-foreground shadow-[0_12px_28px_-10px_rgb(26_26_26/0.4)] sm:text-2xl">
-        <span aria-hidden className="size-2 rounded-full bg-brand-green" />
-        {chip}
-      </span>
-    </div>
   )
 }

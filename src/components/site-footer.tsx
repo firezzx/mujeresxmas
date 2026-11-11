@@ -1,7 +1,6 @@
 import Link from "next/link"
 
 import { Logo } from "@/components/brand/logo"
-import { BandBackdrop } from "@/components/page-band"
 import { MAIN_NAV, ROUTES } from "@/config/navigation"
 import { SOCIAL_LINKS } from "@/config/site"
 
@@ -14,8 +13,11 @@ const FOOTER_LINKS = [
 // Footer del sitio: logo, eslogan y links.
 export function SiteFooter() {
   return (
-    <footer className="relative border-t border-background/10 text-primary-foreground">
-      <BandBackdrop tone="ink" />
+    <footer className="relative isolate text-primary-foreground">
+      {/* Más oscuro que las franjas negras del sitio, para que se separe sin línea */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-primary">
+        <div className="absolute inset-0 bg-black/55" />
+      </div>
       <div className="relative">
         <div className="mx-auto flex max-w-content flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-9">
           <div className="flex flex-col gap-2">
