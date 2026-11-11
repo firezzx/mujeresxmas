@@ -7,7 +7,7 @@ import { z } from "zod"
 
 import { getAdminView } from "@/lib/admin"
 import { POST_EXTENSIONS } from "@/lib/blog-extensions"
-import { BLOG_BUCKET, type BlogCategory, docImagePaths } from "@/lib/blog-shared"
+import { BLOG_BUCKET, type BlogCategory, docImagePaths, isSiteImage } from "@/lib/blog-shared"
 import { createClient } from "@/lib/supabase/server"
 import {
   type CategoryField,
@@ -96,7 +96,7 @@ export async function savePost(id: string | null, input: PostInput): Promise<Sav
   if (previous) {
     const current = new Set([post.coverPath, ...docImagePaths(post.content)])
     const removed = [previous.cover_path, ...docImagePaths(previous.content)].filter(
-      (path): path is string => Boolean(path) && !current.has(path)
+      (path): path is string => Boolean(path) && !current.has(path) && !isSiteImage(path!)
     )
     if (removed.length) await supabase.storage.from(BLOG_BUCKET).remove(removed)
   }
@@ -120,7 +120,9 @@ export async function deletePost(id: string): Promise<DeleteResult> {
     return { ok: false, message: "No pudimos borrar la publicación. Volvé a intentar." }
   }
 
-  const images = [...(post?.cover_path ? [post.cover_path] : []), ...docImagePaths(post?.content)]
+  const images = [...(post?.cover_path ? [post.cover_path] : []), ...docImagePaths(post?.content)].filter(
+    (path) => !isSiteImage(path)
+  )
   if (images.length) await supabase.storage.from(BLOG_BUCKET).remove(images)
 
   refresh()

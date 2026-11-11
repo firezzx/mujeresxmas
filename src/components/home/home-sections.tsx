@@ -112,8 +112,28 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
     >
       <div className="flex flex-col items-start gap-6">
         <BlurFade inView>
+          <IconHoverArea>
+            <Link
+              href={ROUTES.quiero}
+              className="inline-flex items-center gap-2.5 rounded-lg bg-background/80 py-1.5 pr-3 pl-2 text-sm font-medium shadow-[0_8px_24px_-14px_rgb(26_26_26/0.45)] ring-1 ring-foreground/10 backdrop-blur-sm transition-shadow duration-300 outline-none hover:ring-foreground/25 focus-visible:ring-3 focus-visible:ring-ring/40"
+            >
+              <span className="rounded-md bg-brand-strong px-2 py-0.5 text-xs font-semibold text-brand-foreground">
+                {HOME_HERO.noticeTag}
+              </span>
+              {HOME_HERO.notice}
+              <HoverIcon name="arrow-right" size={16} />
+            </Link>
+          </IconHoverArea>
+        </BlurFade>
+        <BlurFade inView delay={0.04} className="-mb-3">
+          <p className="font-hand text-3xl leading-none font-semibold text-brand-green-strong sm:text-4xl">
+            {HOME_HERO.hand}
+          </p>
+        </BlurFade>
+        <BlurFade inView delay={0.06}>
           <h1 className="relative font-heading text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.01em] text-balance sm:text-6xl lg:text-[3.25rem] xl:text-[3.5rem] 2xl:text-[4.25rem]">
-            {HOME_HERO.titleStart} <BrandHighlight>{HOME_HERO.titleHighlight}</BrandHighlight>
+            {HOME_HERO.titleStart} <br className="max-sm:hidden" />
+            <BrandHighlight>{HOME_HERO.titleHighlight}</BrandHighlight>
           </h1>
         </BlurFade>
         <BlurFade inView delay={0.08}>
@@ -124,10 +144,20 @@ export function HomeHero({ ctaId }: { ctaId: string }) {
         <BlurFade inView delay={0.16} className="w-full">
           <div className="flex flex-col gap-3 sm:flex-row">
             <RegisterCta id={ctaId} className="w-full sm:w-auto" />
-            <HoverRevealLink href={`#${HOME_SECTION_IDS.inside}`} className="w-full sm:w-auto">
+            <HoverRevealLink href={`#${HOME_SECTION_IDS.pillars}`} className="w-full sm:w-auto">
               {HOME_HERO.secondaryCta}
             </HoverRevealLink>
           </div>
+        </BlurFade>
+        <BlurFade inView delay={0.2}>
+          <ul className="flex flex-wrap gap-x-5 gap-y-2 text-[15px]">
+            {HOME_HERO.checks.map((check) => (
+              <li key={check} className="flex items-center gap-2">
+                <HoverIcon name="check" size={18} className="text-brand-green-strong" />
+                {check}
+              </li>
+            ))}
+          </ul>
         </BlurFade>
         <BlurFade inView delay={0.24}>
           <LatestMembers />

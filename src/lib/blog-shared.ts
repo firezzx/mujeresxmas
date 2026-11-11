@@ -107,8 +107,11 @@ export const fromArgentinaInput = (local: string) => (local ? new Date(`${local}
 
 export const isFutureDate = (iso: string | null) => Boolean(iso) && new Date(iso as string).getTime() > Date.now()
 
+// Las rutas que empiezan con "/" son fotos del propio sitio (las usan los datos de prueba); el resto está en el bucket.
+export const isSiteImage = (path: string) => path.startsWith("/")
+
 export const blogImageUrl = (path: string) =>
-  `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${BLOG_BUCKET}/${path}`
+  isSiteImage(path) ? path : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${BLOG_BUCKET}/${path}`
 
 const BLOG_IMAGE_MARKER = `/object/public/${BLOG_BUCKET}/`
 

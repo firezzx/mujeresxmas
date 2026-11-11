@@ -10,6 +10,7 @@ import { BoldIcon } from "@/components/icons/bold"
 import { BookTextIcon } from "@/components/icons/book-text"
 import { CalendarDaysIcon } from "@/components/icons/calendar-days"
 import { ChartLineIcon } from "@/components/icons/chart-line"
+import { CheckIcon } from "@/components/icons/check"
 import { CheckCheckIcon } from "@/components/icons/check-check"
 import { CircleCheckIcon } from "@/components/icons/circle-check"
 import { CompassIcon } from "@/components/icons/compass"
@@ -18,6 +19,7 @@ import { EyeIcon } from "@/components/icons/eye"
 import { FileTextIcon } from "@/components/icons/file-text"
 import { GraduationCapIcon } from "@/components/icons/graduation-cap"
 import { ItalicIcon } from "@/components/icons/italic"
+import { LayoutPanelTopIcon } from "@/components/icons/layout-panel-top"
 import { LinkIcon } from "@/components/icons/link"
 import { LinkedinIcon } from "@/components/icons/linkedin"
 import { MailCheckIcon } from "@/components/icons/mail-check"
@@ -32,6 +34,7 @@ import { TrendingUpIcon } from "@/components/icons/trending-up"
 import { UnderlineIcon } from "@/components/icons/underline"
 import { UndoIcon } from "@/components/icons/undo"
 import { UploadIcon } from "@/components/icons/upload"
+import { UserPlusIcon } from "@/components/icons/user-plus"
 import { UsersRoundIcon } from "@/components/icons/users-round"
 import { WalletIcon } from "@/components/icons/wallet"
 import { XIcon } from "@/components/icons/x"
@@ -50,6 +53,7 @@ const ICONS = {
   "book-text": BookTextIcon,
   "calendar-days": CalendarDaysIcon,
   "chart-line": ChartLineIcon,
+  check: CheckIcon,
   "check-check": CheckCheckIcon,
   "circle-check": CircleCheckIcon,
   compass: CompassIcon,
@@ -58,6 +62,7 @@ const ICONS = {
   "file-text": FileTextIcon,
   "graduation-cap": GraduationCapIcon,
   italic: ItalicIcon,
+  "layout-panel-top": LayoutPanelTopIcon,
   link: LinkIcon,
   linkedin: LinkedinIcon,
   "mail-check": MailCheckIcon,
@@ -72,6 +77,7 @@ const ICONS = {
   underline: UnderlineIcon,
   undo: UndoIcon,
   upload: UploadIcon,
+  "user-plus": UserPlusIcon,
   "users-round": UsersRoundIcon,
   wallet: WalletIcon,
   x: XIcon,

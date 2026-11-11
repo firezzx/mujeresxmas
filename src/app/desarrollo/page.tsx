@@ -1,14 +1,15 @@
 import type { Metadata } from "next"
 
-import { SectionPage } from "@/components/section-page"
-import { SECTIONS } from "@/content/secciones"
+import { PillarPage } from "@/components/pillars/pillar-page"
+import { PILLARS } from "@/content/pilares"
 
-// Sin indexar hasta que la sección tenga su contenido definitivo
+const pillar = PILLARS.desarrollo
+
 export const metadata: Metadata = {
   title: "Desarrollo",
-  robots: { index: false },
+  description: pillar.hero.description,
 }
 
 export default function Page() {
-  return <SectionPage {...SECTIONS.desarrollo} />
+  return <PillarPage pillar={pillar} />
 }

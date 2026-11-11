@@ -8,22 +8,36 @@ import {
   HomeShowcase,
   HomeShowcaseSkeleton,
 } from "@/components/home/home-sections";
+import {
+  HomeEvolution,
+  HomeImpact,
+  HomeMoments,
+  HomePillars,
+  HomePlans,
+  HomeSteps,
+} from "@/components/home/home-membership";
 import { HOME_CLOSING_CTA_ID } from "@/content/home";
 
 const HERO_CTA_ID = "cta-registro";
 
-// Home: muestra lo que hay adentro con datos reales, y los textos
-// provisorios y ejemplos viven en src/content/home.ts.
+// Home: presenta la membresía (pilares, planes del admin y cómo empezar) y lo que hay adentro con
+// datos reales. Los textos viven en src/content/home.ts y src/content/pilares.ts.
 export default function Home() {
   return (
     <main className="relative flex flex-1 flex-col">
       <HomeHero ctaId={HERO_CTA_ID} />
       <HomeRibbons />
+      <HomeImpact />
+      <HomePillars />
+      <HomeMoments />
+      <HomePlans />
+      <HomeSteps />
 
       <Suspense fallback={<HomeShowcaseSkeleton />}>
         <HomeShowcase />
       </Suspense>
 
+      <HomeEvolution />
       <HomeClosing />
 
       <FloatingRegisterCta
