@@ -1,12 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import { motion } from "motion/react"
+import { useState } from "react"
+import { AnimatePresence, motion } from "motion/react"
 
 import { signOut } from "@/app/actions/auth"
 import { ShimmerLink } from "@/components/buttons/shimmer-link"
+import { IconBadge } from "@/components/icon-badge"
+import { HoverIcon } from "@/components/icons/hover-icon"
 import { UserAvatar } from "@/components/site-header/user-menu"
-import { JOIN_LABEL, MAIN_NAV, ROUTES } from "@/config/navigation"
+import { JOIN_LABEL, MAIN_NAV, ROUTES, type NavLink } from "@/config/navigation"
+import { PILLAR_LIST, PILLARS_MENU } from "@/content/pilares"
 import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
 import { cn } from "@/lib/utils"
@@ -31,6 +35,158 @@ type MobileMenuProps = {
   onNavigate: () => void
 }
 
+const ROW_CLASS =
+  "flex h-11 w-full items-center gap-2.5 rounded-lg px-4 font-heading text-base font-medium tracking-[-0.01em] transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
+
+// Punto de marca y texto que se corre cuando el link está activo
+function RowLabel({ active, label }: { active: boolean; label: string }) {
+  return (
+    <>
+      <span
+        aria-hidden
+        className={cn(
+          "size-1.5 shrink-0 rounded-full bg-brand transition-[scale,opacity] duration-300 ease-premium",
+          active ? "scale-100 opacity-100" : "scale-0 opacity-0"
+        )}
+      />
+      <span className={cn("transition-[translate] duration-300 ease-premium", !active && "-translate-x-4")}>
+        {label}
+      </span>
+    </>
+  )
+}
+
+function MainLink({
+  href,
+  label,
+  active,
+  onNavigate,
+}: {
+  href: string
+  label: string
+  active: boolean
+  onNavigate: () => void
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        ROW_CLASS,
+        active
+          ? "bg-brand-soft text-foreground"
+          : "text-foreground/75 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
+      )}
+    >
+      <RowLabel active={active} label={label} />
+    </Link>
+  )
+}
+
+// Link con submenú: se abre y se cierra con la flechita. Arranca abierto si estás en una de sus páginas.
+function MobileDropdown({
+  link,
+  items,
+  isActive,
+  pathnameIs,
+  onNavigate,
+}: {
+  link: NavLink
+  items: readonly NavLink[]
+  isActive: (href: string) => boolean
+  pathnameIs: (href: string) => boolean
+  onNavigate: () => void
+}) {
+  const inSection = isActive(link.href)
+  const [open, setOpen] = useState(inSection)
+  const panelId = `submenu-${link.href.replace(/\W/g, "")}`
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-controls={panelId}
+        className={cn(
+          ROW_CLASS,
+          "cursor-pointer",
+          inSection && !open
+            ? "bg-brand-soft text-foreground"
+            : "text-foreground/75 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
+        )}
+      >
+        <RowLabel active={inSection} label={link.label} />
+        <span
+          aria-hidden
+          className={cn("ml-auto flex transition-transform duration-300 ease-premium", open && "rotate-180")}
+        >
+          <HoverIcon name="chevron-down" size={18} />
+        </span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id={panelId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease }}
+            className="overflow-hidden"
+          >
+            <ul className="flex flex-col gap-1 pt-1.5 pb-1 pl-2">
+              {items.map((child) => {
+                const pillar = PILLAR_LIST.find((p) => p.href === child.href)
+                const childActive = isActive(child.href)
+                return (
+                  <li key={child.href}>
+                    <Link
+                      href={child.href}
+                      onClick={onNavigate}
+                      aria-current={childActive ? "page" : undefined}
+                      className={cn(
+                        "flex items-center gap-3 rounded-lg p-2 transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                        childActive ? "bg-brand-soft" : "hover:bg-foreground/[0.04] active:bg-foreground/[0.06]"
+                      )}
+                    >
+                      {pillar && (
+                        <IconBadge tone={pillar.badgeTone} size="sm">
+                          <HoverIcon name={pillar.icon} size={16} />
+                        </IconBadge>
+                      )}
+                      <span className="flex min-w-0 flex-col">
+                        <span className="font-heading text-[15px] font-medium">{child.label}</span>
+                        {pillar && (
+                          <span className="font-hand text-base leading-tight text-muted-foreground">{pillar.tag}</span>
+                        )}
+                      </span>
+                      {childActive && <span aria-hidden className="ml-auto size-1.5 shrink-0 rounded-full bg-brand" />}
+                    </Link>
+                  </li>
+                )
+              })}
+              <li>
+                <Link
+                  href={link.href}
+                  onClick={onNavigate}
+                  aria-current={pathnameIs(link.href) ? "page" : undefined}
+                  className={cn(
+                    "flex h-10 items-center gap-2 rounded-lg px-2.5 text-sm font-semibold outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                    pathnameIs(link.href) ? "bg-brand-soft" : "hover:bg-foreground/[0.04]"
+                  )}
+                >
+                  {PILLARS_MENU.allLabel}
+                  <HoverIcon name="arrow-right" size={16} />
+                </Link>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 // Contenido del menú móvil: se despliega dentro de la barra del header.
 // Links compactos con la tipografía de títulos (el activo, en una pastilla rosa con el punto de marca)
 // y abajo la cuenta: tarjeta con la usuaria y sus accesos, o el registro para visitantes.
@@ -39,61 +195,21 @@ export function MobileMenu({ user, adminView = null, isActive, pathnameIs, onNav
     <div className="px-1.5 pt-3 pb-1.5">
       <nav aria-label="Principal">
         <ul className="flex flex-col gap-1">
-          {MAIN_NAV.map((link, i) => {
-            // Con submenú, el de arriba se marca solo en su propia página; en las de abajo se marca el hijo
-            const active = link.children ? pathnameIs(link.href) : isActive(link.href)
-            return (
-              <motion.li key={link.href} custom={i} variants={item} initial="hidden" animate="show">
-                <Link
-                  href={link.href}
-                  onClick={onNavigate}
-                  aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "flex h-11 items-center gap-2.5 rounded-lg px-4 font-heading text-base font-medium tracking-[-0.01em] transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
-                    active
-                      ? "bg-brand-soft text-foreground"
-                      : "text-foreground/75 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
-                  )}
-                >
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "size-1.5 shrink-0 rounded-full bg-brand transition-[scale,opacity] duration-300 ease-premium",
-                      active ? "scale-100 opacity-100" : "scale-0 opacity-0"
-                    )}
-                  />
-                  <span className={cn("transition-[translate] duration-300 ease-premium", !active && "-translate-x-4")}>
-                    {link.label}
-                  </span>
-                </Link>
-                {link.children && (
-                  <ul className="mt-1 ml-6 flex flex-col gap-0.5 border-l border-border/70 pl-2">
-                    {link.children.map((child) => {
-                      const childActive = isActive(child.href)
-                      return (
-                        <li key={child.href}>
-                          <Link
-                            href={child.href}
-                            onClick={onNavigate}
-                            aria-current={childActive ? "page" : undefined}
-                            className={cn(
-                              "flex h-10 items-center gap-2.5 rounded-lg px-3 text-[15px] font-medium transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
-                              childActive
-                                ? "bg-brand-soft text-foreground"
-                                : "text-foreground/70 hover:bg-foreground/[0.04] hover:text-foreground"
-                            )}
-                          >
-                            {childActive && <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-brand" />}
-                            {child.label}
-                          </Link>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )}
-              </motion.li>
-            )
-          })}
+          {MAIN_NAV.map((link, i) => (
+            <motion.li key={link.href} custom={i} variants={item} initial="hidden" animate="show">
+              {link.children ? (
+                <MobileDropdown
+                  link={link}
+                  items={link.children}
+                  isActive={isActive}
+                  pathnameIs={pathnameIs}
+                  onNavigate={onNavigate}
+                />
+              ) : (
+                <MainLink href={link.href} label={link.label} active={isActive(link.href)} onNavigate={onNavigate} />
+              )}
+            </motion.li>
+          ))}
         </ul>
       </nav>
 
