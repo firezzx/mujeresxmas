@@ -45,7 +45,7 @@ function StepCard({ step, index }: { step: (typeof KIERO_PAGE.steps)[number]; in
         className="absolute inset-0 -z-10 bg-linear-to-t from-primary/85 via-primary/30 to-transparent"
       />
       <div className="flex items-start justify-between gap-4">
-        <span className="surface-light w-fit rounded-xl bg-background p-1.5">
+        <span className="surface-light w-fit rounded-lg bg-background">
           <IconBadge tone={cycleTone(index)}>
             <HoverIcon name={step.icon} size={22} />
           </IconBadge>

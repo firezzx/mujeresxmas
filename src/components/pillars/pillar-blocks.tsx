@@ -141,7 +141,7 @@ export function PillarCard({
         aria-hidden
         className="absolute inset-0 -z-10 bg-linear-to-t from-primary/85 via-primary/30 to-transparent"
       />
-      <span className="surface-light mb-auto w-fit rounded-xl bg-background p-1.5">
+      <span className="surface-light mb-auto w-fit rounded-lg bg-background">
         <IconBadge tone={pillar.badgeTone}>
           <HoverIcon name={pillar.icon} size={22} />
         </IconBadge>
