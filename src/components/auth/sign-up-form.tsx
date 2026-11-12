@@ -41,7 +41,7 @@ export function SignUpForm() {
       setClientErrors(z.flattenError(parsed.error).fieldErrors)
       return
     }
-    // Ruta a la que volver después de confirmar el correo (?next=, p. ej. desde QUIERO).
+    // Ruta a la que volver después de confirmar el correo (?next=, p. ej. desde Kiero).
     // Se lee al enviar para que la página siga siendo estática; el servidor la valida.
     const nextInput = event.currentTarget.elements.namedItem("next")
     if (nextInput instanceof HTMLInputElement) {

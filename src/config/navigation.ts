@@ -41,18 +41,18 @@ export const ROUTES = {
   desarrollo: "/pilares/desarrollo",
   bienestar: "/pilares/bienestar",
   conexion: "/pilares/conexion",
-  quiero: "/quiero",
+  kiero: "/kiero",
   planes: "/planes",
   blog: "/blog",
-  // Provisoria hasta que la clienta defina cómo se pide QUIERO (función 2)
-  quieroSolicitud: "/quiero/solicitud",
+  // Provisoria hasta que la clienta defina cómo se pide Kiero (función 2)
+  kieroSolicitud: "/kiero/solicitud",
 } as const
 
 // Páginas solo para visitantes: con sesión iniciada, el proxy redirige al inicio.
 export const GUEST_ONLY_ROUTES = [ROUTES.login, ROUTES.registro] as const
 
 // Páginas privadas (incluye sus subpáginas): sin sesión, el proxy manda al login.
-export const PROTECTED_ROUTES = [ROUTES.miCuenta, ROUTES.quieroSolicitud, ROUTES.admin] as const
+export const PROTECTED_ROUTES = [ROUTES.miCuenta, ROUTES.kieroSolicitud, ROUTES.admin] as const
 
 // Secciones del panel de administración. Para sumar una: ruta en ROUTES, página en
 // src/app/admin/<seccion>/page.tsx, ícono en src/components/icons/hover-icon.tsx y una línea acá.

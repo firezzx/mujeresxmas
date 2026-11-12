@@ -9,7 +9,7 @@ import type { IconName } from "@/components/icons/hover-icon"
 export const SHOW_SAMPLES = process.env.NODE_ENV === "development" || process.env.SHOW_SAMPLE_CONTENT === "true"
 
 export const HOME_HERO = {
-  // Aviso de arriba: lleva a QUIERO, la tienda online
+  // Aviso de arriba: lleva a Kiero, la tienda online
   noticeTag: "Nuevo",
   notice: "Hacete miembro y tené tu tienda online gratis",
   hand: "Nuevos tiempos, más posibilidades",
@@ -239,9 +239,9 @@ export const HOME_NOTES = {
 
 export const HOME_PRODUCT = {
   tag: "Producto",
-  title: "QUIERO",
+  title: "Kiero",
   description: "De vender por redes a tener tu tienda online. Te acompañamos en cada paso.",
-  cta: "Conocé QUIERO",
+  cta: "Conocé Kiero",
   image: "/images/home/boutique.jpg",
   imageAlt: "Emprendedora preparando prendas en su tienda",
   secondImage: "/images/home/marketing.jpg",

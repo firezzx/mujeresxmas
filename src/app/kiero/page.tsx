@@ -10,27 +10,27 @@ import { HeroLights, ScreenClosing, ScreenSection } from "@/components/landing/s
 import { BandBackdrop } from "@/components/page-band"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { ROUTES } from "@/config/navigation"
-import { QUIERO_PAGE } from "@/content/quiero"
+import { KIERO_PAGE } from "@/content/kiero"
 import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
-  title: "QUIERO",
-  description: "QUIERO acompaña a emprendedoras y feriantes a pasar de vender por redes a tener su tienda online.",
+  title: "Kiero",
+  description: "Kiero acompaña a emprendedoras y feriantes a pasar de vender por redes a tener su tienda online.",
 }
 
 // Sin sesión lleva al registro (y al confirmar el correo vuelve acá); con sesión, a la solicitud.
-function QuieroCta() {
+function KieroCta() {
   return (
     <SessionCta
       className="w-full px-12 sm:w-auto"
-      guest={{ href: `${ROUTES.registro}?next=${ROUTES.quiero}`, label: QUIERO_PAGE.cta }}
-      member={{ href: ROUTES.quieroSolicitud, label: QUIERO_PAGE.cta }}
+      guest={{ href: `${ROUTES.registro}?next=${ROUTES.kiero}`, label: KIERO_PAGE.cta }}
+      member={{ href: ROUTES.kieroSolicitud, label: KIERO_PAGE.cta }}
     />
   )
 }
 
 // Paso del camino: foto alta con el número, el ícono y el texto sobre un velo
-function StepCard({ step, index }: { step: (typeof QUIERO_PAGE.steps)[number]; index: number }) {
+function StepCard({ step, index }: { step: (typeof KIERO_PAGE.steps)[number]; index: number }) {
   return (
     <IconHoverArea className="group relative isolate flex h-80 flex-col justify-between overflow-hidden rounded-xl p-5 text-white lg:h-full lg:p-6">
       <Image
@@ -62,29 +62,29 @@ function StepCard({ step, index }: { step: (typeof QUIERO_PAGE.steps)[number]; i
   )
 }
 
-// QUIERO con el estilo del inicio, una pantalla por bloque. Los textos son provisorios hasta tener
-// el contenido de la clienta (ver src/content/quiero.ts).
-export default function QuieroPage() {
+// Kiero con el estilo del inicio, una pantalla por bloque. Los textos son provisorios hasta tener
+// el contenido de la clienta (ver src/content/kiero.ts).
+export default function KieroPage() {
   return (
     <main className="relative flex flex-1 flex-col">
       <ScreenSection backdrop={<HeroLights />} innerClassName="pt-32 lg:pt-28">
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col items-start">
             <BlurFade>
-              <Pill className="bg-brand text-brand-foreground">{QUIERO_PAGE.eyebrow}</Pill>
+              <Pill className="bg-brand text-brand-foreground">{KIERO_PAGE.eyebrow}</Pill>
             </BlurFade>
             <BlurFade delay={0.06}>
               <h1 className={cn(HEADING_CLASS, "mt-7 text-7xl leading-none sm:text-8xl xl:text-9xl")}>
-                {QUIERO_PAGE.title}
+                {KIERO_PAGE.title}
               </h1>
             </BlurFade>
             <BlurFade delay={0.12}>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">
-                {QUIERO_PAGE.description}
+                {KIERO_PAGE.description}
               </p>
             </BlurFade>
             <BlurFade delay={0.18} className="mt-9 w-full sm:w-auto">
-              <QuieroCta />
+              <KieroCta />
             </BlurFade>
           </div>
           <BlurFade delay={0.1}>
@@ -94,9 +94,9 @@ export default function QuieroPage() {
       </ScreenSection>
 
       <ScreenSection backdrop={<BandBackdrop tone="soft" />}>
-        <SectionHeading title={QUIERO_PAGE.stepsTitle} accent={QUIERO_PAGE.stepsHighlight} className="lg:mb-12" />
+        <SectionHeading title={KIERO_PAGE.stepsTitle} accent={KIERO_PAGE.stepsHighlight} className="lg:mb-12" />
         <ol className="grid gap-4 md:grid-cols-3 lg:h-[min(32rem,56svh)]">
-          {QUIERO_PAGE.steps.map((step, index) => (
+          {KIERO_PAGE.steps.map((step, index) => (
             <li key={step.title} className="min-w-0">
               <BlurFade inView delay={index * 0.08} className="h-full">
                 <StepCard step={step} index={index} />
@@ -106,8 +106,8 @@ export default function QuieroPage() {
         </ol>
       </ScreenSection>
 
-      <ScreenClosing title={QUIERO_PAGE.closingTitle} highlight={QUIERO_PAGE.closingHighlight}>
-        <QuieroCta />
+      <ScreenClosing title={KIERO_PAGE.closingTitle} highlight={KIERO_PAGE.closingHighlight}>
+        <KieroCta />
       </ScreenClosing>
     </main>
   )

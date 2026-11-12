@@ -12,6 +12,7 @@ import { BlurFade } from "@/components/ui/blur-fade"
 import { ROUTES } from "@/config/navigation"
 import type { getAccountSummary } from "@/lib/account"
 import type { CommunityEvent, Course } from "@/lib/content"
+import { parsePlanFeature } from "@/lib/plan-features"
 import { formatDay, formatMonth, formatPrice } from "@/lib/format"
 import type { UserNotification } from "@/lib/notifications"
 import { cn } from "@/lib/utils"
@@ -79,10 +80,23 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                       <IconHoverArea className="mt-6 border-t border-primary-foreground/15 pt-6">
                         <h3 className="text-sm font-medium text-primary-foreground/70">Qué incluye</h3>
                         <ul className="mt-3 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
-                          {membership.planFeatures.map((feature) => (
-                            <li key={feature} className="flex items-start gap-2 text-sm leading-relaxed">
-                              <HoverIcon name="circle-check" size={16} className="mt-0.5 shrink-0 text-brand-green" />
-                              {feature}
+                          {membership.planFeatures.map(parsePlanFeature).map((feature) => (
+                            <li
+                              key={feature.text}
+                              className={cn(
+                                "flex items-start gap-2 text-sm leading-relaxed",
+                                feature.highlighted && "font-heading font-semibold"
+                              )}
+                            >
+                              <HoverIcon
+                                name="circle-check"
+                                size={16}
+                                className={cn(
+                                  "mt-0.5 shrink-0",
+                                  feature.highlighted ? "text-brand" : "text-brand-green"
+                                )}
+                              />
+                              {feature.text}
                             </li>
                           ))}
                         </ul>

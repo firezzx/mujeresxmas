@@ -71,7 +71,7 @@ export function NotificationForm() {
       <TextField
         label="Link (opcional)"
         name="link"
-        placeholder="/quiero o https://…"
+        placeholder="/kiero o https://…"
         inputMode="url"
         value={values.link}
         onChange={(e) => update("link", e.target.value)}

@@ -10,4 +10,7 @@ export const PLANS_PAGE = {
   currentAction: "Este es tu plan",
   comingSoon: "Próximamente",
   perMonth: "por mes",
+  free: "Gratis",
+  featuredBadge: "Más completo",
+  levelLabel: "Nivel",
 }

@@ -9,22 +9,22 @@ import { HoverIcon } from "@/components/icons/hover-icon"
 import { ROUTES } from "@/config/navigation"
 
 export const metadata: Metadata = {
-  title: "Pedir QUIERO",
+  title: "Pedir Kiero",
   robots: { index: false },
 }
 
-// Pantalla provisoria (función 2): la clienta todavía no definió cómo se pide QUIERO.
+// Pantalla provisoria (función 2): la clienta todavía no definió cómo se pide Kiero.
 // Es privada: sin sesión, el proxy manda al login y después vuelve acá.
-export default function QuieroSolicitudPage() {
+export default function KieroSolicitudPage() {
   return (
     <AuthShell
-      eyebrow="QUIERO"
+      eyebrow="Kiero"
       title={
         <>
           Muy pronto <BrandHighlight>vas a poder pedirlo</BrandHighlight>
         </>
       }
-      description="Estamos terminando de preparar todo para que puedas sumarte a QUIERO desde acá."
+      description="Estamos terminando de preparar todo para que puedas sumarte a Kiero desde acá."
     >
       <div className="flex flex-col items-center gap-5 text-center">
         <IconBadge size="lg">
@@ -37,8 +37,8 @@ export default function QuieroSolicitudPage() {
           <ShimmerLink href={ROUTES.perfil} size="md" className="h-12 w-full">
             Completar mi perfil
           </ShimmerLink>
-          <HoverRevealLink href={ROUTES.quiero} className="w-full">
-            Volver a QUIERO
+          <HoverRevealLink href={ROUTES.kiero} className="w-full">
+            Volver a Kiero
           </HoverRevealLink>
         </div>
       </div>

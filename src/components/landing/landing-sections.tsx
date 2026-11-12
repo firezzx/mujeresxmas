@@ -65,7 +65,7 @@ export function LandingHero({ ctaId }: { ctaId: string }) {
         <BlurFade>
           <IconHoverArea className="inline-flex">
             <Link
-              href={ROUTES.quiero}
+              href={ROUTES.kiero}
               className="inline-flex items-center gap-3 rounded-lg bg-background/80 py-1.5 pr-3 pl-1.5 text-sm shadow-[0_8px_24px_-12px_rgb(26_26_26/0.25)] ring-1 ring-foreground/[0.08] backdrop-blur-sm transition-shadow duration-300 outline-none hover:ring-foreground/20 focus-visible:ring-3 focus-visible:ring-ring/40"
             >
               <span className="rounded-md bg-brand px-2 py-0.5 text-xs font-semibold text-brand-foreground">

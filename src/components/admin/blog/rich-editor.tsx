@@ -148,7 +148,7 @@ function LinkPanel({ editor, onClose }: { editor: Editor; onClose: () => void })
   function apply() {
     const value = url.trim()
     if (!value) return
-    // "ejemplo.com" → "https://ejemplo.com". Las direcciones del propio sitio ("/quiero") quedan igual.
+    // "ejemplo.com" → "https://ejemplo.com". Las direcciones del propio sitio ("/kiero") quedan igual.
     const href = /^(https?:\/\/|mailto:|\/)/i.test(value) ? value : `https://${value}`
     const chain = editor.chain().focus().extendMarkRange("link")
     const applied =
@@ -170,7 +170,7 @@ function LinkPanel({ editor, onClose }: { editor: Editor; onClose: () => void })
           type="url"
           aria-label="Dirección del link"
           aria-invalid={error ? true : undefined}
-          placeholder="https://… o /quiero"
+          placeholder="https://… o /kiero"
           value={url}
           onChange={(event) => {
             setUrl(event.target.value)

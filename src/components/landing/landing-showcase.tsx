@@ -146,7 +146,7 @@ function Courses({ items }: { items: ShowcaseCard[] }) {
   )
 }
 
-// QUIERO: franja oscura a todo el ancho; el contenido respeta el ancho de siempre. A la derecha, una
+// Kiero: franja oscura a todo el ancho; el contenido respeta el ancho de siempre. A la derecha, una
 // composición: dos fotos superpuestas y una tarjeta flotante con el camino de la tienda.
 function Product() {
   return (
@@ -156,7 +156,7 @@ function Product() {
         <h2 className={cn(HEADING_CLASS, "text-5xl leading-none sm:text-6xl lg:text-7xl")}>{HOME_PRODUCT.title}</h2>
         <p className="max-w-md text-lg leading-relaxed text-pretty text-muted-foreground">{HOME_PRODUCT.description}</p>
         <div className="mt-2">
-          <ShimmerLink href={ROUTES.quiero} className="w-full sm:w-auto">
+          <ShimmerLink href={ROUTES.kiero} className="w-full sm:w-auto">
             {HOME_PRODUCT.cta}
           </ShimmerLink>
         </div>

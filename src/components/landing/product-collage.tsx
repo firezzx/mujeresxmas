@@ -4,7 +4,7 @@ import { HoverIcon } from "@/components/icons/hover-icon"
 import { HOME_PRODUCT } from "@/content/home"
 import { cn } from "@/lib/utils"
 
-// Composición de QUIERO: dos fotos superpuestas y una tarjeta flotante con el camino de vender por
+// Composición de Kiero: dos fotos superpuestas y una tarjeta flotante con el camino de vender por
 // redes a tener tu tienda. `ringClass` es el borde de la foto chica, del color del fondo.
 export function ProductCollage({ ringClass = "ring-primary", priority }: { ringClass?: string; priority?: boolean }) {
   return (

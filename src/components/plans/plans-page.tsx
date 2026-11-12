@@ -20,13 +20,13 @@ import { cn } from "@/lib/utils"
 function Hero() {
   const { title } = PLANS_PAGE
   return (
-    <ScreenSection backdrop={<HeroLights />} innerClassName="pt-32 lg:pt-22 lg:pb-8">
-      <div className="mx-auto mb-12 flex max-w-4xl flex-col items-center text-center lg:mb-6">
+    <ScreenSection backdrop={<HeroLights />} innerClassName="pt-32 lg:pt-20 lg:pb-8">
+      <div className="mx-auto mb-12 flex max-w-4xl flex-col items-center text-center lg:mb-5">
         <BlurFade>
           <Pill>{PLANS_PAGE.eyebrow}</Pill>
         </BlurFade>
         <BlurFade delay={0.06}>
-          <h1 className={cn(HEADING_CLASS, "mt-5 text-[2.75rem] leading-[0.98] sm:text-6xl xl:text-[4rem]")}>
+          <h1 className={cn(HEADING_CLASS, "mt-5 text-[2.75rem] leading-[0.98] sm:text-6xl xl:text-[3.5rem]")}>
             {title.start}
             <span className="text-brand-green-strong">{title.highlight}</span>
             {title.end}

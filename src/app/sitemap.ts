@@ -14,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}${ROUTES.desarrollo}` },
     { url: `${SITE_URL}${ROUTES.bienestar}` },
     { url: `${SITE_URL}${ROUTES.conexion}` },
-    { url: `${SITE_URL}${ROUTES.quiero}` },
+    { url: `${SITE_URL}${ROUTES.kiero}` },
     { url: `${SITE_URL}${ROUTES.planes}` },
     { url: `${SITE_URL}${ROUTES.blog}` },
     ...posts.map((post) => ({ url: `${SITE_URL}${ROUTES.blog}/${post.slug}`, lastModified: post.updatedAt })),

@@ -4,7 +4,7 @@ import StarterKit from "@tiptap/starter-kit"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
-// "/quiero" o una dirección del propio sitio. "//otro.com" es externa.
+// "/kiero" o una dirección del propio sitio. "//otro.com" es externa.
 function isInternalLink(href: unknown) {
   if (typeof href !== "string") return false
   if (/^\/(?!\/)/.test(href)) return true

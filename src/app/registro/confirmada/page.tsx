@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 
 // Texto del botón según a dónde vuelve; cualquier otra ruta usa "Continuar".
 const CONTINUE_LABELS: Record<string, string> = {
-  [ROUTES.quiero]: "Seguir con QUIERO",
+  [ROUTES.kiero]: "Seguir con Kiero",
 }
 
 // Destino después de confirmar el correo. La sesión ya quedó iniciada en /auth/confirm.
-// Si el registro empezó en otra página (?next=, p. ej. QUIERO), el botón lleva de vuelta ahí.
+// Si el registro empezó en otra página (?next=, p. ej. Kiero), el botón lleva de vuelta ahí.
 export default function CuentaConfirmadaPage({ searchParams }: PageProps<"/registro/confirmada">) {
   return (
     <AuthShell

@@ -87,7 +87,7 @@ export function PlanForm({ plan }: { plan: Plan }) {
         label="Beneficios"
         name="features"
         rows={6}
-        hint="Escribí un beneficio por línea, en el orden en que querés mostrarlos."
+        hint="Escribí un beneficio por línea, en el orden en que querés mostrarlos. Empezá la línea con * para destacarla."
         value={values.features}
         onChange={(e) => update("features", e.target.value)}
         error={errorFor("features")}

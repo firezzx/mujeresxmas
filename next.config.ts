@@ -17,13 +17,16 @@ const nextConfig: NextConfig = {
         ]
       : [],
   },
-  // Los pilares pasaron a ser subpáginas de /pilares
+  // Los pilares pasaron a ser subpáginas de /pilares, y la plataforma se llama Kiero (antes /quiero)
   async redirects() {
-    return ["desarrollo", "bienestar", "conexion"].map((slug) => ({
-      source: `/${slug}`,
-      destination: `/pilares/${slug}`,
-      permanent: true,
-    }))
+    return [
+      ...["desarrollo", "bienestar", "conexion"].map((slug) => ({
+        source: `/${slug}`,
+        destination: `/pilares/${slug}`,
+        permanent: true,
+      })),
+      { source: "/quiero/:path*", destination: "/kiero/:path*", permanent: true },
+    ]
   },
   cacheComponents: true,
   partialPrefetching: true,

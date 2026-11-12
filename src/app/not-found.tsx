@@ -40,8 +40,8 @@ export default function NotFound() {
               <ShimmerLink href="/" className="w-full sm:w-auto">
                 Volver al inicio
               </ShimmerLink>
-              <HoverRevealLink href="/quiero" className="w-full sm:w-auto">
-                Conocé QUIERO
+              <HoverRevealLink href="/kiero" className="w-full sm:w-auto">
+                Conocé Kiero
               </HoverRevealLink>
             </div>
           </BlurFade>

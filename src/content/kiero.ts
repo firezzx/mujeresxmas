@@ -1,13 +1,13 @@
 import type { IconName } from "@/components/icons/hover-icon"
 import { HOME_PRODUCT } from "@/content/home"
 
-// Textos e imágenes de la página de QUIERO, separados del diseño. Son provisorios hasta tener el
+// Textos e imágenes de la página de Kiero, separados del diseño. Son provisorios hasta tener el
 // contenido definitivo de la clienta.
-export const QUIERO_PAGE = {
+export const KIERO_PAGE = {
   eyebrow: "Un producto de Mujeres x Más",
   title: HOME_PRODUCT.title,
   description: HOME_PRODUCT.description,
-  cta: "QUIERO",
+  cta: "Sumarme a Kiero",
   photos: {
     image: HOME_PRODUCT.image,
     imageAlt: HOME_PRODUCT.imageAlt,
