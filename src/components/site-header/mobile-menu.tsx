@@ -45,7 +45,7 @@ function RowLabel({ active, label }: { active: boolean; label: string }) {
       <span
         aria-hidden
         className={cn(
-          "size-1.5 shrink-0 rounded-full bg-brand transition-[scale,opacity] duration-300 ease-premium",
+          "size-1.5 shrink-0 rounded-full bg-brand-green transition-[scale,opacity] duration-300 ease-premium",
           active ? "scale-100 opacity-100" : "scale-0 opacity-0"
         )}
       />
@@ -75,7 +75,7 @@ function MainLink({
       className={cn(
         ROW_CLASS,
         active
-          ? "bg-brand-soft text-foreground"
+          ? "bg-background ring-1 ring-foreground/[0.07] shadow-[0_1px_2px_rgb(26_26_26/0.06),0_6px_16px_-8px_rgb(26_26_26/0.22)] text-foreground"
           : "text-foreground/75 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
       )}
     >
@@ -112,7 +112,7 @@ function MobileDropdown({
           ROW_CLASS,
           "cursor-pointer",
           inSection && !open
-            ? "bg-brand-soft text-foreground"
+            ? "bg-background ring-1 ring-foreground/[0.07] shadow-[0_1px_2px_rgb(26_26_26/0.06),0_6px_16px_-8px_rgb(26_26_26/0.22)] text-foreground"
             : "text-foreground/75 hover:bg-foreground/[0.04] hover:text-foreground active:bg-foreground/[0.06]"
         )}
       >
@@ -146,7 +146,9 @@ function MobileDropdown({
                       aria-current={childActive ? "page" : undefined}
                       className={cn(
                         "flex items-center gap-3 rounded-lg p-2 transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
-                        childActive ? "bg-brand-soft" : "hover:bg-foreground/[0.04] active:bg-foreground/[0.06]"
+                        childActive
+                          ? "bg-background ring-1 ring-foreground/[0.07] shadow-[0_1px_2px_rgb(26_26_26/0.06),0_6px_16px_-8px_rgb(26_26_26/0.22)]"
+                          : "hover:bg-foreground/[0.04] active:bg-foreground/[0.06]"
                       )}
                     >
                       {pillar && (
@@ -160,7 +162,9 @@ function MobileDropdown({
                           <span className="font-hand text-base leading-tight text-muted-foreground">{pillar.tag}</span>
                         )}
                       </span>
-                      {childActive && <span aria-hidden className="ml-auto size-1.5 shrink-0 rounded-full bg-brand" />}
+                      {childActive && (
+                        <span aria-hidden className="ml-auto size-1.5 shrink-0 rounded-full bg-brand-green" />
+                      )}
                     </Link>
                   </li>
                 )
@@ -172,7 +176,9 @@ function MobileDropdown({
                   aria-current={pathnameIs(link.href) ? "page" : undefined}
                   className={cn(
                     "flex h-10 items-center gap-2 rounded-lg px-2.5 text-sm font-semibold outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
-                    pathnameIs(link.href) ? "bg-brand-soft" : "hover:bg-foreground/[0.04]"
+                    pathnameIs(link.href)
+                      ? "bg-background ring-1 ring-foreground/[0.07] shadow-[0_1px_2px_rgb(26_26_26/0.06),0_6px_16px_-8px_rgb(26_26_26/0.22)]"
+                      : "hover:bg-foreground/[0.04]"
                   )}
                 >
                   {PILLARS_MENU.allLabel}

@@ -94,7 +94,9 @@ export function SiteHeaderView({
   const isActive = (href: string) => (href === "/" ? pathname === "/" : Boolean(pathname?.startsWith(href)))
   const activeHref = MAIN_NAV.find((item) => isActive(item.href))?.href
   const megaHref = MAIN_NAV.find((item) => item.children)?.href
-  const highlighted = hovered ?? (megaOpen ? megaHref : activeHref)
+  // Los links van en un riel gris suave. El activo es una pastilla blanca en relieve con un punto verde,
+  // que se desliza al cambiar de página; al pasar el mouse, los demás se aclaran apenas.
+  const hoveredHref = hovered ?? (megaOpen ? megaHref : undefined)
   const closeMenu = () => setMenuOpen(false)
 
   return (
@@ -148,7 +150,10 @@ export function SiteHeaderView({
                 />
               </div>
               <nav aria-label="Principal" className="hidden lg:block">
-                <ul className="flex items-center gap-1" onMouseLeave={() => setHovered(null)}>
+                <ul
+                  className="flex items-center gap-0.5 rounded-xl bg-foreground/[0.045] p-1 ring-1 ring-foreground/[0.04] ring-inset"
+                  onMouseLeave={() => setHovered(null)}
+                >
                   {MAIN_NAV.map((item) => {
                     const hasMenu = Boolean(item.children)
                     return (
@@ -175,11 +180,16 @@ export function SiteHeaderView({
                             aria-haspopup={hasMenu ? "true" : undefined}
                             aria-expanded={hasMenu ? megaOpen : undefined}
                             className={cn(
-                              "relative z-10 flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-300 outline-none",
+                              "relative z-10 flex items-center gap-1.5 rounded-lg px-4 py-1.5 text-sm font-medium transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
                               hasMenu && "pr-3",
-                              highlighted === item.href ? "text-foreground" : "text-muted-foreground"
+                              hoveredHref === item.href || activeHref === item.href
+                                ? "text-foreground"
+                                : "text-muted-foreground"
                             )}
                           >
+                            {activeHref === item.href && (
+                              <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-brand-green" />
+                            )}
                             {item.label}
                             {hasMenu && (
                               <span
@@ -193,10 +203,19 @@ export function SiteHeaderView({
                               </span>
                             )}
                           </Link>
-                          {highlighted === item.href && (
+                          {hoveredHref === item.href && activeHref !== item.href && (
                             <motion.span
-                              layoutId="nav-highlight"
-                              className="absolute inset-0 rounded-lg bg-brand-soft"
+                              layoutId="nav-hover"
+                              aria-hidden
+                              className="absolute inset-0 rounded-lg bg-background/60"
+                              transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                            />
+                          )}
+                          {activeHref === item.href && (
+                            <motion.span
+                              layoutId="nav-active"
+                              aria-hidden
+                              className="absolute inset-0 rounded-lg bg-background ring-1 ring-foreground/[0.07] shadow-[0_1px_2px_rgb(26_26_26/0.06),0_6px_16px_-8px_rgb(26_26_26/0.22)]"
                               transition={{ type: "spring", stiffness: 420, damping: 34 }}
                             />
                           )}
@@ -332,7 +351,9 @@ function MegaMenu({
                     aria-current={active ? "page" : undefined}
                     className={cn(
                       "group/card flex h-full flex-col gap-3 rounded-xl p-2.5 transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
-                      active ? "bg-brand-soft/60" : "hover:bg-foreground/[0.035]"
+                      active
+                        ? "bg-background ring-1 ring-foreground/[0.07] shadow-[0_1px_2px_rgb(26_26_26/0.06),0_6px_16px_-8px_rgb(26_26_26/0.22)]"
+                        : "hover:bg-foreground/[0.035]"
                     )}
                   >
                     {pillar && (
