@@ -36,3 +36,7 @@ npx shadcn@latest add @magicui/<componente>
 - `src/components/ui`: componentes de Magic UI / shadcn
 - `src/lib/supabase`: clientes de Supabase para navegador, servidor y proxy
 - `src/proxy.ts`: refresco de la sesión de Supabase en cada request
+
+## Pasar a producción
+
+Lo que falta para publicar en las cuentas de la clienta está en [docs/PRODUCCION.md](docs/PRODUCCION.md).
