@@ -228,6 +228,50 @@ export const HOME_PRODUCT = {
   secondImageAlt: "Emprendedora grabando un video para sus redes",
   chip: "Te acompañamos",
   steps: ["Vender por redes", "Armar tu tienda", "Seguir creciendo"],
+  // Franja de Kiero en el inicio
+  home: {
+    eyebrow: "Un producto de Mujeres x Más",
+    titleStart: "De vender por redes a",
+    titleHighlight: "tu tienda online.",
+    description:
+      "Kiero es la app de e-commerce de la comunidad: armás tu tienda, cargás tus productos y vendés desde el celular. Te acompañamos paso a paso.",
+    benefits: [
+      { icon: "message-circle", title: "Desde tus redes", text: "Compartí tu tienda con un link." },
+      { icon: "rocket", title: "Todo en el celular", text: "Cargás y vendés desde la app." },
+      { icon: "compass", title: "Con guía", text: "Te acompañamos en cada paso." },
+    ] satisfies { icon: IconName; title: string; text: string }[],
+    secondaryCta: "Ver membresías",
+    // Maqueta ilustrativa de la app: nombres, precios y cifras son de ejemplo.
+    app: {
+      note: "tu tienda en el bolsillo",
+      store: {
+        name: "Tu marca",
+        greeting: "Hola, Sofi",
+        banner: "Nueva colección",
+        categories: ["Todo", "Ropa", "Deco"],
+        products: [
+          { name: "Cartera Terra", price: "$38.900", image: "/images/home/productos/cartera.jpg" },
+          { name: "Camisa Lunares", price: "$24.500", image: "/images/home/productos/camisa.jpg" },
+          { name: "Florero Pampa", price: "$15.200", image: "/images/home/productos/florero.jpg" },
+          { name: "Colección Otoño", price: "$29.900", image: "/images/home/productos/perchero.jpg" },
+        ],
+      },
+      sales: {
+        title: "Ventas de hoy",
+        total: "$78.300",
+        change: "+18 %",
+        bars: [38, 52, 44, 66, 58, 74, 92],
+        orders: [
+          { name: "Cartera Terra", price: "$38.900", image: "/images/home/productos/cartera.jpg" },
+          { name: "Camisa Lunares", price: "$24.500", image: "/images/home/productos/camisa.jpg" },
+          { name: "Florero Pampa", price: "$15.200", image: "/images/home/productos/florero.jpg" },
+        ],
+        status: "Pagado",
+      },
+      push: { app: "Kiero", time: "ahora", title: "¡Nueva venta!", text: "Cartera Terra · $38.900" },
+      share: { title: "Link en tu bio", text: "Tus clientas compran desde Instagram." },
+    },
+  },
 }
 
 export const HOME_STATEMENT = {

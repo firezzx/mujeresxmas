@@ -9,15 +9,14 @@ import {
   ArrowBadge,
   ArrowLink,
   cardClass,
-  DarkSection,
   HEADING_CLASS,
-  Pill,
   SampleTag,
   Section,
   SectionHeading,
 } from "@/components/landing/landing-ui"
 import { BandBackdrop, PAGE_WIDTH_CLASS, PhotoTile } from "@/components/page-band"
-import { ProductCollage } from "@/components/landing/product-collage"
+import { KieroStoreMockup } from "@/components/landing/kiero-store-mockup"
+import { ScreenSection } from "@/components/landing/screen"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { Marquee } from "@/components/ui/marquee"
 import { ROUTES } from "@/config/navigation"
@@ -146,26 +145,57 @@ function Courses({ items }: { items: ShowcaseCard[] }) {
   )
 }
 
-// Kiero: franja oscura a todo el ancho; el contenido respeta el ancho de siempre. A la derecha, una
-// composición: dos fotos superpuestas y una tarjeta flotante con el camino de la tienda.
+// Kiero: franja oscura a todo el ancho. A la izquierda, la marca, el beneficio, tres ventajas y
+// las acciones; a la derecha, una maqueta de tienda en perspectiva con tarjetas flotando.
 function Product() {
+  const { home } = HOME_PRODUCT
   return (
-    <DarkSection id={HOME_SECTION_IDS.products} className="grid items-center gap-14 md:grid-cols-2 md:gap-16">
-      <BlurFade inView className="flex flex-col gap-6">
-        <Pill className="bg-brand text-brand-foreground">{HOME_PRODUCT.tag}</Pill>
-        <h2 className={cn(HEADING_CLASS, "text-5xl leading-none sm:text-6xl lg:text-7xl")}>{HOME_PRODUCT.title}</h2>
-        <p className="max-w-md text-lg leading-relaxed text-pretty text-muted-foreground">{HOME_PRODUCT.description}</p>
-        <div className="mt-2">
+    <ScreenSection
+      id={HOME_SECTION_IDS.products}
+      backdrop={<BandBackdrop tone="green" />}
+      innerClassName="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16"
+    >
+      <BlurFade inView className="flex flex-col">
+        <p className="flex items-center gap-2 font-heading text-sm font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+          <span aria-hidden className="size-1.5 rounded-full bg-brand" />
+          {home.eyebrow}
+        </p>
+        <p className="mt-6 font-heading text-2xl leading-none font-bold tracking-[-0.02em] text-brand-green-strong">
+          {HOME_PRODUCT.title}
+        </p>
+        <h2 className={cn(HEADING_CLASS, "mt-3 text-4xl leading-[1.02] sm:text-5xl xl:text-6xl")}>
+          {home.titleStart} <span className="text-brand-green-strong">{home.titleHighlight}</span>
+        </h2>
+        <p className="mt-5 max-w-lg text-lg leading-relaxed text-pretty text-muted-foreground">{home.description}</p>
+
+        <ul className="mt-8 grid gap-3 sm:grid-cols-3">
+          {home.benefits.map((benefit) => (
+            <li key={benefit.title}>
+              <IconHoverArea className="flex h-full flex-col gap-3 rounded-xl bg-background/85 p-4 shadow-[0_18px_36px_-24px_rgb(26_26_26/0.35)] ring-1 ring-foreground/[0.06]">
+                <IconBadge tone="green" size="sm">
+                  <HoverIcon name={benefit.icon} size={17} />
+                </IconBadge>
+                <div className="flex flex-col gap-1">
+                  <span className="font-heading text-base font-semibold">{benefit.title}</span>
+                  <span className="text-sm leading-snug text-muted-foreground">{benefit.text}</span>
+                </div>
+              </IconHoverArea>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-9 flex flex-col items-stretch gap-5 sm:flex-row sm:items-center">
           <ShimmerLink href={ROUTES.kiero} className="w-full sm:w-auto">
             {HOME_PRODUCT.cta}
           </ShimmerLink>
+          <ArrowLink href={ROUTES.membresia} className="justify-center sm:justify-start">
+            {home.secondaryCta}
+          </ArrowLink>
         </div>
       </BlurFade>
 
-      <BlurFade inView delay={0.1}>
-        <ProductCollage />
-      </BlurFade>
-    </DarkSection>
+      <KieroStoreMockup />
+    </ScreenSection>
   )
 }
 
