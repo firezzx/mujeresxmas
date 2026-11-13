@@ -3,6 +3,7 @@
 import { useDeferredValue, useState } from "react"
 
 import { SearchIcon, type SearchIconHandle } from "@/components/icons/search"
+import { KieroToggle } from "@/components/admin/kiero-toggle"
 import { IconBadge } from "@/components/icon-badge"
 import { UsersRoundIcon } from "@/components/icons/users-round"
 import { UserAvatar } from "@/components/site-header/user-menu"
@@ -10,7 +11,13 @@ import { useIconAnimation } from "@/hooks/use-icon-animation"
 import type { AdminMember } from "@/lib/admin"
 import { cn } from "@/lib/utils"
 
-export type MemberRow = AdminMember & { joinedLabel: string; lastSeenLabel: string | null }
+export type MemberRow = AdminMember & {
+  joinedLabel: string
+  lastSeenLabel: string | null
+  // Estado en Kiero en palabras (null si nunca se dio de alta) y si tiene la tienda vigente
+  kieroLabel: string | null
+  kieroActive: boolean
+}
 
 const fullName = (m: MemberRow) => [m.firstName, m.lastName].filter(Boolean).join(" ")
 
@@ -111,11 +118,12 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
             <table className="w-full table-fixed text-left text-sm">
               <thead className="bg-foreground/[0.025] text-xs text-muted-foreground">
                 <tr>
-                  <th className="w-[34%] px-4 py-3 font-medium">Usuario</th>
-                  <th className="w-[24%] px-4 py-3 font-medium">Emprendimiento</th>
-                  <th className="w-[14%] px-4 py-3 font-medium">Plan</th>
-                  <th className="w-[14%] px-4 py-3 font-medium">Se sumó</th>
-                  <th className="w-[14%] px-4 py-3 font-medium">Último ingreso</th>
+                  <th className="w-[30%] px-4 py-3 font-medium">Usuario</th>
+                  <th className="w-[18%] px-4 py-3 font-medium">Emprendimiento</th>
+                  <th className="w-[11%] px-4 py-3 font-medium">Plan</th>
+                  <th className="w-[19%] px-4 py-3 font-medium">Kiero</th>
+                  <th className="w-[11%] px-4 py-3 font-medium">Se sumó</th>
+                  <th className="w-[11%] px-4 py-3 font-medium">Último ingreso</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border/70">
@@ -136,6 +144,9 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
                       {member.city && <p className="truncate text-sm text-muted-foreground">{member.city}</p>}
                     </td>
                     <td className="px-4 py-3">{member.planName ? <Badge>{member.planName}</Badge> : "—"}</td>
+                    <td className="px-4 py-3">
+                      <KieroToggle userId={member.id} label={member.kieroLabel} active={member.kieroActive} />
+                    </td>
                     <td className="px-4 py-3 text-muted-foreground">{member.joinedLabel}</td>
                     <td className="px-4 py-3 text-muted-foreground">{member.lastSeenLabel ?? "Nunca"}</td>
                   </tr>
@@ -152,6 +163,10 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {member.planName && <Badge>{member.planName}</Badge>}
                   <MemberBadges member={member} />
+                </div>
+                <div className="mt-3">
+                  <p className="mb-1.5 text-sm text-muted-foreground">Kiero</p>
+                  <KieroToggle userId={member.id} label={member.kieroLabel} active={member.kieroActive} />
                 </div>
                 <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                   {member.businessName && (
