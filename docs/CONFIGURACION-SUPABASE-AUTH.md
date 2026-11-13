@@ -35,7 +35,7 @@ Estas reglas tienen que coincidir con `src/lib/validations/auth.ts`.
 
 El link es `{{ .RedirectTo }}&token_hash=…&type=email`: el sitio arma `{{ .RedirectTo }}` como
 `/auth/confirm?next=…`, para que al confirmar la usuaria vuelva a donde empezó el registro
-(p. ej. QUIERO). Confirma la cuenta aunque el link se abra en otro navegador o dispositivo.
+(p. ej. Kiero). Confirma la cuenta aunque el link se abra en otro navegador o dispositivo.
 Para que funcione, la URL del sitio tiene que estar en **Redirect URLs** con `/**` (punto 1); si
 no, Supabase usa la Site URL y el link queda roto.
 

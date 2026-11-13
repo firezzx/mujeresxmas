@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
         ]
       : [],
   },
-  // Los pilares pasaron a ser subpáginas de /pilares, y la plataforma se llama Kiero (antes /quiero)
+  // Los pilares pasaron a ser subpáginas de /pilares. La dirección vieja de Kiero lleva a /kiero, para que no se rompan links ya compartidos
   async redirects() {
     return [
       ...["desarrollo", "bienestar", "conexion"].map((slug) => ({

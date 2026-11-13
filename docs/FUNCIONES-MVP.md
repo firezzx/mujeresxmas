@@ -19,8 +19,8 @@
 
 | # | Función | Descripción | Estado | Notas |
 | --- | --- | --- | --- | --- |
-| 1 | Landing principal | Home con todas sus secciones y la CTA "Registrarme en Mujeres x Más" visible en todo el recorrido (header fijo y botón flotante en celular). Incluye la CTA secundaria "Conocé QUIERO". | ⏳ Pendiente | Textos, imágenes y colores los entrega la clienta. |
-| 2 | Landing QUIERO | Landing del producto con botón "QUIERO". Usuaria sin sesión → registro; con sesión → solicitud del producto. | ⏳ Pendiente | Definir con la clienta el destino exacto con sesión iniciada. |
+| 1 | Landing principal | Home con todas sus secciones y la CTA "Registrarme en Mujeres x Más" visible en todo el recorrido (header fijo y botón flotante en celular). Incluye la CTA secundaria "Conocé Kiero". | ⏳ Pendiente | Textos, imágenes y colores los entrega la clienta. |
+| 2 | Landing Kiero | Landing del producto (/kiero) con botón "Sumarme a Kiero". Usuaria sin sesión → registro; con sesión → solicitud del producto. | ⏳ Pendiente | Definir con la clienta el destino exacto con sesión iniciada. |
 | 3 | Registro | Alta con email y contraseña, con validación de datos. La cuenta se activa al confirmar el email desde el link de verificación. | ✅ Completo | Para el sitio publicado falta la configuración de Auth de [docs/CONFIGURACION-SUPABASE-AUTH.md](CONFIGURACION-SUPABASE-AUTH.md). |
 | 4 | Login, logout y recuperación de contraseña | Iniciar y cerrar sesión, y restablecer la contraseña mediante un link por email. | ✅ Completo | |
 | 5 | Membresía Gratis automática | Al registrarse, un trigger en la base de datos asigna el plan Gratis. La tabla de planes queda creada con los 3 planes; los 2 pagos inactivos hasta la etapa 2. | ✅ Completo | |

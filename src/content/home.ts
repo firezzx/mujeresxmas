@@ -187,7 +187,7 @@ export const HOME_COURSES = {
   titleHighlight: "empezar hoy",
   description: "A tu ritmo, con contenidos simples y prácticos.",
   topics: ["Tecnología e IA", "Comunicación y marketing", "Emprendimiento", "Finanzas", "Formaciones gratuitas"],
-  cta: "Quiero sumarme",
+  cta: "Sumarme a los cursos",
   samples: [
     {
       title: "Tu primer negocio online",
