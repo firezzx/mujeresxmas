@@ -19,6 +19,7 @@ import { CpuIcon } from "@/components/icons/cpu"
 import { EyeIcon } from "@/components/icons/eye"
 import { FileTextIcon } from "@/components/icons/file-text"
 import { GraduationCapIcon } from "@/components/icons/graduation-cap"
+import { HeartHandshakeIcon } from "@/components/icons/heart-handshake"
 import { ItalicIcon } from "@/components/icons/italic"
 import { LayoutPanelTopIcon } from "@/components/icons/layout-panel-top"
 import { LinkIcon } from "@/components/icons/link"
@@ -63,6 +64,7 @@ const ICONS = {
   eye: EyeIcon,
   "file-text": FileTextIcon,
   "graduation-cap": GraduationCapIcon,
+  "heart-handshake": HeartHandshakeIcon,
   italic: ItalicIcon,
   "layout-panel-top": LayoutPanelTopIcon,
   link: LinkIcon,

@@ -6,7 +6,8 @@ export type Plan = {
   id: string
   name: string
   description: string | null
-  priceArs: number
+  // null: precio todavía sin definir (se muestra "A confirmar")
+  priceArs: number | null
   features: string[]
   isActive: boolean
 }
@@ -37,7 +38,7 @@ export async function listPlans(): Promise<Plan[] | null> {
     id: row.id,
     name: row.name,
     description: row.description,
-    priceArs: row.price_ars ?? 0,
+    priceArs: row.price_ars === null ? null : Number(row.price_ars),
     features: row.features,
     isActive: row.is_active,
   }))

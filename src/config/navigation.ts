@@ -13,6 +13,8 @@ export const MAIN_NAV: readonly NavLink[] = [
       { href: "/pilares/conexion", label: "Conexión" },
     ],
   },
+  { href: "/membresia", label: "Membresía" },
+  { href: "/empresas", label: "Empresas" },
 ]
 
 // Texto del botón destacado del menú, que lleva al registro
@@ -34,6 +36,7 @@ export const ROUTES = {
   adminEventos: "/admin/eventos",
   adminNotificaciones: "/admin/notificaciones",
   adminPlanes: "/admin/planes",
+  adminEmpresas: "/admin/empresas",
   adminBlog: "/admin/blog",
   adminBlogNueva: "/admin/blog/nueva",
   adminBlogCategorias: "/admin/blog/categorias",
@@ -42,7 +45,8 @@ export const ROUTES = {
   bienestar: "/pilares/bienestar",
   conexion: "/pilares/conexion",
   kiero: "/kiero",
-  planes: "/planes",
+  membresia: "/membresia",
+  empresas: "/empresas",
   blog: "/blog",
   // Provisoria hasta que la clienta defina cómo se pide Kiero (función 2)
   kieroSolicitud: "/kiero/solicitud",
@@ -63,4 +67,5 @@ export const ADMIN_NAV = [
   { href: ROUTES.adminBlog, label: "Blog", icon: "file-text" },
   { href: ROUTES.adminNotificaciones, label: "Notificaciones", icon: "bell" },
   { href: ROUTES.adminPlanes, label: "Planes", icon: "sparkles" },
+  { href: ROUTES.adminEmpresas, label: "Empresas", icon: "heart-handshake" },
 ] as const

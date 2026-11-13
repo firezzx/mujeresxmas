@@ -20,7 +20,12 @@ type PlanCardsProps = {
 // Tarjetas de los planes: una por plan, en el orden que trae la base.
 export function PlanCards({ plans, currentPlanId, signedIn }: PlanCardsProps) {
   return (
-    <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-5 md:grid-cols-2">
+    <div
+      className={cn(
+        "mx-auto grid w-full grid-cols-1 gap-5",
+        plans.length >= 3 ? "max-w-6xl md:grid-cols-2 lg:grid-cols-3" : "max-w-4xl md:grid-cols-2"
+      )}
+    >
       {plans.map((plan, index) => (
         <BlurFade key={plan.id} inView delay={0.2 + index * 0.08} className="h-full min-w-0">
           <PlanCard
@@ -36,39 +41,54 @@ export function PlanCards({ plans, currentPlanId, signedIn }: PlanCardsProps) {
   )
 }
 
-// El plan gratuito va en una tarjeta blanca con el ícono en rosa; el pago, en negro con la textura
-// de las franjas oscuras y el verde, para que se distinga como el más completo.
-const CARD_CLASS = {
-  free: "bg-background ring-1 ring-foreground/[0.08] shadow-[0_1px_2px_rgb(26_26_26/0.04),0_16px_40px_-20px_rgb(26_26_26/0.18)]",
-  paid: "surface-dark isolate bg-primary text-primary-foreground shadow-[0_28px_60px_-28px_rgb(26_26_26/0.6)]",
+// El plan gratuito va en blanco con rosa; el destacado (la más elegida), en negro con la textura de
+// las franjas oscuras; los demás pagos, en blanco con verde.
+type CardKind = "free" | "featured" | "paid"
+
+const WHITE_CARD =
+  "bg-background ring-1 ring-foreground/[0.08] shadow-[0_1px_2px_rgb(26_26_26/0.04),0_16px_40px_-20px_rgb(26_26_26/0.18)]"
+
+const CARD_CLASS: Record<CardKind, string> = {
+  free: WHITE_CARD,
+  featured: "surface-dark isolate bg-primary text-primary-foreground shadow-[0_28px_60px_-28px_rgb(26_26_26/0.6)]",
+  paid: WHITE_CARD,
 }
 
-const PLAN_ICON: Record<"free" | "paid", IconName> = { free: "compass", paid: "rocket" }
+const STRIPE_CLASS: Record<CardKind, string> = {
+  free: "bg-brand-soft",
+  featured: "bg-brand-green",
+  paid: "bg-brand-green",
+}
+
+const PLAN_ICON: Record<CardKind, IconName> = { free: "compass", featured: "trending-up", paid: "rocket" }
 
 type PlanCardProps = { plan: Plan; level: number; levels: number; isCurrent: boolean; signedIn: boolean }
 
 function PlanCard({ plan, level, levels, isCurrent, signedIn }: PlanCardProps) {
-  const isPaid = plan.priceArs > 0
-  const kind = isPaid ? "paid" : "free"
+  const isPaid = plan.priceArs !== 0
+  const kind: CardKind = !isPaid ? "free" : plan.id === PLANS_PAGE.featuredPlanId ? "featured" : "paid"
+  const dark = kind === "featured"
+  const tagline = PLANS_PAGE.taglines[plan.id]
   const features = plan.features.map(parsePlanFeature)
   return (
     <IconHoverArea
+      data-plan-card={plan.id}
       className={cn(
-        "relative flex h-full flex-col overflow-hidden rounded-xl p-6 transition-transform duration-500 ease-premium hover:-translate-y-1",
+        "relative flex h-full flex-col overflow-hidden rounded-xl p-6 transition-[translate,opacity,scale,box-shadow,filter] duration-500 ease-premium hover:-translate-y-1",
         CARD_CLASS[kind]
       )}
     >
-      {isPaid && <DarkBackdrop />}
-      <span aria-hidden className={cn("absolute inset-x-0 top-0 h-1.5", isPaid ? "bg-brand-green" : "bg-brand-soft")} />
+      {dark && <DarkBackdrop />}
+      <span aria-hidden className={cn("absolute inset-x-0 top-0 h-1.5", STRIPE_CLASS[kind])} />
 
       <div className="flex items-center justify-between gap-3">
         <LevelMeter level={level} levels={levels} kind={kind} />
         {isCurrent ? (
-          <Tag dot="bg-brand" className={isPaid ? "bg-white/10" : "bg-brand-soft/50"}>
+          <Tag dot="bg-brand" className={dark ? "bg-white/10" : "bg-brand-soft/50"}>
             {PLANS_PAGE.currentBadge}
           </Tag>
         ) : (
-          isPaid && (
+          dark && (
             <Tag dot="bg-brand-green" className="bg-brand-green/20 text-brand-green">
               {PLANS_PAGE.featuredBadge}
             </Tag>
@@ -76,12 +96,30 @@ function PlanCard({ plan, level, levels, isCurrent, signedIn }: PlanCardProps) {
         )}
       </div>
 
-      <h3 className="mt-4 font-heading text-4xl leading-none font-semibold tracking-[-0.02em]">{plan.name}</h3>
+      <div className="mt-5 flex min-h-6 items-center justify-between gap-3">
+        {tagline && (
+          <p
+            className={cn(
+              "font-hand text-2xl leading-none font-semibold",
+              dark ? "text-brand-soft" : kind === "free" ? "text-brand-pink-strong" : "text-brand-green-strong"
+            )}
+          >
+            {tagline}
+          </p>
+        )}
+        {/* Se muestra cuando la visitante elige su momento en la página de Membresía */}
+        <span data-recommended className="hidden">
+          <Tag dot="bg-white" className="bg-brand-green text-primary">
+            {PLANS_PAGE.recommendedBadge}
+          </Tag>
+        </span>
+      </div>
+      <h3 className="mt-1.5 font-heading text-4xl leading-none font-semibold tracking-[-0.02em]">{plan.name}</h3>
       {plan.description && (
         <p
           className={cn(
             "mt-2 text-[15px] leading-relaxed text-pretty",
-            isPaid ? "text-white/70" : "text-muted-foreground"
+            dark ? "text-white/70" : "text-muted-foreground"
           )}
         >
           {plan.description}
@@ -90,39 +128,44 @@ function PlanCard({ plan, level, levels, isCurrent, signedIn }: PlanCardProps) {
 
       <p className="mt-4 flex items-baseline gap-1.5">
         <span className="font-heading text-[2.5rem] leading-none font-semibold tracking-[-0.03em]">
-          {isPaid ? formatPrice(plan.priceArs) : PLANS_PAGE.free}
+          {!isPaid ? PLANS_PAGE.free : plan.priceArs === null ? PLANS_PAGE.priceToConfirm : formatPrice(plan.priceArs)}
         </span>
-        {isPaid && <span className="text-sm text-white/60">/ {PLANS_PAGE.perMonth}</span>}
+        {isPaid && plan.priceArs !== null && (
+          <span className={cn("text-sm", dark ? "text-white/60" : "text-muted-foreground")}>
+            / {PLANS_PAGE.perMonth}
+          </span>
+        )}
       </p>
 
-      <div className={cn("mt-5 border-t pt-5", isPaid ? "border-white/12" : "border-foreground/[0.08]")}>
+      <div className={cn("mt-5 border-t pt-5", dark ? "border-white/12" : "border-foreground/[0.08]")}>
         <ul className="flex flex-col gap-2.5">
           {features.map((feature) => (
-            <FeatureItem key={feature.text} feature={feature} dark={isPaid} />
+            <FeatureItem key={feature.text} feature={feature} dark={dark} />
           ))}
         </ul>
       </div>
 
       <div className="mt-auto pt-6 empty:hidden">
-        <PlanAction isCurrent={isCurrent} isPaid={isPaid} signedIn={signedIn} />
+        <PlanAction isCurrent={isCurrent} isPaid={isPaid} dark={dark} signedIn={signedIn} />
       </div>
     </IconHoverArea>
   )
 }
 
 // Nivel del plan, como un rango: ícono, "Nivel N" y una barrita por nivel, llena hasta el de este plan
-function LevelMeter({ level, levels, kind }: { level: number; levels: number; kind: "free" | "paid" }) {
-  const paid = kind === "paid"
+function LevelMeter({ level, levels, kind }: { level: number; levels: number; kind: CardKind }) {
+  const paid = kind !== "free"
+  const dark = kind === "featured"
   return (
     <div className="flex items-center gap-3">
-      <IconBadge tone={paid ? "green" : "pink"} size="sm" className={cn(paid && "bg-brand-green/20 text-brand-green")}>
+      <IconBadge tone={paid ? "green" : "pink"} size="sm" className={cn(dark && "bg-brand-green/20 text-brand-green")}>
         <HoverIcon name={PLAN_ICON[kind]} size={18} />
       </IconBadge>
       <div className="flex flex-col gap-1.5">
         <span
           className={cn(
             "font-heading text-sm leading-none font-bold tracking-[0.12em] uppercase",
-            paid ? "text-brand-green" : "text-brand-pink-strong"
+            dark ? "text-brand-green" : paid ? "text-brand-green-strong" : "text-brand-pink-strong"
           )}
         >
           {PLANS_PAGE.levelLabel} {level}
@@ -137,7 +180,7 @@ function LevelMeter({ level, levels, kind }: { level: number; levels: number; ki
                   ? paid
                     ? "bg-brand-green"
                     : "bg-brand-pink-strong"
-                  : paid
+                  : dark
                     ? "bg-white/15"
                     : "bg-foreground/10"
               )}
@@ -200,14 +243,33 @@ const STATIC_ACTION_CLASS =
 
 // Qué se puede hacer con cada plan. Cuando estén los cobros, el botón de contratar va en lugar de
 // "Próximamente"; un plan gratuito no se muestra como opción a quien ya tiene uno pago.
-function PlanAction({ isCurrent, isPaid, signedIn }: { isCurrent: boolean; isPaid: boolean; signedIn: boolean }) {
+function PlanAction({
+  isCurrent,
+  isPaid,
+  dark,
+  signedIn,
+}: {
+  isCurrent: boolean
+  isPaid: boolean
+  dark: boolean
+  signedIn: boolean
+}) {
   if (isCurrent) {
     return (
-      <p className={cn(STATIC_ACTION_CLASS, isPaid ? "bg-white/10" : "bg-brand-soft/40")}>{PLANS_PAGE.currentAction}</p>
+      <p className={cn(STATIC_ACTION_CLASS, dark ? "bg-white/10" : "bg-brand-soft/40")}>{PLANS_PAGE.currentAction}</p>
     )
   }
   if (isPaid) {
-    return <p className={cn(STATIC_ACTION_CLASS, "text-white/70 ring-1 ring-white/20")}>{PLANS_PAGE.comingSoon}</p>
+    return (
+      <p
+        className={cn(
+          STATIC_ACTION_CLASS,
+          dark ? "text-white/70 ring-1 ring-white/20" : "text-muted-foreground ring-1 ring-border"
+        )}
+      >
+        {PLANS_PAGE.comingSoon}
+      </p>
+    )
   }
   if (signedIn) return null
   return (

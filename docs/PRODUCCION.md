@@ -35,6 +35,7 @@ SQL Editor, o con `supabase db push` desde una red que lo permita.
   10. `20261105140000_planes_editables.sql`
   11. `20261112120000_planes_inicio_crecer.sql`
   12. `20261113120000_cuentas_kiero.sql`
+  13. `20261113150000_membresias_y_empresas.sql`
 - [ ] **No** cargar los datos de prueba (`supabase/demo`). Ver [DATOS-DE-PRUEBA.md](DATOS-DE-PRUEBA.md).
 - [ ] Dar de alta a las administradoras reales (tienen que registrarse primero). Ver [ADMINISTRADORAS.md](ADMINISTRADORAS.md). — clienta dice quiénes, equipo las carga
 - [ ] Sacar la cuenta del equipo de diseño de las administradoras, si ya no hace falta.

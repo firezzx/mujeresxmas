@@ -11,6 +11,16 @@ export const PLANS_PAGE = {
   comingSoon: "Próximamente",
   perMonth: "por mes",
   free: "Gratis",
-  featuredBadge: "Más completo",
+  // Plan destacado (tarjeta negra) y lo que dice cada tarjeta arriba del nombre
+  featuredPlanId: "crecimiento",
+  featuredBadge: "La más elegida",
+  // Etiqueta de la tarjeta que coincide con el momento elegido en Membresía
+  recommendedBadge: "Para vos",
+  priceToConfirm: "A confirmar",
+  taglines: {
+    gratis: "Para empezar",
+    crecimiento: "Para crecer en serio",
+    impulso: "Para escalar",
+  } as Record<string, string>,
   levelLabel: "Nivel",
 }

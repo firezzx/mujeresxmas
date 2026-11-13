@@ -85,7 +85,7 @@ export function UserMenu({
         <IconMenuItem icon={UserIcon} render={<Link href={ROUTES.miCuenta} />}>
           Mi cuenta
         </IconMenuItem>
-        <IconMenuItem icon={SparklesIcon} render={<Link href={ROUTES.planes} />}>
+        <IconMenuItem icon={SparklesIcon} render={<Link href={ROUTES.membresia} />}>
           Planes
         </IconMenuItem>
         <IconMenuItem icon={BellIcon} onClick={() => setNotificationsOpen(true)}>

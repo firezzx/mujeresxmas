@@ -452,3 +452,26 @@ html:not([data-session="in"]) .only-member {
   --color-border: var(--border);
   color: var(--foreground);
 }
+
+/* Membresía: al elegir "¿En qué momento estás?", la tarjeta recomendada se destaca y las demás se
+   atenúan. Los ids son los de la tabla plans (ver MEMBERSHIP_MOMENTS en src/content/membresia.ts). */
+[data-moment="gratis"] [data-plan-card]:not([data-plan-card="gratis"]),
+[data-moment="crecimiento"] [data-plan-card]:not([data-plan-card="crecimiento"]),
+[data-moment="impulso"] [data-plan-card]:not([data-plan-card="impulso"]) {
+  opacity: 0.5;
+  scale: 0.97;
+  filter: saturate(0.6);
+}
+[data-moment="gratis"] [data-plan-card="gratis"],
+[data-moment="crecimiento"] [data-plan-card="crecimiento"],
+[data-moment="impulso"] [data-plan-card="impulso"] {
+  translate: 0 -0.5rem;
+  box-shadow:
+    0 0 0 2px var(--color-brand-green),
+    0 32px 64px -28px rgb(26 26 26 / 0.45);
+}
+[data-moment="gratis"] [data-plan-card="gratis"] [data-recommended],
+[data-moment="crecimiento"] [data-plan-card="crecimiento"] [data-recommended],
+[data-moment="impulso"] [data-plan-card="impulso"] [data-recommended] {
+  display: inline-flex;
+}

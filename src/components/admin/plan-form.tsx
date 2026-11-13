@@ -21,7 +21,7 @@ export function PlanForm({ plan }: { plan: Plan }) {
   const [values, setValues] = useState({
     name: plan.name,
     description: plan.description ?? "",
-    price: PRICE_FORMAT.format(plan.priceArs),
+    price: plan.priceArs === null ? "" : PRICE_FORMAT.format(plan.priceArs),
     features: plan.features.join("\n"),
   })
   const [state, formAction, pending] = useActionState<UpdatePlanState, FormData>(updatePlan.bind(null, plan.id), {

@@ -141,8 +141,8 @@ async function KieroStatus() {
       title="Kiero viene con el plan Crecer"
       text="Pasate a Crecer para tener tu tienda online, la guía para activarla y los talleres de ventas."
     >
-      <ShimmerLink href={ROUTES.planes} size="md" className="h-12 w-full">
-        Ver los planes
+      <ShimmerLink href={ROUTES.membresia} size="md" className="h-12 w-full">
+        Ver las membresías
       </ShimmerLink>
       {back}
     </Panel>

@@ -23,12 +23,6 @@ export const HOME_HERO = {
   ribbonTop: ["Desarrollo", "Bienestar", "Conexión", "Crecemos juntas", "#HoyTambiénSoyMás"],
   ribbonBottom: ["Cursos", "Encuentros", "Tienda online", "Red de proveedoras", "Comunidad"],
   avatarsText: "Acá hay lugar para vos",
-  // Collage de la portada: la grande, la vertical de la izquierda y la apaisada de abajo
-  photos: [
-    { src: "/images/home/socias-negocio.jpg", alt: "Dos socias conversando sobre su negocio" },
-    { src: "/images/home/emprendimiento.jpg", alt: "Emprendedora sonriendo en su taller" },
-    { src: "/images/home/colegas-escalera.jpg", alt: "Colegas charlando en una escalera" },
-  ],
 }
 
 export const HOME_SECTION_IDS = {
@@ -96,25 +90,11 @@ export const HOME_MOMENTS = {
 // Los planes salen del admin; acá van los textos que los rodean y los beneficios
 export const HOME_PLANS = {
   eyebrow: "Membresía",
-  title: "Elegí el plan que va",
-  titleHighlight: "con tu momento",
-  description: "No todas necesitamos lo mismo. Empezá gratis y cambiá de plan cuando quieras, sin permanencia.",
-  moreCta: "Ver todos los detalles",
-  perks: [
-    {
-      icon: "sparkles",
-      hand: "¿ya eras parte?",
-      title: "Beneficio Socia Fundadora",
-      text: "Si venís de Mujeres por Más, tu primer mes del plan pago es sin cargo y tu precio queda congelado por 12 meses. Válido hasta el 15/12/2026.",
-    },
-    {
-      icon: "user-plus",
-      hand: "juntas, siempre más",
-      title: "Invitá a una amiga",
-      text: "Cuando una amiga se suma a un plan pago con tu enlace, las dos tienen un mes sin cargo.",
-    },
-  ],
-} satisfies { perks: { icon: IconName; hand: string; title: string; text: string }[] } & Record<string, unknown>
+  title: "Elegí la membresía",
+  titleHighlight: "para tu momento",
+  description: "No todas necesitamos lo mismo. Empezá sin costo y cambiá cuando quieras, sin permanencia.",
+  moreCta: "Comparar las membresías",
+}
 
 export const HOME_STEPS = {
   // Foto de fondo de la franja (va con un velo oscuro encima)
@@ -307,6 +287,8 @@ export const HOME_CLOSING = {
     "Creá tu cuenta gratis y empezá hoy: tu tienda online, cursos, encuentros y una red de mujeres que van por más.",
   cta: "Unirme a Mujeres x Más",
   image: "/images/home/cierre-grupo.jpg",
+  // Fondo del cierre, con velo negro
+  mosaic: "/images/home/mosaico-mujeres-panoramico.jpg",
 }
 
 export const HOME_CLOSING_CTA_ID = "cta-cierre"

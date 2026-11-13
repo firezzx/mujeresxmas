@@ -116,7 +116,7 @@ export function JoinActions({ plansLabel, className }: { plansLabel: string; cla
   return (
     <div className={cn("flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row", className)}>
       <RegisterCta className="w-full sm:w-auto" />
-      <HoverRevealLink href={ROUTES.planes} className="w-full sm:w-auto">
+      <HoverRevealLink href={ROUTES.membresia} className="w-full sm:w-auto">
         {plansLabel}
       </HoverRevealLink>
     </div>

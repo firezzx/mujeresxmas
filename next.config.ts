@@ -26,6 +26,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       })),
       { source: "/quiero/:path*", destination: "/kiero/:path*", permanent: true },
+      // Planes pasó a llamarse Membresía
+      { source: "/planes", destination: "/membresia", permanent: true },
     ]
   },
   cacheComponents: true,

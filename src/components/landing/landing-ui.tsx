@@ -186,11 +186,14 @@ export function DarkSection({
   id,
   className,
   screen = true,
+  backdrop,
   children,
 }: {
   id?: string
   className?: string
   screen?: boolean
+  // Fondo propio (p. ej. una foto con velo negro); sin él, la grilla titilante
+  backdrop?: React.ReactNode
   children: React.ReactNode
 }) {
   return (
@@ -201,7 +204,7 @@ export function DarkSection({
         screen && "lg:flex lg:min-h-svh lg:flex-col"
       )}
     >
-      <DarkBackdrop />
+      {backdrop ?? <DarkBackdrop />}
       <div
         className={cn(
           PAGE_WIDTH_CLASS,

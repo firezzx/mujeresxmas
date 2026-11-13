@@ -4,7 +4,6 @@ import { Suspense } from "react"
 
 import { LogoSeal } from "@/components/brand/logo"
 import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
-import { CountUp } from "@/components/count-up"
 import { RegisterCta } from "@/components/cta/register-cta"
 import { cycleTone, IconBadge } from "@/components/icon-badge"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
@@ -19,12 +18,14 @@ import {
   SectionHeading,
   type CardTone,
 } from "@/components/landing/landing-ui"
+import { HeroFloaters, PortraitTile } from "@/components/landing/hero-floaters"
 import { LatestMembers } from "@/components/latest-members"
 import { ScreenSection } from "@/components/landing/screen"
 import { BandBackdrop, PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { BrandHighlight } from "@/components/page-hero"
 import { PlansList, PlansListSkeleton } from "@/components/plans/plans-list"
 import { BlurFade } from "@/components/ui/blur-fade"
+import { DotPattern } from "@/components/ui/dot-pattern"
 import { ScrollVelocityContainer, ScrollVelocityRow } from "@/components/ui/scroll-based-velocity"
 import { TextReveal } from "@/components/ui/text-reveal"
 import { ROUTES } from "@/config/navigation"
@@ -33,7 +34,6 @@ import {
   HOME_CLOSING_CTA_ID,
   HOME_EVOLUTION,
   HOME_HERO,
-  HOME_IMPACT,
   HOME_MOMENTS,
   HOME_PILLARS,
   HOME_PLANS,
@@ -42,26 +42,31 @@ import {
   HOME_STEPS,
 } from "@/content/home"
 import { PILLARS, type Pillar } from "@/content/pilares"
+import { COMMUNITY_PORTRAITS } from "@/content/retratos"
 import { cn } from "@/lib/utils"
 
 // ─── Portada ─────────────────────────────────────────────────────────────────────────────
 
-// Portada centrada: aviso, título enorme, bajada, botones y prueba social; abajo, un mosaico parejo
-// que mezcla fotos con las cifras de la comunidad. En escritorio ocupa justo el alto de la pantalla:
-// el mosaico toma la altura que sobra debajo del texto.
+// Portada centrada: aviso, título enorme, bajada, botones y prueba social. A los costados flotan
+// retratos recortados del mosaico de mujeres y dos cifras de la comunidad; en el celular los
+// retratos van en una tira debajo de los botones. En escritorio ocupa el alto de la pantalla.
 export function LandingHero({ ctaId }: { ctaId: string }) {
-  const [first, second, third] = HOME_HERO.photos
-  const [women, places, countries] = HOME_IMPACT.stats
   return (
-    <section className="relative isolate flex flex-col overflow-hidden lg:h-svh lg:min-h-[50rem] lg:max-h-[72rem]">
+    <section className="relative isolate flex flex-col overflow-hidden pb-16 lg:h-svh lg:min-h-[46rem] lg:max-h-[64rem] lg:justify-center lg:pb-0">
       {/* Luces de marca detrás del título */}
       <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-[46rem]">
         <div className="absolute -top-40 left-[8%] size-[36rem] rounded-full bg-brand-green/25 blur-[120px]" />
         <div className="absolute -top-24 right-[6%] size-[32rem] rounded-full bg-brand-soft/45 blur-[120px]" />
         <div className="absolute top-40 left-1/2 size-[18rem] -translate-x-1/2 rounded-full bg-brand/10 blur-[100px]" />
       </div>
+      {/* Trama de puntos muy suave, que se desvanece hacia el centro y los bordes */}
+      <DotPattern
+        width={22}
+        height={22}
+        className="-z-10 text-foreground/[0.09] [mask-image:radial-gradient(60%_55%_at_50%_45%,transparent_35%,black_70%,transparent_100%)]"
+      />
 
-      <div className={cn(PAGE_WIDTH_CLASS, "flex shrink-0 flex-col items-center pt-32 text-center lg:pt-32")}>
+      <div className={cn(PAGE_WIDTH_CLASS, "relative z-10 flex shrink-0 flex-col items-center pt-32 text-center lg:pt-16")}>
         <BlurFade>
           <IconHoverArea className="inline-flex">
             <Link
@@ -114,65 +119,21 @@ export function LandingHero({ ctaId }: { ctaId: string }) {
         </BlurFade>
       </div>
 
-      {/* Mosaico: fotos y cifras, todas a la misma altura */}
-      <BlurFade delay={0.2} className={cn(PAGE_WIDTH_CLASS, "mt-14 pb-6 lg:min-h-0 lg:flex-1 lg:pb-8")}>
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-5 lg:h-full">
-          <div className="relative h-56 overflow-hidden rounded-xl md:h-72 lg:h-full">
-            <Image
-              src={first.src}
-              alt={first.alt}
-              fill
-              priority
-              sizes="(min-width: 768px) 20vw, 50vw"
-              className="object-cover"
+      {/* Celular y tablet: tira de retratos superpuestos */}
+      <BlurFade delay={0.3} className="mt-12 flex justify-center lg:hidden">
+        <div aria-hidden className="flex -space-x-4 px-5">
+          {COMMUNITY_PORTRAITS.slice(0, 5).map((src, index) => (
+            <PortraitTile
+              key={src}
+              src={src}
+              className={cn("size-[4.75rem] sm:size-24", index % 2 ? "translate-y-3 rotate-3" : "-rotate-3")}
             />
-          </div>
-          <div className={cardClass("green", "flex h-56 flex-col justify-between p-5 md:h-72 lg:h-full lg:p-6")}>
-            <span className="font-heading text-sm font-semibold">{HOME_IMPACT.label}</span>
-            <div>
-              <p className={cn(HEADING_CLASS, "text-4xl leading-none lg:text-5xl")}>
-                {women.prefix}
-                <CountUp value={women.value} delay={0.4} className="tabular-nums" />
-              </p>
-              <p className="mt-2 text-sm">{women.label}</p>
-            </div>
-          </div>
-          <div className="relative col-span-2 h-72 overflow-hidden rounded-xl md:col-span-1 lg:h-full">
-            <Image
-              src={second.src}
-              alt={second.alt}
-              fill
-              priority
-              sizes="(min-width: 768px) 20vw, 100vw"
-              className="object-cover"
-            />
-            <span className="absolute inset-x-3 bottom-3 flex items-center gap-2 rounded-lg bg-background/85 px-3 py-2 text-sm font-medium backdrop-blur-md">
-              <span aria-hidden className="size-2 rounded-full bg-brand" />
-              {countries.value} {countries.label}
-            </span>
-          </div>
-          <div className={cardClass("pink", "flex h-56 flex-col justify-between p-5 md:h-72 lg:h-full lg:p-6")}>
-            <p className="font-hand text-2xl leading-tight font-semibold">{HOME_IMPACT.hand}</p>
-            <div>
-              <p className={cn(HEADING_CLASS, "text-4xl leading-none lg:text-5xl")}>
-                {places.prefix}
-                <CountUp value={places.value} delay={0.5} className="tabular-nums" />
-              </p>
-              <p className="mt-2 text-sm">{places.label}</p>
-            </div>
-          </div>
-          <div className="relative h-56 overflow-hidden rounded-xl md:h-72 lg:h-full">
-            <Image
-              src={third.src}
-              alt={third.alt}
-              fill
-              priority
-              sizes="(min-width: 768px) 20vw, 50vw"
-              className="object-cover"
-            />
-          </div>
+          ))}
         </div>
       </BlurFade>
+
+      {/* Escritorio: retratos y cifras flotando a los costados, con parallax */}
+      <HeroFloaters />
     </section>
   )
 }
@@ -381,46 +342,17 @@ export function LandingSteps() {
 export function LandingPlans() {
   return (
     <Section id={HOME_SECTION_IDS.plans}>
-      {/* En escritorio: título y beneficios a la izquierda, los planes a la derecha */}
-      <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
-        <SectionHeading
-          align="left"
-          eyebrow={HOME_PLANS.eyebrow}
-          title={HOME_PLANS.title}
-          accent={HOME_PLANS.titleHighlight}
-          description={HOME_PLANS.description}
-          className="mb-0 md:mb-0 lg:mb-0 lg:self-end"
-        />
-        <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
-          <Suspense fallback={<PlansListSkeleton />}>
-            <PlansList />
-          </Suspense>
-        </div>
-        <div className="flex flex-col gap-4 lg:self-start">
-          <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
-            {HOME_PLANS.perks.map((perk, index) => (
-              <li key={perk.title} className="min-w-0">
-                <BlurFade inView delay={index * 0.06} className="h-full">
-                  <IconHoverArea
-                    className={cardClass(index === 0 ? "orange" : "green", "flex h-full gap-4 p-6 lg:p-5")}
-                  >
-                    <IconBadge tone={index === 0 ? "brand" : "green"}>
-                      <HoverIcon name={perk.icon} size={22} />
-                    </IconBadge>
-                    <div className="flex min-w-0 flex-col gap-1">
-                      <p className="font-hand text-2xl leading-none font-semibold">{perk.hand}</p>
-                      <h3 className={cn(HEADING_CLASS, "text-xl")}>{perk.title}</h3>
-                      <p className="text-sm leading-relaxed text-pretty">{perk.text}</p>
-                    </div>
-                  </IconHoverArea>
-                </BlurFade>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 flex justify-center lg:justify-start">
-            <ArrowLink href={ROUTES.planes}>{HOME_PLANS.moreCta}</ArrowLink>
-          </div>
-        </div>
+      <SectionHeading
+        eyebrow={HOME_PLANS.eyebrow}
+        title={HOME_PLANS.title}
+        accent={HOME_PLANS.titleHighlight}
+        description={HOME_PLANS.description}
+      />
+      <Suspense fallback={<PlansListSkeleton />}>
+        <PlansList />
+      </Suspense>
+      <div className="mt-10 flex justify-center">
+        <ArrowLink href={ROUTES.membresia}>{HOME_PLANS.moreCta}</ArrowLink>
       </div>
     </Section>
   )
@@ -489,7 +421,22 @@ export function LandingStory() {
 // Franja oscura con textura a todo el ancho; el contenido queda centrado con el ancho de siempre
 export function LandingClosing() {
   return (
-    <DarkSection screen={false} className="text-center">
+    <DarkSection
+      screen={false}
+      className="py-28 text-center md:py-36"
+      backdrop={
+        <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden bg-primary">
+          <Image
+            src={HOME_CLOSING.mosaic}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(70%_75%_at_50%_50%,rgb(26_26_26/0.92),rgb(26_26_26/0.55))]" />
+        </div>
+      }
+    >
       <BlurFade inView className="mx-auto flex max-w-3xl flex-col items-center gap-6">
         <p className="font-hand text-3xl leading-none font-semibold text-brand-soft sm:text-4xl">
           {HOME_CLOSING.hashtag}
