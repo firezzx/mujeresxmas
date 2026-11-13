@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { connection } from "next/server"
 import { Suspense } from "react"
 
 import { AccountCard } from "@/components/account/account-card"
@@ -36,6 +37,8 @@ export default function AdminMembersPage() {
 }
 
 async function MembersDashboard() {
+  // Los números de la semana usan la hora actual: se calculan con cada pedido, no en el prerender
+  await connection()
   const [members, kiero] = await Promise.all([listMembers(), listKieroAccounts()])
   if (!members) {
     return (
