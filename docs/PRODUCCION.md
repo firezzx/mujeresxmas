@@ -9,6 +9,45 @@ Cada punto dice **quién** lo resuelve: el equipo (programación), la clienta, o
 
 ---
 
+## 0. Estado actual (actualizado el 13/11/2026)
+
+Resumen rápido para no perder el hilo. El detalle de cada punto está más abajo.
+
+### Funciona hoy en prueba (`mujeresxmas.vercel.app`)
+
+- **Inicio** completo: portada con retratos en profundidad, pilares, planes, lo que hay adentro,
+  cursos, Kiero (maqueta de la app en dos celulares), notas, voces y eventos.
+- **Registro, ingreso, cierre de sesión y recuperación de contraseña**, con confirmación por correo
+  (solo llega al equipo mientras no haya SMTP propio, ver punto 3).
+- **Plan Comunidad automático** al registrarse.
+- **Mi cuenta** y **editar perfil** con foto.
+- **Membresía** (`/membresia`): elegí tu momento, planes con el recomendado resaltado, comparación y
+  preguntas frecuentes animadas. `/planes` redirige acá.
+- **Empresas** (`/empresas`): propuestas por tipo de organización y formulario que guarda el pedido;
+  las administradoras lo ven en `/admin/empresas`.
+- **Kiero** (`/kiero`) y activación de la tienda en **modo prueba**: todo simulado, no toca la API real.
+- **Panel de administración**: usuarias, planes editables, notificaciones, blog con comentarios,
+  altas y bajas de Kiero (simuladas) y pedidos de empresas.
+- **Blog** con búsqueda, comentarios y avisos.
+- **Notificaciones** y avisos flotantes.
+
+### Pendiente en el entorno de prueba
+
+- [ ] **Pegar la migración `20261113150000_membresias_y_empresas.sql`** en el SQL Editor del Supabase
+  de prueba. Hasta entonces el plan **Impulso** no aparece y el formulario de **Empresas** no puede
+  guardar pedidos (la tabla `company_leads` no existe). — equipo
+
+### Falta para producción (lo más importante)
+
+1. Cuentas a nombre de la clienta y dominio (punto 1).
+2. SMTP propio con Resend: **sin esto el registro no funciona para el público** (puntos 3 y 4).
+3. Cobros con Pay per TIC: hoy Crecer dice "Próximamente" (punto 7).
+4. Kiero en modo real: falta que Kiero confirme API key, entorno de prueba e invitaciones (punto 8).
+5. Textos marcados para completar en Membresía y Empresas, y textos y fotos definitivos (punto 9).
+6. Términos y condiciones y política de privacidad (punto 11).
+
+---
+
 ## 1. Cuentas a nombre de la clienta
 
 - [ ] **Supabase:** proyecto nuevo en la organización de la clienta. — clienta crea la cuenta, equipo configura
@@ -122,6 +161,18 @@ Los textos y las imágenes de hoy son provisorios (están en `src/content`).
 - [ ] Archivos originales del logo **mx+** y del **sello** (hoy son reconstrucciones del manual), y el favicon. — clienta
 - [ ] Cargar cursos, eventos y notas reales desde el panel. Crear cursos y eventos desde el panel todavía dice "Próximamente" (función 14). — equipo programa, clienta carga
 - [ ] Datos de contacto y redes del pie. — clienta
+- [ ] **Textos entre corchetes** en `src/content/membresia.ts` y `src/content/empresas.ts`: `[FECHA]`,
+  `[MEDIOS DE PAGO]`, `[TIPO DE FACTURA]`, `[PAÍSES]`, `[N]`, `[PRECIO]` y `[DATO]`. Buscarlos y
+  reemplazarlos antes de publicar. — clienta pasa los datos, equipo los carga
+- [ ] **Confirmar si la tienda online está incluida en Crecer o es un adicional** ($49.900/mes): en
+  algunos textos figura como adicional y en otros como incluida. — clienta
+- [ ] **Precio y fecha del plan Impulso** (hoy sin precio, se muestra como próximamente). — clienta
+- [ ] **Maqueta de Kiero en el inicio**: los nombres de productos, precios y cifras de ventas son de
+  ejemplo (`HOME_PRODUCT.home.app` en `src/content/home.ts`). Si hay capturas de la app real, usar
+  esas pantallas o ajustar la maqueta para que se parezca. Las fotos de productos son recortes de
+  fotos de Pexels (`public/images/home/productos`). — clienta pasa capturas, equipo ajusta
+- [ ] **Pedidos de empresas**: hoy solo quedan en `/admin/empresas`. Definir si además tienen que
+  llegar por correo y a qué dirección (necesita Resend, punto 4). — clienta define, equipo programa
 
 ## 10. Lo que falta del MVP
 
