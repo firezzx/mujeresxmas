@@ -144,7 +144,7 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
     href: ROUTES.bienestar,
     name: "Bienestar",
     tag: "cuidarte también es crecer",
-    summary: "Acompañamiento físico y emocional para cada momento de tu vida, sin juicios y a tu ritmo.",
+    summary: "Acompañamiento físico, mental, emocional y social para cada momento de tu vida, sin juicios y a tu ritmo.",
     forYou: "estás atravesando un cambio y querés cuidarte en el camino.",
     icon: "sparkles",
     badgeTone: "pink",
@@ -155,7 +155,7 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
       titleStart: "Cuidarte también es",
       titleHighlight: "crecer",
       description:
-        "Acompañamiento físico y emocional para cada momento de tu vida: sin juicios y buscando el equilibrio entre el trabajo, la familia y el tiempo para vos.",
+        "Acompañamiento físico, mental, emocional y social para cada momento de tu vida: sin juicios y buscando el equilibrio entre el trabajo, la familia y el tiempo para vos.",
     },
     services: {
       title: "Cómo te acompañamos",
@@ -164,7 +164,7 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
         {
           icon: "book-text",
           title: "Contenidos para cada etapa",
-          text: "Salud física, emocional y hábitos, según el momento que estés viviendo.",
+          text: "Salud física, mental, emocional y social, según el momento que estés viviendo.",
           access: "free",
         },
         {
