@@ -198,8 +198,8 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
     icon: "users-round",
     badgeTone: "brand",
     heroTone: "soft",
-    image: "/images/home/comunidad-almuerzo.jpg",
-    imageAlt: "Mujeres compartiendo un almuerzo y una charla",
+    image: "/images/home/conexion-taller.jpg",
+    imageAlt: "Mujeres riéndose juntas en un taller de la comunidad",
     hero: {
       titleStart: "La red que",
       titleHighlight: "suma",

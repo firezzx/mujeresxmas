@@ -7,7 +7,7 @@ Fotos provisorias de [Pexels](https://www.pexels.com) (licencia de uso libre, si
 | `taller-costura.jpg` | Kiero (portada de la tienda) y nota de ejemplo | https://www.pexels.com/photo/39134246/ |
 | `cierre-amigas.jpg` | Fondo del cierre | https://www.pexels.com/photo/16866830/ |
 | `colegas-charla.jpg` | Lo que hay adentro: Encontrarnos; cierre de Pilares | https://www.pexels.com/photo/13871044/ |
-| `comunidad-almuerzo.jpg` | Pilar Conexión | https://www.pexels.com/photo/7772196/ |
+| `conexion-taller.jpg` | Pilar Conexión | Sitio actual de la clienta (mujeresxmas.com, `ACTIVIDADES.jpg`) |
 | `emprendedora-cocina.jpg` | Notas y voces de ejemplo | https://www.pexels.com/photo/7943254/ |
 | `equipo-trabajo.jpg` | Lo que hay adentro: Crecer | https://www.pexels.com/photo/27086177/ |
 | `finanzas.jpg` | Curso de ejemplo: Ordená tus números | https://www.pexels.com/photo/7680741/ |
@@ -17,7 +17,7 @@ Fotos provisorias de [Pexels](https://www.pexels.com) (licencia de uso libre, si
 | `socias-cafe.jpg` | Fondo de Cómo funciona y Kiero | https://www.pexels.com/photo/4063860/ |
 | `tecnologia-oficina.jpg` | Lo que hay adentro: Leer y nota de IA | https://www.pexels.com/photo/1181312/ |
 
-Todas las fotos con personas son de mujeres comunes (no modelos) de Argentina y la región, de entre 28 y 50 años, como pidió la clienta. El mosaico panorámico (`mosaico-mujeres-panoramico.jpg`) lo pasó el equipo de diseño.
+Todas las fotos con personas son de mujeres comunes (no modelos) de Argentina y la región, de entre 28 y 50 años, como pidió la clienta. El mosaico del cierre (`mosaico-comunidad.jpg`) está armado con los retratos de la comunidad.
 
 ## Retratos de la comunidad
 

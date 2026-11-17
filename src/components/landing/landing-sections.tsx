@@ -48,7 +48,7 @@ import { cn } from "@/lib/utils"
 // ─── Portada ─────────────────────────────────────────────────────────────────────────────
 
 // Portada centrada: aviso, título enorme, bajada, botones y prueba social. A los costados flotan
-// retratos recortados del mosaico de mujeres y dos cifras de la comunidad; en el celular los
+// retratos de mujeres de la comunidad y dos cifras de la comunidad; en el celular los
 // retratos van en una tira debajo de los botones. En escritorio ocupa el alto de la pantalla.
 export function LandingHero({ ctaId }: { ctaId: string }) {
   return (
