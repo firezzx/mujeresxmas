@@ -48,7 +48,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
             Panel de <BrandHighlight>la comunidad</BrandHighlight>
           </>
         }
-        description="Usuarios, cursos, eventos, avisos y planes de Mujeres x Más en un solo lugar."
+        description="Usuarios, cursos, eventos, avisos, planes y correos de Mujeres x Más en un solo lugar."
         actions={
           <IconHoverArea className="w-fit">
             <form action={setMemberView.bind(null, true)}>

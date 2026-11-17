@@ -475,3 +475,8 @@ html:not([data-session="in"]) .only-member {
 [data-moment="impulso"] [data-plan-card="impulso"] [data-recommended] {
   display: inline-flex;
 }
+
+/* Páginas que funcionan solas (/sumate, /baja): sin header ni footer del sitio */
+body:has([data-standalone-page]) [data-site-chrome] {
+  display: none;
+}

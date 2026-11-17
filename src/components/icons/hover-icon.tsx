@@ -16,6 +16,7 @@ import { CheckCheckIcon } from "@/components/icons/check-check"
 import { CircleCheckIcon } from "@/components/icons/circle-check"
 import { CompassIcon } from "@/components/icons/compass"
 import { CpuIcon } from "@/components/icons/cpu"
+import { DownloadIcon } from "@/components/icons/download"
 import { EyeIcon } from "@/components/icons/eye"
 import { FileTextIcon } from "@/components/icons/file-text"
 import { GraduationCapIcon } from "@/components/icons/graduation-cap"
@@ -29,6 +30,7 @@ import { MessageCircleIcon } from "@/components/icons/message-circle"
 import { PlusIcon } from "@/components/icons/plus"
 import { RedoIcon } from "@/components/icons/redo"
 import { RocketIcon } from "@/components/icons/rocket"
+import { SendIcon } from "@/components/icons/send"
 import { SearchIcon } from "@/components/icons/search"
 import { SparklesIcon } from "@/components/icons/sparkles"
 import { SquarePenIcon } from "@/components/icons/square-pen"
@@ -61,6 +63,7 @@ const ICONS = {
   "circle-check": CircleCheckIcon,
   compass: CompassIcon,
   cpu: CpuIcon,
+  download: DownloadIcon,
   eye: EyeIcon,
   "file-text": FileTextIcon,
   "graduation-cap": GraduationCapIcon,
@@ -75,6 +78,7 @@ const ICONS = {
   redo: RedoIcon,
   rocket: RocketIcon,
   search: SearchIcon,
+  send: SendIcon,
   sparkles: SparklesIcon,
   "square-pen": SquarePenIcon,
   "trending-up": TrendingUpIcon,

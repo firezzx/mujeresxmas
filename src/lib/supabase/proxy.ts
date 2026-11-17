@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 
 import { GUEST_ONLY_ROUTES, PROTECTED_ROUTES, ROUTES } from "@/config/navigation"
+import { isOpenInRegistrationOnly, REGISTRATION_ONLY } from "@/config/site-mode"
 import { safeInternalPath } from "@/lib/site-url"
 
 export async function updateSession(request: NextRequest) {
@@ -9,8 +10,14 @@ export async function updateSession(request: NextRequest) {
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  const path = request.nextUrl.pathname
+  // Modo solo registro: lo que no está abierto lo ven solo las administradoras con sesión
+  const lockedPath = REGISTRATION_ONLY && !isOpenInRegistrationOnly(path, request.nextUrl.searchParams.get("next"))
+
   // Sin credenciales configuradas (p. ej. en local recién clonado) no hay sesión que refrescar.
-  if (!url || !key) return response
+  if (!url || !key) {
+    return lockedPath ? NextResponse.redirect(new URL(ROUTES.sumate, request.url)) : response
+  }
 
   const supabase = createServerClient(url, key, {
     cookies: {
@@ -32,12 +39,16 @@ export async function updateSession(request: NextRequest) {
   // Refresca el token de sesión si venció. No agregar lógica entre createServerClient y esta llamada.
   const { data } = await supabase.auth.getClaims()
 
-  const path = request.nextUrl.pathname
   const redirectTo = (target: URL) => {
     const redirectResponse = NextResponse.redirect(target)
     // Conserva las cookies de sesión que se hayan refrescado arriba
     response.cookies.getAll().forEach((cookie) => redirectResponse.cookies.set(cookie))
     return redirectResponse
+  }
+
+  if (lockedPath) {
+    const isAdmin = data?.claims ? (await supabase.rpc("is_admin")).data === true : false
+    if (!isAdmin) return redirectTo(new URL(ROUTES.sumate, request.url))
   }
 
   // Con sesión iniciada no tiene sentido ver el registro ni el login

@@ -13,7 +13,7 @@ const FOOTER_LINKS = [
 // Footer del sitio: logo, eslogan y links.
 export function SiteFooter() {
   return (
-    <footer className="relative isolate text-primary-foreground">
+    <footer data-site-chrome className="relative isolate text-primary-foreground">
       {/* Más oscuro que las franjas negras del sitio, para que se separe sin línea */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-primary">
         <div className="absolute inset-0 bg-black/55" />

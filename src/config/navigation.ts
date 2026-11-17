@@ -37,6 +37,7 @@ export const ROUTES = {
   adminNotificaciones: "/admin/notificaciones",
   adminPlanes: "/admin/planes",
   adminEmpresas: "/admin/empresas",
+  adminContactos: "/admin/contactos",
   adminBlog: "/admin/blog",
   adminBlogNueva: "/admin/blog/nueva",
   adminBlogCategorias: "/admin/blog/categorias",
@@ -47,6 +48,8 @@ export const ROUTES = {
   kiero: "/kiero",
   membresia: "/membresia",
   empresas: "/empresas",
+  sumate: "/sumate",
+  baja: "/baja",
   blog: "/blog",
   // Provisoria hasta que la clienta defina cómo se pide Kiero (función 2)
   kieroSolicitud: "/kiero/solicitud",
@@ -68,4 +71,5 @@ export const ADMIN_NAV = [
   { href: ROUTES.adminNotificaciones, label: "Notificaciones", icon: "bell" },
   { href: ROUTES.adminPlanes, label: "Planes", icon: "sparkles" },
   { href: ROUTES.adminEmpresas, label: "Empresas", icon: "heart-handshake" },
+  { href: ROUTES.adminContactos, label: "Contactos", icon: "mail-check" },
 ] as const

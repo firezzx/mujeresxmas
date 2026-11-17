@@ -130,6 +130,7 @@ export function SiteHeaderView({
 
       {/* Mismos márgenes y ancho que el contenido de la página */}
       <header
+        data-site-chrome
         className={cn(
           "fixed inset-x-0 top-0 z-50 border-b border-border bg-background/85 px-3 backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 sm:px-6",
           menuOpen && "bg-background/95"

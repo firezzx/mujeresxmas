@@ -33,17 +33,27 @@ Resumen rápido para no perder el hilo. El detalle de cada punto está más abaj
 
 ### Pendiente en el entorno de prueba
 
+- [ ] **Modo solo registro activo** (`SITE_MODE` vacío): el público solo ve `/sumate` y `/baja`; el
+  resto redirige a `/sumate`. Las administradoras entran por `/admin` y con sesión ven todo. Para el
+  lanzamiento, cargar `SITE_MODE=abierto` en Vercel y volver a desplegar (`src/config/site-mode.ts`). — equipo
+
 - [ ] **Pegar la migración `20261113150000_membresias_y_empresas.sql`** en el SQL Editor del Supabase
   de prueba. Hasta entonces el plan **Impulso** no aparece y el formulario de **Empresas** no puede
   guardar pedidos (la tabla `company_leads` no existe). — equipo
+- [ ] **Resend de prueba** para el correo de agradecimiento de `/sumate` y los correos masivos de
+  `/admin/contactos`: crear una API key en
+  Resend y cargar en `.env.local` y en Vercel `RESEND_API_KEY` y
+  `EMAIL_FROM="Mujeres x Más <onboarding@resend.dev>"`. Sin dominio verificado, Resend **solo
+  entrega al correo del dueño de la cuenta**: sirve para probar con "Enviarme una prueba", no para
+  mandar a la lista real. — equipo
 
 ### Hallazgos del análisis del código (17/11/2026)
 
 Cosas que el sitio todavía no hace, aunque parezca que sí:
 
-- [ ] **Ningún correo propio sale del sitio.** `resend` está instalado y `RESEND_API_KEY` y
-  `EMAIL_FROM` están en `.env.example`, pero el código no los usa. Los únicos correos son los de
-  Supabase (confirmación y recuperación). Falta: bienvenida, aviso de pedido de empresa y, más
+- [ ] **Casi ningún correo propio sale del sitio.** Resend solo se usa para el agradecimiento de `/sumate`
+  y los correos masivos de `/admin/contactos` (`src/lib/email.ts`). Los demás son los de Supabase (confirmación y
+  recuperación). Falta: bienvenida, aviso de pedido de empresa y, más
   adelante, avisos de pago. — equipo
 - [ ] **`SUPABASE_SECRET_KEY` no se usa**: se puede dejar de pedir o reservarla para los avisos de
   pago (punto 7), que necesitan escribir sin sesión. — equipo
@@ -118,6 +128,10 @@ Todo el detalle está en [CONFIGURACION-SUPABASE-AUTH.md](CONFIGURACION-SUPABASE
 - [ ] Verificar el dominio `mujeresxmas.com` en Resend (registros SPF, DKIM y DMARC en el DNS). — clienta carga los DNS, equipo pasa los valores
 - [ ] Definir el remitente, por ejemplo `Mujeres x Más <hola@mujeresxmas.com>`. — clienta
 - [ ] Correo de **bienvenida** al confirmar la cuenta (función 6 del MVP): falta programarlo. — equipo
+- [ ] Con el dominio verificado, cambiar `EMAIL_FROM` al remitente real: recién ahí los correos
+  masivos de `/admin/contactos` y el agradecimiento de `/sumate` llegan a todas. Cada correo lleva el link de baja (`/baja`).
+  Si la lista pasa de unos miles de personas, conviene pasar a Resend Broadcasts o a envíos en
+  segundo plano (hoy salen en tandas de 100 dentro de la misma acción). — equipo
 
 ## 5. Vercel y dominio
 
@@ -135,6 +149,7 @@ Todas están documentadas en `.env.example`. En producción:
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Clave pública del proyecto | Supabase → Project Settings → API |
 | `SUPABASE_SECRET_KEY` | Clave secreta (solo servidor) | Supabase → Project Settings → API |
 | `RESEND_API_KEY` | Clave de Resend | Resend → API Keys |
+| `SITE_MODE` | Vacío = solo registro (`/sumate`); `abierto` = sitio completo | Equipo, al lanzar |
 | `EMAIL_FROM` | Remitente verificado | Punto 4 |
 | `NEXT_PUBLIC_SITE_URL` | `https://mujeresxmas.com` | — |
 | `SHOW_SAMPLE_CONTENT` | **Vacía** (si no, se ven cursos, notas y voces de ejemplo) | — |
@@ -196,6 +211,9 @@ Los textos y las imágenes de hoy son provisorios (están en `src/content`).
   fotos de Pexels (`public/images/home/productos`). — clienta pasa capturas, equipo ajusta
 - [ ] **Pedidos de empresas**: hoy solo quedan en `/admin/empresas`. Definir si además tienen que
   llegar por correo y a qué dirección (necesita Resend, punto 4). — clienta define, equipo programa
+- [ ] **Página de registro `/sumate` y correo de agradecimiento**: revisar los textos en
+  `src/content/sumate.ts` (`SIGNUP_PAGE` y `THANK_YOU_EMAIL`). La página no está en el menú y no
+  muestra header ni footer: se comparte por link. — clienta revisa, equipo ajusta
 
 ## 10. Lo que falta del MVP
 
