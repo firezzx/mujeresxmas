@@ -11,11 +11,14 @@ import {
 } from "@/components/admin/admin-ui"
 import { EmailCampaignForm } from "@/components/admin/email-campaign-form"
 import { MaterialLeadsTable } from "@/components/admin/material-leads-table"
+import { SignupIntroForm } from "@/components/admin/signup-intro-form"
 import { Band } from "@/components/page-band"
+import { ROUTES } from "@/config/navigation"
 import { ALL_AUDIENCE } from "@/content/sumate"
 import { isEmailConfigured } from "@/lib/email"
 import { formatDateTime, formatShortDate } from "@/lib/format"
 import { listEmailCampaigns, listMaterialLeads } from "@/lib/material-leads"
+import { getSignupIntro } from "@/lib/site-texts"
 
 export const metadata: Metadata = {
   title: "Contactos · Administración",
@@ -39,7 +42,7 @@ export default function AdminContactsPage() {
 }
 
 async function Contacts() {
-  const leads = await listMaterialLeads()
+  const [leads, intro] = await Promise.all([listMaterialLeads(), getSignupIntro()])
   if (!leads) {
     return (
       <Band className="py-3 md:py-3">
@@ -61,6 +64,23 @@ async function Contacts() {
 
   return (
     <>
+      <AdminSection
+        title="Textos de la página de registro"
+        description="El título, la descripción y los puntos que se ven en /sumate, al lado del formulario."
+        action={
+          <a
+            href={ROUTES.sumate}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm font-medium text-brand-green-strong underline-offset-4 hover:underline"
+          >
+            Ver la página
+          </a>
+        }
+      >
+        <SignupIntroForm intro={intro} />
+      </AdminSection>
+
       <AdminSection
         title="Enviar un correo"
         description="Un mail a todas las personas que se sumaron y siguen suscriptas, o solo a las de un país."

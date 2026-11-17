@@ -39,7 +39,8 @@ export function SignupForm() {
           <h3 className="font-heading text-2xl font-semibold tracking-[-0.01em]">{SIGNUP_PAGE.sentTitle}</h3>
           <p className="max-w-sm text-[15px] leading-relaxed text-pretty text-muted-foreground">
             {SIGNUP_PAGE.sentText}
-          </p>        </motion.div>
+          </p>{" "}
+        </motion.div>
       ) : (
         <motion.form
           key="form"
@@ -92,7 +93,6 @@ export function SignupForm() {
           <ShimmerSubmit pending={pending} pendingLabel="Enviando…" className="w-full">
             {SIGNUP_PAGE.submit}
           </ShimmerSubmit>
-          <p className="text-center text-xs leading-relaxed text-pretty text-muted-foreground">{SIGNUP_PAGE.consent}</p>
         </motion.form>
       )}
     </AnimatePresence>

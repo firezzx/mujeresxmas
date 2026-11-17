@@ -1,3 +1,5 @@
+import { Suspense } from "react"
+
 import { Logo } from "@/components/brand/logo"
 import { IconBadge } from "@/components/icon-badge"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
@@ -7,7 +9,59 @@ import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { SignupForm } from "@/components/sumate/signup-form"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { SIGNUP_PAGE } from "@/content/sumate"
+import { getSignupIntro } from "@/lib/site-texts"
 import { cn } from "@/lib/utils"
+
+// Título, descripción y puntos: se editan desde /admin/contactos (tabla site_texts).
+async function SignupIntroBlock() {
+  const intro = await getSignupIntro()
+  return (
+    <>
+      <BlurFade delay={0.08}>
+        <h1 className={cn(HEADING_CLASS, "mt-4 text-[2.75rem] leading-[0.98] sm:text-6xl xl:text-[4.25rem]")}>
+          {intro.title}
+          {intro.titleHighlight && (
+            <>
+              {" "}
+              <span className="text-brand-green-strong">{intro.titleHighlight}</span>
+            </>
+          )}
+        </h1>
+      </BlurFade>
+      <BlurFade delay={0.12}>
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-pretty whitespace-pre-line text-muted-foreground">
+          {intro.description}
+        </p>
+      </BlurFade>
+      {intro.bullets.length > 0 && (
+        <BlurFade delay={0.16} className="mt-8 w-full max-w-xl">
+          <ul className="flex flex-col gap-3">
+            {intro.bullets.map((bullet, index) => (
+              <li key={index}>
+                <IconHoverArea className="flex items-center gap-3 text-[15px] leading-relaxed">
+                  <IconBadge size="sm" tone="green">
+                    <HoverIcon name="check" size={16} />
+                  </IconBadge>
+                  {bullet}
+                </IconHoverArea>
+              </li>
+            ))}
+          </ul>
+        </BlurFade>
+      )}
+    </>
+  )
+}
+
+function IntroSkeleton() {
+  return (
+    <div aria-hidden className="mt-4 flex w-full max-w-xl flex-col gap-4">
+      <div className="h-24 w-4/5 animate-pulse rounded-lg bg-foreground/[0.05] sm:h-32" />
+      <div className="h-14 w-full animate-pulse rounded-lg bg-foreground/[0.04]" />
+      <div className="h-28 w-3/4 animate-pulse rounded-lg bg-foreground/[0.04]" />
+    </div>
+  )
+}
 
 // Página de registro única (/sumate): sin menú ni footer, solo el logo, por qué sumarse y el
 // formulario. Los contactos se ven en /admin/contactos.
@@ -28,30 +82,9 @@ export function SumatePage() {
                 {SIGNUP_PAGE.eyebrow}
               </p>
             </BlurFade>
-            <BlurFade delay={0.08}>
-              <h1 className={cn(HEADING_CLASS, "mt-4 text-[2.75rem] leading-[0.98] sm:text-6xl xl:text-[4.25rem]")}>
-                {SIGNUP_PAGE.title} <span className="text-brand-green-strong">{SIGNUP_PAGE.titleHighlight}</span>
-              </h1>
-            </BlurFade>
-            <BlurFade delay={0.12}>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground">
-                {SIGNUP_PAGE.description}
-              </p>
-            </BlurFade>
-            <BlurFade delay={0.16} className="mt-8 w-full max-w-xl">
-              <ul className="flex flex-col gap-3">
-                {SIGNUP_PAGE.bullets.map((bullet) => (
-                  <li key={bullet}>
-                    <IconHoverArea className="flex items-center gap-3 text-[15px] leading-relaxed">
-                      <IconBadge size="sm" tone="green">
-                        <HoverIcon name="check" size={16} />
-                      </IconBadge>
-                      {bullet}
-                    </IconHoverArea>
-                  </li>
-                ))}
-              </ul>
-            </BlurFade>
+            <Suspense fallback={<IntroSkeleton />}>
+              <SignupIntroBlock />
+            </Suspense>
           </div>
 
           <BlurFade delay={0.2}>

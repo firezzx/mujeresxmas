@@ -13,9 +13,8 @@ export const SIGNUP_PAGE = {
   hand: "ninguna camina sola",
   formTitle: "Completá tus datos",
   submit: "Sumarme",
-  consent: "Al sumarte aceptás recibir correos de Mujeres x Más. Podés darte de baja cuando quieras.",
   sentTitle: "¡Muchas gracias por sumarte!",
-  sentText: "Te mandamos un correo de bienvenida. Si no lo ves, revisá la carpeta de spam o promociones.",
+  sentText: "Ya sos parte de Mujeres x Más. Muy pronto vas a tener novedades de la comunidad.",
   metaDescription: "Sumate a la comunidad Mujeres x Más y recibí novedades, encuentros y oportunidades.",
 } as const
 
