@@ -16,7 +16,7 @@ import { HONEYPOT_FIELD } from "@/lib/validations/auth"
 const ease = [0.22, 1, 0.36, 1] as const
 
 // Formulario de /sumate: nombre y apellido, email y país. Al enviarlo se guarda el contacto y le
-// llega el correo de agradecimiento.
+// muestra el agradecimiento (el correo sale solo si el envío está configurado).
 export function SignupForm() {
   const [state, formAction, pending] = useActionState<MaterialLeadState, FormData>(registerMaterialLead, {
     status: "idle",
@@ -34,7 +34,7 @@ export function SignupForm() {
           className="flex flex-col items-center gap-4 py-10 text-center"
         >
           <IconBadge size="lg" tone="green">
-            <HoverIcon name="mail-check" size={24} autoPlay />
+            <HoverIcon name="circle-check" size={24} autoPlay />
           </IconBadge>
           <h3 className="font-heading text-2xl font-semibold tracking-[-0.01em]">{SIGNUP_PAGE.sentTitle}</h3>
           <p className="max-w-sm text-[15px] leading-relaxed text-pretty text-muted-foreground">
