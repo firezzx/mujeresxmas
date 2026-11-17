@@ -98,7 +98,7 @@ export const HOME_PLANS = {
 
 export const HOME_STEPS = {
   // Foto de fondo de la franja (va con un velo oscuro encima)
-  image: "/images/home/socias-negocio.jpg",
+  image: "/images/home/socias-cafe.jpg",
   eyebrow: "Cómo funciona",
   title: "Empezá en",
   titleHighlight: "tres pasos",
@@ -140,25 +140,25 @@ export const HOME_PATHS = {
     icon: "graduation-cap",
     title: "Aprender",
     text: "Cursos para dar el primer paso",
-    image: "/images/home/formacion.jpg",
+    image: "/images/home/formacion-casa.jpg",
   },
   notes: {
     icon: "book-text",
     title: "Leer",
     text: "Notas y guías para tu proyecto",
-    image: "/images/home/tecnologia.jpg",
+    image: "/images/home/tecnologia-oficina.jpg",
   },
   products: {
     icon: "rocket",
     title: "Crecer",
     text: "Productos que te acompañan",
-    image: "/images/home/equipo-laptop.jpg",
+    image: "/images/home/equipo-trabajo.jpg",
   },
   events: {
     icon: "calendar-days",
     title: "Encontrarnos",
     text: "Charlas y encuentros de la comunidad",
-    image: "/images/home/colegas-escalera.jpg",
+    image: "/images/home/colegas-charla.jpg",
   },
 } satisfies Record<string, { icon: IconName; title: string; text: string; image: string }>
 
@@ -173,7 +173,7 @@ export const HOME_COURSES = {
       title: "Tu primer negocio online",
       text: "De la idea a la primera venta, paso a paso.",
       meta: "Gratis · 6 clases",
-      image: "/images/home/formacion.jpg",
+      image: "/images/home/formacion-casa.jpg",
     },
     {
       title: "Redes que venden",
@@ -200,19 +200,19 @@ export const HOME_NOTES = {
       title: "Cómo usar la IA en tu emprendimiento sin ser experta",
       text: "Tres herramientas para ganar tiempo esta semana.",
       meta: "5 min de lectura",
-      image: "/images/home/tecnologia.jpg",
+      image: "/images/home/tecnologia-oficina.jpg",
     },
     {
       title: "Del Instagram a la tienda propia",
       text: "Qué mirar antes de dar el salto.",
       meta: "4 min de lectura",
-      image: "/images/home/emprendimiento.jpg",
+      image: "/images/home/emprendedora-cocina.jpg",
     },
     {
       title: "Ponerle precio a lo que hacés",
       text: "Una guía para dejar de cobrar de menos.",
       meta: "6 min de lectura",
-      image: "/images/home/boutique.jpg",
+      image: "/images/home/taller-costura.jpg",
     },
   ],
 }
@@ -222,8 +222,8 @@ export const HOME_PRODUCT = {
   title: "Kiero",
   description: "De vender por redes a tener tu tienda online. Te acompañamos en cada paso.",
   cta: "Conocé Kiero",
-  image: "/images/home/boutique.jpg",
-  imageAlt: "Emprendedora preparando prendas en su tienda",
+  image: "/images/home/taller-costura.jpg",
+  imageAlt: "Emprendedora cosiendo prendas en su taller",
   secondImage: "/images/home/marketing.jpg",
   secondImageAlt: "Emprendedora grabando un video para sus redes",
   chip: "Te acompañamos",
@@ -288,19 +288,19 @@ export const HOME_VOICES = {
       quote: "Por primera vez sentí que no estaba haciendo todo esto sola.",
       name: "Lucía G.",
       detail: "Tienda de ropa",
-      image: "/images/home/emprendimiento.jpg",
+      image: "/images/home/emprendedora-cocina.jpg",
     },
     {
       quote: "Con lo que aprendí ordené mis números y subí los precios sin miedo.",
       name: "Marina P.",
       detail: "Pastelería",
-      image: "/images/home/florista.jpg",
+      image: "/images/home/florista-taller.jpg",
     },
     {
       quote: "Conocí a otras emprendedoras y hoy trabajamos juntas.",
       name: "Sol R.",
       detail: "Diseño gráfico",
-      image: "/images/home/formacion.jpg",
+      image: "/images/home/formacion-casa.jpg",
     },
     {
       quote: "Me animé a abrir mi tienda online gracias al acompañamiento.",
@@ -330,7 +330,7 @@ export const HOME_CLOSING = {
   description:
     "Creá tu cuenta gratis y empezá hoy: tu tienda online, cursos, encuentros y una red de mujeres que van por más.",
   cta: "Unirme a Mujeres x Más",
-  image: "/images/home/cierre-grupo.jpg",
+  image: "/images/home/cierre-amigas.jpg",
   // Fondo del cierre, con velo negro
   mosaic: "/images/home/mosaico-mujeres-panoramico.jpg",
 }

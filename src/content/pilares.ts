@@ -50,8 +50,8 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
     icon: "rocket",
     badgeTone: "green",
     heroTone: "green",
-    image: "/images/home/formacion.jpg",
-    imageAlt: "Mujeres aprendiendo juntas frente a una computadora",
+    image: "/images/home/formacion-casa.jpg",
+    imageAlt: "Mujer estudiando con su computadora en casa",
     hero: {
       titleStart: "Lo que necesitás para",
       titleHighlight: "crecer",
@@ -149,8 +149,8 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
     icon: "sparkles",
     badgeTone: "pink",
     heroTone: "pink",
-    image: "/images/home/florista.jpg",
-    imageAlt: "Emprendedora trabajando tranquila en su taller",
+    image: "/images/home/florista-taller.jpg",
+    imageAlt: "Florista sonriendo mientras arma un ramo",
     hero: {
       titleStart: "Cuidarte también es",
       titleHighlight: "crecer",
@@ -198,8 +198,8 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
     icon: "users-round",
     badgeTone: "brand",
     heroTone: "soft",
-    image: "/images/home/comunidad-charla.jpg",
-    imageAlt: "Grupo de mujeres charlando y riéndose en un sillón",
+    image: "/images/home/comunidad-almuerzo.jpg",
+    imageAlt: "Mujeres compartiendo un almuerzo y una charla",
     hero: {
       titleStart: "La red que",
       titleHighlight: "suma",
@@ -265,7 +265,7 @@ export const PILLARS_PAGE = {
   // Dato destacado de Conexión
   networkStat: { value: "+28", label: "localidades con encuentros abiertos" },
   // Foto de fondo del cierre (va con un velo oscuro encima)
-  closingImage: "/images/home/colegas-escalera.jpg",
+  closingImage: "/images/home/colegas-charla.jpg",
   closingHand: "no caminás sola",
   closingTitle: "Elegí tu membresía y",
   closingHighlight: "empezá hoy",
