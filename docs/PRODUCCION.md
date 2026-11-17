@@ -37,6 +37,29 @@ Resumen rápido para no perder el hilo. El detalle de cada punto está más abaj
   de prueba. Hasta entonces el plan **Impulso** no aparece y el formulario de **Empresas** no puede
   guardar pedidos (la tabla `company_leads` no existe). — equipo
 
+### Hallazgos del análisis del código (17/11/2026)
+
+Cosas que el sitio todavía no hace, aunque parezca que sí:
+
+- [ ] **Ningún correo propio sale del sitio.** `resend` está instalado y `RESEND_API_KEY` y
+  `EMAIL_FROM` están en `.env.example`, pero el código no los usa. Los únicos correos son los de
+  Supabase (confirmación y recuperación). Falta: bienvenida, aviso de pedido de empresa y, más
+  adelante, avisos de pago. — equipo
+- [ ] **`SUPABASE_SECRET_KEY` no se usa**: se puede dejar de pedir o reservarla para los avisos de
+  pago (punto 7), que necesitan escribir sin sesión. — equipo
+- [ ] **Sin página de error**: falta `error.tsx` y `global-error.tsx`; si algo falla se ve la
+  pantalla genérica de Next. — equipo
+- [ ] **Sin imagen para compartir**: solo las notas del blog tienen Open Graph; el resto de las
+  páginas se comparte sin foto ni descripción propia. — equipo
+- [ ] **Sin analítica** (GA4 o Vercel Analytics). — equipo, con la cuenta de la clienta
+- [ ] **Sin protección contra bots** en registro y Empresas más allá del campo trampa. Conviene
+  sumar Cloudflare Turnstile (gratis) en Supabase Auth y en el formulario. — equipo
+- [ ] **`supabase/config.toml`** tiene `site_url` y redirects en `localhost`: es la configuración
+  local; la de producción se carga en el panel (punto 3), pero dejarla documentada. — equipo
+- [ ] **Crear cursos y eventos** en el panel sigue en "Próximamente". — equipo
+- [ ] **Redes del pie vacías** (`SOCIAL_LINKS` en `src/config/site.ts`). — clienta pasa los links
+- [ ] **Sin páginas legales** (términos y privacidad). — clienta con su asesoría
+
 ### Falta para producción (lo más importante)
 
 1. Cuentas a nombre de la clienta y dominio (punto 1).
