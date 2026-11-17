@@ -2,12 +2,24 @@ import { Resend } from "resend"
 
 import { BRAND_HEX } from "@/config/brand-effects"
 
-// Envío de correos con Resend. Necesita RESEND_API_KEY y EMAIL_FROM (ver .env.example).
-// Mientras el dominio no esté verificado en Resend, EMAIL_FROM tiene que ser
-// "Mujeres x Más <onboarding@resend.dev>" y los correos solo llegan al dueño de la cuenta.
+// Envío de correos. Funciona con Brevo o con Resend según las variables de entorno (ver .env.example):
+// - Brevo: BREVO_API_KEY y EMAIL_FROM con un remitente verificado en Brevo.
+// - Resend: RESEND_API_KEY y EMAIL_FROM. Sin dominio verificado, solo llega al dueño de la cuenta.
+// EMAIL_PROVIDER ("brevo" o "resend") elige uno si están las dos claves; si no, se usa la que haya.
+
+type Provider = "brevo" | "resend"
+
+function getProvider(): Provider | null {
+  const brevo = Boolean(process.env.BREVO_API_KEY)
+  const resend = Boolean(process.env.RESEND_API_KEY)
+  const chosen = process.env.EMAIL_PROVIDER
+  if (chosen === "brevo") return brevo ? "brevo" : null
+  if (chosen === "resend") return resend ? "resend" : null
+  return brevo ? "brevo" : resend ? "resend" : null
+}
 
 export function isEmailConfigured() {
-  return Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM)
+  return Boolean(getProvider() && process.env.EMAIL_FROM)
 }
 
 export type OutgoingEmail = {
@@ -22,18 +34,74 @@ export type OutgoingEmail = {
 const EMAIL_MUTED = "#6B6B6B"
 const EMAIL_RULE = "#EEEEEE"
 
-// Resend acepta hasta 100 correos por pedido.
-const BATCH_SIZE = 100
+type SendResult = { sent: number; failed: number }
 
-// Envía los correos en tandas. Devuelve cuántos salieron y cuántos fallaron.
-export async function sendEmails(emails: OutgoingEmail[]): Promise<{ sent: number; failed: number }> {
+// Envía los correos con el proveedor configurado. Devuelve cuántos salieron y cuántos fallaron.
+export async function sendEmails(emails: OutgoingEmail[]): Promise<SendResult> {
+  return getProvider() === "brevo" ? sendWithBrevo(emails) : sendWithResend(emails)
+}
+
+// "Mujeres x Más <hola@dominio.com>" → nombre y correo por separado (Brevo los pide así)
+function parseSender(from: string) {
+  const match = from.match(/^\s*"?([^"<]*?)"?\s*<([^>]+)>\s*$/)
+  return match ? { name: match[1] || undefined, email: match[2] } : { email: from.trim() }
+}
+
+// Brevo: un pedido por correo, de a 10 en paralelo para no pasar el límite de la API.
+const BREVO_CONCURRENCY = 10
+
+async function sendWithBrevo(emails: OutgoingEmail[]): Promise<SendResult> {
+  const sender = parseSender(process.env.EMAIL_FROM!)
+  let sent = 0
+  let failed = 0
+
+  const sendOne = async (email: OutgoingEmail) => {
+    try {
+      const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
+        headers: {
+          "api-key": process.env.BREVO_API_KEY!,
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          sender,
+          to: [{ email: email.to }],
+          subject: email.subject,
+          htmlContent: email.html,
+          textContent: email.text,
+          headers: email.unsubscribeUrl ? { "List-Unsubscribe": `<${email.unsubscribeUrl}>` } : undefined,
+        }),
+      })
+      if (response.ok) {
+        sent++
+      } else {
+        failed++
+        console.error("[sendWithBrevo]", response.status, await response.text())
+      }
+    } catch (error) {
+      failed++
+      console.error("[sendWithBrevo]", error)
+    }
+  }
+
+  for (let start = 0; start < emails.length; start += BREVO_CONCURRENCY) {
+    await Promise.all(emails.slice(start, start + BREVO_CONCURRENCY).map(sendOne))
+  }
+  return { sent, failed }
+}
+
+// Resend acepta hasta 100 correos por pedido.
+const RESEND_BATCH_SIZE = 100
+
+async function sendWithResend(emails: OutgoingEmail[]): Promise<SendResult> {
   const resend = new Resend(process.env.RESEND_API_KEY)
   const from = process.env.EMAIL_FROM!
   let sent = 0
   let failed = 0
 
-  for (let start = 0; start < emails.length; start += BATCH_SIZE) {
-    const chunk = emails.slice(start, start + BATCH_SIZE)
+  for (let start = 0; start < emails.length; start += RESEND_BATCH_SIZE) {
+    const chunk = emails.slice(start, start + RESEND_BATCH_SIZE)
     const { data, error } = await resend.batch.send(
       chunk.map((email) => ({
         from,
@@ -46,7 +114,7 @@ export async function sendEmails(emails: OutgoingEmail[]): Promise<{ sent: numbe
       { batchValidation: "permissive" }
     )
     if (error || !data) {
-      console.error("[sendEmails]", error?.name, error?.message)
+      console.error("[sendWithResend]", error?.name, error?.message)
       failed += chunk.length
       continue
     }

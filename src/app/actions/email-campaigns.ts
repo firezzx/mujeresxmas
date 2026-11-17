@@ -37,7 +37,7 @@ export async function sendEmailCampaign(_prev: EmailCampaignState, formData: For
   if (!isEmailConfigured()) {
     return {
       status: "error",
-      message: "Falta configurar el envío de correos (RESEND_API_KEY y EMAIL_FROM). Mirá docs/PRODUCCION.md.",
+      message: "Falta configurar el envío de correos (BREVO_API_KEY y EMAIL_FROM). Mirá docs/PRODUCCION.md.",
     }
   }
 
@@ -53,7 +53,10 @@ export async function sendEmailCampaign(_prev: EmailCampaignState, formData: For
       { to: user.email, subject: `[Prueba] ${personalize(subject, name)}`, html, text },
     ])
     if (!sent)
-      return { status: "error", message: "Resend no aceptó el correo de prueba. Revisá la clave y el remitente." }
+      return {
+        status: "error",
+        message: "El servicio de correos no aceptó la prueba. Revisá la clave y que el remitente esté verificado.",
+      }
     return { status: "test-sent", to: user.email }
   }
 

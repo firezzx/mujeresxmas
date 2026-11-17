@@ -75,7 +75,7 @@ export function EmailCampaignForm({
     <form action={formAction} onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       {!emailReady && (
         <div className="rounded-lg bg-brand-soft/40 px-4 py-3 text-sm leading-relaxed">
-          El envío todavía no está configurado: falta cargar <code>RESEND_API_KEY</code> y <code>EMAIL_FROM</code> en
+          El envío todavía no está configurado: falta cargar <code>BREVO_API_KEY</code> y <code>EMAIL_FROM</code> en
           las variables de entorno. Podés armar el correo igual.
         </div>
       )}

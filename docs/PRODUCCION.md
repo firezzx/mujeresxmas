@@ -40,18 +40,16 @@ Resumen rápido para no perder el hilo. El detalle de cada punto está más abaj
 - [ ] **Pegar la migración `20261113150000_membresias_y_empresas.sql`** en el SQL Editor del Supabase
   de prueba. Hasta entonces el plan **Impulso** no aparece y el formulario de **Empresas** no puede
   guardar pedidos (la tabla `company_leads` no existe). — equipo
-- [ ] **Resend de prueba** para el correo de agradecimiento de `/sumate` y los correos masivos de
-  `/admin/contactos`: crear una API key en
-  Resend y cargar en `.env.local` y en Vercel `RESEND_API_KEY` y
-  `EMAIL_FROM="Mujeres x Más <onboarding@resend.dev>"`. Sin dominio verificado, Resend **solo
-  entrega al correo del dueño de la cuenta**: sirve para probar con "Enviarme una prueba", no para
-  mandar a la lista real. — equipo
+- [ ] **Brevo para los correos** (agradecimiento de `/sumate` y envíos masivos de `/admin/contactos`):
+  cuenta creada por el equipo. Cargar en `.env.local` y en Vercel `EMAIL_PROVIDER=brevo`,
+  `BREVO_API_KEY` y `EMAIL_FROM` con un remitente verificado en Brevo. Plan gratis: 300 correos por
+  día. Sin el dominio propio autenticado, los correos pueden caer en spam. — equipo
 
 ### Hallazgos del análisis del código (17/11/2026)
 
 Cosas que el sitio todavía no hace, aunque parezca que sí:
 
-- [ ] **Casi ningún correo propio sale del sitio.** Resend solo se usa para el agradecimiento de `/sumate`
+- [ ] **Casi ningún correo propio sale del sitio.** Brevo (o Resend) solo se usa para el agradecimiento de `/sumate`
   y los correos masivos de `/admin/contactos` (`src/lib/email.ts`). Los demás son los de Supabase (confirmación y
   recuperación). Falta: bienvenida, aviso de pedido de empresa y, más
   adelante, avisos de pago. — equipo
@@ -149,6 +147,8 @@ Todas están documentadas en `.env.example`. En producción:
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Clave pública del proyecto | Supabase → Project Settings → API |
 | `SUPABASE_SECRET_KEY` | Clave secreta (solo servidor) | Supabase → Project Settings → API |
 | `RESEND_API_KEY` | Clave de Resend | Resend → API Keys |
+| `EMAIL_PROVIDER` | `brevo` o `resend` | Equipo |
+| `BREVO_API_KEY` | Clave de Brevo para los correos | Brevo → SMTP y API → Claves API |
 | `SITE_MODE` | Vacío = solo registro (`/sumate`); `abierto` = sitio completo | Equipo, al lanzar |
 | `EMAIL_FROM` | Remitente verificado | Punto 4 |
 | `NEXT_PUBLIC_SITE_URL` | `https://mujeresxmas.com` | — |
