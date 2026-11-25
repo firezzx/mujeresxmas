@@ -18,7 +18,7 @@ Resumen rápido para no perder el hilo. El detalle de cada punto está más abaj
 - **Inicio** completo: portada con retratos en profundidad, pilares, planes, lo que hay adentro,
   cursos, Kiero (maqueta de la app en dos celulares), notas, voces y eventos.
 - **Registro, ingreso, cierre de sesión y recuperación de contraseña**, con confirmación por correo
-  (solo llega al equipo mientras no haya SMTP propio, ver punto 3).
+  (sale por el SMTP de Hostinger de `micuenta@mujeresxmas.com`, configurado en Supabase el 25/11/2026).
 - **Plan Comunidad automático** al registrarse.
 - **Mi cuenta** y **editar perfil** con foto.
 - **Membresía** (`/membresia`): elegí tu momento, planes con el recomendado resaltado, comparación y
@@ -46,8 +46,10 @@ Resumen rápido para no perder el hilo. El detalle de cada punto está más abaj
   (registro en `/sumate` y pedido de empresa) a la casilla de `ADMIN_NOTIFY_EMAIL`. Los textos están en
   `src/content/correos.ts`.
 
-- [ ] **SMTP de Hostinger en Supabase** para la confirmación de cuenta y la recuperación de contraseña
-  (ver punto 3). — equipo
+- [x] **SMTP de Hostinger en Supabase** para la confirmación de cuenta y la recuperación de contraseña,
+  con las plantillas de `supabase/templates`. Site URL `https://mujeresxmas.vercel.app` y Redirect URLs
+  `https://mujeresxmas.vercel.app/**` y `http://localhost:3000/**`. Al conectar el dominio, cambiarlos
+  como dice el punto 3.
 
 ### Hallazgos del análisis del código (17/11/2026)
 
