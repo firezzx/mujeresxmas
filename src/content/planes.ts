@@ -25,7 +25,7 @@ export const PLANS_PAGE = {
     impulso: "Para escalar",
   } as Record<string, string>,
   // Lo que se muestra al lado de "Gratis" en la tarjeta del plan sin costo (vacío para ocultarlo)
-  freeReference: "$ 00000",
+  freeReference: "$ 00",
   // Rótulo arriba de la lista de beneficios de cada tarjeta
   includesLabel: "Incluye",
 }
