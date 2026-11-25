@@ -50,7 +50,7 @@ export function ScreenSection({
         className={cn(
           PAGE_WIDTH_CLASS,
           "relative py-20 md:py-24",
-          !fit && "lg:my-auto lg:pt-24 lg:pb-12",
+          fit ? "py-24 md:py-32 lg:py-40" : "lg:my-auto lg:pt-24 lg:pb-12",
           innerClassName
         )}
       >

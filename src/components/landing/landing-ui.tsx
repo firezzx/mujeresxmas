@@ -26,7 +26,12 @@ export function Section({
   return (
     <section id={id} className={cn("relative scroll-mt-0", !fit && "lg:flex lg:min-h-svh lg:flex-col")}>
       <div
-        className={cn(PAGE_WIDTH_CLASS, "py-20 md:py-24", !fit && "md:py-28 lg:my-auto lg:pt-24 lg:pb-12", className)}
+        className={cn(
+          PAGE_WIDTH_CLASS,
+          "py-20 md:py-24",
+          fit ? "py-24 md:py-32 lg:py-40" : "md:py-28 lg:my-auto lg:pt-24 lg:pb-12",
+          className
+        )}
       >
         {children}
       </div>
