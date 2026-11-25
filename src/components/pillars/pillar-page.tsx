@@ -39,7 +39,7 @@ function Hero({ pillar }: { pillar: Pillar }) {
             </p>
           </BlurFade>
           <BlurFade delay={0.18} className="mt-9 w-full sm:w-auto">
-            <JoinActions plansLabel={PILLAR_CLOSING.plansCta} className="sm:justify-start" />
+            <JoinActions className="sm:justify-start" />
           </BlurFade>
         </div>
 
@@ -106,7 +106,7 @@ export function PillarPage({ pillar }: { pillar: Pillar }) {
         highlight={PILLAR_CLOSING.titleHighlight}
         description={PILLAR_CLOSING.description}
       >
-        <JoinActions plansLabel={PILLAR_CLOSING.plansCta} />
+        <JoinActions />
       </ScreenClosing>
     </main>
   )

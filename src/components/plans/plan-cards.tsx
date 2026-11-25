@@ -82,7 +82,7 @@ function PlanCard({ plan, level, levels, isCurrent, signedIn }: PlanCardProps) {
       <span aria-hidden className={cn("absolute inset-x-0 top-0 h-1.5", STRIPE_CLASS[kind])} />
 
       <div className="flex items-center justify-between gap-3">
-        <LevelMeter level={level} levels={levels} kind={kind} />
+        <LevelMeter name={plan.name} level={level} levels={levels} kind={kind} />
         {isCurrent ? (
           <Tag dot="bg-brand" className={dark ? "bg-white/10" : "bg-brand-soft/50"}>
             {PLANS_PAGE.currentBadge}
@@ -114,7 +114,6 @@ function PlanCard({ plan, level, levels, isCurrent, signedIn }: PlanCardProps) {
           </Tag>
         </span>
       </div>
-      <h3 className="mt-1.5 font-heading text-4xl leading-none font-semibold tracking-[-0.02em]">{plan.name}</h3>
       {plan.description && (
         <p
           className={cn(
@@ -130,6 +129,11 @@ function PlanCard({ plan, level, levels, isCurrent, signedIn }: PlanCardProps) {
         <span className="font-heading text-[2.5rem] leading-none font-semibold tracking-[-0.03em]">
           {!isPaid ? PLANS_PAGE.free : plan.priceArs === null ? PLANS_PAGE.priceToConfirm : formatPrice(plan.priceArs)}
         </span>
+        {!isPaid && PLANS_PAGE.freeReference && (
+          <span className={cn("text-lg font-medium", dark ? "text-white/60" : "text-muted-foreground")}>
+            {PLANS_PAGE.freeReference}
+          </span>
+        )}
         {isPaid && plan.priceArs !== null && (
           <span className={cn("text-sm", dark ? "text-white/60" : "text-muted-foreground")}>
             / {PLANS_PAGE.perMonth}
@@ -138,6 +142,9 @@ function PlanCard({ plan, level, levels, isCurrent, signedIn }: PlanCardProps) {
       </p>
 
       <div className={cn("mt-5 border-t pt-5", dark ? "border-white/12" : "border-foreground/[0.08]")}>
+        <p className={cn("mb-3 font-heading text-sm font-semibold", dark ? "text-white" : "text-foreground")}>
+          {PLANS_PAGE.includesLabel}
+        </p>
         <ul className="flex flex-col gap-2.5">
           {features.map((feature) => (
             <FeatureItem key={feature.text} feature={feature} dark={dark} />
@@ -152,8 +159,8 @@ function PlanCard({ plan, level, levels, isCurrent, signedIn }: PlanCardProps) {
   )
 }
 
-// Nivel del plan, como un rango: ícono, "Nivel N" y una barrita por nivel, llena hasta el de este plan
-function LevelMeter({ level, levels, kind }: { level: number; levels: number; kind: CardKind }) {
+// Nivel del plan, como un rango: ícono, nombre del plan y una barrita por nivel, llena hasta el de este plan
+function LevelMeter({ name, level, levels, kind }: { name: string; level: number; levels: number; kind: CardKind }) {
   const paid = kind !== "free"
   const dark = kind === "featured"
   return (
@@ -162,14 +169,14 @@ function LevelMeter({ level, levels, kind }: { level: number; levels: number; ki
         <HoverIcon name={PLAN_ICON[kind]} size={18} />
       </IconBadge>
       <div className="flex flex-col gap-1.5">
-        <span
+        <h3
           className={cn(
             "font-heading text-sm leading-none font-bold tracking-[0.12em] uppercase",
             dark ? "text-brand-green" : paid ? "text-brand-green-strong" : "text-brand-pink-strong"
           )}
         >
-          {PLANS_PAGE.levelLabel} {level}
-        </span>
+          {name}
+        </h3>
         <span aria-hidden className="flex gap-1.5">
           {Array.from({ length: levels }, (_, index) => (
             <span

@@ -8,7 +8,7 @@ import { IconBadge } from "@/components/icon-badge"
 import { HoverIcon } from "@/components/icons/hover-icon"
 import { ActivateKiero } from "@/components/kiero/activate-kiero"
 import { BrandHighlight } from "@/components/page-hero"
-import { ROUTES } from "@/config/navigation"
+import { JOIN_LABEL, ROUTES } from "@/config/navigation"
 import { getAccountSummary } from "@/lib/account"
 import { formatDay } from "@/lib/format"
 import { isKieroLive, kieroInviteUrl } from "@/lib/kiero"
@@ -142,7 +142,7 @@ async function KieroStatus() {
       text="Pasate a Crecer para tener tu tienda online, la guía para activarla y los talleres de ventas."
     >
       <ShimmerLink href={ROUTES.membresia} size="md" className="h-12 w-full">
-        Ver las membresías
+        {JOIN_LABEL}
       </ShimmerLink>
       {back}
     </Panel>

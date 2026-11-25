@@ -1,4 +1,5 @@
 import type { IconName } from "@/components/icons/hover-icon"
+import { JOIN_LABEL } from "@/config/navigation"
 
 // Textos e imágenes de la home, separados del diseño. Son provisorios: se reemplazan acá cuando esté
 // el contenido definitivo, sin tocar los componentes. Las fotos están en public/images/home y su
@@ -93,7 +94,7 @@ export const HOME_PLANS = {
   title: "Elegí la membresía",
   titleHighlight: "para tu momento",
   description: "No todas necesitamos lo mismo. Empezá sin costo y cambiá cuando quieras, sin permanencia.",
-  moreCta: "Comparar las membresías",
+  moreCta: JOIN_LABEL,
 }
 
 export const HOME_STEPS = {
@@ -167,7 +168,7 @@ export const HOME_COURSES = {
   titleHighlight: "empezar hoy",
   description: "A tu ritmo, con contenidos simples y prácticos.",
   topics: ["Tecnología e IA", "Comunicación y marketing", "Emprendimiento", "Finanzas", "Formaciones gratuitas"],
-  cta: "Sumarme a los cursos",
+  cta: JOIN_LABEL,
   samples: [
     {
       title: "Tu primer negocio online",
@@ -240,7 +241,7 @@ export const HOME_PRODUCT = {
       { icon: "rocket", title: "Todo en el celular", text: "Cargás y vendés desde la app." },
       { icon: "compass", title: "Con guía", text: "Te acompañamos en cada paso." },
     ] satisfies { icon: IconName; title: string; text: string }[],
-    secondaryCta: "Ver membresías",
+    secondaryCta: JOIN_LABEL,
     // Maqueta ilustrativa de la app: nombres, precios y cifras son de ejemplo.
     app: {
       note: "tu tienda en el bolsillo",
@@ -314,7 +315,7 @@ export const HOME_VOICES = {
 export const HOME_EVENTS = {
   title: "Próximos",
   titleHighlight: "encuentros",
-  cta: "Anotarme",
+  cta: JOIN_LABEL,
   nextLabel: "El próximo",
   samples: [
     { title: "Café de emprendedoras", meta: "Presencial · Buenos Aires", startsAt: "2026-11-20T21:00:00.000Z" },

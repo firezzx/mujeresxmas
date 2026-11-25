@@ -30,7 +30,7 @@ function Hero() {
           </p>
         </BlurFade>
         <BlurFade delay={0.18} className="mt-9 w-full sm:w-auto">
-          <JoinActions plansLabel={PILLAR_CLOSING.plansCta} />
+          <JoinActions />
         </BlurFade>
       </div>
 
@@ -140,7 +140,7 @@ export function PillarsOverview() {
         highlight={PILLARS_PAGE.closingHighlight}
         description={PILLAR_CLOSING.description}
       >
-        <JoinActions plansLabel={PILLAR_CLOSING.plansCta} />
+        <JoinActions />
       </ScreenClosing>
     </main>
   )

@@ -264,7 +264,6 @@ export const PILLAR_CLOSING = {
   title: "Elegí tu plan y",
   titleHighlight: "empezá hoy",
   description: "Empezás gratis y pasás a la membresía cuando lo necesites.",
-  plansCta: "Ver las membresías",
   othersTitle: "Conocé los otros pilares",
 }
 

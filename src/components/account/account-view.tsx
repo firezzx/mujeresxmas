@@ -9,7 +9,7 @@ import { PageIntro } from "@/components/landing/screen"
 import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { ROUTES } from "@/config/navigation"
+import { JOIN_LABEL, ROUTES } from "@/config/navigation"
 import type { getAccountSummary } from "@/lib/account"
 import type { CommunityEvent, Course } from "@/lib/content"
 import { parsePlanFeature } from "@/lib/plan-features"
@@ -108,7 +108,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                         className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-background px-5 py-2 text-sm font-medium text-foreground transition-colors duration-300 outline-none hover:bg-brand-soft focus-visible:ring-3 focus-visible:ring-ring/40"
                       >
                         <HoverIcon name="sparkles" size={16} />
-                        Ver las membresías
+                        {JOIN_LABEL}
                       </Link>
                     </IconHoverArea>
                   </div>

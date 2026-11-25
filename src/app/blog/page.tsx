@@ -60,7 +60,7 @@ export default function BlogPage({ searchParams }: PageProps<"/blog">) {
         highlight={PILLAR_CLOSING.titleHighlight}
         description={PILLAR_CLOSING.description}
       >
-        <JoinActions plansLabel={PILLAR_CLOSING.plansCta} />
+        <JoinActions />
       </ScreenClosing>
     </main>
   )

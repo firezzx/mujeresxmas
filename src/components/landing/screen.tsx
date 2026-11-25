@@ -1,10 +1,8 @@
-import { HoverRevealLink } from "@/components/buttons/hover-reveal-link"
 import { RegisterCta } from "@/components/cta/register-cta"
 import { DarkSection, HEADING_CLASS, Pill } from "@/components/landing/landing-ui"
 import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { BrandHighlight } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { ROUTES } from "@/config/navigation"
 import { cn } from "@/lib/utils"
 
 // Piezas de pantalla completa para las páginas internas, con el estilo del inicio.
@@ -111,14 +109,11 @@ export function PageIntro({
   )
 }
 
-// Los dos botones de siempre: registrarse y ver los planes
-export function JoinActions({ plansLabel, className }: { plansLabel: string; className?: string }) {
+// Llamado a la acción de siempre: un solo botón "Sumate a MX+" a Membresía
+export function JoinActions({ className }: { className?: string }) {
   return (
     <div className={cn("flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row", className)}>
       <RegisterCta className="w-full sm:w-auto" />
-      <HoverRevealLink href={ROUTES.membresia} className="w-full sm:w-auto">
-        {plansLabel}
-      </HoverRevealLink>
     </div>
   )
 }
