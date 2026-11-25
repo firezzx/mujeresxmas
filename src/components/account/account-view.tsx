@@ -5,7 +5,7 @@ import { MyCourses, MyEvents, MyNotifications } from "@/components/account/accou
 import { SignOutButton } from "@/components/account/sign-out-button"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { DarkBackdrop } from "@/components/landing/landing-ui"
-import { PageIntro } from "@/components/landing/screen"
+import { PAGE_INTRO_OVERLAP_CLASS, PageIntro } from "@/components/landing/screen"
 import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
@@ -54,7 +54,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
         description={intro}
       />
 
-      <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col gap-4 pb-20 md:pb-28")}>
+      <div className={cn(PAGE_WIDTH_CLASS, PAGE_INTRO_OVERLAP_CLASS, "flex flex-col gap-4 pb-20 md:pb-28")}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           {/* Plan */}
           <div className="min-w-0 md:col-span-3">

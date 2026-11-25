@@ -92,6 +92,10 @@ export function ScreenClosing({
 
 // Portada clara y corta para páginas de trabajo (Mi cuenta, perfil): rótulo, título y bajada,
 // con las luces de marca detrás. No ocupa toda la pantalla porque el contenido va enseguida.
+// Abajo se funde con el fondo, y deja lugar para que el contenido se monte encima con
+// PAGE_INTRO_OVERLAP_CLASS (así las tarjetas no quedan pegadas al corte de la portada).
+export const PAGE_INTRO_OVERLAP_CLASS = "relative z-10 -mt-12 md:-mt-16"
+
 export function PageIntro({
   eyebrow,
   title,
@@ -106,7 +110,11 @@ export function PageIntro({
   return (
     <section className="relative isolate overflow-hidden">
       <HeroLights />
-      <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col items-start pt-32 pb-10 md:pt-40 md:pb-12", className)}>
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-b from-transparent to-background"
+      />
+      <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col items-start pt-32 pb-24 md:pt-40 md:pb-32", className)}>
         {eyebrow && <BlurFade>{typeof eyebrow === "string" ? <Pill>{eyebrow}</Pill> : eyebrow}</BlurFade>}
         <BlurFade delay={0.06}>
           <h1 className={cn(HEADING_CLASS, "mt-6 text-[2.75rem] leading-[1] sm:text-6xl lg:text-7xl")}>{title}</h1>
