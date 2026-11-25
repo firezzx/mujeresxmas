@@ -17,11 +17,11 @@ export const MAIN_NAV: readonly NavLink[] = [
   { href: "/empresas", label: "Empresas" },
 ]
 
-// Texto del botón destacado del menú, que lleva al registro
-// Llamado a la acción de todo el sitio: lleva a los planes de Membresía para elegir cómo sumarse
+// Llamado a la acción de todo el sitio (botón naranja del menú y del hero), con o sin sesión: abre Membresía
+// desde arriba. PLANS_ANCHOR queda como ancla de las tarjetas de planes dentro de esa página.
 export const JOIN_LABEL = "Sumate a MX+"
 export const PLANS_ANCHOR = "planes"
-export const JOIN_HREF = `/membresia#${PLANS_ANCHOR}`
+export const JOIN_HREF = "/membresia"
 
 export const ROUTES = {
   login: "/ingresar",

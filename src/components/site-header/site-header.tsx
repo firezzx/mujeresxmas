@@ -396,7 +396,7 @@ function MegaMenu({
   )
 }
 
-// Accesos de usuaria: avatar con sesión; sin sesión, Iniciar sesión (y el destacado Sumate a MX+ en escritorio).
+// Accesos de usuaria: avatar con sesión o Iniciar sesión, y el destacado Sumate a MX+ en escritorio.
 function UserAccess({
   user,
   adminView,
@@ -412,27 +412,29 @@ function UserAccess({
   onNavigate: () => void
   compact?: boolean
 }) {
-  const guestAccess = (
-    <>
-      <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={onNavigate} />
-      {!compact && (
-        <ShimmerLink href={JOIN_HREF} size="md" arrow={false} onClick={onNavigate} className="min-h-10">
-          {JOIN_LABEL}
-        </ShimmerLink>
-      )}
-    </>
+  // El destacado Sumate a MX+ va siempre en escritorio, con o sin sesión
+  const join = !compact && (
+    <ShimmerLink href={JOIN_HREF} size="md" arrow={false} onClick={onNavigate} className="min-h-10">
+      {JOIN_LABEL}
+    </ShimmerLink>
   )
+  const login = <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={onNavigate} />
   if (pending) {
     // Mismo tamaño que el avatar, para que no se mueva nada cuando llega la usuaria
     return (
       <>
         <span aria-hidden className="only-member block size-10 rounded-lg bg-muted ring-1 ring-border" />
-        <div className="only-guest contents">{guestAccess}</div>
+        <div className="only-guest contents">{login}</div>
+        {join}
       </>
     )
   }
-  if (user) return <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} />
-  return guestAccess
+  return (
+    <>
+      {user ? <UserMenu user={user} adminView={adminView} unread={unread} align={compact ? "start" : "end"} /> : login}
+      {join}
+    </>
+  )
 }
 
 function MenuToggle({ open, onToggle, className }: { open: boolean; onToggle: () => void; className?: string }) {

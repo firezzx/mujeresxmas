@@ -237,6 +237,9 @@ export function MobileMenu({ user, adminView = null, isActive, pathnameIs, onNav
                 <p className="truncate text-xs text-muted-foreground">{user.email}</p>
               </div>
             </div>
+            <ShimmerLink href={JOIN_HREF} size="md" arrow={false} onClick={onNavigate} className="h-11 w-full">
+              {JOIN_LABEL}
+            </ShimmerLink>
             {adminView === "admin" && (
               <Link
                 href={ROUTES.admin}
