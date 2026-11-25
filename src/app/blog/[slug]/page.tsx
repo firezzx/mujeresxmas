@@ -3,7 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
-import { PostBody, PostHeader } from "@/components/blog/post-article"
+import { PostBody, PostCover, PostCoverBackdrop, PostHeader } from "@/components/blog/post-article"
 import { PostComments, PostCommentsSkeleton } from "@/components/blog/post-comments"
 import { PostGrid } from "@/components/blog/post-card"
 import { ShareButtons } from "@/components/blog/share-buttons"
@@ -93,10 +93,10 @@ async function Post({ params }: { params: Props["params"] }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd(post) }} />
 
-      {/* Portada clara con las luces de marca */}
+      {/* Cabecera teñida con los colores de la portada (sin portada, las luces de marca) */}
       <section className="relative isolate overflow-hidden">
-        <HeroLights />
-        <div className={cn(PAGE_WIDTH_CLASS, "pt-32 pb-10 md:pt-40 md:pb-12")}>
+        {post.coverPath ? <PostCoverBackdrop coverPath={post.coverPath} /> : <HeroLights />}
+        <div className={cn(PAGE_WIDTH_CLASS, "pt-32 pb-20 md:pt-40 md:pb-24")}>
           <div className="mx-auto mb-8 w-full max-w-4xl">
             <IconHoverArea className="w-fit">
               <Link
@@ -109,6 +109,7 @@ async function Post({ params }: { params: Props["params"] }) {
             </IconHoverArea>
           </div>
           <PostHeader post={post} />
+          <PostCover post={post} className="mt-10 md:mt-14" />
         </div>
       </section>
 
