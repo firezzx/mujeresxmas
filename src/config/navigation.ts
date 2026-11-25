@@ -75,6 +75,6 @@ export const ADMIN_NAV = [
   { href: ROUTES.adminBlog, label: "Blog", icon: "file-text" },
   { href: ROUTES.adminNotificaciones, label: "Notificaciones", icon: "bell" },
   { href: ROUTES.adminPlanes, label: "Planes", icon: "sparkles" },
-  { href: ROUTES.adminEmpresas, label: "Empresas", icon: "heart-handshake", pending: true },
+  { href: ROUTES.adminEmpresas, label: "Empresas", icon: "heart-handshake" },
   { href: ROUTES.adminContactos, label: "Contactos", icon: "mail-check" },
 ] as const
