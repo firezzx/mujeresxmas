@@ -39,6 +39,7 @@ import { TrendingUpIcon } from "@/components/icons/trending-up"
 import { UnderlineIcon } from "@/components/icons/underline"
 import { UndoIcon } from "@/components/icons/undo"
 import { UploadIcon } from "@/components/icons/upload"
+import { UserIcon } from "@/components/icons/user"
 import { UserPlusIcon } from "@/components/icons/user-plus"
 import { UsersRoundIcon } from "@/components/icons/users-round"
 import { WalletIcon } from "@/components/icons/wallet"
@@ -87,6 +88,7 @@ const ICONS = {
   underline: UnderlineIcon,
   undo: UndoIcon,
   upload: UploadIcon,
+  user: UserIcon,
   "user-plus": UserPlusIcon,
   "users-round": UsersRoundIcon,
   wallet: WalletIcon,
