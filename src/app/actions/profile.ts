@@ -43,42 +43,78 @@ export async function updateProfile(_prev: ProfileState, formData: FormData): Pr
 
 export type AvatarResult = { ok: true } | { ok: false; message: string }
 
-// Registra la foto que el navegador ya subió a avatars/<user_id>/ y borra la anterior.
-export async function saveAvatar(path: string): Promise<AvatarResult> {
+// Fotos del perfil: cada una tiene su bucket y su columna con la ruta del archivo.
+const IMAGES = {
+  avatar: { bucket: AVATAR_BUCKET, column: "avatar_path", label: "la foto" },
+  cover: { bucket: "covers", column: "cover_path", label: "la portada" },
+} as const
+
+type ImageKind = keyof typeof IMAGES
+
+async function currentImagePath(kind: ImageKind, userId: string) {
+  const { supabase } = await getSessionUserId()
+  const { column } = IMAGES[kind]
+  const { data } = await supabase.from("profiles").select(column).eq("id", userId).maybeSingle()
+  return ((data as Record<string, string | null> | null)?.[column] ?? null) as string | null
+}
+
+// Registra la imagen que el navegador ya subió a <bucket>/<user_id>/ y borra la anterior.
+async function saveImage(kind: ImageKind, path: string): Promise<AvatarResult> {
+  const { bucket, column, label } = IMAGES[kind]
+  const failure = { ok: false as const, message: `No pudimos guardar ${label}. Volvé a intentar.` }
   const { supabase, userId } = await getSessionUserId()
   if (!userId) return { ok: false, message: SESSION_EXPIRED }
-  if (!path.startsWith(`${userId}/`) || path.includes("..")) {
-    return { ok: false, message: "No pudimos guardar la foto. Volvé a intentar." }
-  }
+  if (!path.startsWith(`${userId}/`) || path.includes("..")) return failure
 
-  const { data: profile } = await supabase.from("profiles").select("avatar_path").eq("id", userId).maybeSingle()
-  const { error } = await supabase.from("profiles").update({ avatar_path: path }).eq("id", userId)
+  const previous = await currentImagePath(kind, userId)
+  const { error } = await supabase
+    .from("profiles")
+    .update({ [column]: path })
+    .eq("id", userId)
   if (error) {
-    console.error("[saveAvatar]", error.code, error.message)
-    return { ok: false, message: "No pudimos guardar la foto. Volvé a intentar." }
+    console.error(`[save ${kind}]`, error.code, error.message)
+    return failure
   }
 
-  if (profile?.avatar_path && profile.avatar_path !== path) {
-    await supabase.storage.from(AVATAR_BUCKET).remove([profile.avatar_path])
-  }
+  if (previous && previous !== path) await supabase.storage.from(bucket).remove([previous])
 
   refresh()
   return { ok: true }
 }
 
-export async function removeAvatar(): Promise<AvatarResult> {
+async function removeImage(kind: ImageKind): Promise<AvatarResult> {
+  const { bucket, column, label } = IMAGES[kind]
   const { supabase, userId } = await getSessionUserId()
   if (!userId) return { ok: false, message: SESSION_EXPIRED }
 
-  const { data: profile } = await supabase.from("profiles").select("avatar_path").eq("id", userId).maybeSingle()
-  const { error } = await supabase.from("profiles").update({ avatar_path: null }).eq("id", userId)
+  const previous = await currentImagePath(kind, userId)
+  const { error } = await supabase
+    .from("profiles")
+    .update({ [column]: null })
+    .eq("id", userId)
   if (error) {
-    console.error("[removeAvatar]", error.code, error.message)
-    return { ok: false, message: "No pudimos quitar la foto. Volvé a intentar." }
+    console.error(`[remove ${kind}]`, error.code, error.message)
+    return { ok: false, message: `No pudimos quitar ${label}. Volvé a intentar.` }
   }
 
-  if (profile?.avatar_path) await supabase.storage.from(AVATAR_BUCKET).remove([profile.avatar_path])
+  if (previous) await supabase.storage.from(bucket).remove([previous])
 
   refresh()
   return { ok: true }
+}
+
+export async function saveAvatar(path: string) {
+  return saveImage("avatar", path)
+}
+
+export async function removeAvatar() {
+  return removeImage("avatar")
+}
+
+export async function saveCover(path: string) {
+  return saveImage("cover", path)
+}
+
+export async function removeCover() {
+  return removeImage("cover")
 }

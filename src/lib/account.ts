@@ -62,20 +62,26 @@ export const getAccountSummary = cache(async (): Promise<AccountSummary | null> 
 export type EditableProfile = {
   user: CurrentUser
   values: Record<ProfileField, string>
+  coverUrl: string | null
 }
 
-// Datos actuales del perfil para precargar el formulario de edición.
+// Datos actuales del perfil para precargar el formulario de edición, con la foto de portada.
 export const getEditableProfile = cache(async (): Promise<EditableProfile | null> => {
   const user = await getCurrentUser()
   if (!user) return null
 
   const columns = PROFILE_FIELDS.map((field) => field.name)
   const supabase = await createClient()
-  const { data } = await supabase.from("profiles").select(columns.join(", ")).eq("id", user.id).maybeSingle()
-  const row = (data ?? {}) as unknown as Partial<Record<ProfileField, string | null>>
+  const { data } = await supabase
+    .from("profiles")
+    .select([...columns, "cover_path"].join(", "))
+    .eq("id", user.id)
+    .maybeSingle()
+  const row = (data ?? {}) as unknown as Partial<Record<ProfileField | "cover_path", string | null>>
 
   return {
     user,
     values: Object.fromEntries(columns.map((name) => [name, row[name] ?? ""])) as Record<ProfileField, string>,
+    coverUrl: row.cover_path ? supabase.storage.from("covers").getPublicUrl(row.cover_path).data.publicUrl : null,
   }
 })

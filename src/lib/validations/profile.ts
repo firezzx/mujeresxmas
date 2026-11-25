@@ -20,7 +20,10 @@ export const profileSchema = z.object({
   phone: z
     .string()
     .trim()
-    .refine((value) => value === "" || /^\+?[\d\s()-]{6,20}$/.test(value), "Revisá el teléfono: solo números, espacios, + y guiones")
+    .refine(
+      (value) => value === "" || /^\+?[\d\s()-]{6,20}$/.test(value),
+      "Revisá el teléfono: solo números, espacios, + y guiones"
+    )
     .transform((value) => value || null),
   city: optionalText(80, "Ciudad"),
   business_name: optionalText(100, "Emprendimiento"),
@@ -43,10 +46,39 @@ type FieldConfig = {
 
 export const PROFILE_FIELDS: FieldConfig[] = [
   { name: "first_name", label: "Nombre", autoComplete: "given-name", placeholder: "Tu nombre", half: true },
-  { name: "last_name", label: "Apellido", autoComplete: "family-name", placeholder: "Tu apellido", optional: true, half: true },
-  { name: "phone", label: "Teléfono", type: "tel", inputMode: "tel", autoComplete: "tel", placeholder: "+54 9 11 1234 5678", optional: true, half: true },
-  { name: "city", label: "Ciudad", autoComplete: "address-level2", placeholder: "Dónde vivís", optional: true, half: true },
-  { name: "business_name", label: "Emprendimiento", autoComplete: "organization", placeholder: "Nombre de tu emprendimiento", optional: true },
+  {
+    name: "last_name",
+    label: "Apellido",
+    autoComplete: "family-name",
+    placeholder: "Tu apellido",
+    optional: true,
+    half: true,
+  },
+  {
+    name: "phone",
+    label: "Teléfono",
+    type: "tel",
+    inputMode: "tel",
+    autoComplete: "tel",
+    placeholder: "+54 9 11 1234 5678",
+    optional: true,
+    half: true,
+  },
+  {
+    name: "city",
+    label: "Ciudad",
+    autoComplete: "address-level2",
+    placeholder: "Dónde vivís",
+    optional: true,
+    half: true,
+  },
+  {
+    name: "business_name",
+    label: "Emprendimiento",
+    autoComplete: "organization",
+    placeholder: "Nombre de tu emprendimiento",
+    optional: true,
+  },
 ]
 
 // Foto de perfil: debe coincidir con el bucket avatars (supabase/migrations/*_storage_avatars.sql)
@@ -55,3 +87,9 @@ export const AVATAR_TYPES = ["image/jpeg", "image/png", "image/webp"] as const
 // La foto original puede pesar más: el navegador la recorta y comprime antes de subirla
 export const AVATAR_SOURCE_MAX_BYTES = 10 * 1024 * 1024
 export const AVATAR_SIZE_PX = 512
+
+// Foto de portada: debe coincidir con el bucket covers (supabase/migrations/*_perfil_portada.sql)
+export const COVER_MAX_BYTES = 3 * 1024 * 1024
+// Se recorta apaisada (3 a 1) y se achica a este ancho como máximo
+export const COVER_WIDTH_PX = 1800
+export const COVER_RATIO = 3
