@@ -37,13 +37,17 @@ Resumen rápido para no perder el hilo. El detalle de cada punto está más abaj
   resto redirige a `/sumate`. Las administradoras entran por `/admin` y con sesión ven todo. Para el
   lanzamiento, cargar `SITE_MODE=abierto` en Vercel y volver a desplegar (`src/config/site-mode.ts`). — equipo
 
-- [ ] **Pegar la migración `20261113150000_membresias_y_empresas.sql`** en el SQL Editor del Supabase
-  de prueba. Hasta entonces el plan **Impulso** no aparece y el formulario de **Empresas** no puede
-  guardar pedidos (la tabla `company_leads` no existe). — equipo
-- [ ] **Brevo para los correos** (agradecimiento de `/sumate` y envíos masivos de `/admin/contactos`):
-  cuenta creada por el equipo. Cargar en `.env.local` y en Vercel `EMAIL_PROVIDER=brevo`,
-  `BREVO_API_KEY` y `EMAIL_FROM` con un remitente verificado en Brevo. Plan gratis: 300 correos por
-  día. Sin el dominio propio autenticado, los correos pueden caer en spam. — equipo
+- [ ] **Correos con el SMTP de Hostinger** (agradecimiento de `/sumate` y envíos masivos de `/admin/contactos`):
+  con una casilla del dominio de la clienta. Cargar en `.env.local` y en Vercel `EMAIL_PROVIDER=smtp`,
+  `SMTP_HOST=smtp.hostinger.com`, `SMTP_PORT=465`, `SMTP_USER` (la casilla completa), `SMTP_PASSWORD` y
+  `EMAIL_FROM` con esa misma casilla. Hostinger limita la cantidad de correos por día según el plan de la
+  casilla: para envíos masivos grandes conviene Brevo o Resend con el dominio autenticado. — equipo
+  Con el mismo SMTP salen el **correo de bienvenida** (al confirmar la cuenta) y los **avisos al equipo**
+  (registro en `/sumate` y pedido de empresa) a la casilla de `ADMIN_NOTIFY_EMAIL`. Los textos están en
+  `src/content/correos.ts`.
+
+- [ ] **SMTP de Hostinger en Supabase** para la confirmación de cuenta y la recuperación de contraseña
+  (ver punto 3). — equipo
 
 ### Hallazgos del análisis del código (17/11/2026)
 
@@ -71,7 +75,7 @@ Cosas que el sitio todavía no hace, aunque parezca que sí:
 ### Falta para producción (lo más importante)
 
 1. Cuentas a nombre de la clienta y dominio (punto 1).
-2. SMTP propio con Resend: **sin esto el registro no funciona para el público** (puntos 3 y 4).
+2. SMTP propio en Supabase (Hostinger, Brevo o Resend): **sin esto el registro no funciona para el público** (puntos 3 y 4).
 3. Cobros con Pay per TIC: hoy Crecer dice "Próximamente" (punto 7).
 4. Kiero en modo real: falta que Kiero confirme API key, entorno de prueba e invitaciones (punto 8).
 5. Textos marcados para completar en Membresía y Empresas, y textos y fotos definitivos (punto 9).
@@ -119,13 +123,17 @@ Todo el detalle está en [CONFIGURACION-SUPABASE-AUTH.md](CONFIGURACION-SUPABASE
 - [ ] **Redirect URLs:** `https://mujeresxmas.com/**`, `https://www.mujeresxmas.com/**` y las previews del equipo de Vercel de la clienta.
 - [ ] Reglas de contraseña, confirmación de correo y límites como dice el documento.
 - [ ] Plantillas de **confirmación** y **recuperación** (`supabase/templates`).
-- [ ] **SMTP propio con Resend** (Authentication → Emails → SMTP Settings). Sin esto, el correo de Supabase solo llega al equipo y tiene un límite muy bajo: **el registro no funciona para el público**.
+- [ ] **SMTP propio** (Authentication → Emails → SMTP Settings → Enable custom SMTP). Con Hostinger:
+  host `smtp.hostinger.com`, puerto `465`, usuario y contraseña de la casilla, remitente con esa misma
+  casilla y nombre `Mujeres x Más`. Las plantillas se pegan en Authentication → Emails → Templates:
+  "Confirm signup" con `supabase/templates/confirmacion.html` y "Reset password" con
+  `supabase/templates/recuperacion.html` (asuntos en `supabase/config.toml`). Sin esto, el correo de Supabase solo llega al equipo y tiene un límite muy bajo: **el registro no funciona para el público**.
 
 ## 4. Correos (Resend)
 
 - [ ] Verificar el dominio `mujeresxmas.com` en Resend (registros SPF, DKIM y DMARC en el DNS). — clienta carga los DNS, equipo pasa los valores
 - [ ] Definir el remitente, por ejemplo `Mujeres x Más <hola@mujeresxmas.com>`. — clienta
-- [ ] Correo de **bienvenida** al confirmar la cuenta (función 6 del MVP): falta programarlo. — equipo
+- [x] Correo de **bienvenida** al confirmar la cuenta (función 6 del MVP): sale desde `/auth/confirm` con el proveedor de `EMAIL_PROVIDER`.
 - [ ] Con el dominio verificado, cambiar `EMAIL_FROM` al remitente real: recién ahí los correos
   masivos de `/admin/contactos` y el agradecimiento de `/sumate` llegan a todas. Cada correo lleva el link de baja (`/baja`).
   Si la lista pasa de unos miles de personas, conviene pasar a Resend Broadcasts o a envíos en
@@ -147,10 +155,13 @@ Todas están documentadas en `.env.example`. En producción:
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Clave pública del proyecto | Supabase → Project Settings → API |
 | `SUPABASE_SECRET_KEY` | Clave secreta (solo servidor) | Supabase → Project Settings → API |
 | `RESEND_API_KEY` | Clave de Resend | Resend → API Keys |
-| `EMAIL_PROVIDER` | `brevo` o `resend` | Equipo |
+| `EMAIL_PROVIDER` | `smtp`, `brevo` o `resend` | Equipo |
+| `SMTP_HOST` / `SMTP_PORT` | `smtp.hostinger.com` y `465` | Hostinger → Correos → Configuración |
+| `SMTP_USER` / `SMTP_PASSWORD` | Casilla del dominio y su contraseña (solo servidor) | Hostinger → Correos |
 | `BREVO_API_KEY` | Clave de Brevo para los correos | Brevo → SMTP y API → Claves API |
 | `SITE_MODE` | Vacío = solo registro (`/sumate`); `abierto` = sitio completo | Equipo, al lanzar |
 | `EMAIL_FROM` | Remitente verificado | Punto 4 |
+| `ADMIN_NOTIFY_EMAIL` | Casilla del equipo que recibe los avisos | Clienta |
 | `NEXT_PUBLIC_SITE_URL` | `https://mujeresxmas.com` | — |
 | `SHOW_SAMPLE_CONTENT` | **Vacía** (si no, se ven cursos, notas y voces de ejemplo) | — |
 | `KIERO_MODE` | `live` solo cuando Kiero confirme todo (punto 8) | — |

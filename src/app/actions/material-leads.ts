@@ -4,8 +4,9 @@ import { after } from "next/server"
 import { z } from "zod"
 
 import { ROUTES } from "@/config/navigation"
+import { TEAM_NOTICES } from "@/content/correos"
 import { SIGNUP_PAGE, THANK_YOU_EMAIL } from "@/content/sumate"
-import { isEmailConfigured, sendEmails, thankYouEmail } from "@/lib/email"
+import { adminNoticeEmail, isEmailConfigured, notifyTeam, sendEmails, thankYouEmail } from "@/lib/email"
 import { getRequestOrigin } from "@/lib/site-url"
 import { createClient } from "@/lib/supabase/server"
 import { HONEYPOT_FIELD } from "@/lib/validations/auth"
@@ -53,8 +54,8 @@ export async function registerMaterialLead(_prev: MaterialLeadState, formData: F
     return { status: "error", message: "No pudimos registrar tus datos. Volvé a intentar en unos minutos." }
   }
 
+  const siteUrl = await getRequestOrigin()
   if (isEmailConfigured()) {
-    const siteUrl = await getRequestOrigin()
     const unsubscribeUrl = `${siteUrl}${ROUTES.baja}?t=${unsubscribeToken}`
     const message = thankYouEmail({ copy: THANK_YOU_EMAIL, fullName, siteUrl, unsubscribeUrl })
     // Después de responder: la persona ve el agradecimiento sin esperar a Resend
@@ -63,6 +64,24 @@ export async function registerMaterialLead(_prev: MaterialLeadState, formData: F
       if (failed) console.error("[registerMaterialLead] no salió el correo de agradecimiento")
     })
   }
+
+  // Aviso a la casilla del equipo (si está configurada)
+  after(() =>
+    notifyTeam(
+      TEAM_NOTICES.signup.subject.replace("{nombre}", fullName),
+      adminNoticeEmail({
+        title: TEAM_NOTICES.signup.title,
+        rows: [
+          ["Nombre", fullName],
+          ["Email", email],
+          ["País", country],
+        ],
+        siteUrl,
+        panelPath: ROUTES.adminContactos,
+        panelLabel: TEAM_NOTICES.signup.panelLabel,
+      })
+    )
+  )
 
   return { status: "sent" }
 }
