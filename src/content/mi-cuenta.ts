@@ -32,3 +32,6 @@ export const ACCOUNT_SHORTCUTS = [
   icon: IconName
   tone: IconBadgeTone
 }[]
+
+// Botón de la tarjeta de membresía (Mi cuenta y perfil): la socia ya se sumó, acá cambia de plan
+export const UPGRADE_PLAN_LABEL = "Mejorar plan"

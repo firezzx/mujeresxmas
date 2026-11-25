@@ -10,8 +10,8 @@ import { HeroLights, PAGE_INTRO_OVERLAP_CLASS } from "@/components/landing/scree
 import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { JOIN_LABEL, ROUTES } from "@/config/navigation"
-import { ACCOUNT_INTRO, ACCOUNT_SECTIONS, ACCOUNT_SHORTCUTS } from "@/content/mi-cuenta"
+import { PLANS_ANCHOR, ROUTES } from "@/config/navigation"
+import { ACCOUNT_INTRO, ACCOUNT_SECTIONS, ACCOUNT_SHORTCUTS, UPGRADE_PLAN_LABEL } from "@/content/mi-cuenta"
 import type { AccountSummary, getAccountSummary } from "@/lib/account"
 import type { CommunityEvent, Course } from "@/lib/content"
 import { formatDay, formatMonth, formatPrice } from "@/lib/format"
@@ -200,11 +200,11 @@ function PlanCard({ membership }: { membership: AccountSummary["membership"] }) 
           )}
           <IconHoverArea className="mt-8 w-full sm:w-fit md:mt-auto md:pt-8">
             <Link
-              href={ROUTES.membresia}
+              href={`${ROUTES.membresia}#${PLANS_ANCHOR}`}
               className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-brand-strong px-5 py-2 text-sm font-semibold text-white transition-opacity outline-none hover:opacity-90 focus-visible:ring-3 focus-visible:ring-ring/40"
             >
-              <HoverIcon name="sparkles" size={16} />
-              {JOIN_LABEL}
+              <HoverIcon name="trending-up" size={16} />
+              {UPGRADE_PLAN_LABEL}
             </Link>
           </IconHoverArea>
         </div>

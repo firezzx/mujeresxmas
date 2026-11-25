@@ -6,7 +6,8 @@ import { ProfileForm } from "@/components/account/profile-form"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { DarkBackdrop } from "@/components/landing/landing-ui"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { JOIN_LABEL, ROUTES } from "@/config/navigation"
+import { PLANS_ANCHOR, ROUTES } from "@/config/navigation"
+import { UPGRADE_PLAN_LABEL } from "@/content/mi-cuenta"
 import type { AccountSummary } from "@/lib/account"
 import { formatPrice } from "@/lib/format"
 import type { ProfileField } from "@/lib/validations/profile"
@@ -76,11 +77,11 @@ function MembershipCard({ membership }: { membership: AccountSummary["membership
         </div>
         <IconHoverArea className="inline-flex shrink-0 lg:mt-auto">
           <Link
-            href={ROUTES.membresia}
+            href={`${ROUTES.membresia}#${PLANS_ANCHOR}`}
             className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-brand-strong px-5 py-2 text-sm font-semibold text-white transition-opacity outline-none hover:opacity-90 focus-visible:ring-3 focus-visible:ring-ring/40 sm:w-auto lg:w-full"
           >
-            <HoverIcon name="sparkles" size={16} />
-            {JOIN_LABEL}
+            <HoverIcon name="trending-up" size={16} />
+            {UPGRADE_PLAN_LABEL}
           </Link>
         </IconHoverArea>
       </div>
