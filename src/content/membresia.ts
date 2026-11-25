@@ -131,6 +131,8 @@ export const MEMBERSHIP_PERKS = {
 } & Record<string, unknown>
 
 export const MEMBERSHIP_FAQ = {
+  // Oculta por ahora; poner en false para volver a mostrarla
+  hidden: true,
   title: "Lo que más",
   titleHighlight: "nos preguntan",
   description: "Respuestas cortas a las dudas más comunes antes de sumarte.",

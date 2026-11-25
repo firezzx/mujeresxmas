@@ -113,6 +113,7 @@ function Perks() {
 
 // Preguntas frecuentes: se abren de a una, con animación
 function Faq() {
+  if (MEMBERSHIP_FAQ.hidden) return null
   return (
     <ScreenSection backdrop={<BandBackdrop tone="green" />}>
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
