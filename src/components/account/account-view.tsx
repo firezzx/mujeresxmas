@@ -10,6 +10,7 @@ import { PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { UserAvatar } from "@/components/site-header/user-menu"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { JOIN_LABEL, ROUTES } from "@/config/navigation"
+import { ACCOUNT_INTRO, ACCOUNT_SECTIONS } from "@/content/mi-cuenta"
 import type { getAccountSummary } from "@/lib/account"
 import type { CommunityEvent, Course } from "@/lib/content"
 import { parsePlanFeature } from "@/lib/plan-features"
@@ -27,11 +28,20 @@ type AccountViewProps = NonNullable<Awaited<ReturnType<typeof getAccountSummary>
 // textura, los datos al lado y una tarjeta por sección.
 export function AccountView({ user, membership, memberSince, courses, events, notifications }: AccountViewProps) {
   const fullName = [user.firstName, user.lastName].filter(Boolean).join(" ")
+  const showCourses = !ACCOUNT_SECTIONS.courses.hidden
+  const showEvents = !ACCOUNT_SECTIONS.events.hidden
+  // Sin cursos ni eventos, las notificaciones van debajo de tus datos, al lado del plan
+  const notificationsAside = !showCourses && !showEvents
+  const intro = ACCOUNT_INTRO.description(
+    ["tu plan", showCourses && "tus cursos", showEvents && "tus eventos", "tus avisos"].filter((part): part is string =>
+      Boolean(part)
+    )
+  )
 
   return (
     <>
       <PageIntro
-        eyebrow="Mi cuenta"
+        eyebrow={ACCOUNT_INTRO.eyebrow}
         title={
           user.firstName ? (
             <>
@@ -41,7 +51,7 @@ export function AccountView({ user, membership, memberSince, courses, events, no
             "Hola"
           )
         }
-        description="Acá están tu plan, tus cursos, tus eventos y tus avisos."
+        description={intro}
       />
 
       <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col gap-4 pb-20 md:pb-28")}>
@@ -122,8 +132,8 @@ export function AccountView({ user, membership, memberSince, courses, events, no
           </div>
 
           {/* Perfil */}
-          <div className="min-w-0 md:col-span-2">
-            <BlurFade delay={0.33} inView className="h-full">
+          <div className="flex min-w-0 flex-col gap-4 md:col-span-2">
+            <BlurFade delay={0.33} inView className={cn(!notificationsAside && "h-full")}>
               <AccountCard className="flex flex-col">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="text-sm font-medium text-muted-foreground">Tus datos</h2>
@@ -158,23 +168,36 @@ export function AccountView({ user, membership, memberSince, courses, events, no
                     En la comunidad desde <span className="text-foreground">{formatMonth(memberSince)}</span>
                   </p>
                 )}
-                <SignOutButton className="mt-6 md:mt-auto md:pt-6" />
+                <SignOutButton className={cn("mt-6", !notificationsAside && "md:mt-auto md:pt-6")} />
               </AccountCard>
             </BlurFade>
+            {notificationsAside && (
+              <BlurFade delay={0.4} inView className="min-w-0 flex-1">
+                <MyNotifications notifications={notifications} />
+              </BlurFade>
+            )}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <BlurFade delay={0.4} inView className="h-full min-w-0">
-            <MyCourses courses={courses} />
-          </BlurFade>
-          <BlurFade delay={0.47} inView className="h-full min-w-0">
-            <MyEvents events={events} />
-          </BlurFade>
-          <BlurFade delay={0.54} inView className="h-full min-w-0">
-            <MyNotifications notifications={notifications} />
-          </BlurFade>
-        </div>
+        {!notificationsAside && (
+          <div
+            className={cn("grid grid-cols-1 gap-4", showCourses && showEvents ? "md:grid-cols-3" : "md:grid-cols-2")}
+          >
+            {showCourses && (
+              <BlurFade delay={0.4} inView className="h-full min-w-0">
+                <MyCourses courses={courses} />
+              </BlurFade>
+            )}
+            {showEvents && (
+              <BlurFade delay={0.47} inView className="h-full min-w-0">
+                <MyEvents events={events} />
+              </BlurFade>
+            )}
+            <BlurFade delay={0.54} inView className="h-full min-w-0">
+              <MyNotifications notifications={notifications} />
+            </BlurFade>
+          </div>
+        )}
       </div>
     </>
   )
@@ -190,13 +213,11 @@ export function AccountSkeleton() {
       </div>
       <div className={cn(PAGE_WIDTH_CLASS, "flex flex-col gap-4 pb-20")}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
-          <div className={cn(cell, "md:col-span-3")} />
-          <div className={cn(cell, "md:col-span-2")} />
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className={cell} />
-          <div className={cell} />
-          <div className={cell} />
+          <div className={cn(cell, "md:col-span-3 md:h-[30rem]")} />
+          <div className="flex flex-col gap-4 md:col-span-2">
+            <div className={cell} />
+            <div className={cn(cell, "flex-1")} />
+          </div>
         </div>
       </div>
     </div>

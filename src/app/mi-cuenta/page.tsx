@@ -4,6 +4,7 @@ import { Suspense } from "react"
 
 import { AccountSkeleton, AccountView } from "@/components/account/account-view"
 import { ROUTES } from "@/config/navigation"
+import { ACCOUNT_SECTIONS } from "@/content/mi-cuenta"
 import { getAccountSummary } from "@/lib/account"
 import { getMyCourses, getMyUpcomingEvents } from "@/lib/content"
 import { getMyNotifications } from "@/lib/notifications"
@@ -29,8 +30,9 @@ async function AccountDashboard() {
   if (!summary) redirect(`${ROUTES.login}?next=${ROUTES.miCuenta}`)
 
   const [courses, events, notifications] = await Promise.all([
-    getMyCourses(summary.user.id),
-    getMyUpcomingEvents(summary.user.id),
+    // Las secciones ocultas no se consultan
+    ACCOUNT_SECTIONS.courses.hidden ? [] : getMyCourses(summary.user.id),
+    ACCOUNT_SECTIONS.events.hidden ? [] : getMyUpcomingEvents(summary.user.id),
     getMyNotifications(summary.user.id),
   ])
 
