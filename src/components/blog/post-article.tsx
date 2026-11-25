@@ -1,12 +1,10 @@
-import Image from "next/image"
 import Link from "next/link"
 
+import { BlogCover } from "@/components/blog/blog-cover"
 import { PHOTO_FRAME_CLASS } from "@/components/page-band"
 import { ROUTES } from "@/config/navigation"
 import type { PostPreview } from "@/lib/blog"
-import { blogImageUrl } from "@/lib/blog-shared"
 import { formatDay } from "@/lib/format"
-import { cn } from "@/lib/utils"
 
 // Una publicación armada: la usan la vista previa del panel y el blog público.
 // El HTML lo genera el servidor al guardar, a partir del documento validado (ver savePost).
@@ -44,14 +42,13 @@ export function PostBody({ post }: { post: PostPreview }) {
   return (
     <div className="mx-auto w-full max-w-4xl min-w-0">
       {post.coverPath && (
-        <div className={cn(PHOTO_FRAME_CLASS, "aspect-[16/9] bg-foreground/[0.04]")}>
-          <Image
-            src={blogImageUrl(post.coverPath)}
-            alt={post.coverAlt ?? ""}
-            fill
+        <div className={PHOTO_FRAME_CLASS}>
+          <BlogCover
+            path={post.coverPath}
+            alt={post.coverAlt}
             priority
             sizes="(min-width: 896px) 56rem, 100vw"
-            className="object-cover"
+            className="aspect-[2/1] sm:aspect-[21/9]"
           />
         </div>
       )}
