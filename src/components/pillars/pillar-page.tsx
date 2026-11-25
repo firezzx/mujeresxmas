@@ -74,7 +74,7 @@ export function PillarPage({ pillar }: { pillar: Pillar }) {
     <main className="relative flex flex-1 flex-col">
       <Hero pillar={pillar} />
 
-      <ScreenSection backdrop={<BandBackdrop tone="soft" />}>
+      <ScreenSection fit backdrop={<BandBackdrop tone="soft" />}>
         <SectionHeading
           eyebrow={`${PILLARS_PAGE.pillarEyebrow} ${pillar.name}`}
           title={pillar.services.title}

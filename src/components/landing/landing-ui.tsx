@@ -11,10 +11,25 @@ import { cn } from "@/lib/utils"
 // Piezas del inicio: cada sección ocupa la pantalla en escritorio. Secciones blancas y el color en las tarjetas (grilla tipo bento). El título
 // lleva la parte destacada subrayada en naranja, como en el resto del sitio.
 
-export function Section({ id, className, children }: { id?: string; className?: string; children: React.ReactNode }) {
+// Con `fit`, la sección mide lo que su contenido (para las que tienen poco y quedarían vacías).
+export function Section({
+  id,
+  fit = false,
+  className,
+  children,
+}: {
+  id?: string
+  fit?: boolean
+  className?: string
+  children: React.ReactNode
+}) {
   return (
-    <section id={id} className="relative scroll-mt-0 lg:flex lg:min-h-svh lg:flex-col">
-      <div className={cn(PAGE_WIDTH_CLASS, "py-20 md:py-28 lg:my-auto lg:pt-24 lg:pb-12", className)}>{children}</div>
+    <section id={id} className={cn("relative scroll-mt-0", !fit && "lg:flex lg:min-h-svh lg:flex-col")}>
+      <div
+        className={cn(PAGE_WIDTH_CLASS, "py-20 md:py-24", !fit && "md:py-28 lg:my-auto lg:pt-24 lg:pb-12", className)}
+      >
+        {children}
+      </div>
     </section>
   )
 }

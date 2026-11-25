@@ -276,7 +276,7 @@ function Voices({ items }: { items: ShowcaseVoice[] }) {
 function Events({ items }: { items: ShowcaseEvent[] }) {
   if (items.length === 0) return null
   return (
-    <Section id={HOME_SECTION_IDS.events}>
+    <Section fit id={HOME_SECTION_IDS.events}>
       <SectionHeading
         align="left"
         eyebrow="Encontrarnos"

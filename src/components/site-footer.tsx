@@ -1,16 +1,18 @@
 import Link from "next/link"
 
 import { Logo } from "@/components/brand/logo"
-import { MAIN_NAV, ROUTES } from "@/config/navigation"
-import { SOCIAL_LINKS } from "@/config/site"
+import { JOIN_HREF, ROUTES } from "@/config/navigation"
+import { PILLARS, SOCIAL_LINKS } from "@/config/site"
 
-// El menú con los submenús aplanados, más Mi cuenta
+// Solo las secciones principales: el detalle (cada pilar, el inicio) ya está en el menú de arriba
 const FOOTER_LINKS = [
-  ...MAIN_NAV.flatMap(({ href, label, children = [] }) => [{ href, label }, ...children]),
+  { href: ROUTES.pilares, label: "Pilares" },
+  { href: JOIN_HREF, label: "Quiero ser MX+" },
+  { href: ROUTES.empresas, label: "Empresas" },
   { href: ROUTES.miCuenta, label: "Mi cuenta" },
 ]
 
-// Footer del sitio: logo, eslogan y links.
+// Footer del sitio: logo y lema arriba con los links, y abajo el cierre con el hashtag.
 export function SiteFooter() {
   return (
     <footer data-site-chrome className="relative isolate text-primary-foreground">
@@ -18,16 +20,18 @@ export function SiteFooter() {
       <div aria-hidden className="absolute inset-0 -z-10 bg-primary">
         <div className="absolute inset-0 bg-black/55" />
       </div>
-      <div className="relative">
-        <div className="mx-auto flex max-w-content flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-9">
-          <div className="flex flex-col gap-2">
+      <div className="relative mx-auto max-w-content px-5 sm:px-8 lg:px-9">
+        <div className="flex flex-col gap-10 py-14 sm:flex-row sm:items-start sm:justify-between md:py-16">
+          <div className="flex flex-col gap-4">
             <Link href="/" className="w-fit rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
-              <Logo className="h-9 fill-background" />
+              <Logo className="h-10 fill-background" />
             </Link>
-            <p className="text-sm">© Mujeres x Más · crecemos juntas</p>
+            <p className="font-heading text-xs font-semibold tracking-[0.18em] text-brand-soft uppercase">
+              {PILLARS.join(" · ")}
+            </p>
           </div>
           <nav aria-label="Links del footer">
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <ul className="flex flex-col gap-3 text-base sm:items-end">
               {[...FOOTER_LINKS, ...SOCIAL_LINKS].map((link) => {
                 const external = link.href.startsWith("http")
                 return (
@@ -44,6 +48,10 @@ export function SiteFooter() {
               })}
             </ul>
           </nav>
+        </div>
+        <div className="flex flex-col gap-2 border-t border-background/10 py-6 text-sm text-background/60 sm:flex-row sm:items-center sm:justify-between">
+          <p>© Mujeres x Más</p>
+          <p className="font-hand text-2xl leading-none font-semibold text-brand-green">#CrecemosJuntas</p>
         </div>
       </div>
     </footer>

@@ -99,7 +99,7 @@ function Hero() {
 // A quiénes impulsar: cada tarjeta lleva al formulario con ese público ya elegido
 function Audiences() {
   return (
-    <ScreenSection backdrop={<BandBackdrop tone="soft" />}>
+    <ScreenSection fit backdrop={<BandBackdrop tone="soft" />}>
       <SectionHeading
         eyebrow={COMPANIES_AUDIENCES.eyebrow}
         title={COMPANIES_AUDIENCES.title}
@@ -144,7 +144,7 @@ function Audiences() {
 // Línea de tiempo: en escritorio los cuatro pasos unidos por una línea; en el celular, en columna
 function Steps() {
   return (
-    <ScreenSection id={STEPS_ID}>
+    <ScreenSection fit id={STEPS_ID}>
       <SectionHeading
         eyebrow={COMPANIES_STEPS.eyebrow}
         title={COMPANIES_STEPS.title}
@@ -317,7 +317,7 @@ function Packages() {
 
 function ProposalForm() {
   return (
-    <ScreenSection id={COMPANIES_FORM_ID} backdrop={<HeroLights />}>
+    <ScreenSection fit id={COMPANIES_FORM_ID} backdrop={<HeroLights />}>
       {/* Anclas para llegar con un público ya elegido (#propuesta-<opción>) */}
       {COMPANY_AUDIENCES.map((option) => (
         <span key={option.value} id={`${COMPANIES_FORM_ID}-${option.value}`} className="absolute top-0" />

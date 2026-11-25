@@ -20,15 +20,18 @@ export function HeroLights() {
 
 // Sección a pantalla completa en escritorio: ocupa el alto de la ventana y centra su contenido.
 // El relleno de arriba deja lugar al menú fijo. En el celular, las secciones siguen una abajo de otra.
+// Con `fit`, la sección mide lo que su contenido (para las que tienen poco y quedarían vacías).
 export function ScreenSection({
   id,
   backdrop,
+  fit = false,
   className,
   innerClassName,
   children,
 }: {
   id?: string
   backdrop?: React.ReactNode
+  fit?: boolean
   className?: string
   innerClassName?: string
   children: React.ReactNode
@@ -36,10 +39,21 @@ export function ScreenSection({
   return (
     <section
       id={id}
-      className={cn("relative isolate scroll-mt-0 overflow-hidden lg:flex lg:min-h-svh lg:flex-col", className)}
+      className={cn(
+        "relative isolate scroll-mt-0 overflow-hidden",
+        !fit && "lg:flex lg:min-h-svh lg:flex-col",
+        className
+      )}
     >
       {backdrop}
-      <div className={cn(PAGE_WIDTH_CLASS, "relative py-20 md:py-24 lg:my-auto lg:pt-24 lg:pb-12", innerClassName)}>
+      <div
+        className={cn(
+          PAGE_WIDTH_CLASS,
+          "relative py-20 md:py-24",
+          !fit && "lg:my-auto lg:pt-24 lg:pb-12",
+          innerClassName
+        )}
+      >
         {children}
       </div>
     </section>

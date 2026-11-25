@@ -66,7 +66,9 @@ export function LandingHero({ ctaId }: { ctaId: string }) {
         className="-z-10 text-foreground/[0.09] [mask-image:radial-gradient(60%_55%_at_50%_45%,transparent_35%,black_70%,transparent_100%)]"
       />
 
-      <div className={cn(PAGE_WIDTH_CLASS, "relative z-10 flex shrink-0 flex-col items-center pt-32 text-center lg:pt-16")}>
+      <div
+        className={cn(PAGE_WIDTH_CLASS, "relative z-10 flex shrink-0 flex-col items-center pt-32 text-center lg:pt-16")}
+      >
         <BlurFade>
           <IconHoverArea className="inline-flex">
             <Link
@@ -192,9 +194,7 @@ function SmallPillarCard({ pillar, tone }: { pillar: Pillar; tone: CardTone }) {
             <HoverIcon name={pillar.icon} size={22} />
           </IconBadge>
           <h3 className={cn(HEADING_CLASS, "mt-auto text-2xl sm:text-3xl")}>{pillar.name}</h3>
-          <p className="line-clamp-3 text-sm leading-relaxed text-pretty sm:text-[15px]">
-            {pillar.summary}
-          </p>
+          <p className="line-clamp-3 text-sm leading-relaxed text-pretty sm:text-[15px]">{pillar.summary}</p>
         </div>
         <div className="relative overflow-hidden rounded-lg">
           <Image
@@ -266,7 +266,7 @@ const MOMENT_TONES: CardTone[] = ["green", "pink", "orange", "paper"]
 
 export function LandingMoments() {
   return (
-    <Section>
+    <Section fit>
       <SectionHeading
         eyebrow={HOME_MOMENTS.eyebrow}
         title={HOME_MOMENTS.title}
@@ -378,7 +378,7 @@ const STORY_DOTS = ["bg-brand-soft", "bg-brand-green", "bg-brand"]
 // Franja verde: el título y el sello a la izquierda, lo que se mantiene y lo que crece a la derecha
 export function LandingStory() {
   return (
-    <ScreenSection backdrop={<BandBackdrop tone="green" />}>
+    <ScreenSection fit backdrop={<BandBackdrop tone="green" />}>
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="flex flex-col gap-8">
           <SectionHeading
@@ -426,13 +426,7 @@ export function LandingClosing() {
       className="py-28 text-center md:py-36"
       backdrop={
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden bg-primary">
-          <Image
-            src={HOME_CLOSING.mosaic}
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover opacity-40"
-          />
+          <Image src={HOME_CLOSING.mosaic} alt="" fill sizes="100vw" className="object-cover opacity-40" />
           <div className="absolute inset-0 bg-[radial-gradient(70%_75%_at_50%_50%,rgb(26_26_26/0.92),rgb(26_26_26/0.55))]" />
         </div>
       }
