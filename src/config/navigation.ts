@@ -13,7 +13,7 @@ export const MAIN_NAV: readonly NavLink[] = [
       { href: "/pilares/conexion", label: "Conexión" },
     ],
   },
-  { href: "/membresia", label: "Membresía" },
+  { href: "/membresia", label: "Quiero ser MX+" },
   { href: "/empresas", label: "Empresas" },
 ]
 

@@ -181,8 +181,8 @@ export function SiteHeaderView({
                             aria-haspopup={hasMenu ? "true" : undefined}
                             aria-expanded={hasMenu ? megaOpen : undefined}
                             className={cn(
-                              "relative z-10 flex items-center gap-1.5 rounded-lg px-4 py-1.5 text-sm font-medium transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
-                              hasMenu && "pr-3",
+                              "relative z-10 flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium whitespace-nowrap xl:px-4 transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                              hasMenu && "pr-2 xl:pr-3",
                               hoveredHref === item.href || activeHref === item.href
                                 ? "text-foreground"
                                 : "text-muted-foreground"
