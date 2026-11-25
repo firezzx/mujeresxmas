@@ -21,6 +21,8 @@ export const SIGNUP_PAGE = {
 // Correo de agradecimiento que llega al registrarse
 export const THANK_YOU_EMAIL = {
   subject: "¡Muchas gracias por sumarte, {nombre}!",
+  preheader: "Qué alegría que te sumes. Esto es lo que viene.",
+  eyebrow: "Bienvenida a la comunidad",
   title: "¡Muchas gracias, {nombre}!",
   paragraphs: [
     "Qué alegría que te sumes a Mujeres x Más, la comunidad de emprendedoras que se acompañan para vender más, ordenar sus números y crecer.",

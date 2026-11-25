@@ -52,6 +52,7 @@ export async function requestCompanyProposal(_prev: CompanyLeadState, formData: 
       TEAM_NOTICES.company.subject.replace("{empresa}", company),
       adminNoticeEmail({
         title: TEAM_NOTICES.company.title,
+        intro: TEAM_NOTICES.company.intro,
         rows: [
           ["Empresa", company],
           ["Contacto", fullName],

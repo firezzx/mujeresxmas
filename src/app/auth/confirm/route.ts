@@ -3,8 +3,8 @@ import { redirect } from "next/navigation"
 import { after, type NextRequest } from "next/server"
 
 import { ROUTES } from "@/config/navigation"
-import { WELCOME_EMAIL } from "@/content/correos"
-import { isEmailConfigured, sendEmails, welcomeEmail } from "@/lib/email"
+import { TEAM_NOTICES, WELCOME_EMAIL } from "@/content/correos"
+import { adminNoticeEmail, isEmailConfigured, notifyTeam, sendEmails, welcomeEmail } from "@/lib/email"
 import { safeInternalPath } from "@/lib/site-url"
 import { createClient } from "@/lib/supabase/server"
 
@@ -12,8 +12,9 @@ const OTP_TYPES: EmailOtpType[] = ["signup", "email", "recovery", "email_change"
 // Links que confirman una cuenta nueva: después de verificarlos sale el correo de bienvenida
 const SIGNUP_TYPES: EmailOtpType[] = ["signup", "email", "invite"]
 
-// Bienvenida por correo, después de redirigir (no demora a la usuaria). Solo si el envío está configurado.
-function sendWelcome(user: User | null, origin: string) {
+// Cuenta nueva confirmada: bienvenida a la usuaria y aviso al equipo, después de redirigir (no
+// demoran a la usuaria). Solo si el envío está configurado.
+function sendAccountEmails(user: User | null, origin: string) {
   if (!user?.email || !isEmailConfigured()) return
   const to = user.email
   after(async () => {
@@ -21,6 +22,27 @@ function sendWelcome(user: User | null, origin: string) {
     const { failed } = await sendEmails([{ to, ...message }])
     if (failed) console.error("[auth/confirm] no salió el correo de bienvenida")
   })
+  const createdAt = new Date(user.created_at).toLocaleString("es-AR", {
+    timeZone: "America/Argentina/Buenos_Aires",
+    dateStyle: "short",
+    timeStyle: "short",
+  })
+  after(() =>
+    notifyTeam(
+      TEAM_NOTICES.account.subject.replace("{email}", to),
+      adminNoticeEmail({
+        title: TEAM_NOTICES.account.title,
+        intro: TEAM_NOTICES.account.intro,
+        rows: [
+          ["Email", to],
+          ["Creada", createdAt],
+        ],
+        siteUrl: origin,
+        panelPath: ROUTES.admin,
+        panelLabel: TEAM_NOTICES.account.panelLabel,
+      })
+    )
+  )
 }
 
 // Destino de los links de los correos de Supabase Auth.
@@ -38,7 +60,7 @@ export async function GET(request: NextRequest) {
   if (tokenHash && type && OTP_TYPES.includes(type)) {
     const { data, error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash })
     if (!error) {
-      if (SIGNUP_TYPES.includes(type)) sendWelcome(data.user, origin)
+      if (SIGNUP_TYPES.includes(type)) sendAccountEmails(data.user, origin)
       redirect(next)
     }
     console.error("[auth/confirm]", error.code, error.message)

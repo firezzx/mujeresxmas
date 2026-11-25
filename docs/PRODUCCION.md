@@ -44,7 +44,9 @@ Resumen rápido para no perder el hilo. El detalle de cada punto está más abaj
   casilla: para envíos masivos grandes conviene Brevo o Resend con el dominio autenticado. — equipo
   Con el mismo SMTP salen el **correo de bienvenida** (al confirmar la cuenta) y los **avisos al equipo**
   (registro en `/sumate` y pedido de empresa) a la casilla de `ADMIN_NOTIFY_EMAIL`. Los textos están en
-  `src/content/correos.ts`.
+  `src/content/correos.ts` y el diseño en `src/lib/email-templates.ts`. Al cambiar el diseño o los textos de
+  confirmación y recuperación, correr `npm run correos` (regenera `supabase/templates`) y volver a pegarlas
+  en Supabase → Authentication → Emails → Templates. También avisa al equipo cada cuenta nueva confirmada.
 
 - [x] **SMTP de Hostinger en Supabase** para la confirmación de cuenta y la recuperación de contraseña,
   con las plantillas de `supabase/templates`. Site URL `https://mujeresxmas.vercel.app` y Redirect URLs

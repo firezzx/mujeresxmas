@@ -1,8 +1,6 @@
 import nodemailer from "nodemailer"
 import { Resend } from "resend"
 
-import { BRAND_HEX } from "@/config/brand-effects"
-
 // Envío de correos. Funciona con SMTP (p. ej. el correo de Hostinger), Brevo o Resend según las
 // variables de entorno (ver .env.example):
 // - SMTP: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD y EMAIL_FROM con la misma casilla que SMTP_USER.
@@ -34,10 +32,6 @@ export type OutgoingEmail = {
   text: string
   unsubscribeUrl?: string
 }
-
-// Grises del pie del correo (los clientes de correo no leen las variables CSS del sitio)
-const EMAIL_MUTED = "#6B6B6B"
-const EMAIL_RULE = "#EEEEEE"
 
 type SendResult = { sent: number; failed: number }
 
@@ -180,160 +174,11 @@ async function sendWithResend(emails: OutgoingEmail[]): Promise<SendResult> {
   return { sent, failed }
 }
 
-const escapeHtml = (value: string) =>
-  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
+// El diseño de los correos está en email-templates.ts
+export { adminNoticeEmail, campaignEmail, personalize, thankYouEmail, welcomeEmail } from "./email-templates"
 
-// {nombre} en el asunto o el mensaje se reemplaza por el primer nombre de cada persona.
-export function personalize(template: string, fullName: string) {
-  const firstName = fullName.trim().split(/\s+/)[0] ?? ""
-  return template.replace(/\{nombre\}/gi, firstName)
-}
-
-// Texto escrito en el panel → HTML simple: párrafos por línea en blanco, saltos de línea y
-// links automáticos. Todo se escapa antes, así que no se puede inyectar HTML.
-function textToHtml(text: string) {
-  return text
-    .split(/\n{2,}/)
-    .map((paragraph) => {
-      const html = escapeHtml(paragraph.trim())
-        .replace(/(https?:\/\/[^\s<]+)/g, `<a href="$1" style="color:${BRAND_HEX.brand}">$1</a>`)
-        .replace(/\n/g, "<br>")
-      return `<p style="margin:0 0 16px">${html}</p>`
-    })
-    .join("")
-}
-
-// Estructura de marca de todos los correos: franja verde con el logo en negro (como pide el
-// manual), contenido sobre blanco y pie con la baja. El logo es PNG porque Gmail no muestra SVG.
-function brandLayout({ siteUrl, content, footer }: { siteUrl: string; content: string; footer: string }) {
-  return `<!doctype html>
-<html lang="es">
-<body style="margin:0;padding:0;background:${BRAND_HEX.pinkTint};font-family:Helvetica,Arial,sans-serif;color:${BRAND_HEX.ink}">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${BRAND_HEX.pinkTint};padding:32px 16px">
-    <tr><td align="center">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${BRAND_HEX.white};border-radius:8px;overflow:hidden">
-        <tr><td style="background:${BRAND_HEX.green};padding:28px 32px">
-          <a href="${siteUrl}"><img src="${siteUrl}/brand/mujeresxmas-logo-email.png" width="200" height="43" alt="Mujeres x Más" style="display:block;border:0;color:${BRAND_HEX.ink};font-size:22px;font-weight:700"></a>
-        </td></tr>
-        <tr><td style="padding:32px 32px 12px;font-size:16px;line-height:1.6">${content}</td></tr>
-        <tr><td style="padding:16px 32px 28px;font-size:12px;line-height:1.5;color:${EMAIL_MUTED};border-top:1px solid ${EMAIL_RULE}">${footer}</td></tr>
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`
-}
-
-function unsubscribeFooter(unsubscribeUrl?: string) {
-  return unsubscribeUrl
-    ? `Recibís este correo porque te sumaste a Mujeres x Más. <a href="${unsubscribeUrl}" style="color:${BRAND_HEX.ink}">Darme de baja</a>`
-    : "Correo de prueba enviado desde el panel de Mujeres x Más."
-}
-
-// Correo masivo escrito en el panel.
-export function campaignEmail({
-  body,
-  siteUrl,
-  unsubscribeUrl,
-}: {
-  body: string
-  siteUrl: string
-  unsubscribeUrl?: string
-}) {
-  const html = brandLayout({ siteUrl, content: textToHtml(body), footer: unsubscribeFooter(unsubscribeUrl) })
-  const text = unsubscribeUrl
-    ? `${body}
-
-—
-Para darte de baja: ${unsubscribeUrl}`
-    : body
-  return { html, text }
-}
-
-// Correo de agradecimiento al sumarse en /sumate. El botón va en naranja con texto blanco
-// semibold, como los botones principales del sitio.
-export function thankYouEmail({
-  copy,
-  fullName,
-  siteUrl,
-  unsubscribeUrl,
-}: {
-  copy: {
-    subject: string
-    title: string
-    paragraphs: readonly string[]
-    cta: string
-    signature: string
-    hashtag: string
-  }
-  fullName: string
-  siteUrl: string
-  unsubscribeUrl: string
-}) {
-  const title = escapeHtml(personalize(copy.title, fullName))
-  const paragraphs = copy.paragraphs.map((p) => `<p style="margin:0 0 16px">${escapeHtml(p)}</p>`).join("")
-  const content = `
-    <h1 style="margin:0 0 20px;font-size:28px;line-height:1.15;letter-spacing:-0.02em;font-weight:700">${title}</h1>
-    ${paragraphs}
-    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 28px"><tr>
-      <td style="background:${BRAND_HEX.brand};border-radius:8px">
-        <a href="${siteUrl}" style="display:inline-block;padding:14px 26px;color:${BRAND_HEX.white};font-weight:600;font-size:15px;text-decoration:none">${escapeHtml(copy.cta)}</a>
-      </td>
-    </tr></table>
-    <p style="margin:0 0 8px">${escapeHtml(copy.signature).replace(/\n/g, "<br>")}</p>
-    <p style="margin:0 0 8px;font-family:'Caveat','Brush Script MT',cursive;font-size:24px;color:${BRAND_HEX.green};font-weight:700">${escapeHtml(copy.hashtag)}</p>`
-
-  const text = [
-    personalize(copy.title, fullName),
-    ...copy.paragraphs,
-    `${copy.cta}: ${siteUrl}`,
-    copy.signature,
-    copy.hashtag,
-    `—\nPara darte de baja: ${unsubscribeUrl}`,
-  ].join("\n\n")
-
-  return {
-    subject: personalize(copy.subject, fullName),
-    html: brandLayout({ siteUrl, content, footer: unsubscribeFooter(unsubscribeUrl) }),
-    text,
-  }
-}
-
-// Casilla del equipo que recibe los avisos importantes (pedidos de empresas, registros en /sumate).
+// Casilla del equipo que recibe los avisos importantes (registros, pedidos de empresas, cuentas nuevas).
 const adminNoticeAddress = () => process.env.ADMIN_NOTIFY_EMAIL?.trim() || null
-
-// Aviso interno para el equipo: título, los datos en una tabla y un botón al panel.
-export function adminNoticeEmail({
-  title,
-  rows,
-  siteUrl,
-  panelPath,
-  panelLabel,
-}: {
-  title: string
-  rows: [label: string, value: string][]
-  siteUrl: string
-  panelPath: string
-  panelLabel: string
-}) {
-  const table = rows
-    .map(
-      ([label, value]) =>
-        `<tr><td style="padding:8px 0;color:${EMAIL_MUTED};width:38%;vertical-align:top">${escapeHtml(label)}</td><td style="padding:8px 0;font-weight:600">${escapeHtml(value)}</td></tr>`
-    )
-    .join("")
-  const content = `
-    <h1 style="margin:0 0 20px;font-size:24px;line-height:1.2;letter-spacing:-0.02em;font-weight:700">${escapeHtml(title)}</h1>
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:15px;border-top:1px solid ${EMAIL_RULE}">${table}</table>
-    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 20px"><tr>
-      <td style="background:${BRAND_HEX.brand};border-radius:8px">
-        <a href="${siteUrl}${panelPath}" style="display:inline-block;padding:12px 22px;color:${BRAND_HEX.white};font-weight:600;font-size:15px;text-decoration:none">${escapeHtml(panelLabel)}</a>
-      </td>
-    </tr></table>`
-  const html = brandLayout({ siteUrl, content, footer: "Aviso automático del sitio de Mujeres x Más." })
-  const text = `${title}\n\n${rows.map(([label, value]) => `${label}: ${value}`).join("\n")}\n\n${panelLabel}: ${siteUrl}${panelPath}`
-  return { html, text }
-}
 
 // Manda un aviso a la casilla del equipo, si hay una configurada y el envío de correos funciona.
 export async function notifyTeam(subject: string, message: { html: string; text: string }) {
@@ -341,42 +186,4 @@ export async function notifyTeam(subject: string, message: { html: string; text:
   if (!to || !isEmailConfigured()) return
   const { failed } = await sendEmails([{ to, subject, ...message }])
   if (failed) console.error("[notifyTeam] no salió el aviso:", subject)
-}
-
-// Bienvenida al confirmar la cuenta: saludo, qué puede hacer y botón a su cuenta.
-export function welcomeEmail({
-  copy,
-  siteUrl,
-  accountPath,
-}: {
-  copy: {
-    subject: string
-    title: string
-    paragraphs: readonly string[]
-    cta: string
-    signature: string
-    hashtag: string
-  }
-  siteUrl: string
-  accountPath: string
-}) {
-  const title = escapeHtml(copy.title)
-  const paragraphs = copy.paragraphs.map((p) => `<p style="margin:0 0 16px">${escapeHtml(p)}</p>`).join("")
-  const content = `
-    <h1 style="margin:0 0 20px;font-size:28px;line-height:1.15;letter-spacing:-0.02em;font-weight:700">${title}</h1>
-    ${paragraphs}
-    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 28px"><tr>
-      <td style="background:${BRAND_HEX.brand};border-radius:8px">
-        <a href="${siteUrl}${accountPath}" style="display:inline-block;padding:14px 26px;color:${BRAND_HEX.white};font-weight:600;font-size:15px;text-decoration:none">${escapeHtml(copy.cta)}</a>
-      </td>
-    </tr></table>
-    <p style="margin:0 0 8px">${escapeHtml(copy.signature).replace(/\n/g, "<br>")}</p>
-    <p style="margin:0 0 8px;font-family:'Caveat','Brush Script MT',cursive;font-size:24px;color:${BRAND_HEX.green};font-weight:700">${escapeHtml(copy.hashtag)}</p>`
-  const html = brandLayout({
-    siteUrl,
-    content,
-    footer: "Recibís este correo porque creaste tu cuenta en Mujeres x Más.",
-  })
-  const text = `${copy.title}\n\n${copy.paragraphs.join("\n\n")}\n\n${copy.cta}: ${siteUrl}${accountPath}\n\n${copy.signature}\n${copy.hashtag}`
-  return { subject: copy.subject, html, text }
 }

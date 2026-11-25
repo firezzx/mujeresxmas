@@ -37,7 +37,7 @@ export async function sendEmailCampaign(_prev: EmailCampaignState, formData: For
   if (!isEmailConfigured()) {
     return {
       status: "error",
-      message: "Falta configurar el envío de correos (BREVO_API_KEY y EMAIL_FROM). Mirá docs/PRODUCCION.md.",
+      message: "Falta configurar el envío de correos (EMAIL_PROVIDER, el SMTP y EMAIL_FROM). Mirá docs/PRODUCCION.md.",
     }
   }
 
@@ -48,7 +48,11 @@ export async function sendEmailCampaign(_prev: EmailCampaignState, formData: For
     const user = await getCurrentUser()
     if (!user?.email) return { status: "error", message: "No encontramos tu correo." }
     const name = user.firstName ?? "Mujeres x Más"
-    const { html, text } = campaignEmail({ body: personalize(body, name), siteUrl: await getRequestOrigin() })
+    const { html, text } = campaignEmail({
+      subject: personalize(subject, name),
+      body: personalize(body, name),
+      siteUrl: await getRequestOrigin(),
+    })
     const { sent } = await sendEmails([
       { to: user.email, subject: `[Prueba] ${personalize(subject, name)}`, html, text },
     ])
@@ -83,7 +87,12 @@ export async function sendEmailCampaign(_prev: EmailCampaignState, formData: For
     if (seen.has(key)) continue
     seen.add(key)
     const unsubscribeUrl = `${origin}${ROUTES.baja}?t=${row.unsubscribe_token}`
-    const { html, text } = campaignEmail({ body: personalize(body, row.full_name), siteUrl: origin, unsubscribeUrl })
+    const { html, text } = campaignEmail({
+      subject: personalize(subject, row.full_name),
+      body: personalize(body, row.full_name),
+      siteUrl: origin,
+      unsubscribeUrl,
+    })
     emails.push({ to: row.email, subject: personalize(subject, row.full_name), html, text, unsubscribeUrl })
   }
 

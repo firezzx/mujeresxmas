@@ -58,7 +58,7 @@ export async function registerMaterialLead(_prev: MaterialLeadState, formData: F
   if (isEmailConfigured()) {
     const unsubscribeUrl = `${siteUrl}${ROUTES.baja}?t=${unsubscribeToken}`
     const message = thankYouEmail({ copy: THANK_YOU_EMAIL, fullName, siteUrl, unsubscribeUrl })
-    // Después de responder: la persona ve el agradecimiento sin esperar a Resend
+    // Después de responder: la persona ve el agradecimiento sin esperar al envío
     after(async () => {
       const { failed } = await sendEmails([{ to: email, ...message, unsubscribeUrl }])
       if (failed) console.error("[registerMaterialLead] no salió el correo de agradecimiento")
@@ -71,6 +71,7 @@ export async function registerMaterialLead(_prev: MaterialLeadState, formData: F
       TEAM_NOTICES.signup.subject.replace("{nombre}", fullName),
       adminNoticeEmail({
         title: TEAM_NOTICES.signup.title,
+        intro: TEAM_NOTICES.signup.intro,
         rows: [
           ["Nombre", fullName],
           ["Email", email],
