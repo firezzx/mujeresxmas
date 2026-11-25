@@ -5,7 +5,7 @@ import { Suspense } from "react"
 import { AccountSkeleton, AccountView } from "@/components/account/account-view"
 import { ROUTES } from "@/config/navigation"
 import { ACCOUNT_SECTIONS } from "@/content/mi-cuenta"
-import { getAccountSummary } from "@/lib/account"
+import { getAccountSummary, getEditableProfile } from "@/lib/account"
 import { getMyCourses, getMyUpcomingEvents } from "@/lib/content"
 import { getMyNotifications } from "@/lib/notifications"
 
@@ -25,9 +25,9 @@ export default function MiCuentaPage() {
 }
 
 async function AccountDashboard() {
-  const summary = await getAccountSummary()
+  const [summary, profile] = await Promise.all([getAccountSummary(), getEditableProfile()])
   // El proxy ya protege la ruta; esto cubre una sesión que venció en el medio
-  if (!summary) redirect(`${ROUTES.login}?next=${ROUTES.miCuenta}`)
+  if (!summary || !profile) redirect(`${ROUTES.login}?next=${ROUTES.miCuenta}`)
 
   const [courses, events, notifications] = await Promise.all([
     // Las secciones ocultas no se consultan
@@ -36,5 +36,14 @@ async function AccountDashboard() {
     getMyNotifications(summary.user.id),
   ])
 
-  return <AccountView {...summary} courses={courses} events={events} notifications={notifications} />
+  return (
+    <AccountView
+      {...summary}
+      values={profile.values}
+      coverUrl={profile.coverUrl}
+      courses={courses}
+      events={events}
+      notifications={notifications}
+    />
+  )
 }

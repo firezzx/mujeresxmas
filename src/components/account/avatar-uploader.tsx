@@ -32,15 +32,18 @@ async function toSquareWebp(file: File): Promise<Blob> {
 
 // Foto de perfil: elegir, recortar, subir a Supabase Storage (avatars/<user_id>/) y quitar.
 // Con `variant="cover"` la foto va grande, montada sobre la portada del perfil, y `heading`
-// (nombre y correo) reemplaza al rótulo "Foto de perfil".
+// (nombre y correo) reemplaza al rótulo "Foto de perfil". Con `aside`, en lugar de los botones de la
+// foto va ese contenido (la foto se cambia tocándola).
 export function AvatarUploader({
   user,
   variant = "inline",
   heading,
+  aside,
 }: {
   user: CurrentUser
   variant?: "inline" | "cover"
   heading?: React.ReactNode
+  aside?: React.ReactNode
 }) {
   const cover = variant === "cover"
   const inputRef = useRef<HTMLInputElement>(null)
@@ -141,37 +144,39 @@ export function AvatarUploader({
         <div
           className={cn(
             "flex flex-col items-start gap-2",
-            cover && "w-full min-w-0 flex-1 gap-3 sm:flex-row sm:items-end sm:justify-between sm:pb-1"
+            cover && "w-full min-w-0 flex-1 gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between sm:pb-1"
           )}
         >
           {cover ? (
-            <div className="w-full min-w-0 sm:w-auto">{heading}</div>
+            <div className="w-full min-w-0 sm:w-auto sm:flex-1">{heading}</div>
           ) : (
             <p className="text-sm font-medium">Foto de perfil</p>
           )}
-          <div className={cn("flex flex-col items-start gap-2", cover && "sm:items-end")}>
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => inputRef.current?.click()}
-                disabled={pending}
-                className="h-9 cursor-pointer rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
-              >
-                {pending ? "Guardando…" : shownUrl ? "Cambiar" : "Subir foto"}
-              </button>
-              {shownUrl && (
+          {aside ?? (
+            <div className={cn("flex flex-col items-start gap-2", cover && "sm:items-end")}>
+              <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
-                  onClick={handleRemove}
+                  onClick={() => inputRef.current?.click()}
                   disabled={pending}
-                  className="h-9 cursor-pointer rounded-lg border border-border px-4 text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
+                  className="h-9 cursor-pointer rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
                 >
-                  Quitar
+                  {pending ? "Guardando…" : shownUrl ? "Cambiar" : "Subir foto"}
                 </button>
-              )}
+                {shownUrl && (
+                  <button
+                    type="button"
+                    onClick={handleRemove}
+                    disabled={pending}
+                    className="h-9 cursor-pointer rounded-lg border border-border px-4 text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
+                  >
+                    Quitar
+                  </button>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground">JPG, PNG o WEBP. La recortamos en cuadrado.</p>
             </div>
-            <p className="text-xs text-muted-foreground">JPG, PNG o WEBP. La recortamos en cuadrado.</p>
-          </div>
+          )}
         </div>
       </div>
 

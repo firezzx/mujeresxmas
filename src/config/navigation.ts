@@ -27,7 +27,6 @@ export const ROUTES = {
   login: "/ingresar",
   registro: "/registro",
   miCuenta: "/mi-cuenta",
-  perfil: "/mi-cuenta/perfil",
   // Destino del link de los correos de Supabase Auth (ver supabase/templates)
   authConfirm: "/auth/confirm",
   cuentaConfirmada: "/registro/confirmada",

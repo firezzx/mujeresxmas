@@ -1,6 +1,6 @@
 "use client"
 
-import { useActionState, useState } from "react"
+import { useActionState, useEffect, useState } from "react"
 import { z } from "zod"
 
 import { updateProfile, type ProfileState } from "@/app/actions/profile"
@@ -14,18 +14,27 @@ type FieldErrors = Partial<Record<ProfileField, string[]>>
 
 // Formulario de datos del perfil. Los campos salen de PROFILE_FIELDS.
 // Con `wide` los campos van de a tres en pantallas grandes (los de ancho completo ocupan dos).
+// `onSaved` avisa cuando se guardó (por ejemplo, para cerrar la ventana de edición).
 export function ProfileForm({
   initialValues,
   wide = false,
+  onSaved,
 }: {
   initialValues: Record<ProfileField, string>
   wide?: boolean
+  onSaved?: () => void
 }) {
   const [state, formAction, pending] = useActionState<ProfileState, FormData>(updateProfile, { status: "idle" })
   const [values, setValues] = useState(initialValues)
   const [clientErrors, setClientErrors] = useState<FieldErrors>({})
 
   const serverErrors = state.status === "error" ? state.fieldErrors : undefined
+
+  useEffect(() => {
+    if (state.status === "saved") onSaved?.()
+    // Solo cuando llega una respuesta nueva del servidor
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state])
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     const parsed = profileSchema.safeParse(values)

@@ -28,6 +28,8 @@ const nextConfig: NextConfig = {
       { source: "/quiero/:path*", destination: "/kiero/:path*", permanent: true },
       // Planes pasó a llamarse Membresía
       { source: "/planes", destination: "/membresia", permanent: true },
+      // El perfil se unió a Mi cuenta (se edita desde ahí, en una ventana)
+      { source: "/mi-cuenta/perfil", destination: "/mi-cuenta", permanent: false },
     ]
   },
   cacheComponents: true,
