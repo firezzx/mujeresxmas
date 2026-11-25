@@ -3,12 +3,10 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
-import { PostBody, PostCover, PostCoverBackdrop, PostHeader } from "@/components/blog/post-article"
+import { PostBanner, PostBody, PostHeader, RelatedPosts } from "@/components/blog/post-article"
 import { PostComments, PostCommentsSkeleton } from "@/components/blog/post-comments"
-import { PostGrid } from "@/components/blog/post-card"
 import { ShareButtons } from "@/components/blog/share-buttons"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
-import { SectionHeading } from "@/components/landing/landing-ui"
 import { HeroLights } from "@/components/landing/screen"
 import { BandBackdrop, PAGE_WIDTH_CLASS } from "@/components/page-band"
 import { ROUTES } from "@/config/navigation"
@@ -93,33 +91,40 @@ async function Post({ params }: { params: Props["params"] }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd(post) }} />
 
-      {/* Cabecera teñida con los colores de la portada (sin portada, las luces de marca) */}
+      {/* Diseño de revista: título grande, portada a todo el ancho y el texto con más notas al costado */}
       <section className="relative isolate overflow-hidden">
-        {post.coverPath ? <PostCoverBackdrop coverPath={post.coverPath} /> : <HeroLights />}
-        <div className={cn(PAGE_WIDTH_CLASS, "pt-32 pb-20 md:pt-40 md:pb-24")}>
-          <div className="mx-auto mb-8 w-full max-w-4xl">
-            <IconHoverArea className="w-fit">
-              <Link
-                href={ROUTES.blog}
-                className="flex items-center gap-2 rounded-md text-sm font-medium opacity-80 transition-opacity duration-300 outline-none hover:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/40"
-              >
-                <HoverIcon name="arrow-left" size={16} />
-                Volver al blog
-              </Link>
-            </IconHoverArea>
-          </div>
+        <HeroLights />
+        <div className={cn(PAGE_WIDTH_CLASS, "pt-32 pb-12 md:pt-40 md:pb-16")}>
+          <IconHoverArea className="mb-10 w-fit">
+            <Link
+              href={ROUTES.blog}
+              className="flex items-center gap-2 rounded-md text-sm font-medium opacity-80 transition-opacity duration-300 outline-none hover:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/40"
+            >
+              <HoverIcon name="arrow-left" size={16} />
+              Volver al blog
+            </Link>
+          </IconHoverArea>
           <PostHeader post={post} />
-          <PostCover post={post} className="mt-10 md:mt-14" />
         </div>
       </section>
 
-      <section className={cn(PAGE_WIDTH_CLASS, "pb-16 md:pb-24")}>
-        <article>
+      <PostBanner post={post} />
+
+      <section
+        className={cn(
+          PAGE_WIDTH_CLASS,
+          "grid gap-14 py-14 md:py-20",
+          related.length > 0 && "lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-20"
+        )}
+      >
+        <article className="min-w-0">
           <PostBody post={post} />
-        </article>
-        <div className="mx-auto w-full max-w-4xl">
           <ShareButtons url={`${SITE_URL}${ROUTES.blog}/${post.slug}`} title={post.title} />
-        </div>
+        </article>
+        <RelatedPosts
+          posts={related}
+          className="border-t border-border pt-10 lg:sticky lg:top-28 lg:self-start lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10"
+        />
       </section>
 
       <section className="relative isolate overflow-hidden">
@@ -130,13 +135,6 @@ async function Post({ params }: { params: Props["params"] }) {
           </Suspense>
         </div>
       </section>
-
-      {related.length > 0 && (
-        <section className={cn(PAGE_WIDTH_CLASS, "py-20 md:py-28")}>
-          <SectionHeading align="left" eyebrow="Blog" title="Seguí" accent="leyendo" />
-          <PostGrid posts={related} />
-        </section>
-      )}
     </>
   )
 }
