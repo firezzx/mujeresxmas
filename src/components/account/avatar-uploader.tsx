@@ -10,6 +10,7 @@ import { UserAvatar } from "@/components/site-header/user-menu"
 import { useIconAnimation } from "@/hooks/use-icon-animation"
 import { createClient } from "@/lib/supabase/client"
 import type { CurrentUser } from "@/lib/supabase/user"
+import { cn } from "@/lib/utils"
 import { AVATAR_MAX_BYTES, AVATAR_SIZE_PX, AVATAR_SOURCE_MAX_BYTES, AVATAR_TYPES } from "@/lib/validations/profile"
 
 // Recorta la imagen al centro en cuadrado y la comprime a WebP antes de subirla.
@@ -30,7 +31,18 @@ async function toSquareWebp(file: File): Promise<Blob> {
 }
 
 // Foto de perfil: elegir, recortar, subir a Supabase Storage (avatars/<user_id>/) y quitar.
-export function AvatarUploader({ user }: { user: CurrentUser }) {
+// Con `variant="cover"` la foto va grande, montada sobre la portada del perfil, y `heading`
+// (nombre y correo) reemplaza al rótulo "Foto de perfil".
+export function AvatarUploader({
+  user,
+  variant = "inline",
+  heading,
+}: {
+  user: CurrentUser
+  variant?: "inline" | "cover"
+  heading?: React.ReactNode
+}) {
+  const cover = variant === "cover"
   const inputRef = useRef<HTMLInputElement>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [error, setError] = useState<string>()
@@ -92,19 +104,30 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-5">
+      <div className={cn("flex gap-5", cover ? "flex-col sm:flex-row sm:items-end" : "items-center")}>
         <button
           type="button"
           {...triggerProps}
           onClick={() => inputRef.current?.click()}
           disabled={pending}
           aria-label="Cambiar foto de perfil"
-          className="group relative size-20 shrink-0 cursor-pointer rounded-lg p-0.5 ring-1 ring-border transition-shadow outline-none hover:ring-foreground/25 focus-visible:ring-3 focus-visible:ring-ring/40 disabled:cursor-wait sm:size-24"
+          className={cn(
+            "group relative shrink-0 cursor-pointer rounded-lg p-0.5 transition-shadow outline-none focus-visible:ring-3 focus-visible:ring-ring/40 disabled:cursor-wait",
+            cover
+              ? "-mt-16 size-28 bg-background p-1 shadow-[0_16px_32px_-16px_rgb(26_26_26/0.4)] ring-1 ring-foreground/[0.06] sm:-mt-20 sm:size-36"
+              : "size-20 ring-1 ring-border hover:ring-foreground/25 sm:size-24"
+          )}
         >
-          <UserAvatar user={{ ...user, avatarUrl: shownUrl }} className="size-full text-xl" />
+          <UserAvatar
+            user={{ ...user, avatarUrl: shownUrl }}
+            className={cn("size-full", cover ? "**:data-[slot=avatar-fallback]:text-4xl" : "text-xl")}
+          />
           <span
             aria-hidden
-            className="absolute inset-0.5 flex items-center justify-center rounded-lg bg-foreground/45 text-background opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 data-[pending=true]:opacity-100"
+            className={cn(
+              "absolute flex items-center justify-center rounded-lg bg-foreground/45 text-background opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 data-[pending=true]:opacity-100",
+              cover ? "inset-1" : "inset-0.5"
+            )}
             data-pending={pending}
           >
             {pending ? (
@@ -115,29 +138,40 @@ export function AvatarUploader({ user }: { user: CurrentUser }) {
           </span>
         </button>
 
-        <div className="flex flex-col items-start gap-2">
-          <p className="text-sm font-medium">Foto de perfil</p>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => inputRef.current?.click()}
-              disabled={pending}
-              className="h-9 cursor-pointer rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
-            >
-              {pending ? "Guardando…" : shownUrl ? "Cambiar" : "Subir foto"}
-            </button>
-            {shownUrl && (
+        <div
+          className={cn(
+            "flex flex-col items-start gap-2",
+            cover && "w-full min-w-0 flex-1 gap-3 sm:flex-row sm:items-end sm:justify-between sm:pb-1"
+          )}
+        >
+          {cover ? (
+            <div className="w-full min-w-0 sm:w-auto">{heading}</div>
+          ) : (
+            <p className="text-sm font-medium">Foto de perfil</p>
+          )}
+          <div className={cn("flex flex-col items-start gap-2", cover && "sm:items-end")}>
+            <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={handleRemove}
+                onClick={() => inputRef.current?.click()}
                 disabled={pending}
-                className="h-9 cursor-pointer rounded-lg border border-border px-4 text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
+                className="h-9 cursor-pointer rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
               >
-                Quitar
+                {pending ? "Guardando…" : shownUrl ? "Cambiar" : "Subir foto"}
               </button>
-            )}
+              {shownUrl && (
+                <button
+                  type="button"
+                  onClick={handleRemove}
+                  disabled={pending}
+                  className="h-9 cursor-pointer rounded-lg border border-border px-4 text-sm font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground disabled:cursor-wait"
+                >
+                  Quitar
+                </button>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground">JPG, PNG o WEBP. La recortamos en cuadrado.</p>
           </div>
-          <p className="text-xs text-muted-foreground">JPG, PNG o WEBP. La recortamos en cuadrado.</p>
         </div>
       </div>
 

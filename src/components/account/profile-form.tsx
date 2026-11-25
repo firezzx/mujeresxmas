@@ -13,7 +13,14 @@ import { PROFILE_FIELDS, profileSchema, type ProfileField } from "@/lib/validati
 type FieldErrors = Partial<Record<ProfileField, string[]>>
 
 // Formulario de datos del perfil. Los campos salen de PROFILE_FIELDS.
-export function ProfileForm({ initialValues }: { initialValues: Record<ProfileField, string> }) {
+// Con `wide` los campos van de a tres en pantallas grandes (los de ancho completo ocupan dos).
+export function ProfileForm({
+  initialValues,
+  wide = false,
+}: {
+  initialValues: Record<ProfileField, string>
+  wide?: boolean
+}) {
   const [state, formAction, pending] = useActionState<ProfileState, FormData>(updateProfile, { status: "idle" })
   const [values, setValues] = useState(initialValues)
   const [clientErrors, setClientErrors] = useState<FieldErrors>({})
@@ -31,7 +38,7 @@ export function ProfileForm({ initialValues }: { initialValues: Record<ProfileFi
 
   return (
     <form action={formAction} onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className={cn("grid grid-cols-1 gap-5 sm:grid-cols-2", wide && "lg:grid-cols-3")}>
         {PROFILE_FIELDS.map((field) => (
           <div key={field.name} className={cn(!field.half && "sm:col-span-2")}>
             <TextField
