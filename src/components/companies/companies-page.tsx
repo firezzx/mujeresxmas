@@ -366,8 +366,8 @@ export function CompaniesPage() {
       <Hero />
       <Audiences />
       <Steps />
-      <Dashboard />
-      <Packages />
+      {!COMPANIES_DASHBOARD.hidden && <Dashboard />}
+      {!COMPANIES_PACKAGES.hidden && <Packages />}
       <ProposalForm />
     </main>
   )

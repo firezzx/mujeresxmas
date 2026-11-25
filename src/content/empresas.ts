@@ -83,6 +83,8 @@ export const COMPANIES_STEPS = {
 }
 
 export const COMPANIES_DASHBOARD = {
+  // Oculto hasta tener los datos reales del tablero
+  hidden: true,
   eyebrow: "Impacto que podés reportar",
   title: "Lo que vas a ver",
   titleHighlight: "cada trimestre",
@@ -103,6 +105,8 @@ export const COMPANIES_DASHBOARD = {
 } satisfies { items: { icon: IconName; label: string }[] } & Record<string, unknown>
 
 export const COMPANIES_PACKAGES = {
+  // Oculto hasta tener los precios y las cantidades de cada paquete
+  hidden: true,
   eyebrow: "Paquetes",
   title: "Elegí cuánto",
   titleHighlight: "querés impulsar",
