@@ -129,7 +129,7 @@ function MobileDropdown({
           <motion.div
             id={panelId}
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
+            animate={{ height: "auto", opacity: 1, transitionEnd: { height: "auto" } }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.35, ease }}
             className="overflow-hidden"

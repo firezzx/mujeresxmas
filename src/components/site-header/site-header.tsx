@@ -271,18 +271,22 @@ export function SiteHeaderView({
               <motion.div
                 id="menu-movil"
                 initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
+                // Al terminar queda en "auto": si el contenido crece (fuentes, submenú) no se corta
+                animate={{ height: "auto", opacity: 1, transitionEnd: { height: "auto" } }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.45, ease }}
                 className="overflow-hidden lg:hidden"
               >
-                <MobileMenu
-                  user={user}
-                  adminView={adminView}
-                  isActive={isActive}
-                  pathnameIs={(href) => pathname === href}
-                  onNavigate={closeMenu}
-                />
+                {/* Con la página bloqueada, si el menú es más alto que la pantalla se desplaza adentro */}
+                <div className="max-h-[calc(100svh-5.5rem)] overflow-y-auto overscroll-contain">
+                  <MobileMenu
+                    user={user}
+                    adminView={adminView}
+                    isActive={isActive}
+                    pathnameIs={(href) => pathname === href}
+                    onNavigate={closeMenu}
+                  />
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
