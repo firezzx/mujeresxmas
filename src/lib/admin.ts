@@ -7,6 +7,13 @@ import { getCurrentUser } from "@/lib/supabase/user"
 // Cookie de "Ver como usuario": solo cambia lo que se muestra, nunca los permisos reales.
 export const MEMBER_VIEW_COOKIE = "mxm_vista_usuaria"
 
+// Cookie de "Mostrar en preparación": muestra en el panel las pestañas marcadas como pending en ADMIN_NAV.
+export const ADMIN_PENDING_COOKIE = "mxm_admin_en_preparacion"
+
+export async function showsPendingSections() {
+  return (await cookies()).get(ADMIN_PENDING_COOKIE)?.value === "1"
+}
+
 // "admin": ve las herramientas de administración. "member": eligió ver el sitio como una
 // usuaria común. null: no es administradora (o no hay sesión).
 export type AdminView = "admin" | "member"
@@ -74,9 +81,7 @@ export async function listMembers(): Promise<AdminMember[] | null> {
     phone: row.phone,
     city: row.city,
     businessName: row.business_name,
-    avatarUrl: row.avatar_path
-      ? supabase.storage.from("avatars").getPublicUrl(row.avatar_path).data.publicUrl
-      : null,
+    avatarUrl: row.avatar_path ? supabase.storage.from("avatars").getPublicUrl(row.avatar_path).data.publicUrl : null,
     planName: row.plan_name,
     joinedAt: row.joined_at,
     emailConfirmed: Boolean(row.email_confirmed_at),

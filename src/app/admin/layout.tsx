@@ -10,7 +10,7 @@ import { BrandHighlight } from "@/components/page-hero"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { RippleButton } from "@/components/ui/ripple-button"
 import { BRAND_HEX } from "@/config/brand-effects"
-import { getAdminView } from "@/lib/admin"
+import { getAdminView, showsPendingSections } from "@/lib/admin"
 
 const MAIN_CLASS = "relative flex flex-1 flex-col"
 
@@ -69,7 +69,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
 
       <Band className="py-4 md:py-5">
         <BlurFade delay={0.24} inView>
-          <AdminNav />
+          <AdminNav showPending={await showsPendingSections()} />
         </BlurFade>
       </Band>
 

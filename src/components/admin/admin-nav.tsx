@@ -4,19 +4,24 @@ import { motion } from "motion/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+import { setShowPendingSections } from "@/app/actions/admin"
 import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { ADMIN_NAV, ROUTES } from "@/config/navigation"
 import { cn } from "@/lib/utils"
 
 // Pestañas del panel de administración. La activa lleva la pastilla rosa, que se desliza
-// de una pestaña a otra.
-export function AdminNav() {
+// de una pestaña a otra. Las secciones en preparación se ven solo con showPending (o si estás en una).
+export function AdminNav({ showPending }: { showPending: boolean }) {
   const pathname = usePathname()
+  const items = ADMIN_NAV.filter((item) => showPending || !("pending" in item) || pathname.startsWith(item.href))
 
   return (
-    <nav aria-label="Secciones del panel" className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
+    <nav
+      aria-label="Secciones del panel"
+      className="-mx-4 flex items-center gap-2 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0"
+    >
       <ul className="flex w-max gap-1 rounded-lg bg-foreground/[0.035] p-1">
-        {ADMIN_NAV.map((item) => {
+        {items.map((item) => {
           // "Usuarios" es la raíz del panel: las demás quedan activas también en sus subpáginas
           const active = item.href === ROUTES.admin ? pathname === item.href : pathname.startsWith(item.href)
           return (
@@ -48,6 +53,17 @@ export function AdminNav() {
           )
         })}
       </ul>
+      <IconHoverArea className="shrink-0">
+        <form action={setShowPendingSections.bind(null, !showPending)}>
+          <button
+            type="submit"
+            className="flex h-10 cursor-pointer items-center gap-2 rounded-lg px-3 text-xs font-medium whitespace-nowrap text-foreground/55 transition-colors duration-300 outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40"
+          >
+            <HoverIcon name={showPending ? "eye-off" : "eye"} size={14} />
+            {showPending ? "Ocultar en preparación" : "Mostrar en preparación"}
+          </button>
+        </form>
+      </IconHoverArea>
     </nav>
   )
 }

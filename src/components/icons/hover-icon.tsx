@@ -18,6 +18,7 @@ import { CompassIcon } from "@/components/icons/compass"
 import { CpuIcon } from "@/components/icons/cpu"
 import { DownloadIcon } from "@/components/icons/download"
 import { EyeIcon } from "@/components/icons/eye"
+import { EyeOffIcon } from "@/components/icons/eye-off"
 import { FileTextIcon } from "@/components/icons/file-text"
 import { GraduationCapIcon } from "@/components/icons/graduation-cap"
 import { HeartHandshakeIcon } from "@/components/icons/heart-handshake"
@@ -65,6 +66,7 @@ const ICONS = {
   cpu: CpuIcon,
   download: DownloadIcon,
   eye: EyeIcon,
+  "eye-off": EyeOffIcon,
   "file-text": FileTextIcon,
   "graduation-cap": GraduationCapIcon,
   "heart-handshake": HeartHandshakeIcon,
