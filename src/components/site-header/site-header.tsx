@@ -14,7 +14,7 @@ import { HoverIcon, IconHoverArea } from "@/components/icons/hover-icon"
 import { UserIcon } from "@/components/icons/user"
 import { MobileMenu } from "@/components/site-header/mobile-menu"
 import { UserMenu } from "@/components/site-header/user-menu"
-import { JOIN_LABEL, MAIN_NAV, ROUTES, type NavLink } from "@/config/navigation"
+import { JOIN_HREF, JOIN_LABEL, MAIN_NAV, ROUTES, type NavLink } from "@/config/navigation"
 import { PILLAR_LIST, PILLARS_MENU, PILLARS_PAGE } from "@/content/pilares"
 import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
@@ -396,7 +396,7 @@ function MegaMenu({
   )
 }
 
-// Accesos de usuaria: avatar con sesión; sin sesión, Iniciar sesión (y el destacado Unirse a MX+ en escritorio).
+// Accesos de usuaria: avatar con sesión; sin sesión, Iniciar sesión (y el destacado Sumate a MX+ en escritorio).
 function UserAccess({
   user,
   adminView,
@@ -416,7 +416,7 @@ function UserAccess({
     <>
       <IconLink href={ROUTES.login} icon={UserIcon} label="Iniciar sesión" onClick={onNavigate} />
       {!compact && (
-        <ShimmerLink href={ROUTES.registro} size="md" arrow={false} onClick={onNavigate} className="min-h-10">
+        <ShimmerLink href={JOIN_HREF} size="md" arrow={false} onClick={onNavigate} className="min-h-10">
           {JOIN_LABEL}
         </ShimmerLink>
       )}

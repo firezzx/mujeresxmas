@@ -19,7 +19,7 @@ import { KieroStoreMockup } from "@/components/landing/kiero-store-mockup"
 import { ScreenSection } from "@/components/landing/screen"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { Marquee } from "@/components/ui/marquee"
-import { ROUTES } from "@/config/navigation"
+import { JOIN_HREF, ROUTES } from "@/config/navigation"
 import {
   HOME_COURSES,
   HOME_EVENTS,
@@ -122,7 +122,7 @@ function Courses({ items }: { items: ShowcaseCard[] }) {
         title={HOME_COURSES.title}
         accent={HOME_COURSES.titleHighlight}
         description={HOME_COURSES.description}
-        action={<ArrowLink href={ROUTES.registro}>{HOME_COURSES.cta}</ArrowLink>}
+        action={<ArrowLink href={JOIN_HREF}>{HOME_COURSES.cta}</ArrowLink>}
       />
       <div className={CARD_GRID_CLASS}>
         {items.map((item, index) => (
@@ -292,7 +292,7 @@ function Events({ items }: { items: ShowcaseEvent[] }) {
               <BlurFade inView delay={index * 0.06} className="h-full">
                 <IconHoverArea className="h-full">
                   <Link
-                    href={ROUTES.registro}
+                    href={JOIN_HREF}
                     className={cardClass(
                       first ? "green" : "white",
                       "group flex h-full flex-col gap-8 p-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"

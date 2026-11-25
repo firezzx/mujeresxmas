@@ -9,7 +9,7 @@ import { ProductCollage } from "@/components/landing/product-collage"
 import { HeroLights, ScreenClosing, ScreenSection } from "@/components/landing/screen"
 import { BandBackdrop } from "@/components/page-band"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { ROUTES } from "@/config/navigation"
+import { JOIN_HREF, JOIN_LABEL, ROUTES } from "@/config/navigation"
 import { KIERO_PAGE } from "@/content/kiero"
 import { cn } from "@/lib/utils"
 
@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   description: "Kiero acompaña a emprendedoras y feriantes a pasar de vender por redes a tener su tienda online.",
 }
 
-// Sin sesión lleva al registro (y al confirmar el correo vuelve acá); con sesión, a la solicitud.
+// Sin sesión lleva a los planes (la tienda viene con Crecer); con sesión, a la solicitud.
 function KieroCta() {
   return (
     <SessionCta
       className="w-full px-12 sm:w-auto"
-      guest={{ href: `${ROUTES.registro}?next=${ROUTES.kiero}`, label: KIERO_PAGE.cta }}
+      guest={{ href: JOIN_HREF, label: JOIN_LABEL }}
       member={{ href: ROUTES.kieroSolicitud, label: KIERO_PAGE.cta }}
     />
   )

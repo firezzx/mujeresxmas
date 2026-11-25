@@ -47,7 +47,7 @@ export const MEMBERSHIP_COMPARISON = {
   titleHighlight: "pilar por pilar",
   description: "Elegí un pilar y mirá qué suma cada nivel.",
   benefitLabel: "Beneficio",
-  plans: ["Comunidad", "Crecer", "Impulso"],
+  plans: ["Inicio", "Crecer", "Impulso"],
   // Columna destacada (la de Crecer) y su etiqueta
   featuredIndex: 1,
   featuredBadge: "La más elegida",
@@ -56,12 +56,13 @@ export const MEMBERSHIP_COMPARISON = {
       pillar: "Desarrollo",
       icon: "rocket",
       rows: [
-        { label: "Formaciones gratuitas de la Academia", values: ["Incluido", "Incluido", "Incluido"] },
-        { label: "Cursos certificados (todo el catálogo)", values: [null, "Ilimitados", "Ilimitados"] },
-        { label: "Diagnóstico y plan de negocio", values: [null, "1 por año", "Con seguimiento trimestral"] },
-        { label: "Tienda online sin comisiones", values: [null, "Adicional $49.900/mes", "Incluida"] },
-        { label: "Mentoría 1 a 1", values: [null, null, "1 sesión por mes"] },
-        { label: "Finanzas y preparación para crédito", values: [null, "Curso", "Curso + plan personalizado"] },
+        { label: "Formaciones para hacer crecer tu negocio", values: ["Incluido", "Incluido", "Incluido"] },
+        { label: "Diagnóstico y plan de negocio", values: ["Incluido", "Incluido", "Con seguimiento trimestral"] },
+        { label: "Cursos de la Academia", values: [null, "1 por mes, gratis", "2 por mes a elección"] },
+        { label: "Tienda en línea con Kiero", values: [null, "Gratis", "Gratis"] },
+        { label: "Integración con Paq.ar", values: [null, "Incluida", "Incluida"] },
+        { label: "Tablero de control para tu negocio", values: [null, null, "Incluido"] },
+        { label: "Mentoría 1 a 1", values: [null, null, "1 por mes"] },
       ],
     },
     {
@@ -100,14 +101,14 @@ export const MEMBERSHIP_PERKS = {
       tone: "brand",
       hand: "¿ya eras parte?",
       title: "Socia Fundadora",
-      text: "Si venís de Mujeres por Más, tu primer mes de Crecer o Impulso es sin cargo y el precio queda congelado 12 meses. Hasta [FECHA].",
+      text: "Si venís de Mujeres por Más, tu primer mes de Crecer o Impulso es sin cargo.",
     },
     {
       icon: "user-plus",
       tone: "green",
       hand: "juntas, siempre más",
-      title: "Invitá a una amiga",
-      text: "Cuando se suma a Crecer o Impulso con tu enlace, las dos tienen un mes sin cargo.",
+      title: "Plan amigas",
+      text: "Cuando se suman a Crecer o Impulso 2 o más amigas, todas reciben el primer mes sin cargo.",
     },
     {
       icon: "heart-handshake",
@@ -160,5 +161,4 @@ export const MEMBERSHIP_CLOSING = {
   title: "Empezá hoy,",
   titleHighlight: "sin costo.",
   description: "Creá tu cuenta en un minuto y sumate a Comunidad. Cuando quieras ir por más, cambiás de membresía.",
-  cta: "Crear mi cuenta gratis",
 }

@@ -329,7 +329,6 @@ export const HOME_CLOSING = {
   titleHighlight: "Crecemos con vos.",
   description:
     "Creá tu cuenta gratis y empezá hoy: tu tienda online, cursos, encuentros y una red de mujeres que van por más.",
-  cta: "Unirme a Mujeres x Más",
   image: "/images/home/cierre-amigas.jpg",
   // Fondo del cierre, con velo negro: mosaico armado con los retratos de la comunidad
   mosaic: "/images/home/mosaico-comunidad.jpg",

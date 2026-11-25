@@ -9,7 +9,7 @@ import { ShimmerLink } from "@/components/buttons/shimmer-link"
 import { IconBadge } from "@/components/icon-badge"
 import { HoverIcon } from "@/components/icons/hover-icon"
 import { UserAvatar } from "@/components/site-header/user-menu"
-import { JOIN_LABEL, MAIN_NAV, ROUTES, type NavLink } from "@/config/navigation"
+import { JOIN_HREF, JOIN_LABEL, MAIN_NAV, ROUTES, type NavLink } from "@/config/navigation"
 import { PILLAR_LIST, PILLARS_MENU } from "@/content/pilares"
 import type { AdminView } from "@/lib/admin"
 import type { CurrentUser } from "@/lib/supabase/user"
@@ -266,7 +266,7 @@ export function MobileMenu({ user, adminView = null, isActive, pathnameIs, onNav
           </div>
         ) : (
           <div className="flex flex-col items-center gap-3">
-            <ShimmerLink href={ROUTES.registro} size="md" arrow={false} onClick={onNavigate} className="h-11 w-full">
+            <ShimmerLink href={JOIN_HREF} size="md" arrow={false} onClick={onNavigate} className="h-11 w-full">
               {JOIN_LABEL}
             </ShimmerLink>
             <p className="pb-1 text-sm text-muted-foreground">

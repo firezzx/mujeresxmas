@@ -11,6 +11,7 @@ import { ComparisonTabs } from "@/components/plans/comparison-tabs"
 import { MomentChooser } from "@/components/plans/moment-chooser"
 import { PlansList, PlansListSkeleton } from "@/components/plans/plans-list"
 import { BlurFade } from "@/components/ui/blur-fade"
+import { PLANS_ANCHOR } from "@/config/navigation"
 import {
   MEMBERSHIP_CLOSING,
   MEMBERSHIP_COMPARISON,
@@ -43,6 +44,8 @@ function Hero() {
           </p>
         </BlurFade>
       </div>
+      {/* Destino de todos los "Sumate a MX+" del sitio */}
+      <div id={PLANS_ANCHOR} className="scroll-mt-28" />
       <BlurFade delay={0.18}>
         <MomentChooser>
           <Suspense fallback={<PlansListSkeleton />}>
@@ -139,7 +142,7 @@ export function MembershipPage() {
         highlight={MEMBERSHIP_CLOSING.titleHighlight}
         description={MEMBERSHIP_CLOSING.description}
       >
-        <RegisterCta label={MEMBERSHIP_CLOSING.cta} className="w-full sm:w-auto" />
+        <RegisterCta className="w-full sm:w-auto" />
       </ScreenClosing>
     </main>
   )

@@ -18,7 +18,10 @@ export const MAIN_NAV: readonly NavLink[] = [
 ]
 
 // Texto del botón destacado del menú, que lleva al registro
-export const JOIN_LABEL = "Unirse a MX+"
+// Llamado a la acción de todo el sitio: lleva a los planes de Membresía para elegir cómo sumarse
+export const JOIN_LABEL = "Sumate a MX+"
+export const PLANS_ANCHOR = "planes"
+export const JOIN_HREF = `/membresia#${PLANS_ANCHOR}`
 
 export const ROUTES = {
   login: "/ingresar",

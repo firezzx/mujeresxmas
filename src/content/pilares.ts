@@ -10,12 +10,22 @@ import { ROUTES } from "@/config/navigation"
 // por eso acá solo se distingue lo gratuito de lo que viene con un plan pago.
 export const ACCESS_LABELS = {
   free: "Gratis",
+  // Gratis al registrarse (plan Inicio)
+  starter: "Gratis con el plan Inicio",
   member: "Con membresía",
 }
 
 export type Access = keyof typeof ACCESS_LABELS
 
-export type PillarItem = { icon: IconName; title: string; text: string; access: Access }
+export type PillarItem = {
+  icon: IconName
+  title: string
+  text: string
+  access: Access
+  // Logo en lugar del ícono (p. ej. el isologo de Kiero) y link a otra página
+  logo?: { src: string; alt: string }
+  link?: { href: string; label: string }
+}
 
 export type Pillar = {
   slug: "desarrollo" | "bienestar" | "conexion"
@@ -34,8 +44,8 @@ export type Pillar = {
   imageAlt: string
   hero: { titleStart: string; titleHighlight: string; description: string }
   services: { title: string; description: string; items: PillarItem[] }
-  // Bloque extra opcional (la Academia en Desarrollo)
-  extra?: { eyebrow: string; title: string; description: string; items: PillarItem[] }
+  // Bloque extra opcional (la Academia en Desarrollo). hidden: no se muestra por ahora
+  extra?: { eyebrow: string; title: string; description: string; items: PillarItem[]; hidden?: boolean }
 }
 
 export const PILLARS: Record<Pillar["slug"], Pillar> = {
@@ -66,7 +76,7 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
           icon: "chart-line",
           title: "Diagnóstico y plan de negocio",
           text: "Una mirada honesta sobre dónde está tu emprendimiento y un plan de acción con prioridades claras.",
-          access: "member",
+          access: "starter",
         },
         {
           icon: "cpu",
@@ -76,14 +86,18 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
         },
         {
           icon: "layout-panel-top",
-          title: "Tienda online sin comisiones",
+          title: "Tu tienda online con Kiero",
           text: "Tu ecommerce listo en tres pasos, cobrando con los medios que elijas.",
           access: "member",
+          // Falta el isologo de Kiero (lo pasa Ian): cargarlo en public/brand y sumar
+          // logo: { src: "/brand/kiero-isologo.svg", alt: "Kiero" }
+          link: { href: ROUTES.kiero, label: "Conocé Kiero" },
         },
         {
-          icon: "wallet",
-          title: "Finanzas y financiamiento",
-          text: "Separar la plata del negocio de la personal, medir la rentabilidad y prepararte para pedir un crédito.",
+          icon: "graduation-cap",
+          title: "Academia",
+          // Texto provisorio hasta que se defina el contenido de la Academia
+          text: "Cursos prácticos y online para cada etapa de tu negocio, con certificado.",
           access: "member",
         },
         {
@@ -96,6 +110,8 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
     },
     extra: {
       eyebrow: "Academia",
+      // Oculta por ahora (pedido de la clienta); se vuelve a mostrar sacando esta línea
+      hidden: true,
       title: "Formación para cada paso de tu negocio",
       description:
         "Cursos prácticos, online y con certificado. Nacieron en Mujeres por Más y ahora crecen en el nuevo campus.",
@@ -144,7 +160,8 @@ export const PILLARS: Record<Pillar["slug"], Pillar> = {
     href: ROUTES.bienestar,
     name: "Bienestar",
     tag: "cuidarte también es crecer",
-    summary: "Acompañamiento físico, mental, emocional y social para cada momento de tu vida, sin juicios y a tu ritmo.",
+    summary:
+      "Acompañamiento físico, mental, emocional y social para cada momento de tu vida, sin juicios y a tu ritmo.",
     forYou: "estás atravesando un cambio y querés cuidarte en el camino.",
     icon: "sparkles",
     badgeTone: "pink",

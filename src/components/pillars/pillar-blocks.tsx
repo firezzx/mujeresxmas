@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils"
 
 const ACCESS_CLASS: Record<Access, string> = {
   free: "bg-brand-green/18 text-brand-green-strong",
+  starter: "bg-brand-green/18 text-brand-green-strong",
   member: "bg-brand-soft/45 text-foreground",
 }
 
@@ -28,7 +29,7 @@ export function AccessTag({ access }: { access: Access }) {
     >
       <span
         aria-hidden
-        className={cn("size-1.5 rounded-full", access === "free" ? "bg-brand-green-strong" : "bg-brand")}
+        className={cn("size-1.5 rounded-full", access === "member" ? "bg-brand" : "bg-brand-green-strong")}
       />
       {ACCESS_LABELS[access]}
     </span>
@@ -49,14 +50,25 @@ function ServiceCard({ item, index, wide }: { item: PillarItem; index: number; w
           )
         )}
       >
-        <IconBadge tone={cycleTone(index)}>
-          <HoverIcon name={item.icon} size={22} />
-        </IconBadge>
+        {item.logo ? (
+          <Image
+            src={item.logo.src}
+            alt={item.logo.alt}
+            width={96}
+            height={48}
+            className="h-12 w-auto object-contain object-left"
+          />
+        ) : (
+          <IconBadge tone={cycleTone(index)}>
+            <HoverIcon name={item.icon} size={22} />
+          </IconBadge>
+        )}
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           <h3 className={cn(HEADING_CLASS, "text-xl")}>{item.title}</h3>
           <p className="text-[15px] leading-relaxed text-pretty">{item.text}</p>
-          <div className="mt-auto pt-1.5">
+          <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-1.5">
             <AccessTag access={item.access} />
+            {item.link && <ArrowLink href={item.link.href}>{item.link.label}</ArrowLink>}
           </div>
         </div>
       </IconHoverArea>
@@ -177,7 +189,7 @@ export function PillarCard({
 
 // La Academia de Desarrollo: franja verde propia, con el texto a un lado y los cursos en tarjetas
 export function Academy({ pillar, showLink = true }: { pillar: Pillar; showLink?: boolean }) {
-  if (!pillar.extra) return null
+  if (!pillar.extra || pillar.extra.hidden) return null
   return (
     <ScreenSection backdrop={<BandBackdrop tone="green" />}>
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center lg:gap-16">

@@ -445,7 +445,7 @@ export function LandingClosing() {
           {HOME_CLOSING.title} <BrandHighlight>{HOME_CLOSING.titleHighlight}</BrandHighlight>
         </h2>
         <p className="max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground">{HOME_CLOSING.description}</p>
-        <RegisterCta id={HOME_CLOSING_CTA_ID} label={HOME_CLOSING.cta} className="mt-2 w-full sm:w-auto" />
+        <RegisterCta id={HOME_CLOSING_CTA_ID} className="mt-2 w-full sm:w-auto" />
         <div className="mt-2">
           <LatestMembers />
         </div>
