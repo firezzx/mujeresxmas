@@ -145,7 +145,13 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
                     </td>
                     <td className="px-4 py-3">{member.planName ? <Badge>{member.planName}</Badge> : "—"}</td>
                     <td className="px-4 py-3">
-                      <KieroToggle userId={member.id} label={member.kieroLabel} active={member.kieroActive} />
+                      <KieroToggle
+                        userId={member.id}
+                        label={member.kieroLabel}
+                        active={member.kieroActive}
+                        name={fullName(member)}
+                        email={member.email}
+                      />
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{member.joinedLabel}</td>
                     <td className="px-4 py-3 text-muted-foreground">{member.lastSeenLabel ?? "Nunca"}</td>
@@ -166,7 +172,13 @@ export function MembersTable({ members }: { members: MemberRow[] }) {
                 </div>
                 <div className="mt-3">
                   <p className="mb-1.5 text-sm text-muted-foreground">Kiero</p>
-                  <KieroToggle userId={member.id} label={member.kieroLabel} active={member.kieroActive} />
+                  <KieroToggle
+                    userId={member.id}
+                    label={member.kieroLabel}
+                    active={member.kieroActive}
+                    name={fullName(member)}
+                    email={member.email}
+                  />
                 </div>
                 <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                   {member.businessName && (
