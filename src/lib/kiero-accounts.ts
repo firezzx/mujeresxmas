@@ -59,6 +59,8 @@ const STATUS_LABELS: Record<string, string> = {
   scheduled_suspension: "Baja programada",
   canceled: "Dada de baja",
   cancelled: "Dada de baja",
+  // Baja de alguien que todavía no había aceptado la invitación (visto en la prueba del 2026-11-26)
+  cancelled_unregistered: "Dada de baja",
 }
 
 export function kieroStatusLabel(account: Pick<KieroAccount, "status" | "canceledAt">) {

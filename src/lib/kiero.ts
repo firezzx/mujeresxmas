@@ -93,11 +93,3 @@ export async function cancelKiero(email: string): Promise<KieroResult<{ email: s
   if (!parsed.success) return { ok: false }
   return { ok: true, data: parsed.data }
 }
-
-// Link para aceptar la invitación, si Kiero lo pasa armado con el token (KIERO_INVITE_URL con {token}).
-export function kieroInviteUrl(token: string | null) {
-  if (!isKieroLive()) return null
-  const template = process.env.KIERO_INVITE_URL
-  if (!token || !template?.includes("{token}")) return null
-  return template.replace("{token}", encodeURIComponent(token))
-}

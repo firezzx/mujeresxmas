@@ -11,7 +11,7 @@ import { BrandHighlight } from "@/components/page-hero"
 import { JOIN_LABEL, ROUTES } from "@/config/navigation"
 import { getAccountSummary } from "@/lib/account"
 import { formatDay } from "@/lib/format"
-import { isKieroLive, kieroInviteUrl } from "@/lib/kiero"
+import { isKieroLive } from "@/lib/kiero"
 import { getKieroAccount, kieroStatusLabel } from "@/lib/kiero-accounts"
 
 export const metadata: Metadata = {
@@ -88,9 +88,8 @@ async function KieroStatus() {
     </HoverRevealLink>
   )
 
-  // Ya tiene cuenta (o invitación) vigente
+  // Ya tiene cuenta (o invitación) vigente. La invitación la manda Kiero por correo.
   if (account && !account.canceledAt) {
-    const inviteUrl = kieroInviteUrl(account.invitationToken)
     const expires = account.invitationExpiresAt
       ? ` La invitación vence el ${formatDay(account.invitationExpiresAt)}.`
       : ""
@@ -101,15 +100,11 @@ async function KieroStatus() {
         title={kieroStatusLabel(account)}
         text={
           <>
-            Tu tienda está asociada a <strong className="font-medium text-foreground">{account.email}</strong>.{expires}
+            Tu tienda está asociada a <strong className="font-medium text-foreground">{account.email}</strong>. Si
+            todavía no entraste, buscá en ese correo la invitación que te mandó Kiero.{expires}
           </>
         }
       >
-        {inviteUrl && (
-          <ShimmerLink href={inviteUrl} size="md" className="h-12 w-full">
-            Aceptar la invitación
-          </ShimmerLink>
-        )}
         {back}
       </Panel>
     )
@@ -124,7 +119,8 @@ async function KieroStatus() {
         text={
           <>
             Te damos de alta en Kiero con tu correo{" "}
-            <strong className="font-medium text-foreground">{summary.user.email}</strong>.
+            <strong className="font-medium text-foreground">{summary.user.email}</strong> y Kiero te manda la invitación
+            a ese correo.
           </>
         }
       >
