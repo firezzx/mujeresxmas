@@ -6,6 +6,9 @@
 //   npm run kiero:prueba -- --email correo@de-prueba.com --confirmar
 //     Hace UNA llamada real de alta (invitación) para ese correo y enseguida la baja, y muestra
 //     las dos respuestas. Usar un correo propio de prueba, nunca el de una socia.
+//
+//   Con --solo-alta hace solo el alta (para recibir y ver el correo de invitación de Kiero) y con
+//   --solo-baja solo la baja (para cancelar esa invitación después).
 
 const DEFAULT_API_URL = "https://dashboard.kiero.tech"
 const TIMEOUT_MS = 10_000
@@ -14,6 +17,8 @@ const args = process.argv.slice(2)
 const emailIndex = args.indexOf("--email")
 const email = emailIndex >= 0 ? args[emailIndex + 1] : undefined
 const confirmed = args.includes("--confirmar")
+const onlySubscribe = args.includes("--solo-alta")
+const onlyCancel = args.includes("--solo-baja")
 
 const apiKey = process.env.KIERO_API_KEY?.trim()
 const base = (process.env.KIERO_API_URL || DEFAULT_API_URL).replace(/\/$/, "")
@@ -64,15 +69,26 @@ async function call(path) {
   }
 }
 
-console.log(`\n1. Alta (invitación) de ${email}`)
-const subscribed = await call("/api/v1/partners/subscriptions/")
+const results = []
 
-console.log(`\n2. Baja de ${email}`)
-const canceled = await call("/api/v1/partners/cancellations/")
+if (!onlyCancel) {
+  console.log(`\nAlta (invitación) de ${email}`)
+  results.push(await call("/api/v1/partners/subscriptions/"))
+}
 
+if (!onlySubscribe) {
+  console.log(`\nBaja de ${email}`)
+  results.push(await call("/api/v1/partners/cancellations/"))
+}
+
+const ok = results.length > 0 && results.every(Boolean)
 console.log(
-  subscribed && canceled
-    ? "\nListo: la API respondió bien a las dos llamadas."
-    : "\nAlguna llamada falló: revisá la clave y las respuestas de arriba."
+  ok ? "\nListo: la API respondió bien." : "\nAlguna llamada falló: revisá la clave y las respuestas de arriba."
 )
-process.exit(subscribed && canceled ? 0 : 1)
+if (ok && onlySubscribe) {
+  console.log(
+    "La invitación quedó activa. Para cancelarla: npm run kiero:prueba -- --email ... --confirmar --solo-baja"
+  )
+}
+// exitCode en vez de process.exit: en Windows, cortar con conexiones abiertas tira un aviso de Node
+process.exitCode = ok ? 0 : 1
