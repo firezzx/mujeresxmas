@@ -18,7 +18,10 @@ const matches = (path: string, route: string) => path === route || path.startsWi
 // ¿Puede ver esta página alguien que no es administradora?
 export function isOpenInRegistrationOnly(path: string, next: string | null) {
   if (REGISTRATION_ONLY_PUBLIC.some((route) => matches(path, route))) return true
-  if (path === ROUTES.login) return Boolean(next && matches(next, ROUTES.admin))
+  // Login y registro de cuenta, solo viniendo de /admin (p. ej. para crear una cuenta de prueba)
+  if (path === ROUTES.login || path === ROUTES.registro) return Boolean(next && matches(next, ROUTES.admin))
+  // Confirmación de la cuenta y link vencido: a donde lleva el correo de confirmación
+  if (path === ROUTES.cuentaConfirmada || path === ROUTES.linkVencido) return true
   if (REGISTRATION_ONLY_LOGIN.some((route) => path === route)) return true
   // Archivos que piden los navegadores y los buscadores
   return path === "/robots.txt" || path === "/sitemap.xml"
