@@ -178,33 +178,37 @@ export function campaignEmail({
   return { html, text }
 }
 
-// Agradecimiento al sumarse en /sumate.
+// Agradecimiento al sumarse en /sumate. Con ebook, suma el párrafo que lo presenta y el botón para
+// descargarlo; sin ebook, sale sin botón.
 export function thankYouEmail({
   copy,
   fullName,
   siteUrl,
   unsubscribeUrl,
+  ebookUrl,
 }: {
-  copy: EmailCopy
+  copy: EmailCopy & { ebookNote: string }
   fullName: string
   siteUrl: string
   unsubscribeUrl: string
+  ebookUrl: string | null
 }) {
   const title = personalize(copy.title, fullName)
+  const paragraphs = ebookUrl ? [...copy.paragraphs, copy.ebookNote] : copy.paragraphs
   const html = emailLayout({
     siteUrl,
     preheader: copy.preheader,
     eyebrow: copy.eyebrow,
     title,
-    body: paragraphsHtml(copy.paragraphs),
-    button: { label: copy.cta, href: siteUrl },
+    body: paragraphsHtml(paragraphs),
+    button: ebookUrl ? { label: copy.cta, href: ebookUrl } : undefined,
     signature: { text: copy.signature, hashtag: copy.hashtag },
     footer: unsubscribeFooter(unsubscribeUrl),
   })
   const text = [
     title,
-    ...copy.paragraphs,
-    `${copy.cta}: ${siteUrl}`,
+    ...paragraphs,
+    ...(ebookUrl ? [`${copy.cta}: ${ebookUrl}`] : []),
     copy.signature,
     copy.hashtag,
     `—\nPara darte de baja: ${unsubscribeUrl}`,

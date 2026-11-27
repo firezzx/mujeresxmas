@@ -5,7 +5,7 @@ import { z } from "zod"
 
 import { ROUTES } from "@/config/navigation"
 import { TEAM_NOTICES } from "@/content/correos"
-import { SIGNUP_PAGE, THANK_YOU_EMAIL } from "@/content/sumate"
+import { SIGNUP_PAGE, THANK_YOU_EBOOK, THANK_YOU_EMAIL } from "@/content/sumate"
 import { adminNoticeEmail, isEmailConfigured, notifyTeam, sendEmails, thankYouEmail } from "@/lib/email"
 import { getRequestOrigin } from "@/lib/site-url"
 import { createClient } from "@/lib/supabase/server"
@@ -57,7 +57,8 @@ export async function registerMaterialLead(_prev: MaterialLeadState, formData: F
   const siteUrl = await getRequestOrigin()
   if (isEmailConfigured()) {
     const unsubscribeUrl = `${siteUrl}${ROUTES.baja}?t=${unsubscribeToken}`
-    const message = thankYouEmail({ copy: THANK_YOU_EMAIL, fullName, siteUrl, unsubscribeUrl })
+    const ebookUrl = THANK_YOU_EBOOK ? `${siteUrl}${THANK_YOU_EBOOK.path}` : null
+    const message = thankYouEmail({ copy: THANK_YOU_EMAIL, fullName, siteUrl, unsubscribeUrl, ebookUrl })
     // Después de responder: la persona ve el agradecimiento sin esperar al envío
     after(async () => {
       const { failed } = await sendEmails([{ to: email, ...message, unsubscribeUrl }])

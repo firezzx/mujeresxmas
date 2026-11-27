@@ -28,10 +28,16 @@ export const THANK_YOU_EMAIL = {
     "Qué alegría que te sumes a Mujeres x Más, la comunidad de emprendedoras que se acompañan para vender más, ordenar sus números y crecer.",
     "Desde ahora vas a recibir nuestras novedades, encuentros y oportunidades para tu emprendimiento.",
   ],
-  cta: "Conocé la comunidad",
+  // Párrafo y botón del ebook: se suman solo si hay ebook cargado (THANK_YOU_EBOOK)
+  ebookNote: "Como regalo de bienvenida, te dejamos nuestro ebook para que lo descargues y lo leas cuando quieras.",
+  cta: "Descargar el ebook",
   signature: "Con cariño,\nel equipo de Mujeres x Más",
   hashtag: "#CrecemosJuntas",
 } as const
+
+// Ebook que se descarga desde el botón del correo de agradecimiento. El archivo va en public/descargas
+// y acá se indica su ruta. Con null, el correo sale sin el párrafo ni el botón.
+export const THANK_YOU_EBOOK: { path: string } | null = null
 
 // Países del formulario: Argentina y Paraguay primero, después la región.
 export const COUNTRIES = [
