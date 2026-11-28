@@ -234,15 +234,18 @@ otp_length = 6
 # Number of seconds before the email OTP expires (defaults to 1 hour).
 otp_expiry = 3600
 
-# Use a production-ready SMTP server
-# [auth.email.smtp]
-# enabled = true
-# host = "smtp.sendgrid.net"
-# port = 587
-# user = "apikey"
-# pass = "env(SENDGRID_API_KEY)"
-# admin_email = "admin@email.com"
-# sender_name = "Admin"
+# SMTP de Hostinger para la confirmación de cuenta y la recuperación de contraseña
+# (en la nube se cargó en Authentication → Emails → SMTP Settings el 25/11/2026).
+# Usa las mismas variables que el sitio (.env.example): la CLI las toma del entorno
+# o de supabase/.env.local. admin_email es la casilla remitente y tiene que ser SMTP_USER.
+[auth.email.smtp]
+enabled = true
+host = "env(SMTP_HOST)"
+port = 465
+user = "env(SMTP_USER)"
+pass = "env(SMTP_PASSWORD)"
+admin_email = "env(SMTP_USER)"
+sender_name = "Mujeres x Más"
 
 # Uncomment to customize email template
 [auth.email.template.recovery]

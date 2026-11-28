@@ -50,4 +50,23 @@ El link pasa por `/auth/confirm` (abre la sesión) y lleva a `/ingresar/nueva-co
 
 El servidor de correo que trae Supabase solo envía a las direcciones del equipo de la
 organización y tiene un límite muy bajo por hora. **Antes de abrir el registro al público hay que
-configurar un SMTP propio** (Resend, función 6 del MVP) en Authentication → Emails → SMTP Settings.
+configurar un SMTP propio** en Authentication → Emails → SMTP Settings.
+
+Hoy se usa el SMTP de Hostinger, registrado en `[auth.email.smtp]` de `supabase/config.toml`:
+
+| Campo en Supabase | Valor |
+|---|---|
+| Enable custom SMTP | Activado |
+| Sender email | la casilla de `SMTP_USER` (hoy `micuenta@mujeresxmas.com`) |
+| Sender name | `Mujeres x Más` |
+| Host | `SMTP_HOST` (`smtp.hostinger.com`) |
+| Port number | `465` |
+| Username / Password | `SMTP_USER` y `SMTP_PASSWORD` |
+
+El remitente tiene que ser la misma casilla que el usuario; si no, Hostinger rechaza el envío.
+Al pasar a la cuenta de la clienta, cargar estos valores con su casilla. Si se cambia el puerto,
+cambiarlo también en `config.toml`.
+
+> **No usar `supabase config push` sin revisar:** sube todo `config.toml` a la nube, incluida la
+> Site URL local (`http://localhost:3000`), y rompería los links de los correos. Mientras la Site URL
+> de `config.toml` no sea la de producción, estos valores se cargan a mano en el dashboard.
